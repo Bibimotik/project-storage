@@ -1,0 +1,122 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\my\\projects\\big_projects\\project-storage\\application\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\mvvm\\view\\authview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:mvvm\\view\\authview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\mvvm\\viewmodel\\authviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:mvvm\\viewmodel\\authviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\utilities\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:utilities\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\utilities\\booltovisibilityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:utilities\\booltovisibilityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-07-06T23:11:50.393Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthView.xaml",
+              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\View\\AuthView.xaml",
+              "RelativeDocumentMoniker": "MVVM\\View\\AuthView.xaml",
+              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\View\\AuthView.xaml",
+              "RelativeToolTip": "MVVM\\View\\AuthView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-07-06T23:12:06.673Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthViewModel.cs",
+              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\ViewModel\\AuthViewModel.cs",
+              "RelativeDocumentMoniker": "MVVM\\ViewModel\\AuthViewModel.cs",
+              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\ViewModel\\AuthViewModel.cs",
+              "RelativeToolTip": "MVVM\\ViewModel\\AuthViewModel.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAqwB0AAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-06T23:11:58.858Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BoolToVisibilityConverter.cs",
+              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\Utilities\\BoolToVisibilityConverter.cs",
+              "RelativeDocumentMoniker": "Utilities\\BoolToVisibilityConverter.cs",
+              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\Utilities\\BoolToVisibilityConverter.cs",
+              "RelativeToolTip": "Utilities\\BoolToVisibilityConverter.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-06T23:14:55.322Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RelayCommand.cs",
+              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\Utilities\\RelayCommand.cs",
+              "RelativeDocumentMoniker": "Utilities\\RelayCommand.cs",
+              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\Utilities\\RelayCommand.cs",
+              "RelativeToolTip": "Utilities\\RelayCommand.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-06T23:21:29.735Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
