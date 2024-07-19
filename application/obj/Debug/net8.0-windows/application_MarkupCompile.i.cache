@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\my\projects\big_projects\project-storage\application\App.xaml
-11407045341
+51101749727
 
-7833869552
+14-1176875143
 199757397573
-MainWindow.xaml;
+MVVM\View\AuthView.xaml;MVVM\View\Auth\LoginView.xaml;MVVM\View\Auth\RegistrationStage1View.xaml;MVVM\View\MainWindow.xaml;Utilities\Pages.xaml;
 
 False
 
