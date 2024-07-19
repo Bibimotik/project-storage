@@ -34,3 +34,5 @@ C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows
 C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationCompanyStage2View.g.cs
 C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\ConfirmPasswordView.baml
 C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationCompanyStage2View.baml
+C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationUserView.g.cs
+C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationUserView.baml

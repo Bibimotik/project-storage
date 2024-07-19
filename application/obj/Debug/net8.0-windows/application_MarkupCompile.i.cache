@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\my\projects\big_projects\project-storage\application\App.xaml
-7735431282
+81182778218
 
-18798057206
+20384459650
 199757397573
-MVVM\View\AuthView.xaml;MVVM\View\Auth\ConfirmPasswordView.xaml;MVVM\View\Auth\LoginView.xaml;MVVM\View\Auth\RegistrationCompanyStage1View.xaml;MVVM\View\Auth\RegistrationCompanyStage2View.xaml;MVVM\View\MainWindow.xaml;Utilities\Pages.xaml;
+MVVM\View\AuthView.xaml;MVVM\View\Auth\ConfirmPasswordView.xaml;MVVM\View\Auth\LoginView.xaml;MVVM\View\Auth\RegistrationCompanyStage1View.xaml;MVVM\View\Auth\RegistrationCompanyStage2View.xaml;MVVM\View\Auth\RegistrationUserView.xaml;MVVM\View\MainWindow.xaml;Utilities\Pages.xaml;
 
-True
+False
 

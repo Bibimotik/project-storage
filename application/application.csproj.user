@@ -17,6 +17,9 @@
     <Compile Update="MVVM\View\Auth\RegistrationCompanyStage2View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="MVVM\View\Auth\RegistrationUserView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="MVVM\View\AuthView.xaml">
@@ -32,6 +35,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MVVM\View\Auth\RegistrationCompanyStage2View.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MVVM\View\Auth\RegistrationUserView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Utilities\Pages.xaml">

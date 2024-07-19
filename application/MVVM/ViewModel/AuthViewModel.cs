@@ -9,11 +9,17 @@ internal partial class AuthViewModel : ObservableObject
 	[ObservableProperty]
 	private object? currentView;
 	[ObservableProperty]
+	private bool authTypeLogin;
+	[ObservableProperty]
+	private bool authTypeLoginReverse;
+	[ObservableProperty]
 	private bool authTypeRegistration;
 	[ObservableProperty]
-	private bool authTypeRegistration2;
+	private bool authTypeRegistrationUser;
 	[ObservableProperty]
-	private bool authTypeLogin;
+	private bool authTypeRegistrationCompany1;
+	[ObservableProperty]
+	private bool authTypeRegistrationCompany2;
 	[ObservableProperty]
 	private bool authTypeConfirmEmail;
 	[ObservableProperty]
@@ -24,30 +30,53 @@ internal partial class AuthViewModel : ObservableObject
 	{
 		CurrentView = new LoginView();
 		AuthTypeLogin = true;
+		AuthTypeLoginReverse = !AuthTypeLogin;
 		AuthTypeRegistration = false;
-		AuthTypeRegistration2 = false;
+		AuthTypeRegistrationUser = false;
+		AuthTypeRegistrationCompany1 = false;
+		AuthTypeRegistrationCompany2 = false;
 		AuthTypeConfirmEmail = true;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 	}
 
 	[RelayCommand]
-	private void Registration1()
+	private void RegistrationUser()
+	{
+		CurrentView = new RegistrationUserView();
+		AuthTypeLogin = false;
+		AuthTypeLoginReverse = !AuthTypeLogin;
+		AuthTypeRegistration = true;
+		AuthTypeRegistrationUser = true;
+		AuthTypeRegistrationCompany1 = false;
+		AuthTypeRegistrationCompany2 = false;
+		AuthTypeConfirmEmail = true;
+		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
+	}
+
+	[RelayCommand]
+	private void RegistrationCompany1()
 	{
 		CurrentView = new RegistrationCompanyStage1View();
 		AuthTypeLogin = false;
+		AuthTypeLoginReverse = !AuthTypeLogin;
 		AuthTypeRegistration = true;
-		AuthTypeRegistration2 = false;
+		AuthTypeRegistrationUser = false;
+		AuthTypeRegistrationCompany1 = true;
+		AuthTypeRegistrationCompany2 = false;
 		AuthTypeConfirmEmail = true;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 	}
 
 	[RelayCommand]
-	private void Registration2()
+	private void RegistrationCompany2()
 	{
 		CurrentView = new RegistrationCompanyStage2View();
 		AuthTypeLogin = false;
-		AuthTypeRegistration = false;
-		AuthTypeRegistration2 = true;
+		AuthTypeLoginReverse = !AuthTypeLogin;
+		AuthTypeRegistration = true;
+		AuthTypeRegistrationUser = false;
+		AuthTypeRegistrationCompany1 = false;
+		AuthTypeRegistrationCompany2 = true;
 		AuthTypeConfirmEmail = true;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 	}
@@ -57,8 +86,11 @@ internal partial class AuthViewModel : ObservableObject
 	{
 		CurrentView = new ConfirmPasswordView();
 		AuthTypeLogin = false;
+		AuthTypeLoginReverse = !AuthTypeLogin;
 		AuthTypeRegistration = false;
-		AuthTypeRegistration2 = false;
+		AuthTypeRegistrationUser = false;
+		AuthTypeRegistrationCompany1 = false;
+		AuthTypeRegistrationCompany2 = false;
 		AuthTypeConfirmEmail = false;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 	}
@@ -69,7 +101,7 @@ internal partial class AuthViewModel : ObservableObject
 		// check code in Email confirmation
 	}
 
-	// сделать логику для определения куда нужно вернуться из Email confirmation - в Login или Registration2
+	// сделать логику для определения куда нужно вернуться из Email confirmation - в Login или RegistrationCompany2
 
 	public AuthViewModel()
 	{

@@ -11,6 +11,26 @@
       "RelativeMoniker": "D:0:0:{99BCE9DE-2590-45FC-A324-7B5B24618906}|application.csproj|solutionrelative:mvvm\\viewmodel\\authviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{99BCE9DE-2590-45FC-A324-7B5B24618906}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\mvvm\\view\\auth\\registrationuserview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{99BCE9DE-2590-45FC-A324-7B5B24618906}|application.csproj|solutionrelative:mvvm\\view\\auth\\registrationuserview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{99BCE9DE-2590-45FC-A324-7B5B24618906}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\mvvm\\view\\auth\\registrationcompanystage2view.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{99BCE9DE-2590-45FC-A324-7B5B24618906}|application.csproj|solutionrelative:mvvm\\view\\auth\\registrationcompanystage2view.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{99BCE9DE-2590-45FC-A324-7B5B24618906}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\mvvm\\view\\auth\\registrationcompanystage1view.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{99BCE9DE-2590-45FC-A324-7B5B24618906}|application.csproj|solutionrelative:mvvm\\view\\auth\\registrationcompanystage1view.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{99BCE9DE-2590-45FC-A324-7B5B24618906}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\mvvm\\viewmodel\\auth\\registrationuserviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{99BCE9DE-2590-45FC-A324-7B5B24618906}|application.csproj|solutionrelative:mvvm\\viewmodel\\auth\\registrationuserviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{99BCE9DE-2590-45FC-A324-7B5B24618906}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\utilities\\pages.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{99BCE9DE-2590-45FC-A324-7B5B24618906}|application.csproj|solutionrelative:utilities\\pages.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{99BCE9DE-2590-45FC-A324-7B5B24618906}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{99BCE9DE-2590-45FC-A324-7B5B24618906}|application.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -30,7 +50,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "App.xaml.cs",
               "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\App.xaml.cs",
               "RelativeDocumentMoniker": "App.xaml.cs",
@@ -39,8 +59,7 @@
               "ViewState": "AQIAAAkAAAAAAAAAAAAwwCEAAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-19T17:21:12.272Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -50,7 +69,7 @@
               "RelativeDocumentMoniker": "MVVM\\ViewModel\\AuthViewModel.cs",
               "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\ViewModel\\AuthViewModel.cs",
               "RelativeToolTip": "MVVM\\ViewModel\\AuthViewModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAADkAAAAqAAAA",
+              "ViewState": "AQIAABwAAAAAAAAAAAAywDEAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-19T17:25:06.894Z",
               "IsPinned": true,
@@ -87,7 +106,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "App.xaml",
               "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\App.xaml",
               "RelativeDocumentMoniker": "App.xaml",
@@ -95,6 +114,67 @@
               "RelativeToolTip": "App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2024-07-19T17:21:09.806Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RegistrationUserView.xaml",
+              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\View\\Auth\\RegistrationUserView.xaml",
+              "RelativeDocumentMoniker": "MVVM\\View\\Auth\\RegistrationUserView.xaml",
+              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\View\\Auth\\RegistrationUserView.xaml",
+              "RelativeToolTip": "MVVM\\View\\Auth\\RegistrationUserView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-07-19T19:15:42.954Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RegistrationUserViewModel.cs",
+              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\ViewModel\\Auth\\RegistrationUserViewModel.cs",
+              "RelativeDocumentMoniker": "MVVM\\ViewModel\\Auth\\RegistrationUserViewModel.cs",
+              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\ViewModel\\Auth\\RegistrationUserViewModel.cs",
+              "RelativeToolTip": "MVVM\\ViewModel\\Auth\\RegistrationUserViewModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAA2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-19T19:16:05.316Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Pages.xaml",
+              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\Utilities\\Pages.xaml",
+              "RelativeDocumentMoniker": "Utilities\\Pages.xaml",
+              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\Utilities\\Pages.xaml",
+              "RelativeToolTip": "Utilities\\Pages.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-07-19T19:16:07.185Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RegistrationCompanyStage2View.xaml",
+              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\View\\Auth\\RegistrationCompanyStage2View.xaml",
+              "RelativeDocumentMoniker": "MVVM\\View\\Auth\\RegistrationCompanyStage2View.xaml",
+              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\View\\Auth\\RegistrationCompanyStage2View.xaml",
+              "RelativeToolTip": "MVVM\\View\\Auth\\RegistrationCompanyStage2View.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-07-19T19:16:59.486Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "RegistrationCompanyStage1View.xaml",
+              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\View\\Auth\\RegistrationCompanyStage1View.xaml",
+              "RelativeDocumentMoniker": "MVVM\\View\\Auth\\RegistrationCompanyStage1View.xaml",
+              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\View\\Auth\\RegistrationCompanyStage1View.xaml",
+              "RelativeToolTip": "MVVM\\View\\Auth\\RegistrationCompanyStage1View.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-07-19T19:17:23.436Z",
               "EditorCaption": ""
             }
           ]

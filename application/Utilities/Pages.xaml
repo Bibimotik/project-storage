@@ -6,7 +6,7 @@
 	>
 
 	<!--Auth-->
-	<DataTemplate
+	<!--<DataTemplate
 		DataType="{x:Type vma:RegistrationCompanyStage1ViewModel}">
 		<va:RegistrationCompanyStage1View />
 	</DataTemplate>
@@ -14,6 +14,6 @@
 	<DataTemplate
 		DataType="{x:Type vma:LoginViewModel}">
 		<va:LoginView />
-	</DataTemplate>
+	</DataTemplate>-->
 
 </ResourceDictionary>

@@ -20,7 +20,7 @@
 		HorizontalAlignment="Center">
 
 		<Label
-			Content="registration1" />
+			Content="registration company 1" />
 
 	</StackPanel>
 	
