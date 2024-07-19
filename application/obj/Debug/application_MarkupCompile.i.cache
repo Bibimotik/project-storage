@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\my\projects\big_projects\project-storage\application\App.xaml
-3782180183
+4-1404239696
 
-111019622998
+13-583599390
 13-38814620
-MainWindow.xaml;MVVM\View\AuthView.xaml;Utilities\Pages.xaml;
+MainWindow.xaml;MVVM\View\AuthView.xaml;MVVM\View\HomeView.xaml;Utilities\Pages.xaml;
 
 True
 

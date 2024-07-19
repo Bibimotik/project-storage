@@ -3,24 +3,52 @@
   "WorkspaceRootPath": "C:\\my\\projects\\big_projects\\project-storage\\application\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\mvvm\\view\\homeview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:mvvm\\view\\homeview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|C:\\my\\projects\\big_projects\\project-storage\\application\\mvvm\\viewmodel\\authviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:mvvm\\viewmodel\\authviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\mvvm\\view\\authview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:mvvm\\view\\authview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\mvvm\\viewmodel\\authviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:mvvm\\viewmodel\\authviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\utilities\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:utilities\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\utilities\\booltovisibilityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:utilities\\booltovisibilityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\mvvm\\viewmodel\\mainwindowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:mvvm\\viewmodel\\mainwindowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\mvvm\\view\\authview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:mvvm\\view\\authview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\utilities\\pages.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:utilities\\pages.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|c:\\my\\projects\\big_projects\\project-storage\\application\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|C:\\my\\projects\\big_projects\\project-storage\\application\\utilities\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:utilities\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|C:\\my\\projects\\big_projects\\project-storage\\application\\utilities\\booltovisibilityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{63EDE321-F074-41A7-8E38-02CF5972FFB7}|application.csproj|solutionrelative:utilities\\booltovisibilityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,24 +58,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 15,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "MainWindow.xaml",
-              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\MainWindow.xaml",
-              "RelativeToolTip": "MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-07-06T23:11:50.393Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "AuthView.xaml",
               "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\View\\AuthView.xaml",
               "RelativeDocumentMoniker": "MVVM\\View\\AuthView.xaml",
@@ -66,7 +81,7 @@
               "RelativeDocumentMoniker": "MVVM\\ViewModel\\AuthViewModel.cs",
               "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\ViewModel\\AuthViewModel.cs",
               "RelativeToolTip": "MVVM\\ViewModel\\AuthViewModel.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAqwB0AAAAWAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAwAcAAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-06T23:11:58.858Z",
               "IsPinned": true,
@@ -90,7 +105,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 11,
               "Title": "BoolToVisibilityConverter.cs",
               "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\Utilities\\BoolToVisibilityConverter.cs",
               "RelativeDocumentMoniker": "Utilities\\BoolToVisibilityConverter.cs",
@@ -98,12 +113,11 @@
               "RelativeToolTip": "Utilities\\BoolToVisibilityConverter.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-06T23:14:55.322Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-06T23:14:55.322Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 10,
               "Title": "RelayCommand.cs",
               "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\Utilities\\RelayCommand.cs",
               "RelativeDocumentMoniker": "Utilities\\RelayCommand.cs",
@@ -111,7 +125,106 @@
               "RelativeToolTip": "Utilities\\RelayCommand.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-06T23:21:29.735Z",
+              "WhenOpened": "2024-07-06T23:21:29.735Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\App.xaml",
+              "RelativeDocumentMoniker": "App.xaml",
+              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\App.xaml",
+              "RelativeToolTip": "App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-07-15T16:03:56.554Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\App.xaml.cs",
+              "RelativeDocumentMoniker": "App.xaml.cs",
+              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\App.xaml.cs",
+              "RelativeToolTip": "App.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-15T16:03:58.343Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-07-15T16:09:10.523Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainWindowViewModel.cs",
+              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\ViewModel\\MainWindowViewModel.cs",
+              "RelativeDocumentMoniker": "MVVM\\ViewModel\\MainWindowViewModel.cs",
+              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\ViewModel\\MainWindowViewModel.cs",
+              "RelativeToolTip": "MVVM\\ViewModel\\MainWindowViewModel.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAAAB8AAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-15T16:10:46.255Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MainWindow.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-15T16:11:07.54Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Pages.xaml",
+              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\Utilities\\Pages.xaml",
+              "RelativeDocumentMoniker": "Utilities\\Pages.xaml",
+              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\Utilities\\Pages.xaml",
+              "RelativeToolTip": "Utilities\\Pages.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-07-15T16:11:57.862Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AuthView.xaml.cs",
+              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\View\\AuthView.xaml.cs",
+              "RelativeDocumentMoniker": "MVVM\\View\\AuthView.xaml.cs",
+              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\View\\AuthView.xaml.cs",
+              "RelativeToolTip": "MVVM\\View\\AuthView.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-15T16:12:04.896Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HomeView.xaml",
+              "DocumentMoniker": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\View\\HomeView.xaml",
+              "RelativeDocumentMoniker": "MVVM\\View\\HomeView.xaml",
+              "ToolTip": "C:\\my\\projects\\big_projects\\project-storage\\application\\MVVM\\View\\HomeView.xaml",
+              "RelativeToolTip": "MVVM\\View\\HomeView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-07-15T16:17:07.212Z",
               "EditorCaption": ""
             }
           ]
