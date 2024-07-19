@@ -17,4 +17,10 @@
       <Folder Include="MVVM\Model\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Page Update="Theme\AuthAccountButton.xaml">
+        <SubType>Designer</SubType>
+      </Page>
+    </ItemGroup>
+
 </Project>

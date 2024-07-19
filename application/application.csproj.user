@@ -40,6 +40,9 @@
     <Page Update="MVVM\View\Auth\RegistrationUserView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Theme\AuthAccountButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Theme\Button.xaml">
       <SubType>Designer</SubType>
     </Page>

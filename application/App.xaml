@@ -11,6 +11,9 @@
 				<ResourceDictionary
 					Source="./Theme/Button.xaml" />
 
+				<ResourceDictionary
+					Source="./Theme/AuthAccountButton.xaml" />
+
 			</ResourceDictionary.MergedDictionaries>
 		
 		</ResourceDictionary>

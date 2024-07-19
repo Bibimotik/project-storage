@@ -24,22 +24,23 @@
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition
-				Width="90" />
+				Width="80" />
 			<ColumnDefinition
 				Width="*" />
 			<ColumnDefinition
-				Width="90" />
+				Width="80" />
 		</Grid.ColumnDefinitions>
 
 		<Grid
+			VerticalAlignment="Center"
+			HorizontalAlignment="Center"
 			Grid.Column="1">
+
 			<Grid.RowDefinitions>
 				<RowDefinition
 					Height="25" />
 				<RowDefinition
 					Height="*" />
-				<RowDefinition
-					Height="50" />
 				<RowDefinition
 					Height="25" />
 			</Grid.RowDefinitions>
@@ -61,74 +62,116 @@
 
 			</StackPanel>
 
-			<ContentControl
-				Grid.Row="1"
-				x:Name="Pages"
-				Content="{Binding CurrentView}" />
-
 			<StackPanel
-				Grid.Row="2"
-				Orientation="Horizontal"
-				HorizontalAlignment="Center"
-				Margin="0,0,0,25">
+				Grid.Row="1"
+				Orientation="Vertical">
 
-				<Button
+				<Label
 					Visibility="{Binding AuthTypeLogin, Converter={StaticResource BoolToVisibilityConverter}}"
+					FontSize="45"
 					Content="Login"
-					Command="{Binding ConfirmEmailCommand}" />
+					Margin="-5 0 0 10" />
 
-				<Button
-					Visibility="{Binding AuthTypeRegistrationCompany1, Converter={StaticResource BoolToVisibilityConverter}}"
-					Content="Next"
-					Command="{Binding RegistrationCompany2Command}"
-					HorizontalAlignment="Center" />
+				<Grid>
 
-				<Button
-					Visibility="{Binding AuthTypeRegistrationCompany2, Converter={StaticResource BoolToVisibilityConverter}}"
-					Content="Registration"
-					Command="{Binding ConfirmEmailCommand}"
-					HorizontalAlignment="Center" />
+					<Grid.RowDefinitions>
+						<RowDefinition
+							Height="auto" />
+					</Grid.RowDefinitions>
 
-				<Button
-					Visibility="{Binding AuthTypeRegistrationUser, Converter={StaticResource BoolToVisibilityConverter}}"
-					Content="Registration"
-					Command="{Binding ConfirmEmailCommand}"
-					HorizontalAlignment="Center" />
+					<Border
+						Width="400"
+						BorderBrush="#D9D9D9"
+						BorderThickness="1"
+						CornerRadius="5"
+						Padding="40 30">
 
-				<Button
-					Visibility="{Binding AuthTypeRegistrationCompany2, Converter={StaticResource BoolToVisibilityConverter}}"
-					Content="BackToRegistration1"
-					Command="{Binding RegistrationCompany1Command}"
-					HorizontalAlignment="Center" />
+						<StackPanel
+							Orientation="Vertical">
 
-				<Button
-					Visibility="{Binding AuthTypeConfirmEmailReverse, Converter={StaticResource BoolToVisibilityConverter}}"
-					Content="Check"
-					Command="{Binding CheckCommand}"
-					HorizontalAlignment="Center" />
+							<ContentControl
+								x:Name="Pages"
+								Content="{Binding CurrentView}" />
 
-				<Button
-					Visibility="{Binding AuthTypeConfirmEmailReverse, Converter={StaticResource BoolToVisibilityConverter}}"
-					Content="Back"
-					Command="{Binding LoginCommand}"
-					HorizontalAlignment="Center" />
+							<StackPanel
+								Orientation="Horizontal"
+								HorizontalAlignment="Center">
+
+								<Button
+									Visibility="{Binding AuthTypeLogin, Converter={StaticResource BoolToVisibilityConverter}}"
+									Content="Login"
+									Command="{Binding ConfirmEmailCommand}"
+									Margin="0 20 0 0"
+									Background="#2C2C2C"
+									Foreground="#F5F5F5"
+									Width="100"
+									Padding="5"
+									VerticalAlignment="Center" />
+
+								<Button
+									Visibility="{Binding AuthTypeRegistrationCompany1, Converter={StaticResource BoolToVisibilityConverter}}"
+									Content="Next"
+									Command="{Binding RegistrationCompany2Command}"
+									HorizontalAlignment="Center" />
+
+								<Button
+									Visibility="{Binding AuthTypeRegistrationCompany2, Converter={StaticResource BoolToVisibilityConverter}}"
+									Content="Registration"
+									Command="{Binding ConfirmEmailCommand}"
+									HorizontalAlignment="Center" />
+
+								<Button
+									Visibility="{Binding AuthTypeRegistrationUser, Converter={StaticResource BoolToVisibilityConverter}}"
+									Content="Registration"
+									Command="{Binding ConfirmEmailCommand}"
+									HorizontalAlignment="Center" />
+
+								<Button
+									Visibility="{Binding AuthTypeRegistrationCompany2, Converter={StaticResource BoolToVisibilityConverter}}"
+									Content="BackToRegistration1"
+									Command="{Binding RegistrationCompany1Command}"
+									HorizontalAlignment="Center" />
+
+								<Button
+									Visibility="{Binding AuthTypeConfirmEmailReverse, Converter={StaticResource BoolToVisibilityConverter}}"
+									Content="Check"
+									Command="{Binding CheckCommand}"
+									HorizontalAlignment="Center" />
+
+								<Button
+									Visibility="{Binding AuthTypeConfirmEmailReverse, Converter={StaticResource BoolToVisibilityConverter}}"
+									Content="Back"
+									Command="{Binding LoginCommand}"
+									HorizontalAlignment="Center" />
+
+							</StackPanel>
+						</StackPanel>
+
+					</Border>
+
+				</Grid>
 
 			</StackPanel>
 
 			<StackPanel
+				Margin="0 10 0 0"
 				Visibility="{Binding AuthTypeConfirmEmail, Converter={StaticResource BoolToVisibilityConverter}}"
-				Grid.Row="3"
+				Grid.Row="2"
 				Orientation="Horizontal"
 				HorizontalAlignment="Center">
 
 				<Button
 					Visibility="{Binding AuthTypeRegistration, Converter={StaticResource BoolToVisibilityConverter}}"
 					Content="Already have an account?"
-					Command="{Binding LoginCommand}" />
+					Foreground="Black"
+					Command="{Binding LoginCommand}"
+					Style="{StaticResource AuthAccountButton}" />
+
 				<Button
 					Visibility="{Binding AuthTypeLogin, Converter={StaticResource BoolToVisibilityConverter}}"
 					Content="Don't have an account yet?"
-					Command="{Binding RegistrationCompany1Command}" />
+					Command="{Binding RegistrationCompany1Command}"
+					Style="{StaticResource AuthAccountButton}" />
 
 			</StackPanel>
 
@@ -137,20 +180,20 @@
 		<StackPanel
 			Grid.Column="2"
 			Orientation="Horizontal"
-			HorizontalAlignment="Center"
+			HorizontalAlignment="Right"
 			VerticalAlignment="Top"
-			Margin="10">
-			
-			<!--TODO fix images -->
+			Margin="0,5,5,0">
 
+			<!--TODO fix images -->
+ 
 			<Button
 				Style="{StaticResource Button}"
-				Margin="0,0,10,0">
+				Margin="0,0,3,0">
 				<Image
 					Source="../../Assets/Icons/Alert triangle.png"
 					Width="16"
-					Height="16" 
-					Margin="6"/>
+					Height="16"
+					Margin="6" />
 			</Button>
 
 			<Button
