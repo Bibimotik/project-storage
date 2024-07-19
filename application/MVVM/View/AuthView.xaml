@@ -24,34 +24,80 @@
 
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition 
-				Height="25"/>
-			<RowDefinition 
-				Height="*"/>
-			<RowDefinition 
-				Height="25"/>
+			<RowDefinition
+				Height="25" />
+			<RowDefinition
+				Height="*" />
+			<RowDefinition
+				Height="25" />
+			<RowDefinition
+				Height="25" />
 		</Grid.RowDefinitions>
-		
+
 		<ContentControl
 			Grid.Row="1"
 			x:Name="Pages"
 			Content="{Binding CurrentView}" />
 
+
 		<StackPanel
 			Grid.Row="2"
 			Orientation="Horizontal"
 			HorizontalAlignment="Center">
-			
-			<Button
-				Visibility="{Binding AuthTypeRegistration, Converter={StaticResource BoolToVisibilityConverter}}"
-				Content="login"
-				Command="{Binding LoginCommand}"/>
+
 			<Button
 				Visibility="{Binding AuthTypeLogin, Converter={StaticResource BoolToVisibilityConverter}}"
-				Content="registration"
-				Command="{Binding Registration1Command}"/>
-	
+				Content="Login"
+				Command="{Binding ConfirmEmailCommand}" />
+
+			<Button
+				Visibility="{Binding AuthTypeRegistration, Converter={StaticResource BoolToVisibilityConverter}}"
+				Content="Next"
+				Command="{Binding Registration2Command}"
+				HorizontalAlignment="Center" />
+
+			<Button
+				Visibility="{Binding AuthTypeRegistration2, Converter={StaticResource BoolToVisibilityConverter}}"
+				Content="Registration"
+				Command="{Binding ConfirmEmailCommand}"
+				HorizontalAlignment="Center" />
+
+			<Button
+				Visibility="{Binding AuthTypeRegistration2, Converter={StaticResource BoolToVisibilityConverter}}"
+				Content="BackToRegistration1"
+				Command="{Binding Registration1Command}"
+				HorizontalAlignment="Center" />
+
+			<Button
+				Visibility="{Binding AuthTypeConfirmEmailReverse, Converter={StaticResource BoolToVisibilityConverter}}"
+				Content="Check"
+				Command="{Binding CheckCommand}"
+				HorizontalAlignment="Center" />
+
+			<Button
+				Visibility="{Binding AuthTypeConfirmEmailReverse, Converter={StaticResource BoolToVisibilityConverter}}"
+				Content="Back"
+				Command="{Binding LoginCommand}"
+				HorizontalAlignment="Center" />
+			
 		</StackPanel>
-		
+
+		<StackPanel
+			Visibility="{Binding AuthTypeConfirmPassword, Converter={StaticResource BoolToVisibilityConverter}}"
+			Grid.Row="3"
+			Orientation="Horizontal"
+			HorizontalAlignment="Center">
+
+			<Button
+				Visibility="{Binding AuthTypeRegistration, Converter={StaticResource BoolToVisibilityConverter}}"
+				Content="Already have an account?"
+				Command="{Binding LoginCommand}" />
+			<Button
+				Visibility="{Binding AuthTypeLogin, Converter={StaticResource BoolToVisibilityConverter}}"
+				Content="Don't have an account yet?"
+				Command="{Binding Registration1Command}" />
+
+		</StackPanel>
+
 	</Grid>
 </Window>

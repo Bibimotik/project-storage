@@ -5,10 +5,16 @@
     <Compile Update="MVVM\View\AuthView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="MVVM\View\Auth\ConfirmPasswordView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="MVVM\View\Auth\LoginView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="MVVM\View\Auth\RegistrationStage1View.xaml.cs">
+    <Compile Update="MVVM\View\Auth\RegistrationCompanyStage1View.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="MVVM\View\Auth\RegistrationCompanyStage2View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -16,10 +22,16 @@
     <Page Update="MVVM\View\AuthView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="MVVM\View\Auth\ConfirmPasswordView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MVVM\View\Auth\LoginView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="MVVM\View\Auth\RegistrationStage1View.xaml">
+    <Page Update="MVVM\View\Auth\RegistrationCompanyStage1View.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MVVM\View\Auth\RegistrationCompanyStage2View.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Utilities\Pages.xaml">

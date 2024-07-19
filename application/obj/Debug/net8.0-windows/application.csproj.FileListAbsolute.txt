@@ -26,7 +26,11 @@ C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows
 C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\AuthView.g.cs
 C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\AuthView.baml
 C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\LoginView.g.cs
-C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationStage1View.g.cs
 C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\LoginView.baml
-C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationStage1View.baml
 C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\Utilities\Pages.baml
+C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationCompanyStage1View.g.cs
+C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationCompanyStage1View.baml
+C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\ConfirmPasswordView.g.cs
+C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationCompanyStage2View.g.cs
+C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\ConfirmPasswordView.baml
+C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationCompanyStage2View.baml

@@ -7,8 +7,8 @@
 
 	<!--Auth-->
 	<DataTemplate
-		DataType="{x:Type vma:RegistrationStage1ViewModel}">
-		<va:RegistrationStage1View />
+		DataType="{x:Type vma:RegistrationCompanyStage1ViewModel}">
+		<va:RegistrationCompanyStage1View />
 	</DataTemplate>
 
 	<DataTemplate
