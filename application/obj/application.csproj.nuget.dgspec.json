@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\my\\projects\\dotnet\\wpf\\application\\application.csproj": {}
+    "C:\\my\\projects\\big_projects\\project-storage\\application\\application.csproj": {}
   },
   "projects": {
-    "C:\\my\\projects\\dotnet\\wpf\\application\\application.csproj": {
+    "C:\\my\\projects\\big_projects\\project-storage\\application\\application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\my\\projects\\dotnet\\wpf\\application\\application.csproj",
+        "projectUniqueName": "C:\\my\\projects\\big_projects\\project-storage\\application\\application.csproj",
         "projectName": "application",
-        "projectPath": "C:\\my\\projects\\dotnet\\wpf\\application\\application.csproj",
+        "projectPath": "C:\\my\\projects\\big_projects\\project-storage\\application\\application.csproj",
         "packagesPath": "C:\\Users\\Slava\\.nuget\\packages\\",
-        "outputPath": "C:\\my\\projects\\dotnet\\wpf\\application\\obj\\",
+        "outputPath": "C:\\my\\projects\\big_projects\\project-storage\\application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -39,6 +39,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
