@@ -9,6 +9,7 @@ CREATE TABLE COMPANY
 	LegalAddress  varchar(1000)   NOT NULL,
 	PostalAddress varchar(1000)   NOT NULL,
 	Director      text            NOT NULL,
+	Logo          bytea                   ,
 	IsDeleted     bool            NOT NULL
 );
 
@@ -22,6 +23,7 @@ CREATE TABLE "user"
 	Phone      varchar(20)  NOT NULL,
 	Mail       varchar(100) NOT NULL,
 	Password   varchar(100) NOT NULL,
+	Logo       bytea                ,
 	IsDeleted  bool         NOT NULL
 );
 
