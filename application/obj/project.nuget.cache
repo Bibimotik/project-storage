@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "s8Tfrr84tMI=",
+  "dgSpecHash": "n13OwzimMnInAqTaHvYBFXFCkmoc0hplBJC/2t38q0TSE806EaPjROuUaZC4z6qdGGKf9sL7aNfQifOK5aEPAw==",
   "success": true,
-  "projectFilePath": "C:\\my\\projects\\big_projects\\project-storage\\application\\application.csproj",
+  "projectFilePath": "D:\\Учеба\\project-storage\\application\\application.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Slava\\.nuget\\packages\\communitytoolkit.mvvm\\8.2.2\\communitytoolkit.mvvm.8.2.2.nupkg.sha512"
+    "C:\\Users\\mysha\\.nuget\\packages\\communitytoolkit.mvvm\\8.2.2\\communitytoolkit.mvvm.8.2.2.nupkg.sha512"
   ],
   "logs": []
 }

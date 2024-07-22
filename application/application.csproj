@@ -23,4 +23,11 @@
       </Page>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Assets\Icons\Alert triangle.png" />
+      <Resource Include="Assets\Icons\Alert triangle.png" />
+      <None Remove="Assets\Icons\Info.png" />
+      <Resource Include="Assets\Icons\Info.png" />
+    </ItemGroup>
+
 </Project>
