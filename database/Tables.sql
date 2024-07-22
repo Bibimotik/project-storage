@@ -39,7 +39,7 @@ CREATE TABLE MANAGER
 
 CREATE TABLE COMPANY_MANAGERS
 (
-	CompanyManagersID serial NOT NULL UNIQUE PRIMARY KEY, -- serial?
+	CompanyManagersID serial NOT NULL UNIQUE PRIMARY KEY,
 	CompanyID         uuid   NOT NULL REFERENCES COMPANY (CompanyID),
 	ManagerID         uuid   NOT NULL REFERENCES MANAGER (ManagerID)
 );
@@ -160,12 +160,12 @@ CREATE TABLE COMPANY_PRODUCT
 	CompanyID            uuid         NOT NULL REFERENCES COMPANY (CompanyID),
 	ProductID            uuid         NOT NULL REFERENCES PRODUCT (ProductID),
 	CompanyStorageID     uuid         NOT NULL REFERENCES COMPANY_STORAGE (CompanyStorageID),
-	AvailableForShipment int          NOT NULL,             -- наверное лучше double потому что например литров может быть не ровно
-	InShippingArea       int          NOT NULL,             -- ?
-	InReserve            int          NOT NULL,             -- ?
-	Party                varchar(100) NOT NULL,             -- ?
-	ImplementationPeriod date         NOT NULL,             -- ?
-	ExpirationDate       date         NOT NULL,             -- ?
+	AvailableForShipment int          NOT NULL, -- наверное лучше double потому что например литров может быть не ровно
+	InShippingArea       int          NOT NULL, -- ?
+	InReserve            int          NOT NULL, -- ?
+	Party                varchar(100) NOT NULL, -- ?
+	ImplementationPeriod date         NOT NULL, -- ?
+	ExpirationDate       date         NOT NULL, -- ?
 	IsDeleted            bool         NOT NULL
 );
 
