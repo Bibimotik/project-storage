@@ -44,7 +44,7 @@
 				<RowDefinition
 					Height="25" />
 			</Grid.RowDefinitions>
-
+			
 			<StackPanel
 				Visibility="{Binding AuthTypeLoginReverse, Converter={StaticResource BoolToVisibilityConverter}}"
 				Orientation="Horizontal"
@@ -101,30 +101,28 @@
 									Visibility="{Binding AuthTypeLogin, Converter={StaticResource BoolToVisibilityConverter}}"
 									Content="Login"
 									Command="{Binding ConfirmEmailCommand}"
-									Margin="0 20 0 0"
-									Background="#2C2C2C"
-									Foreground="#F5F5F5"
-									Width="100"
-									Padding="5"
-									VerticalAlignment="Center" />
-
+									Style="{StaticResource SendButton}"/>
+								
 								<Button
 									Visibility="{Binding AuthTypeRegistrationCompany1, Converter={StaticResource BoolToVisibilityConverter}}"
 									Content="Next"
 									Command="{Binding RegistrationCompany2Command}"
-									HorizontalAlignment="Center" />
+									HorizontalAlignment="Center"
+									Style="{StaticResource SendButton}"/>
 
 								<Button
 									Visibility="{Binding AuthTypeRegistrationCompany2, Converter={StaticResource BoolToVisibilityConverter}}"
 									Content="Registration"
 									Command="{Binding ConfirmEmailCommand}"
-									HorizontalAlignment="Center" />
+									HorizontalAlignment="Center" 
+									Style="{StaticResource SendButton}"/>
 
 								<Button
 									Visibility="{Binding AuthTypeRegistrationUser, Converter={StaticResource BoolToVisibilityConverter}}"
 									Content="Registration"
 									Command="{Binding ConfirmEmailCommand}"
-									HorizontalAlignment="Center" />
+									HorizontalAlignment="Center" 
+									Style="{StaticResource SendButton}"/>
 
 								<Button
 									Visibility="{Binding AuthTypeRegistrationCompany2, Converter={StaticResource BoolToVisibilityConverter}}"
@@ -135,12 +133,14 @@
 								<Button
 									Visibility="{Binding AuthTypeConfirmEmailReverse, Converter={StaticResource BoolToVisibilityConverter}}"
 									Content="Check"
+									Style="{StaticResource SendButton}"
 									Command="{Binding CheckCommand}"
 									HorizontalAlignment="Center" />
 
 								<Button
 									Visibility="{Binding AuthTypeConfirmEmailReverse, Converter={StaticResource BoolToVisibilityConverter}}"
-									Content="Back"
+									Content="←Back"
+									Style="{StaticResource AuthAccountButton}"
 									Command="{Binding LoginCommand}"
 									HorizontalAlignment="Center" />
 
@@ -183,8 +183,6 @@
 			HorizontalAlignment="Right"
 			VerticalAlignment="Top"
 			Margin="0,5,5,0">
-
-			<!--TODO fix images -->
  
 			<Button
 				Style="{StaticResource Button}"

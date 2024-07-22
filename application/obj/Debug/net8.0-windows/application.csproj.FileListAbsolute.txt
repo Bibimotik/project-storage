@@ -49,7 +49,6 @@ D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\application.c
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\Theme\AuthAccountButton.baml
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\Theme\Button.baml
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\AuthView.g.cs
-D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\ConfirmPasswordView.g.cs
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\LoginView.g.cs
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationCompanyStage1View.g.cs
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationCompanyStage2View.g.cs
@@ -61,7 +60,6 @@ D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\application_M
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\application_MarkupCompile.lref
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\App.baml
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\AuthView.baml
-D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\ConfirmPasswordView.baml
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\LoginView.baml
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationCompanyStage1View.baml
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationCompanyStage2View.baml
@@ -80,3 +78,8 @@ D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\refint\applic
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\application.pdb
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\application.genruntimeconfig.cache
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\ref\application.dll
+D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\Theme\SendButton.baml
+D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\Theme\AuthInput.baml
+D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\Theme\ConfirmInput.baml
+D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\ConfirmEmailView.g.cs
+D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\ConfirmEmailView.baml

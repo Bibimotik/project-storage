@@ -13,6 +13,15 @@
 
 				<ResourceDictionary
 					Source="./Theme/AuthAccountButton.xaml" />
+				
+				<ResourceDictionary
+					Source="./Theme/SendButton.xaml" />
+				
+				<ResourceDictionary
+					Source="./Theme/AuthInput.xaml" />
+				
+				<ResourceDictionary
+					Source="./Theme/ConfirmInput.xaml" />
 
 			</ResourceDictionary.MergedDictionaries>
 		

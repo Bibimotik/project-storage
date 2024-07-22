@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 D:\Учеба\project-storage\application\App.xaml
-10-2028010212
+131850538402
 
-18-875603792
+18855200700
 199-1531077264
-MVVM\View\AuthView.xaml;MVVM\View\Auth\ConfirmPasswordView.xaml;MVVM\View\Auth\LoginView.xaml;MVVM\View\Auth\RegistrationCompanyStage1View.xaml;MVVM\View\Auth\RegistrationCompanyStage2View.xaml;MVVM\View\Auth\RegistrationUserView.xaml;MVVM\View\MainWindow.xaml;Theme\AuthAccountButton.xaml;Theme\Button.xaml;Utilities\Pages.xaml;
+MVVM\View\AuthView.xaml;MVVM\View\Auth\ConfirmEmailView.xaml;MVVM\View\Auth\LoginView.xaml;MVVM\View\Auth\RegistrationCompanyStage1View.xaml;MVVM\View\Auth\RegistrationCompanyStage2View.xaml;MVVM\View\Auth\RegistrationUserView.xaml;MVVM\View\MainWindow.xaml;Theme\AuthAccountButton.xaml;Theme\AuthInput.xaml;Theme\Button.xaml;Theme\ConfirmInput.xaml;Theme\SendButton.xaml;Utilities\Pages.xaml;
 
 False
 

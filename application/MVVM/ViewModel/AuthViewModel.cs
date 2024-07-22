@@ -84,7 +84,7 @@ internal partial class AuthViewModel : ObservableObject
 	[RelayCommand]
 	private void ConfirmEmail()
 	{
-		CurrentView = new ConfirmPasswordView();
+		CurrentView = new ConfirmEmailView();
 		AuthTypeLogin = false;
 		AuthTypeLoginReverse = !AuthTypeLogin;
 		AuthTypeRegistration = false;

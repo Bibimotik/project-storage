@@ -5,19 +5,19 @@
 	<Style
 		x:Key="AuthAccountButton"
 		TargetType="Button">
+		
 		<Setter
 			Property="Template">
 			<Setter.Value>
 				<ControlTemplate
 					TargetType="Button">
-
-					<TextBlock
-						FontSize="13"
-						Foreground="#1E1E1E"
-						TextDecorations="Underline"
-						FontFamily="../Fonts/#Gilroy"
-						Text="{TemplateBinding Property=Content}"
-						VerticalAlignment="Center" />
+						<TextBlock
+							FontSize="13"
+							Foreground="#1E1E1E"
+							TextDecorations="Underline"
+							FontFamily="../Fonts/#Gilroy"
+							Text="{TemplateBinding Property=Content}"
+							VerticalAlignment="Center" />
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
@@ -29,6 +29,7 @@
 		<Setter
 			Property="BorderThickness"
 			Value="0" />
+		
 	</Style>
 
 </ResourceDictionary>
