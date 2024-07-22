@@ -6,8 +6,8 @@ CREATE TABLE COMPANY
 	OGRN          char(13) UNIQUE NOT NULL,
 	FullName      varchar(100)    NOT NULL,
 	ShortName     varchar(100)    NOT NULL,
-	LegalAddress  varchar(1000)    NOT NULL,
-	PostalAddress varchar(1000)    NOT NULL,
+	LegalAddress  varchar(1000)   NOT NULL,
+	PostalAddress varchar(1000)   NOT NULL,
 	Director      text            NOT NULL,
 	IsDeleted     bool            NOT NULL
 );
