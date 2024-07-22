@@ -151,6 +151,7 @@ CREATE TABLE PRODUCT
 	Title     varchar(100)     NOT NULL,
 	Unit      varchar(20)      NOT NULL, -- литры, кг, штуки и тд
 	Price     double precision NOT NULL,
+	Image     bytea                    ,
 	IsDeleted bool             NOT NULL
 );
 
