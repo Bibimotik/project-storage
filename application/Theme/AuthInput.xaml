@@ -6,9 +6,6 @@
 		x:Key="AuthInput"
 		TargetType="TextBox">
 
-		<!--<Setter
-			Property="Width"
-			Value="300" />-->
 		<Setter
 			Property="FontSize"
 			Value="12" />

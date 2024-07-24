@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,5 +23,45 @@ public partial class ConfirmEmailView : UserControl
 	public ConfirmEmailView()
 	{
 		InitializeComponent();
+	}
+	
+	private void textbox_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+	{
+		// TODO - почему то можно вводить пробелы
+		Regex inputRegex = new Regex(@"^\d*$");
+		
+		Match match = inputRegex.Match(e.Text);
+		if (!match.Success) 
+		{
+			e.Handled = true;
+		}
+	}
+
+	private void textbox_OnTextChanged(object sender, TextChangedEventArgs e)
+	{
+		TextBox textBox = sender as TextBox;
+		if (textBox.Text.Length > 0)
+		{
+			switch (textBox.Name)
+			{
+				case "_1":
+					_2.Focus();
+					break;
+				case "_2":
+					_3.Focus();
+					break;
+				case "_3":
+					_4.Focus();
+					break;
+				case "_4":
+					_5.Focus();
+					break;
+				case "_5":
+					_6.Focus();
+					break;
+				default:
+					break;
+			}
+		}
 	}
 }

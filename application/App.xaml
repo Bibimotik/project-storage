@@ -30,6 +30,9 @@
 				<ResourceDictionary
 					Source="./Theme/ConfirmInput.xaml" />
 
+				<ResourceDictionary
+					Source="./Theme/AuthPassword.xaml" />
+
 			</ResourceDictionary.MergedDictionaries>
 
 		</ResourceDictionary>

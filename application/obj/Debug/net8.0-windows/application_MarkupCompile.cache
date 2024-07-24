@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\
+D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\
 application
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-C:\my\projects\big_projects\project-storage\application\App.xaml
-15-101090921
+D:\Учеба\project-storage\application\App.xaml
+16962427016
 
 20-1874695069
-199757397573
-MVVM\View\AuthView.xaml;MVVM\View\Auth\ConfirmEmailView.xaml;MVVM\View\Auth\LoginView.xaml;MVVM\View\Auth\RegistrationCompanyStage1View.xaml;MVVM\View\Auth\RegistrationCompanyStage2View.xaml;MVVM\View\Auth\RegistrationUserView.xaml;MVVM\View\MainWindow.xaml;Theme\AuthAccountButton.xaml;Theme\AuthInput.xaml;Theme\Button.xaml;Theme\ConfirmInput.xaml;Theme\SendButton.xaml;Theme\SendButtonGray.xaml;Theme\SendButtonWhite.xaml;Utilities\Pages.xaml;
+199-1531077264
+MVVM\View\AuthView.xaml;MVVM\View\Auth\ConfirmEmailView.xaml;MVVM\View\Auth\LoginView.xaml;MVVM\View\Auth\RegistrationCompanyStage1View.xaml;MVVM\View\Auth\RegistrationCompanyStage2View.xaml;MVVM\View\Auth\RegistrationUserView.xaml;MVVM\View\MainWindow.xaml;Theme\AuthAccountButton.xaml;Theme\AuthInput.xaml;Theme\AuthPassword.xaml;Theme\Button.xaml;Theme\ConfirmInput.xaml;Theme\SendButton.xaml;Theme\SendButtonGray.xaml;Theme\SendButtonWhite.xaml;Utilities\Pages.xaml;
 
 False
 

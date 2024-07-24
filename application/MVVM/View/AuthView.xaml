@@ -262,8 +262,8 @@
 				Margin="0,0,3,0">
 				<Image
 					Source="../../Assets/Icons/Alert triangle.png"
-					Width="16"
-					Height="16"
+					Width="20"
+					Height="20"
 					Margin="6" />
 			</Button>
 
@@ -271,8 +271,8 @@
 				Style="{StaticResource Button}">
 				<Image
 					Source="../../Assets/Icons/Info.png"
-					Width="16"
-					Height="16"
+					Width="20"
+					Height="20"
 					Margin="6" />
 			</Button>
 

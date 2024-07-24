@@ -21,6 +21,11 @@
       <Page Update="Theme\AuthAccountButton.xaml">
         <SubType>Designer</SubType>
       </Page>
+      <Page Update="Theme\AuthPassword.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
     </ItemGroup>
 
     <ItemGroup>

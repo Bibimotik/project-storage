@@ -37,15 +37,17 @@
 			<TextBox
 				Style="{StaticResource AuthInput}" />
 		</StackPanel>
-
+		
+		<!-- TODO - в пароль можно вводить пробелы -->
+		<!-- TODO - добавить глазик для проверки пароля -->
 		<StackPanel
 			Margin="0 0 0 10"
 			Orientation="Vertical">
 			<TextBlock
 				Margin="0 0 0 8"
 				Text="Password" />
-			<TextBox
-				Style="{StaticResource AuthInput}" />
+			<PasswordBox
+				Style="{StaticResource AuthPassword}" />
 		</StackPanel>
 
 		<StackPanel
@@ -53,11 +55,13 @@
 			<TextBlock
 				Margin="0 0 0 8"
 				Text="Confirm Password" />
-			<TextBox
-				Style="{StaticResource AuthInput}" />
+			<PasswordBox
+				Style="{StaticResource AuthPassword}" />
 		</StackPanel>
 		
-		<!-- те что ниже я убрал прозрачность чтобы сделать обе регистрации компании одной высоты, чтобы не подбирать высоту всего блока через height. но все равно пришолось немного подгонять пиксели чтобы высота не прыгала из за того что во втором блоке есть кнопка назад -->
+		<!-- те что ниже я убрал прозрачность чтобы сделать обе регистрации компании одной высоты, 
+		чтобы не подбирать высоту всего блока через height. но все равно пришолось немного подгонять 
+		пиксели чтобы высота не прыгала из за того что во втором блоке есть кнопка назад -->
 
 		<StackPanel
 			Opacity="0"
@@ -69,7 +73,7 @@
 			<TextBox
 				Style="{StaticResource AuthInput}" />
 		</StackPanel>
-
+		
 		<StackPanel
 			Opacity="0"
 			Margin="0 0 0 10"

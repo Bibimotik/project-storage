@@ -25,17 +25,17 @@
 			<TextBox
 				Style="{StaticResource AuthInput}" />
 		</StackPanel>
-
+		
+		<!-- TODO - в пароль можно вводить пробелы -->
 		<StackPanel
 			Orientation="Vertical">
 			<TextBlock
 				Margin="0 0 0 8"
 				Text="Password" />
-			<TextBox
-				Style="{StaticResource AuthInput}" />
+			<PasswordBox
+				Style="{StaticResource AuthPassword}" />
 		</StackPanel>
-
-
+		
 	</StackPanel>
 
 </UserControl>

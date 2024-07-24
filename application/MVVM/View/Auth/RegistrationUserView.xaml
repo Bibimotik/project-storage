@@ -23,16 +23,6 @@
 			Orientation="Vertical">
 			<TextBlock
 				Margin="0 0 0 8"
-				Text="Nickname" />
-			<TextBox
-				Style="{StaticResource AuthInput}" />
-		</StackPanel>
-
-		<StackPanel
-			Margin="0 0 0 10"
-			Orientation="Vertical">
-			<TextBlock
-				Margin="0 0 0 8"
 				Text="First Name" />
 			<TextBox
 				Style="{StaticResource AuthInput}" />
@@ -78,13 +68,24 @@
 				Style="{StaticResource AuthInput}" />
 		</StackPanel>
 
+		<!-- TODO - добавить глазик для проверки пароля -->
 		<StackPanel
+			Margin="0 0 0 10"
 			Orientation="Vertical">
 			<TextBlock
 				Margin="0 0 0 8"
 				Text="Password" />
-			<TextBox
-				Style="{StaticResource AuthInput}" />
+			<PasswordBox
+				Style="{StaticResource AuthPassword}" />
+		</StackPanel>
+		
+		<StackPanel
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Confirm Password" />
+			<PasswordBox
+				Style="{StaticResource AuthPassword}" />
 		</StackPanel>
 
 	</StackPanel>
