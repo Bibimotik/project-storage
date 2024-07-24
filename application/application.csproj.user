@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="MVVM\View\AuthView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="MVVM\View\Auth\LoginView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="MVVM\View\Auth\RegistrationCompanyStage1View.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="MVVM\View\Auth\RegistrationCompanyStage2View.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="MVVM\View\Auth\RegistrationUserView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MVVM\View\AuthView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MVVM\View\Auth\LoginView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MVVM\View\Auth\RegistrationCompanyStage1View.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MVVM\View\Auth\RegistrationCompanyStage2View.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MVVM\View\Auth\RegistrationUserView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Theme\AuthAccountButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Theme\Button.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Theme\SendButtonWhite.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Theme\SendButtonGray.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Utilities\Pages.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

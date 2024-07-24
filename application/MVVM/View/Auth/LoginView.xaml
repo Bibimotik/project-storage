@@ -1,0 +1,41 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:application.MVVM.View.Auth"
+	xmlns:Auth="clr-namespace:application.MVVM.ViewModel.Auth"
+	x:Class="application.MVVM.View.Auth.LoginView"
+	mc:Ignorable="d">
+
+	<UserControl.DataContext>
+		<Auth:LoginViewModel />
+	</UserControl.DataContext>
+
+	<StackPanel
+		Orientation="Vertical"
+		VerticalAlignment="Center">
+
+		<StackPanel
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Email" />
+			<TextBox
+				Style="{StaticResource AuthInput}" />
+		</StackPanel>
+
+		<StackPanel
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Password" />
+			<TextBox
+				Style="{StaticResource AuthInput}" />
+		</StackPanel>
+
+
+	</StackPanel>
+
+</UserControl>
