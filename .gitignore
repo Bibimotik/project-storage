@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -26,3 +27,6 @@ landing_assets
 *.sw?
 
 .vercel
+=======
+.idea
+>>>>>>> 9f3933e (did all tables in sql, add Developer user)
