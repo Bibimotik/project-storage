@@ -6,7 +6,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:application.MVVM.View"
 	xmlns:viewmodel="clr-namespace:application.MVVM.ViewModel"
-	xmlns:u="clr-namespace:application.Utilities"
+	xmlns:c="clr-namespace:application.Utilities.Converter"
 	mc:Ignorable="d"
 	d:DesignHeight="450"
 	d:DesignWidth="800"
@@ -17,11 +17,15 @@
 	</Window.DataContext>
 
 	<Window.Resources>
-		<u:BoolToVisibilityConverter
+		<c:BoolToVisibilityConverter
 			x:Key="BoolToVisibilityConverter" />
+		<c:TwoConditionsBoolToVisibilityConverter
+			x:Key="TwoConditionsBoolToVisibilityConverter" />
 	</Window.Resources>
 
 	<Grid>
+		<!--две боковые плашки, чтобы центральный блок с формой был по центру-->
+		<!--в правой сверху расположены кнопки с indo и alert-->
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition
 				Width="80" />
@@ -31,36 +35,80 @@
 				Width="80" />
 		</Grid.ColumnDefinitions>
 
+		<!--это центральная форма-->
 		<Grid
+			Grid.Column="1"
 			VerticalAlignment="Center"
-			HorizontalAlignment="Center"
-			Grid.Column="1">
+			HorizontalAlignment="Center">
 
 			<Grid.RowDefinitions>
 				<RowDefinition
-					Height="25" />
+					Height="auto" />
 				<RowDefinition
 					Height="*" />
 				<RowDefinition
 					Height="25" />
 			</Grid.RowDefinitions>
-			
-			<StackPanel
-				Visibility="{Binding AuthTypeLoginReverse, Converter={StaticResource BoolToVisibilityConverter}}"
-				Orientation="Horizontal"
-				HorizontalAlignment="Center">
+
+			<Grid
+				Height="25"
+				Margin="0 0 0 10"
+				VerticalAlignment="Stretch">
+
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="*" />
+					<ColumnDefinition
+						Width="*" />
+				</Grid.ColumnDefinitions>
+
+				<Grid.Visibility>
+					<MultiBinding
+						Converter="{StaticResource TwoConditionsBoolToVisibilityConverter}">
+						<Binding
+							Path="AuthTypeLoginReverse" />
+						<Binding
+							Path="AuthTypeConfirmEmail" />
+					</MultiBinding>
+				</Grid.Visibility>
+
+				<!--смена активной вкладки и цвета кнопки-->
 
 				<Button
+					Visibility="{Binding AuthTypeRegistrationUserReverse, Converter={StaticResource BoolToVisibilityConverter}}"
+					Margin="0 0 5 0"
 					Content="User"
 					Command="{Binding RegistrationUserCommand}"
-					Margin="0,0,20,0" />
+					HorizontalAlignment="Stretch"
+					Style="{StaticResource SendButtonWhite}" />
 
 				<Button
+					Visibility="{Binding AuthTypeRegistrationUser, Converter={StaticResource BoolToVisibilityConverter}}"
+					Margin="0 0 5 0"
+					Content="User"
+					Command="{Binding RegistrationUserCommand}"
+					HorizontalAlignment="Stretch"
+					Style="{StaticResource SendButtonGray}" />
+
+				<Button
+					Visibility="{Binding AuthTypeRegistrationUserReverse, Converter={StaticResource BoolToVisibilityConverter}}"
+					Margin="5 0 0 0"
+					Grid.Column="1"
 					Content="Company"
 					Command="{Binding RegistrationCompany1Command}"
-					Margin="20,0,0,0" />
+					HorizontalAlignment="Stretch"
+					Style="{StaticResource SendButtonGray}" />
 
-			</StackPanel>
+				<Button
+					Visibility="{Binding AuthTypeRegistrationUser, Converter={StaticResource BoolToVisibilityConverter}}"
+					Margin="5 0 0 0"
+					Grid.Column="1"
+					Content="Company"
+					Command="{Binding RegistrationCompany1Command}"
+					HorizontalAlignment="Stretch"
+					Style="{StaticResource SendButtonWhite}" />
+
+			</Grid>
 
 			<StackPanel
 				Grid.Row="1"
@@ -70,6 +118,12 @@
 					Visibility="{Binding AuthTypeLogin, Converter={StaticResource BoolToVisibilityConverter}}"
 					FontSize="45"
 					Content="Login"
+					Margin="-5 0 0 10" />
+
+				<Label
+					Visibility="{Binding AuthTypeConfirmEmailReverse, Converter={StaticResource BoolToVisibilityConverter}}"
+					FontSize="35"
+					Content="Email confirmation"
 					Margin="-5 0 0 10" />
 
 				<Grid>
@@ -94,6 +148,7 @@
 								Content="{Binding CurrentView}" />
 
 							<StackPanel
+								Margin="0 20 0 0"
 								Orientation="Horizontal"
 								HorizontalAlignment="Center">
 
@@ -101,48 +156,66 @@
 									Visibility="{Binding AuthTypeLogin, Converter={StaticResource BoolToVisibilityConverter}}"
 									Content="Login"
 									Command="{Binding ConfirmEmailCommand}"
-									Style="{StaticResource SendButton}"/>
-								
+									Style="{StaticResource SendButton}" />
+
 								<Button
 									Visibility="{Binding AuthTypeRegistrationCompany1, Converter={StaticResource BoolToVisibilityConverter}}"
 									Content="Next"
 									Command="{Binding RegistrationCompany2Command}"
 									HorizontalAlignment="Center"
-									Style="{StaticResource SendButton}"/>
-
-								<Button
-									Visibility="{Binding AuthTypeRegistrationCompany2, Converter={StaticResource BoolToVisibilityConverter}}"
-									Content="Registration"
-									Command="{Binding ConfirmEmailCommand}"
-									HorizontalAlignment="Center" 
-									Style="{StaticResource SendButton}"/>
+									Style="{StaticResource SendButton}" />
 
 								<Button
 									Visibility="{Binding AuthTypeRegistrationUser, Converter={StaticResource BoolToVisibilityConverter}}"
 									Content="Registration"
 									Command="{Binding ConfirmEmailCommand}"
-									HorizontalAlignment="Center" 
-									Style="{StaticResource SendButton}"/>
+									HorizontalAlignment="Center"
+									Style="{StaticResource SendButton}" />
 
-								<Button
-									Visibility="{Binding AuthTypeRegistrationCompany2, Converter={StaticResource BoolToVisibilityConverter}}"
-									Content="BackToRegistration1"
-									Command="{Binding RegistrationCompany1Command}"
-									HorizontalAlignment="Center" />
+								<StackPanel
+									Orientation="Vertical">
 
-								<Button
-									Visibility="{Binding AuthTypeConfirmEmailReverse, Converter={StaticResource BoolToVisibilityConverter}}"
-									Content="Check"
-									Style="{StaticResource SendButton}"
-									Command="{Binding CheckCommand}"
-									HorizontalAlignment="Center" />
+									<Button
+										Margin="0 0 0 7"
+										Visibility="{Binding AuthTypeRegistrationCompany2, Converter={StaticResource BoolToVisibilityConverter}}"
+										Content="Registration"
+										Command="{Binding ConfirmEmailCommand}"
+										HorizontalAlignment="Center"
+										Style="{StaticResource SendButton}"/>
 
-								<Button
-									Visibility="{Binding AuthTypeConfirmEmailReverse, Converter={StaticResource BoolToVisibilityConverter}}"
-									Content="←Back"
-									Style="{StaticResource AuthAccountButton}"
-									Command="{Binding LoginCommand}"
-									HorizontalAlignment="Center" />
+									<Button
+										Height="30"
+										Visibility="{Binding AuthTypeRegistrationCompany2, Converter={StaticResource BoolToVisibilityConverter}}"
+										Content="← Back"
+										Command="{Binding RegistrationCompany1Command}"
+										HorizontalAlignment="Center"
+										Style="{StaticResource SendButtonWhite}" />
+
+								</StackPanel>
+
+								<StackPanel
+									Orientation="Vertical">
+
+									<Button
+										Margin="0 0 0 7"
+										Visibility="{Binding AuthTypeConfirmEmailReverse, Converter={StaticResource BoolToVisibilityConverter}}"
+										Content="Check"
+										Style="{StaticResource SendButton}"
+										Command="{Binding CheckCommand}"
+										HorizontalAlignment="Center" />
+
+									<!--как будто стиль SendButtonWhite подходит больше чем AuthAccountButton для кнопки Back-->
+
+									<Button
+										Height="30"
+										Visibility="{Binding AuthTypeConfirmEmailReverse, Converter={StaticResource BoolToVisibilityConverter}}"
+										Content="← Back"
+										Command="{Binding LoginCommand}"
+										HorizontalAlignment="Center"
+										Style="{StaticResource SendButtonWhite}" />
+										<!--Style="{StaticResource AuthAccountButton}"-->
+
+								</StackPanel>
 
 							</StackPanel>
 						</StackPanel>
@@ -183,7 +256,7 @@
 			HorizontalAlignment="Right"
 			VerticalAlignment="Top"
 			Margin="0,5,5,0">
- 
+
 			<Button
 				Style="{StaticResource Button}"
 				Margin="0,0,3,0">

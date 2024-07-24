@@ -17,6 +17,8 @@ internal partial class AuthViewModel : ObservableObject
 	[ObservableProperty]
 	private bool authTypeRegistrationUser;
 	[ObservableProperty]
+	private bool authTypeRegistrationUserReverse;
+	[ObservableProperty]
 	private bool authTypeRegistrationCompany1;
 	[ObservableProperty]
 	private bool authTypeRegistrationCompany2;
@@ -33,6 +35,7 @@ internal partial class AuthViewModel : ObservableObject
 		AuthTypeLoginReverse = !AuthTypeLogin;
 		AuthTypeRegistration = false;
 		AuthTypeRegistrationUser = false;
+		AuthTypeRegistrationUserReverse = !AuthTypeRegistrationUser;
 		AuthTypeRegistrationCompany1 = false;
 		AuthTypeRegistrationCompany2 = false;
 		AuthTypeConfirmEmail = true;
@@ -47,6 +50,7 @@ internal partial class AuthViewModel : ObservableObject
 		AuthTypeLoginReverse = !AuthTypeLogin;
 		AuthTypeRegistration = true;
 		AuthTypeRegistrationUser = true;
+		AuthTypeRegistrationUserReverse = !AuthTypeRegistrationUser;
 		AuthTypeRegistrationCompany1 = false;
 		AuthTypeRegistrationCompany2 = false;
 		AuthTypeConfirmEmail = true;
@@ -61,6 +65,7 @@ internal partial class AuthViewModel : ObservableObject
 		AuthTypeLoginReverse = !AuthTypeLogin;
 		AuthTypeRegistration = true;
 		AuthTypeRegistrationUser = false;
+		AuthTypeRegistrationUserReverse = !AuthTypeRegistrationUser;
 		AuthTypeRegistrationCompany1 = true;
 		AuthTypeRegistrationCompany2 = false;
 		AuthTypeConfirmEmail = true;
@@ -75,6 +80,7 @@ internal partial class AuthViewModel : ObservableObject
 		AuthTypeLoginReverse = !AuthTypeLogin;
 		AuthTypeRegistration = true;
 		AuthTypeRegistrationUser = false;
+		AuthTypeRegistrationUserReverse = !AuthTypeRegistrationUser;
 		AuthTypeRegistrationCompany1 = false;
 		AuthTypeRegistrationCompany2 = true;
 		AuthTypeConfirmEmail = true;
@@ -89,6 +95,7 @@ internal partial class AuthViewModel : ObservableObject
 		AuthTypeLoginReverse = !AuthTypeLogin;
 		AuthTypeRegistration = false;
 		AuthTypeRegistrationUser = false;
+		AuthTypeRegistrationUserReverse = !AuthTypeRegistrationUser;
 		AuthTypeRegistrationCompany1 = false;
 		AuthTypeRegistrationCompany2 = false;
 		AuthTypeConfirmEmail = false;

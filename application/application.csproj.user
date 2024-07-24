@@ -5,9 +5,6 @@
     <Compile Update="MVVM\View\AuthView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="MVVM\View\Auth\ConfirmPasswordView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="MVVM\View\Auth\LoginView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -23,9 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="MVVM\View\AuthView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="MVVM\View\Auth\ConfirmPasswordView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MVVM\View\Auth\LoginView.xaml">
@@ -44,6 +38,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Theme\Button.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Theme\SendButtonWhite.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Theme\SendButtonGray.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Utilities\Pages.xaml">

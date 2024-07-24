@@ -30,9 +30,7 @@ C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows
 C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\Utilities\Pages.baml
 C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationCompanyStage1View.g.cs
 C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationCompanyStage1View.baml
-C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\ConfirmPasswordView.g.cs
 C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationCompanyStage2View.g.cs
-C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\ConfirmPasswordView.baml
 C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationCompanyStage2View.baml
 C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationUserView.g.cs
 C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\RegistrationUserView.baml
@@ -83,3 +81,10 @@ D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\Theme\AuthInp
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\Theme\ConfirmInput.baml
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\ConfirmEmailView.g.cs
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\ConfirmEmailView.baml
+C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\Theme\AuthInput.baml
+C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\Theme\ConfirmInput.baml
+C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\Theme\SendButton.baml
+C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\ConfirmEmailView.g.cs
+C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Auth\ConfirmEmailView.baml
+C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\Theme\SendButtonGray.baml
+C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\Theme\SendButtonWhite.baml

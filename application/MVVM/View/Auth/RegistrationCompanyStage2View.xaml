@@ -15,11 +15,79 @@
 	</UserControl.DataContext>
 
 	<StackPanel
-		VerticalAlignment="Center"
-		HorizontalAlignment="Center">
+		Orientation="Vertical"
+		VerticalAlignment="Center">
 
-		<Label
-			Content="registration company 2" />
+		<StackPanel
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Director" />
+			<TextBox
+				Style="{StaticResource AuthInput}" />
+		</StackPanel>
+
+		<StackPanel
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Email" />
+			<TextBox
+				Style="{StaticResource AuthInput}" />
+		</StackPanel>
+
+		<StackPanel
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Password" />
+			<TextBox
+				Style="{StaticResource AuthInput}" />
+		</StackPanel>
+
+		<StackPanel
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Confirm Password" />
+			<TextBox
+				Style="{StaticResource AuthInput}" />
+		</StackPanel>
+		
+		<!-- те что ниже я убрал прозрачность чтобы сделать обе регистрации компании одной высоты, чтобы не подбирать высоту всего блока через height. но все равно пришолось немного подгонять пиксели чтобы высота не прыгала из за того что во втором блоке есть кнопка назад -->
+
+		<StackPanel
+			Opacity="0"
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Email" />
+			<TextBox
+				Style="{StaticResource AuthInput}" />
+		</StackPanel>
+
+		<StackPanel
+			Opacity="0"
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Password" />
+			<TextBox
+				Style="{StaticResource AuthInput}" />
+		</StackPanel>
+
+		<StackPanel
+			Opacity="0"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 5"
+				Text="Confirm Password" />
+		</StackPanel>
 
 	</StackPanel>
 

@@ -16,12 +16,96 @@
 
 	<StackPanel
 		Orientation="Vertical"
-		VerticalAlignment="Center"
-		HorizontalAlignment="Center">
+		VerticalAlignment="Center">
 
-		<Label
-			Content="registration company 1" />
+		<StackPanel
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="INN" />
+
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="*" />
+					<ColumnDefinition
+						Width="80"/>
+				</Grid.ColumnDefinitions>
+ 
+				<TextBox
+					Style="{StaticResource AuthInput}" />
+
+				<Button
+					Grid.Column="1"
+					Margin="5 0 0 0"
+					Command="{Binding }"
+					Content="GET"
+					Style="{StaticResource SendButtonWhite}" />
+
+			</Grid>
+
+		</StackPanel>
+
+		<StackPanel
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="KPP" />
+			<TextBox
+				Style="{StaticResource AuthInput}" />
+		</StackPanel>
+
+		<StackPanel
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Full Name" />
+			<TextBox
+				Style="{StaticResource AuthInput}" />
+		</StackPanel>
+
+		<StackPanel
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Short Name" />
+			<TextBox
+				Style="{StaticResource AuthInput}" />
+		</StackPanel>
+
+		<StackPanel
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Legal Address" />
+			<TextBox
+				Style="{StaticResource AuthInput}" />
+		</StackPanel>
+
+		<StackPanel
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Postal Address" />
+			<TextBox
+				Style="{StaticResource AuthInput}" />
+		</StackPanel>
+
+		<StackPanel
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="OGRN" />
+			<TextBox
+				Style="{StaticResource AuthInput}" />
+		</StackPanel>
 
 	</StackPanel>
-	
+
 </UserControl>

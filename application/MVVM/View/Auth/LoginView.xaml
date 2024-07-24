@@ -14,8 +14,7 @@
 
 	<StackPanel
 		Orientation="Vertical"
-		VerticalAlignment="Center"
-		HorizontalAlignment="Center">
+		VerticalAlignment="Center">
 
 		<StackPanel
 			Margin="0 0 0 10"
@@ -23,7 +22,8 @@
 			<TextBlock
 				Margin="0 0 0 8"
 				Text="Email" />
-			<TextBox Style="{StaticResource AuthInput}"/>
+			<TextBox
+				Style="{StaticResource AuthInput}" />
 		</StackPanel>
 
 		<StackPanel
@@ -31,7 +31,8 @@
 			<TextBlock
 				Margin="0 0 0 8"
 				Text="Password" />
-			<TextBox Style="{StaticResource AuthInput}"/>
+			<TextBox
+				Style="{StaticResource AuthInput}" />
 		</StackPanel>
 
 

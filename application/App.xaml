@@ -1,11 +1,12 @@
-﻿<Application x:Class="application.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:application">
-    <Application.Resources>
+﻿<Application
+	x:Class="application.App"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="clr-namespace:application">
+	<Application.Resources>
 
 		<ResourceDictionary>
-			
+
 			<ResourceDictionary.MergedDictionaries>
 
 				<ResourceDictionary
@@ -13,18 +14,24 @@
 
 				<ResourceDictionary
 					Source="./Theme/AuthAccountButton.xaml" />
-				
+
 				<ResourceDictionary
 					Source="./Theme/SendButton.xaml" />
-				
+
+				<ResourceDictionary
+					Source="./Theme/SendButtonWhite.xaml" />
+
+				<ResourceDictionary
+					Source="./Theme/SendButtonGray.xaml" />
+
 				<ResourceDictionary
 					Source="./Theme/AuthInput.xaml" />
-				
+
 				<ResourceDictionary
 					Source="./Theme/ConfirmInput.xaml" />
 
 			</ResourceDictionary.MergedDictionaries>
-		
+
 		</ResourceDictionary>
 
 	</Application.Resources>
