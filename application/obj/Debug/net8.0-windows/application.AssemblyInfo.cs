@@ -13,7 +13,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f49c56fa5df1530a9b7effb465fc5b2f5e53b9f7")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+da47a1caef914002bdd264a34e23e02c12edb727")]
+>>>>>>> 766aaa7 (pull branch from main)
 [assembly: System.Reflection.AssemblyProductAttribute("application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
