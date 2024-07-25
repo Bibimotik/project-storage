@@ -7,20 +7,77 @@
 	xmlns:local="clr-namespace:application"
 	xmlns:viewmodel="clr-namespace:application.MVVM.ViewModel"
 	mc:Ignorable="d"
-	Title="MainWindow"
 	Height="450"
-	Width="800">
-	<!--d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"-->
+	Width="800"
+	Title="MainWindow"
+	WindowStartupLocation="CenterScreen">
 
 	<Window.DataContext>
 		<viewmodel:MainViewModel />
 	</Window.DataContext>
-	
-	<StackPanel
-		VerticalAlignment="Center"
-		HorizontalAlignment="Center">
-		<Label 
-			Content="{Binding Name}"/>
-	</StackPanel>
-	
+
+	<Window.Resources>
+		<Storyboard
+			x:Key="ExpandStoryboard">
+			<DoubleAnimation
+				Storyboard.TargetName="SideMenu"
+				Storyboard.TargetProperty="Width"
+				To="200"
+				Duration="0:0:0.5" />
+		</Storyboard>
+		<Storyboard
+			x:Key="CollapseStoryboard">
+			<DoubleAnimation
+				Storyboard.TargetName="SideMenu"
+				Storyboard.TargetProperty="Width"
+				To="60"
+				Duration="0:0:0.5" />
+		</Storyboard>
+	</Window.Resources>
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition
+				Width="auto" />
+			<ColumnDefinition
+				Width="*" />
+		</Grid.ColumnDefinitions>
+
+		<StackPanel
+			Width="60"
+			x:Name="SideMenu"
+			Background="#FF8282"
+			Orientation="Vertical">
+
+			<Button
+				Margin="5"
+				Command="{Binding OpenMenuCommand}"
+				Content="button" />
+
+			<StackPanel
+				Background="red"
+				Margin="0 20 0 0"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Stretch"
+				Orientation="Horizontal">
+
+				<Label
+					Content="menu " />
+
+				<Label
+					Margin="20 0 0 0"
+					Content="menu " />
+
+			</StackPanel>
+
+		</StackPanel>
+
+		<Label
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center"
+			Grid.Column="1"
+			Content="storage " />
+
+	</Grid>
+
 </Window>

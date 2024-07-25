@@ -91,3 +91,4 @@ C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\Theme\SendButtonGray.baml
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\Theme\SendButtonWhite.baml
 D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\Theme\AuthPassword.baml
+C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\Theme\AuthPassword.baml
