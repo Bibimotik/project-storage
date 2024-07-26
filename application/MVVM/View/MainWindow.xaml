@@ -51,8 +51,13 @@
 
 			<Button
 				Margin="5"
-				Command="{Binding OpenMenuCommand}"
-				Content="button" />
+				Command="{Binding OpenMenuCommand}">
+				<Image
+					Source="../../Assets/Icons/"
+					Width="20"
+					Height="20"
+					Margin="6" />
+			</Button>
 
 			<StackPanel
 				Background="red"
