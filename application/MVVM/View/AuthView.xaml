@@ -10,7 +10,8 @@
 	mc:Ignorable="d"
 	d:DesignHeight="450"
 	d:DesignWidth="800"
-	Title="AuthView">
+	Title="AuthView"
+	WindowStartupLocation="CenterScreen">
 
 	<Window.DataContext>
 		<viewmodel:AuthViewModel />
@@ -71,8 +72,6 @@
 							Path="AuthTypeConfirmEmail" />
 					</MultiBinding>
 				</Grid.Visibility>
-
-				<!--смена активной вкладки и цвета кнопки-->
 
 				<Button
 					Visibility="{Binding AuthTypeRegistrationUserReverse, Converter={StaticResource BoolToVisibilityConverter}}"
@@ -155,7 +154,7 @@
 								<Button
 									Visibility="{Binding AuthTypeLogin, Converter={StaticResource BoolToVisibilityConverter}}"
 									Content="Login"
-									Command="{Binding ConfirmEmailCommand}"
+									Command="{Binding }"
 									Style="{StaticResource SendButton}" />
 
 								<Button
@@ -181,7 +180,7 @@
 										Content="Registration"
 										Command="{Binding ConfirmEmailCommand}"
 										HorizontalAlignment="Center"
-										Style="{StaticResource SendButton}"/>
+										Style="{StaticResource SendButton}" />
 
 									<Button
 										Height="30"
@@ -204,8 +203,6 @@
 										Command="{Binding CheckCommand}"
 										HorizontalAlignment="Center" />
 
-									<!--как будто стиль SendButtonWhite подходит больше чем AuthAccountButton для кнопки Back-->
-
 									<Button
 										Height="30"
 										Visibility="{Binding AuthTypeConfirmEmailReverse, Converter={StaticResource BoolToVisibilityConverter}}"
@@ -213,7 +210,6 @@
 										Command="{Binding LoginCommand}"
 										HorizontalAlignment="Center"
 										Style="{StaticResource SendButtonWhite}" />
-										<!--Style="{StaticResource AuthAccountButton}"-->
 
 								</StackPanel>
 

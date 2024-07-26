@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Учеба\\project-storage\\application\\application.csproj": {}
+    "C:\\my\\projects\\big_projects\\project-storage\\application\\application.csproj": {}
   },
   "projects": {
-    "D:\\Учеба\\project-storage\\application\\application.csproj": {
+    "C:\\my\\projects\\big_projects\\project-storage\\application\\application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Учеба\\project-storage\\application\\application.csproj",
+        "projectUniqueName": "C:\\my\\projects\\big_projects\\project-storage\\application\\application.csproj",
         "projectName": "application",
-        "projectPath": "D:\\Учеба\\project-storage\\application\\application.csproj",
-        "packagesPath": "C:\\Users\\mysha\\.nuget\\packages\\",
-        "outputPath": "D:\\Учеба\\project-storage\\application\\obj\\",
+        "projectPath": "C:\\my\\projects\\big_projects\\project-storage\\application\\application.csproj",
+        "packagesPath": "C:\\Users\\Slava\\.nuget\\packages\\",
+        "outputPath": "C:\\my\\projects\\big_projects\\project-storage\\application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\mysha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Slava\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -39,6 +39,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -69,7 +74,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
