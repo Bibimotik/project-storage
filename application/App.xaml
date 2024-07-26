@@ -2,7 +2,8 @@
 	x:Class="application.App"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:local="clr-namespace:application">
+	xmlns:local="clr-namespace:application"
+	xmlns:pages = "clr-namespace:application.MVVM.View.Pages">
 	<Application.Resources>
 
 		<ResourceDictionary>
@@ -10,28 +11,43 @@
 			<ResourceDictionary.MergedDictionaries>
 
 				<ResourceDictionary
-					Source="./Theme/Button.xaml" />
+					Source="./Theme/General/Button.xaml" />
 
 				<ResourceDictionary
-					Source="./Theme/AuthAccountButton.xaml" />
+					Source="./Theme/Login_Registration/AuthAccountButton.xaml" />
 
 				<ResourceDictionary
-					Source="./Theme/SendButton.xaml" />
+					Source="./Theme/General/SendButton.xaml" />
 
 				<ResourceDictionary
-					Source="./Theme/SendButtonWhite.xaml" />
+					Source="./Theme/General/SendButtonWhite.xaml" />
 
 				<ResourceDictionary
-					Source="./Theme/SendButtonGray.xaml" />
+					Source="./Theme/General/SendButtonGray.xaml" />
 
 				<ResourceDictionary
-					Source="./Theme/AuthInput.xaml" />
+					Source="./Theme/Login_Registration/AuthInput.xaml" />
 
 				<ResourceDictionary
-					Source="./Theme/ConfirmInput.xaml" />
+					Source="./Theme/Login_Registration/ConfirmInput.xaml" />
 
 				<ResourceDictionary
-					Source="./Theme/AuthPassword.xaml" />
+					Source="./Theme/Login_Registration/AuthPassword.xaml" />
+				
+				<ResourceDictionary
+					Source="./Theme/MainMenu/MenuRadioButton.xaml" />
+
+				<ResourceDictionary
+					Source="./Theme/MainMenu/MenuText.xaml" />
+
+				<ResourceDictionary
+					Source="./Theme/MainMenu/MenuBorder.xaml" />
+
+				<ResourceDictionary
+					Source="./Theme/MainMenu/MenuShowButton.xaml" />
+
+				<ResourceDictionary
+					Source="./Theme/MainMenu/MenuAvatar.xaml" />
 
 			</ResourceDictionary.MergedDictionaries>
 

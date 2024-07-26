@@ -18,10 +18,57 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Page Update="Theme\AuthAccountButton.xaml">
+      <Page Update="Theme\Login_Registration\AuthAccountButton.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="Theme\AuthPassword.xaml">
+      <Page Update="Theme\Login_Registration\AuthInput.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Theme\Login_Registration\AuthPassword.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Theme\General\Button.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Theme\Login_Registration\ConfirmInput.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Theme\MainMenu\MenuRadioButton.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Theme\MainMenu\MenuBorder.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Theme\MainMenu\MenuText.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Theme\General\SendButton.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Theme\General\SendButtonGray.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Theme\General\SendButtonWhite.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
@@ -33,6 +80,18 @@
       <Resource Include="Assets\Icons\Alert triangle.png" />
       <None Remove="Assets\Icons\Info.png" />
       <Resource Include="Assets\Icons\Info.png" />
+      <None Remove="Assets\Icons\Ava.png" />
+      <Resource Include="Assets\Icons\Ava.png" />
+      <None Remove="Assets\Icons\Box.png" />
+      <Resource Include="Assets\Icons\Box.png" />
+      <None Remove="Assets\Icons\Dollar.png" />
+      <Resource Include="Assets\Icons\Dollar.png" />
+      <None Remove="Assets\Icons\List.png" />
+      <Resource Include="Assets\Icons\List.png" />
+      <None Remove="Assets\Icons\Person.png" />
+      <Resource Include="Assets\Icons\Person.png" />
+      <None Remove="Assets\Icons\Trending up.png" />
+      <Resource Include="Assets\Icons\Trending up.png" />
     </ItemGroup>
 
 </Project>

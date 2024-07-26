@@ -105,7 +105,7 @@ internal partial class AuthViewModel : ObservableObject
 	[RelayCommand]
 	private void Check()
 	{
-		// TODO - check code in Email confirmation
+		// TODO - код проверки почты
 	}
 
 	// TODO - сделать логику для определения куда нужно вернуться из Email confirmation - в Login или RegistrationCompany2

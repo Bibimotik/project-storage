@@ -68,15 +68,22 @@
 				Style="{StaticResource AuthInput}" />
 		</StackPanel>
 
-		<!-- TODO - добавить глазик для проверки пароля -->
+		<!-- TODO (ПРОВЕРИТЬ) - добавить глазик для проверки пароля -->
 		<StackPanel
 			Margin="0 0 0 10"
 			Orientation="Vertical">
 			<TextBlock
 				Margin="0 0 0 8"
 				Text="Password" />
-			<PasswordBox
-				Style="{StaticResource AuthPassword}" />
+			<!--<StackPanel Orientation="Horizontal">-->
+				<PasswordBox
+					Style="{StaticResource AuthPassword}" />
+				<!--<Button Background="Black">
+					<Image Source="../../../Assets/Icons/Eye.png"
+					       Width="25"
+					       Height="25"/>
+				</Button>
+			</StackPanel>-->
 		</StackPanel>
 		
 		<StackPanel

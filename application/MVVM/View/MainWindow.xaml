@@ -22,16 +22,16 @@
 			<DoubleAnimation
 				Storyboard.TargetName="SideMenu"
 				Storyboard.TargetProperty="Width"
-				To="200"
-				Duration="0:0:0.5" />
+				To="230"
+				Duration="0:0:0.3" />
 		</Storyboard>
 		<Storyboard
 			x:Key="CollapseStoryboard">
 			<DoubleAnimation
 				Storyboard.TargetName="SideMenu"
 				Storyboard.TargetProperty="Width"
-				To="60"
-				Duration="0:0:0.5" />
+				To="63"
+				Duration="0:0:0.4" />
 		</Storyboard>
 	</Window.Resources>
 
@@ -42,47 +42,269 @@
 			<ColumnDefinition
 				Width="*" />
 		</Grid.ColumnDefinitions>
-
-		<StackPanel
-			Width="60"
-			x:Name="SideMenu"
-			Background="#FF8282"
-			Orientation="Vertical">
-
-			<Button
-				Margin="5"
-				Command="{Binding OpenMenuCommand}">
-				<Image
-					Source="../../Assets/Icons/"
-					Width="20"
-					Height="20"
-					Margin="6" />
-			</Button>
-
+		
+		<Border 
+			Style="{StaticResource MenuBorder}"
+			CornerRadius="0,6,6,0" 
+			Background="#f7f7f7" 
+			Width="63"
+			x:Name="SideMenu">
+			
 			<StackPanel
-				Background="red"
-				Margin="0 20 0 0"
-				VerticalAlignment="Center"
-				HorizontalAlignment="Stretch"
-				Orientation="Horizontal">
+				
+				Orientation="Vertical">
+				
+				<Border 
+					Style="{StaticResource MenuBorder}"
+					CornerRadius="0, 6, 0, 0">
+					<StackPanel
+						Margin="10 5 0 5"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Stretch"
+						Orientation="Horizontal">
+						
+						<Button
+							Style="{StaticResource MenuShowButton}"
+							Command="{Binding OpenMenuCommand}">
+							<Image
+								Source="../../Assets/Icons/List.png"
+								Width="25"
+								Height="25"
+								Margin="6" />
+						</Button>
+						
+						<Label
+							Margin="20 0 0 0"
+							Content="Hide"
+							Style="{StaticResource MenuText}" />
+						
+					</StackPanel>
+				</Border>
+				
+				<Border Style="{StaticResource MenuBorder}">
+					<StackPanel
+						Margin="10 5 0 5"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Stretch"
+						Orientation="Horizontal">
 
-				<Label
-					Content="menu " />
+						<!-- TODO - как-то коряво но создавать для этого целый стиль как-то слишком много хочет -->
+						<RadioButton 
+							x:Name="Account"
+							Height="40"
+							Width="40"
+							Foreground="White"
+							FontSize="14"
+							Style="{StaticResource MenuAvatar}"
+							Checked="RadioButton_Checked">
+							<Image Source="../../Assets/Icons/Ava.png"
+							       Width="40"
+							       Height="40"/>
+						</RadioButton>
+						
+						<StackPanel Orientation="Vertical">
+							
+							<Label
+								Margin="20 0 0 0"
+								Content="Фамилия И. О."
+								FontSize="16"
+								Style="{StaticResource MenuText}" />
+							
+							<!-- TODO - большой email может не влезть, мб изменять размер шрифта в зависимости от кол-ва символов
+							TODO или искуственно его укарачивать типо: testte...andex.com-->
+							
+							<Label
+								Margin="20 -10 0 0"
+								Content="test_email@yandex.com"
+								FontSize="12"
+								Style="{StaticResource MenuText}" />
+							
+						</StackPanel>
+						
+					</StackPanel>
+				</Border>
+				
+				<Border Style="{StaticResource MenuBorder}">
+					<StackPanel
+						Margin="10 5 0 5"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Stretch"
+						Orientation="Horizontal">
 
-				<Label
-					Margin="20 0 0 0"
-					Content="menu " />
+						<RadioButton 
+							x:Name="Statistics"
+							Height="40"
+							Width="40"
+							Foreground="White"
+							FontSize="14"
+							Style="{StaticResource MenuRadioButton}"
+							Checked="RadioButton_Checked">
+							<Image Source="../../Assets/Icons/Trending up.png"
+							       Width="25"
+							       Height="25"
+							       Margin="6"/>
+						</RadioButton>
+
+						<Label
+							Margin="20 0 0 0"
+							Content="Statistics"
+							Style="{StaticResource MenuText}" />
+						
+					</StackPanel>
+				</Border>
+				
+				<Border Style="{StaticResource MenuBorder}">
+					<StackPanel
+						Margin="10 5 0 5"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Stretch"
+						Orientation="Horizontal">
+
+						<RadioButton 
+							x:Name="Sales"
+							Height="40"
+							Width="40"
+							Foreground="White"
+							FontSize="14"
+							Style="{StaticResource MenuRadioButton}"
+							Checked="RadioButton_Checked">
+							<Image Source="../../Assets/Icons/Dollar.png"
+							       Width="25"
+							       Height="25"
+							       Margin="6"/>
+						</RadioButton>
+
+						<Label
+							Margin="20 0 0 0"
+							Content="Sales"
+							Style="{StaticResource MenuText}" />
+
+					</StackPanel>
+				</Border>
+				
+				<Border Style="{StaticResource MenuBorder}">
+					<StackPanel
+						Margin="10 5 0 5"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Stretch"
+						Orientation="Horizontal">
+
+						<RadioButton 
+							x:Name="Storage"
+							Height="40"
+							Width="40"
+							Foreground="White"
+							FontSize="14"
+							Style="{StaticResource MenuRadioButton}"
+							Checked="RadioButton_Checked">
+							<Image Source="../../Assets/Icons/Box.png"
+							       Width="25"
+							       Height="25"
+							       Margin="6"/>
+						</RadioButton>
+
+						<Label
+							Margin="20 0 0 0"
+							Content="Storage"
+							Style="{StaticResource MenuText}" />
+
+					</StackPanel>
+				</Border>
+				
+				<Border Style="{StaticResource MenuBorder}">
+					<StackPanel
+						Margin="10 5 0 5"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Stretch"
+						Orientation="Horizontal">
+
+						<RadioButton 
+							x:Name="Staff"
+							Height="40"
+							Width="40"
+							Foreground="White"
+							FontSize="14"
+							Style="{StaticResource MenuRadioButton}"
+							Checked="RadioButton_Checked">
+							<Image Source="../../Assets/Icons/Person.png"
+							       Width="25"
+							       Height="25"
+							       Margin="6"/>
+						</RadioButton>
+
+						<Label
+							Margin="20 0 0 0"
+							Content="Staff"
+							Style="{StaticResource MenuText}" />
+
+					</StackPanel>
+				</Border>
+				
+				<Border Style="{StaticResource MenuBorder}">
+					<StackPanel
+						Margin="10 5 0 5"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Stretch"
+						Orientation="Horizontal">
+
+						<RadioButton 
+							x:Name="Support"
+							Height="40"
+							Width="40"
+							Foreground="White"
+							FontSize="14"
+							Style="{StaticResource MenuRadioButton}"
+							Checked="RadioButton_Checked">
+							<Image Source="../../Assets/Icons/Alert triangle.png"
+							       Width="25"
+							       Height="25"
+							       Margin="6"/>
+						</RadioButton>
+
+						<Label
+							Margin="20 0 0 0"
+							Content="Support"
+							Style="{StaticResource MenuText}" />
+
+					</StackPanel>
+				</Border>
+				
+				<Border 
+					Style="{StaticResource MenuBorder}"
+					CornerRadius="0, 0, 6, 0">
+					<StackPanel
+						Margin="10 5 0 5"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Stretch"
+						Orientation="Horizontal">
+
+						<RadioButton 
+							x:Name="Info"
+							Height="40"
+							Width="40"
+							Foreground="White"
+							FontSize="14"
+							Style="{StaticResource MenuRadioButton}"
+							Checked="RadioButton_Checked">
+							<Image Source="../../Assets/Icons/Info.png"
+							       Width="25"
+							       Height="25"
+							       Margin="6"/>
+						</RadioButton>
+
+						<Label
+							Margin="20 0 0 0"
+							Content="Info"
+							Style="{StaticResource MenuText}" />
+
+					</StackPanel>
+				</Border>
 
 			</StackPanel>
+		</Border>
 
-		</StackPanel>
-
-		<Label
-			HorizontalAlignment="Center"
-			VerticalAlignment="Center"
-			Grid.Column="1"
-			Content="storage " />
-
+		<Frame Grid.Column="1" x:Name="MainContent" />
+		
 	</Grid>
 
 </Window>
