@@ -23,12 +23,12 @@ public partial class MainWindow : Window
 	
 	private void RadioButton_Checked(object sender, RoutedEventArgs e)
 	{
-		RadioButton radioButton = (RadioButton)sender;
+		//RadioButton radioButton = (RadioButton)sender;
 		
-		if (radioButton != null && radioButton.Name == "Account")
-		{
-			MainContent.Navigate(new Uri("D:/Учеба/project-storage/application/MVVM/View/Pages/Account.xaml", UriKind.Relative));
-		}
+		//if (radioButton != null && radioButton.Name == "Account")
+		//{
+		//	MainContent.Navigate(new Uri("D:/Учеба/project-storage/application/MVVM/View/Pages/Account.xaml", UriKind.Relative));
+		//}
 
 		/*switch (radioButton.Name)
 		{
