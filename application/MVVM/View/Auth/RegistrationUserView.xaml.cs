@@ -24,5 +24,13 @@ namespace application.MVVM.View.Auth
         {
             InitializeComponent();
         }
+        
+        private void PasswordBox_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

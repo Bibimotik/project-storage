@@ -26,71 +26,40 @@ public partial class MainViewModel : ObservableObject
 		isMenuExpanded = !isMenuExpanded;
 	}
 
-	//[RelayCommand]
-	//private void Account()
-	//{
-	//	CurrentView = new Account();
-	//}
-	//[RelayCommand]
-	//private void Statistics()
-	//{
-	//	CurrentView = new Statistics();
-	//}
-	//[RelayCommand]
-	//private void Sales()
-	//{
-	//	CurrentView = new Sales();
-	//}
-	//[RelayCommand]
-	//private void Storage()
-	//{
-	//	CurrentView = new Storage();
-	//}
-	//[RelayCommand]
-	//private void Staff()
-	//{
-	//	CurrentView = new Staff();
-	//}
-	//[RelayCommand]
-	//private void Support()
-	//{
-	//	CurrentView = new Support();
-	//}
-	//[RelayCommand]
-	//private void Info()
-	//{
-	//	CurrentView = new Info();
-	//}
-
 	[RelayCommand]
-	private void SwitchView(string viewName)
+	private void Account()
 	{
-		switch (viewName)
-		{
-			case "Account":
-				CurrentView = new Account();
-				break;
-			case "Statistics":
-				CurrentView = new Statistics();
-				break;
-			case "Sales":
-				CurrentView = new Sales();
-				break;
-			case "Storage":
-				CurrentView = new Storage();
-				break;
-			case "Staff":
-				CurrentView = new Staff();
-				break;
-			case "Support":
-				CurrentView = new Support();
-				break;
-			case "Info":
-				CurrentView = new Info();
-				break;
-			default:
-				throw new ArgumentException("Invalid view name", nameof(viewName));
-		}
+		CurrentView = new Account();
+	}
+	[RelayCommand]
+	private void Statistics()
+	{
+		CurrentView = new Statistics();
+	}
+	[RelayCommand]
+	private void Sales()
+	{
+		CurrentView = new Sales();
+	}
+	[RelayCommand]
+	private void Storage()
+	{
+		CurrentView = new Storage();
+	}
+	[RelayCommand]
+	private void Staff()
+	{
+		CurrentView = new Staff();
+	}
+	[RelayCommand]
+	private void Support()
+	{
+		CurrentView = new Support();
+	}
+	[RelayCommand]
+	private void Info()
+	{
+		CurrentView = new Info();
 	}
 
 	public MainViewModel()

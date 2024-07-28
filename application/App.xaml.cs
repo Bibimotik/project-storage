@@ -15,8 +15,8 @@ public partial class App : Application
 
 		// TODO - механизм проверки сохраненной авторизации
 
-		//ShowAuth();
-		ShowMain();
+		ShowAuth();
+		//ShowMain();
 	}
 
 	private void ShowMain()

@@ -14,7 +14,7 @@
 		<Pages:Staff/>
 	</UserControl.DataContext>
 	
-	<Grid>
+	<StackPanel Width="100" Height="100">
 		<Label>Staff</Label>
-	</Grid>
+	</StackPanel>
 </UserControl>

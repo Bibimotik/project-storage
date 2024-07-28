@@ -14,7 +14,7 @@
 		<Pages:Sales/>
 	</UserControl.DataContext>
 	
-	<Grid>
+	<StackPanel Width="100" Height="100">
 		<Label>Sales</Label>
-	</Grid>
+	</StackPanel>
 </UserControl>
