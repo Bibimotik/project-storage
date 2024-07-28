@@ -94,8 +94,6 @@
 							x:Name="Account"
 							Height="40"
 							Width="40"
-							Foreground="White"
-							FontSize="14"
 							Style="{StaticResource MenuAvatar}"
 							Checked="RadioButton_Checked">
 							<Image
@@ -141,8 +139,6 @@
 							x:Name="Statistics"
 							Height="40"
 							Width="40"
-							Foreground="White"
-							FontSize="14"
 							Style="{StaticResource MenuRadioButton}"
 							Checked="RadioButton_Checked">
 							<Image
@@ -174,8 +170,6 @@
 							x:Name="Sales"
 							Height="40"
 							Width="40"
-							Foreground="White"
-							FontSize="14"
 							Style="{StaticResource MenuRadioButton}"
 							Checked="RadioButton_Checked">
 							<Image
@@ -207,8 +201,6 @@
 							x:Name="Storage"
 							Height="40"
 							Width="40"
-							Foreground="White"
-							FontSize="14"
 							Style="{StaticResource MenuRadioButton}"
 							Checked="RadioButton_Checked">
 							<Image
@@ -240,8 +232,6 @@
 							x:Name="Staff"
 							Height="40"
 							Width="40"
-							Foreground="White"
-							FontSize="14"
 							Style="{StaticResource MenuRadioButton}"
 							Checked="RadioButton_Checked">
 							<Image
@@ -273,8 +263,6 @@
 							x:Name="Support"
 							Height="40"
 							Width="40"
-							Foreground="White"
-							FontSize="14"
 							Style="{StaticResource MenuRadioButton}"
 							Checked="RadioButton_Checked">
 							<Image
@@ -307,8 +295,6 @@
 							x:Name="Info"
 							Height="40"
 							Width="40"
-							Foreground="White"
-							FontSize="14"
 							Style="{StaticResource MenuRadioButton}"
 							Checked="RadioButton_Checked">
 							<Image

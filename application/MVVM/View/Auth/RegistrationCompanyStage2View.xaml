@@ -35,28 +35,88 @@
 				Margin="0 0 0 8"
 				Text="Email" />
 			<TextBox
+				PreviewTextInput="Password_OnPreviewTextInput"
 				Style="{StaticResource AuthInput}" />
 		</StackPanel>
 		
-		<!-- TODO - добавить глазик для проверки пароля -->
-		<StackPanel
+		<StackPanel 
 			Margin="0 0 0 10"
 			Orientation="Vertical">
-			<TextBlock
-				Margin="0 0 0 8"
+			<TextBlock 
+				Margin="0 0 0 8" 
 				Text="Password" />
-			<PasswordBox
-				PreviewKeyDown="PasswordBox_OnPreviewKeyDown"
-				Style="{StaticResource AuthPassword}" />
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<TextBox 
+					x:Name="passwordTextBox" 
+					PreviewTextInput="Password_OnPreviewTextInput"
+					PreviewKeyDown="Password_OnPreviewKeyDown"
+					Visibility="Hidden"
+					Style="{StaticResource AuthInput}"/>
+				<PasswordBox
+					x:Name="passwordPasswordBox"
+					Grid.Column="0" 
+					PreviewTextInput="Password_OnPreviewTextInput"
+					PreviewKeyDown="Password_OnPreviewKeyDown" 
+					Style="{StaticResource AuthPassword}" />
+				
+				<Border 
+					Grid.Column="1">
+					<CheckBox
+						x:Name="passwordCheckBox"
+						Margin="3 0 0 0"
+						Style="{StaticResource AuthEye}"
+						Click="CheckBox_Click1">
+						<Image 
+							Source="../../../Assets/Icons/Eye.png" 
+							Width="20" 
+							Height="20" />
+					</CheckBox>
+				</Border>
+			</Grid>
 		</StackPanel>
-
-		<StackPanel
+		
+		<StackPanel 
+			Margin="0 0 0 10"
 			Orientation="Vertical">
-			<TextBlock
-				Margin="0 0 0 8"
-				Text="Confirm Password" />
-			<PasswordBox
-				Style="{StaticResource AuthPassword}" />
+			<TextBlock 
+				Margin="0 0 0 8" 
+				Text="Confirm Password"/>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<TextBox 
+					x:Name="confirmPasswordTextBox" 
+					PreviewTextInput="Password_OnPreviewTextInput"
+					PreviewKeyDown="Password_OnPreviewKeyDown"
+					Visibility="Hidden"
+					Style="{StaticResource AuthInput}"/>
+				<PasswordBox
+					x:Name="confirmPasswordPasswordBox"
+					Grid.Column="0" 
+					PreviewTextInput="Password_OnPreviewTextInput"
+					PreviewKeyDown="Password_OnPreviewKeyDown" 
+					Style="{StaticResource AuthPassword}" />
+				
+				<Border 
+					Grid.Column="1">
+					<CheckBox
+						x:Name="confirmPasswordCheckBox"
+						Margin="3 0 0 0"
+						Style="{StaticResource AuthEye}"
+						Click="CheckBox_Click2">
+						<Image 
+							Source="../../../Assets/Icons/Eye.png" 
+							Width="20" 
+							Height="20" />
+					</CheckBox>
+				</Border>
+			</Grid>
 		</StackPanel>
 		
 		<!-- те что ниже я убрал прозрачность чтобы сделать обе регистрации компании одной высоты, 

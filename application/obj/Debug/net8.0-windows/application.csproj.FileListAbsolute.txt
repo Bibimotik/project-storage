@@ -130,3 +130,4 @@ C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows
 C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Pages\Statistics.baml
 C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Pages\Storage.baml
 C:\my\projects\big_projects\project-storage\application\obj\Debug\net8.0-windows\MVVM\View\Pages\Support.baml
+D:\Учеба\project-storage\application\obj\Debug\net8.0-windows\Theme\Login_Registration\AuthEye.baml

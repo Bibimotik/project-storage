@@ -92,6 +92,8 @@
       <Resource Include="Assets\Icons\Person.png" />
       <None Remove="Assets\Icons\Trending up.png" />
       <Resource Include="Assets\Icons\Trending up.png" />
+      <None Remove="Assets\Icons\Eye.png" />
+      <Resource Include="Assets\Icons\Eye.png" />
     </ItemGroup>
 
 </Project>

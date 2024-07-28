@@ -6,10 +6,6 @@
 		x:Key="SendButton"
 		TargetType="Button">
 
-		<!--<Setter
-			Property="Margin"
-			Value="0 20 0 0" />-->
-
 		<Setter
 			Property="Background"
 			Value="#2C2C2C" />
