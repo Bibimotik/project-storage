@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using System.Windows.Media.Animation;
 
 using application.MVVM.View.Pages;
@@ -25,46 +23,24 @@ public partial class MainViewModel : ObservableObject
 		storyboard.Begin();
 		isMenuExpanded = !isMenuExpanded;
 	}
+	[RelayCommand]
+	private void Account() => CurrentView = new AccountView();
+	[RelayCommand]
+	private void Statistics() => CurrentView = new StatisticsView();
+	[RelayCommand]
+	private void Sales() => CurrentView = new SalesView();
+	[RelayCommand]
+	private void Storage() => CurrentView = new StorageView();
+	[RelayCommand]
+	private void Staff() => CurrentView = new StaffView();
+	[RelayCommand]
+	private void Support() => CurrentView = new SupportView();
+	[RelayCommand]
+	private void Info() => CurrentView = new InfoView();
 
-	[RelayCommand]
-	private void Account()
-	{
-		CurrentView = new Account();
-	}
-	[RelayCommand]
-	private void Statistics()
-	{
-		CurrentView = new Statistics();
-	}
-	[RelayCommand]
-	private void Sales()
-	{
-		CurrentView = new Sales();
-	}
-	[RelayCommand]
-	private void Storage()
-	{
-		CurrentView = new Storage();
-	}
-	[RelayCommand]
-	private void Staff()
-	{
-		CurrentView = new Staff();
-	}
-	[RelayCommand]
-	private void Support()
-	{
-		CurrentView = new Support();
-	}
-	[RelayCommand]
-	private void Info()
-	{
-		CurrentView = new Info();
-	}
 
 	public MainViewModel()
 	{
-		//Account();
-		CurrentView = new Account();
+		Account();
 	}
 }
