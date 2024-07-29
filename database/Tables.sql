@@ -1,9 +1,9 @@
 CREATE TABLE COMPANY
 (
 	CompanyID     uuid            NOT NULL PRIMARY KEY,
-	INN           char(12) UNIQUE NOT NULL,
-	KPP           char(12) UNIQUE NOT NULL,
-	OGRN          char(13) UNIQUE NOT NULL,
+	INN           char(12)        UNIQUE NOT NULL,
+	KPP           char(12)        UNIQUE NOT NULL,
+	OGRN          char(13)        UNIQUE NOT NULL,
 	FullName      varchar(100)    NOT NULL,
 	ShortName     varchar(100)    NOT NULL,
 	LegalAddress  varchar(1000)   NOT NULL,
@@ -204,3 +204,9 @@ CREATE TABLE COMPANY_STORAGE
 	StorageID        uuid   NOT NULL REFERENCES STORAGE (StorageID)
 );
 
+CREATE TABLE SUPPORT
+{
+	SupportID serial NOT NULL PRIMARY KEY,
+	UserID    uuid   NOT NULL REFERENCES "user" (UserID),
+	Message   text   NOT NULL
+};
