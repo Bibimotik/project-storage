@@ -23,6 +23,7 @@
 				Margin="0 0 0 8"
 				Text="Email" />
 			<TextBox
+				Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" />
 		</StackPanel>
 		
@@ -37,12 +38,15 @@
 					<ColumnDefinition Width="*" />
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
-				<TextBox 
+				<TextBox
+					Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
 					x:Name="passwordTextBox" 
 					PreviewTextInput="Password_OnPreviewTextInput"
 					PreviewKeyDown="Password_OnPreviewKeyDown"
 					Visibility="Hidden"
 					Style="{StaticResource AuthInput}"/>
+				<!--TODO - сделать получение пароля в PasswordBox -->
+				<!--Password="{Binding Password, UpdateSourceTrigger=PropertyChanged}"-->
 				<PasswordBox
 					x:Name="passwordPasswordBox"
 					Grid.Column="0" 

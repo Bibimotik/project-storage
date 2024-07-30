@@ -13,6 +13,8 @@ public partial class MainViewModel : ObservableObject
 	[ObservableProperty]
 	private object? currentView;
 
+	public MainViewModel() => Account();
+
 	private bool isMenuExpanded = false;
 
 	[RelayCommand]
@@ -38,9 +40,4 @@ public partial class MainViewModel : ObservableObject
 	[RelayCommand]
 	private void Info() => CurrentView = new InfoView();
 
-
-	public MainViewModel()
-	{
-		Account();
-	}
 }

@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace application.MVVM.ViewModel;
-internal partial class AuthViewModel : ObservableObject
+partial class AuthViewModel : ObservableObject
 {
 	[ObservableProperty]
 	private object? currentView;
@@ -40,6 +40,8 @@ internal partial class AuthViewModel : ObservableObject
 		AuthTypeRegistrationCompany2 = false;
 		AuthTypeConfirmEmail = true;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
+
+		// TODO - проверка в бд
 	}
 
 	[RelayCommand]
@@ -110,8 +112,5 @@ internal partial class AuthViewModel : ObservableObject
 
 	// TODO - сделать логику для определения куда нужно вернуться из Email confirmation - в Login или RegistrationCompany2
 
-	public AuthViewModel()
-	{
-		Login();
-	}
+	public AuthViewModel() => Login();
 }

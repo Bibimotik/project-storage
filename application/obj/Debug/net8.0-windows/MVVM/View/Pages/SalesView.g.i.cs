@@ -54,7 +54,7 @@ namespace application.MVVM.View.Pages {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/application;component/mvvm/view/pages/salesview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/application;V1.0.0.0;component/mvvm/view/pages/salesview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\..\MVVM\View\Pages\SalesView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

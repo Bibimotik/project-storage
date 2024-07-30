@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using CSharpFunctionalExtensions;
+
 namespace application.MVVM.Model
 {
     class AuthModel
@@ -17,6 +19,11 @@ namespace application.MVVM.Model
         //{
         //    Email = email;
         //    Password = password;
+        //}
+
+        //public static Result Login(string email, string password)
+        //{
+
         //}
 	}
 }

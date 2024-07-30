@@ -102,7 +102,7 @@ namespace application.MVVM.View.Auth {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/application;component/mvvm/view/auth/confirmemailview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/application;V1.0.0.0;component/mvvm/view/auth/confirmemailview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\..\MVVM\View\Auth\ConfirmEmailView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

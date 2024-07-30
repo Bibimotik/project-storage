@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+      <PackageReference Include="CSharpFunctionalExtensions" Version="2.42.5" />
     </ItemGroup>
 
     <ItemGroup>

@@ -54,7 +54,8 @@ namespace application.MVVM.View.Auth {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/application;component/mvvm/view/auth/registrationcompanystage1view.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/application;V1.0.0.0;component/mvvm/view/auth/registrationcompanystage1view.xaml" +
+                    "", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\..\MVVM\View\Auth\RegistrationCompanyStage1View.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

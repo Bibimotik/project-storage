@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace application.MVVM.ViewModel.Auth
+namespace application.MVVM.ViewModel.Auth;
+
+class RegistrationUserViewModel : ObservableObject
 {
-    class RegistrationUserViewModel : ObservableObject
-    {
-    }
 }
