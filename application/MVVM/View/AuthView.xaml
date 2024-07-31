@@ -13,9 +13,9 @@
 	Title="AuthView"
 	WindowStartupLocation="CenterScreen">
 
-	<Window.DataContext>
+	<!--<Window.DataContext>
 		<viewmodel:AuthViewModel />
-	</Window.DataContext>
+	</Window.DataContext>-->
 
 	<Window.Resources>
 		<c:BoolToVisibilityConverter

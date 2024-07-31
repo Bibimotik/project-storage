@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 
+using application.Abstraction;
 using application.MVVM.View.Auth;
 using application.Repository;
 using application.Services;

@@ -1,6 +1,13 @@
-﻿using System.Windows;
+﻿using System.Configuration;
+using System.Windows;
 
+using application.Abstraction;
 using application.MVVM.View;
+using application.MVVM.ViewModel;
+using application.Repository;
+using application.Services;
+
+using Microsoft.Extensions.DependencyInjection;
 
 namespace application;
 
@@ -9,34 +16,39 @@ namespace application;
 /// </summary>
 public partial class App : Application
 {
+	private IServiceProvider _serviceProvider;
+
 	protected override void OnStartup(StartupEventArgs e)
 	{
 		base.OnStartup(e);
 
+		IServiceCollection services = new ServiceCollection();
+
+		services.AddScoped<IDatabaseService>(provider => new DatabaseService(
+			ConfigurationManager.ConnectionStrings["postgresql"].ConnectionString
+			));
+		services.AddScoped<IStatusRepository, StatusRepository>();
+
+		services.AddSingleton<AuthViewModel>(); // Регистрация AuthViewModel
+		services.AddSingleton<AuthView>();
+		services.AddSingleton<MainWindow>();
+
+		_serviceProvider = services.BuildServiceProvider();
+
 		// TODO - механизм проверки сохраненной авторизации
-
-		ShowAuth();
-		//ShowMain();
+		ShowAuth(_serviceProvider);
+		//ShowMain(_serviceProvider);
 	}
 
-	private void ShowMain()
+	private void ShowAuth(IServiceProvider serviceProvider)
 	{
-		MainWindow mainWindow = new MainWindow();
-		mainWindow.Show();
-
-		//CloseCurrentWindow();
-
-		//_currentWindow = mainWindow;
-
-	}
-
-	private void ShowAuth()
-	{
-		AuthView authWindow = new AuthView();
+		AuthView authWindow = serviceProvider.GetRequiredService<AuthView>();
 		authWindow.Show();
+	}
 
-		//CloseCurrentWindow();
-
-		//_currentWindow = authWindow;
+	private void ShowMain(IServiceProvider serviceProvider)
+	{
+		MainWindow mainWindow = serviceProvider.GetRequiredService<MainWindow>();
+		mainWindow.Show();
 	}
 }

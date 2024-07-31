@@ -13,14 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using application.MVVM.ViewModel;
+
 namespace application.MVVM.View;
 /// <summary>
 /// Логика взаимодействия для AuthView.xaml
 /// </summary>
 public partial class AuthView : Window
 {
-	public AuthView()
+	public AuthView(AuthViewModel authViewModel)
 	{
+		DataContext = authViewModel;
 		InitializeComponent();
 	}
 }
