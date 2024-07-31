@@ -9,7 +9,7 @@ CREATE TABLE COMPANY
 	LegalAddress  varchar(1000)   NOT NULL,
 	PostalAddress varchar(1000)   NOT NULL,
 	Director      text            NOT NULL,
-	Logo          bytea                   ,
+	Logo          bytea,
 	IsDeleted     bool            NOT NULL
 );
 
@@ -23,7 +23,7 @@ CREATE TABLE "user"
 	Phone      varchar(20)  NOT NULL,
 	Mail       varchar(100) NOT NULL,
 	Password   varchar(100) NOT NULL,
-	Logo       bytea                ,
+	Logo       bytea,
 	IsDeleted  bool         NOT NULL
 );
 
@@ -93,9 +93,9 @@ CREATE TABLE COMPANY_CURRENCY
 
 CREATE TABLE MARKING
 (
-	MarkingID serial       NOT NULL PRIMARY KEY,
-	Title     varchar(50)  NOT NULL,
-	CompanyID uuid         NOT NULL REFERENCES COMPANY (CompanyID)
+	MarkingID serial      NOT NULL PRIMARY KEY,
+	Title     varchar(50) NOT NULL,
+	CompanyID uuid        NOT NULL REFERENCES COMPANY (CompanyID)
 );
 
 CREATE TABLE PROJECT
@@ -151,7 +151,7 @@ CREATE TABLE PRODUCT
 	Title     varchar(100)     NOT NULL,
 	Unit      varchar(20)      NOT NULL, -- литры, кг, штуки и тд
 	Price     double precision NOT NULL,
-	Image     bytea                    ,
+	Image     bytea,
 	IsDeleted bool             NOT NULL
 );
 

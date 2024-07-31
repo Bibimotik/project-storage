@@ -1,11 +1,19 @@
-﻿using application.MVVM.View.Auth;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
+
+using application.MVVM.View.Auth;
+using application.Repository;
+using application.Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace application.MVVM.ViewModel;
-partial class AuthViewModel : ObservableObject
+
+public partial class AuthViewModel : ObservableObject
 {
+	private readonly IStatusRepository _statusRepository;
+
 	[ObservableProperty]
 	private object? currentView;
 	[ObservableProperty]
@@ -27,6 +35,13 @@ partial class AuthViewModel : ObservableObject
 	[ObservableProperty]
 	private bool authTypeConfirmEmailReverse;
 
+	public AuthViewModel(IStatusRepository statusRepository)
+	{
+		_statusRepository = statusRepository;
+
+		Login();
+	}
+
 	[RelayCommand]
 	private void Login()
 	{
@@ -42,8 +57,11 @@ partial class AuthViewModel : ObservableObject
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 
 		// TODO - проверка в бд
-	}
+		ObservableCollection<StatusModel> status = new(_statusRepository.GetAllStatus());
 
+		foreach (StatusModel statusModel in status)
+			Debug.WriteLine(statusModel.Title);
+	}
 	[RelayCommand]
 	private void RegistrationUser()
 	{
@@ -58,7 +76,6 @@ partial class AuthViewModel : ObservableObject
 		AuthTypeConfirmEmail = true;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 	}
-
 	[RelayCommand]
 	private void RegistrationCompany1()
 	{
@@ -73,7 +90,6 @@ partial class AuthViewModel : ObservableObject
 		AuthTypeConfirmEmail = true;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 	}
-
 	[RelayCommand]
 	private void RegistrationCompany2()
 	{
@@ -88,7 +104,6 @@ partial class AuthViewModel : ObservableObject
 		AuthTypeConfirmEmail = true;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 	}
-
 	[RelayCommand]
 	private void ConfirmEmail()
 	{
@@ -103,14 +118,9 @@ partial class AuthViewModel : ObservableObject
 		AuthTypeConfirmEmail = false;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 	}
-
 	[RelayCommand]
 	private void Check()
 	{
 		// TODO - код проверки почты
 	}
-
-	// TODO - сделать логику для определения куда нужно вернуться из Email confirmation - в Login или RegistrationCompany2
-
-	public AuthViewModel() => Login();
 }
