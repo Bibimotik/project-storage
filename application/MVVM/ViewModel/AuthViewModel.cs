@@ -3,7 +3,6 @@ using System.Diagnostics;
 
 using application.Abstraction;
 using application.MVVM.View.Auth;
-using application.Repository;
 using application.Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -14,6 +13,7 @@ namespace application.MVVM.ViewModel;
 public partial class AuthViewModel : ObservableObject
 {
 	private readonly IStatusRepository _statusRepository;
+	private readonly IAuthService _authService;
 
 	[ObservableProperty]
 	private object? currentView;
@@ -36,13 +36,14 @@ public partial class AuthViewModel : ObservableObject
 	[ObservableProperty]
 	private bool authTypeConfirmEmailReverse;
 
-	public AuthViewModel(IStatusRepository statusRepository)
+	public AuthViewModel(IStatusRepository statusRepository, IAuthService authService)
 	{
 		_statusRepository = statusRepository;
-
+		_authService = authService;
 		Login();
 	}
 
+	// TODO - возможно можно как то переделать логику на switch case
 	[RelayCommand]
 	private void Login()
 	{
@@ -62,7 +63,10 @@ public partial class AuthViewModel : ObservableObject
 
 		foreach (StatusModel statusModel in status)
 			Debug.WriteLine(statusModel.Title);
-	}
+
+		//_authService.SaveAuthData("email@gmail.com", "qwe123");
+		_authService.LoadAuthData();
+}
 	[RelayCommand]
 	private void RegistrationUser()
 	{

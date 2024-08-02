@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace application.Services
 {
-	[Table("STATUS")]
+	[Table("status")]
 	public class StatusModel
 	{
 		[Key]

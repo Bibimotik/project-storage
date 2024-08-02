@@ -16,7 +16,7 @@ namespace application;
 /// </summary>
 public partial class App : Application
 {
-	private IServiceProvider _serviceProvider;
+	private IServiceProvider? _serviceProvider;
 
 	protected override void OnStartup(StartupEventArgs e)
 	{
@@ -24,12 +24,15 @@ public partial class App : Application
 
 		IServiceCollection services = new ServiceCollection();
 
+		//services.AddMemoryCache();
+
 		services.AddScoped<IDatabaseService>(provider => new DatabaseService(
 			ConfigurationManager.ConnectionStrings["postgresql"].ConnectionString
 			));
 		services.AddScoped<IStatusRepository, StatusRepository>();
+		services.AddScoped<IAuthService, AuthService>();
 
-		services.AddSingleton<AuthViewModel>(); // Регистрация AuthViewModel
+		services.AddSingleton<AuthViewModel>();
 		services.AddSingleton<AuthView>();
 		services.AddSingleton<MainWindow>();
 
