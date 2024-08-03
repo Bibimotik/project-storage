@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Diagnostics;
+using System.Windows;
 
 using application.Abstraction;
 using application.Services;
@@ -16,11 +17,19 @@ public class StatusRepository : IStatusRepository
 
 	public IEnumerable<StatusModel> GetAllStatus()
 	{
-		using (IDbConnection dbConnection = _databaseService.CreateConnection())
+		try
 		{
-			Debug.WriteLine("GetAllStatus!!!!!!!");
-			string query = "SELECT * FROM status";
-			return dbConnection.Query<StatusModel>(query).ToList();
+			using (IDbConnection dbConnection = _databaseService.CreateConnection())
+			{
+				Debug.WriteLine("GetAllStatus!!!!!!!");
+				string query = "SELECT * FROM status";
+				return dbConnection.Query<StatusModel>(query).ToList();
+			}
+		}
+		catch (Exception ex)
+		{
+			MessageBox.Show(ex.Message);
+			throw;
 		}
 	}
 }

@@ -19,7 +19,9 @@ partial class LoginViewModel : ObservableObject
 	{
 		if (!IsValidEmail(value))
 		{
-			 // TODO - уведомление под инпутом что почта не валидна
+			// TODO - уведомление под инпутом что почта не валидна
+			Debug.WriteLine("Invalid Email...");
+			return;
 		}
 		AuthModel.Email = value;
 	}
@@ -32,6 +34,7 @@ partial class LoginViewModel : ObservableObject
 	{
 		if (string.IsNullOrWhiteSpace(email))
 			return false;
+
 
 		try
 		{

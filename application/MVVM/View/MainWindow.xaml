@@ -7,14 +7,10 @@
 	xmlns:local="clr-namespace:application"
 	xmlns:viewmodel="clr-namespace:application.MVVM.ViewModel"
 	mc:Ignorable="d"
-	Height="450"
-	Width="800"
+	MinWidth="1000"
+	MinHeight="600"
 	Title="MainWindow"
 	WindowStartupLocation="CenterScreen">
-
-	<Window.DataContext>
-		<viewmodel:MainViewModel />
-	</Window.DataContext>
 
 	<Window.Resources>
 		<Storyboard

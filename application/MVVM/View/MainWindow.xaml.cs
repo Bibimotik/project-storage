@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 
+using application.MVVM.ViewModel;
+
 namespace application;
 
 /// <summary>
@@ -7,8 +9,9 @@ namespace application;
 /// </summary>
 public partial class MainWindow : Window
 {
-	public MainWindow()
+	public MainWindow(MainViewModel mainViewModel)
 	{
+		DataContext = mainViewModel;
 		InitializeComponent();
 	}
 	

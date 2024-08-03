@@ -6,14 +6,22 @@ using application.MVVM.View.Pages;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
+using Microsoft.Extensions.DependencyInjection;
+
 namespace application.MVVM.ViewModel;
 
 public partial class MainViewModel : ObservableObject
 {
+	private readonly IServiceProvider _serviceProvider;
+
 	[ObservableProperty]
 	private object? currentView;
 
-	public MainViewModel() => Account();
+	public MainViewModel(IServiceProvider serviceProvider)
+	{
+		_serviceProvider = serviceProvider;
+		Account();
+	}
 
 	private bool isMenuExpanded = false;
 
@@ -26,18 +34,17 @@ public partial class MainViewModel : ObservableObject
 		isMenuExpanded = !isMenuExpanded;
 	}
 	[RelayCommand]
-	private void Account() => CurrentView = new AccountView();
+	private void Account() => CurrentView = _serviceProvider.GetRequiredService<AccountView>();
 	[RelayCommand]
-	private void Statistics() => CurrentView = new StatisticsView();
+	private void Statistics() => CurrentView = _serviceProvider.GetRequiredService<StatisticsView>();
 	[RelayCommand]
-	private void Sales() => CurrentView = new SalesView();
+	private void Sales() => CurrentView = _serviceProvider.GetRequiredService<SalesView>();
 	[RelayCommand]
-	private void Storage() => CurrentView = new StorageView();
+	private void Storage() => CurrentView = _serviceProvider.GetRequiredService<StorageView>();
 	[RelayCommand]
-	private void Staff() => CurrentView = new StaffView();
+	private void Staff() => CurrentView = _serviceProvider.GetRequiredService<StaffView>();
 	[RelayCommand]
-	private void Support() => CurrentView = new SupportView();
+	private void Support() => CurrentView = _serviceProvider.GetRequiredService<SupportView>();
 	[RelayCommand]
-	private void Info() => CurrentView = new InfoView();
-
+	private void Info() => CurrentView = _serviceProvider.GetRequiredService<InfoView>();
 }

@@ -13,10 +13,6 @@
 	Title="AuthView"
 	WindowStartupLocation="CenterScreen">
 
-	<!--<Window.DataContext>
-		<viewmodel:AuthViewModel />
-	</Window.DataContext>-->
-
 	<Window.Resources>
 		<c:BoolToVisibilityConverter
 			x:Key="BoolToVisibilityConverter" />
@@ -154,7 +150,7 @@
 								<Button
 									Visibility="{Binding AuthTypeLogin, Converter={StaticResource BoolToVisibilityConverter}}"
 									Content="Login"
-									Command="{Binding }"
+									Command="{Binding LoginButtonCommand}"
 									Style="{StaticResource SendButton}" />
 
 								<Button

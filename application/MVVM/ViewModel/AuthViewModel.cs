@@ -2,6 +2,7 @@
 using System.Diagnostics;
 
 using application.Abstraction;
+using application.MVVM.Model;
 using application.MVVM.View.Auth;
 using application.Services;
 
@@ -14,6 +15,7 @@ public partial class AuthViewModel : ObservableObject
 {
 	private readonly IStatusRepository _statusRepository;
 	private readonly IAuthService _authService;
+	private readonly INavigationService _navigationService;
 
 	[ObservableProperty]
 	private object? currentView;
@@ -36,10 +38,11 @@ public partial class AuthViewModel : ObservableObject
 	[ObservableProperty]
 	private bool authTypeConfirmEmailReverse;
 
-	public AuthViewModel(IStatusRepository statusRepository, IAuthService authService)
+	public AuthViewModel(IStatusRepository statusRepository, IAuthService authService, INavigationService navigationService)
 	{
 		_statusRepository = statusRepository;
 		_authService = authService;
+		_navigationService = navigationService;
 		Login();
 	}
 
@@ -63,9 +66,6 @@ public partial class AuthViewModel : ObservableObject
 
 		foreach (StatusModel statusModel in status)
 			Debug.WriteLine(statusModel.Title);
-
-		//_authService.SaveAuthData("email@gmail.com", "qwe123");
-		_authService.LoadAuthData();
 }
 	[RelayCommand]
 	private void RegistrationUser()
@@ -127,5 +127,19 @@ public partial class AuthViewModel : ObservableObject
 	private void Check()
 	{
 		// TODO - код проверки почты
+	}
+
+	[RelayCommand]
+	private void LoginButton()
+	{
+		string? email = AuthModel.Email;
+		string? password = AuthModel.Password;
+		_authService.SaveAuthData(email, password);
+		_authService.LoadAuthData();
+
+		if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password))
+			return;
+
+		_navigationService.ShowMain();
 	}
 }
