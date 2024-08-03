@@ -46,5 +46,16 @@ namespace application.Properties {
                 this["AuthPassword"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Host=roundhouse.proxy.rlwy.net;Port=15481;Database=railway;User Id=postgres;Passw" +
+            "ord=quQDOxYuLrkpFJchiWzkYeOWzzYcdxwl;")]
+        public string Postgresql {
+            get {
+                return ((string)(this["Postgresql"]));
+            }
+        }
     }
 }

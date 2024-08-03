@@ -1,9 +1,11 @@
 ﻿using System.Configuration;
+using System.Diagnostics;
 using System.Windows;
 
 using application.Abstraction;
 using application.MVVM.View;
 using application.MVVM.ViewModel;
+using application.Properties;
 using application.Repository;
 using application.Services;
 
@@ -24,11 +26,7 @@ public partial class App : Application
 
 		IServiceCollection services = new ServiceCollection();
 
-		//services.AddMemoryCache();
-
-		services.AddScoped<IDatabaseService>(provider => new DatabaseService(
-			ConfigurationManager.ConnectionStrings["postgresql"].ConnectionString
-			));
+		services.AddScoped<IDatabaseService>(provider => new DatabaseService(Settings.Default.Postgresql));
 		services.AddScoped<IStatusRepository, StatusRepository>();
 		services.AddScoped<IAuthService, AuthService>();
 
