@@ -129,8 +129,8 @@ public partial class AuthViewModel : ObservableObject
 	[RelayCommand]
 	private void LoginButton()
 	{
-		string? email = AuthModel.Email;
-		string? password = AuthModel.Password;
+		string? email = LoginModel.Email;
+		string? password = LoginModel.Password;
 
 		if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password))
 			return;

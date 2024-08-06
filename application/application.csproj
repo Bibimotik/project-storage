@@ -22,7 +22,6 @@
 
     <ItemGroup>
       <Folder Include="Assets\Icons\" />
-      <Folder Include="MVVM\Model\" />
     </ItemGroup>
 
     <ItemGroup>

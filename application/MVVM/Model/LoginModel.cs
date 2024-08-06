@@ -2,15 +2,17 @@
 
 namespace application.MVVM.Model
 {
-	class AuthModel
+	class LoginModel
 	{
 		public static string? Email { get; set; }
 		public static string? Password { get; set; }
+		public static string? ConfirmPassword { get; set; }
 
-		public AuthModel() { }
+		public LoginModel() { }
 
 		// TODO - ну наверное валидацию сюда нада?
 
+		// TODO - virtual же не надо наверное
 		public static bool IsValidEmail(string email)
 		{
 			if (string.IsNullOrWhiteSpace(email))

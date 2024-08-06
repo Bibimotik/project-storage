@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace application.Services
 {
 	[Table("company")]
-	public class CompanyModel
+	public class CompanyEntity
 	{
 		[Key]
 		[Column("CompanyID")]
@@ -13,42 +13,43 @@ namespace application.Services
 		[Required]
 		[Column("INN")]
 		[StringLength(12)]
-		public string INN { get; set; } = String.Empty;
+		public string INN { get; set; } = string.Empty;
 
 		[Required]
 		[Column("KPP")]
 		[StringLength(12)]
-		public string KPP { get; set; } = String.Empty;
-
-		[Required]
-		[Column("OGRN")]
-		[StringLength(13)]
-		public string OGRN { get; set; } = String.Empty;
+		public string KPP { get; set; } = string.Empty;
 
 		[Required]
 		[Column("FullName")]
 		[StringLength(100)]
-		public string FullName { get; set; } = String.Empty;
+		public string FullName { get; set; } = string.Empty;
 
 		[Required]
 		[Column("ShortName")]
 		[StringLength(100)]
-		public string ShortName { get; set; } = String.Empty;
+		public string ShortName { get; set; } = string.Empty;
 
 		[Required]
 		[Column("LegalAddress")]
 		[StringLength(1000)]
-		public string LegalAddress { get; set; } = String.Empty;
+		public string LegalAddress { get; set; } = string.Empty;
 
 		[Required]
 		[Column("PostalAddress")]
 		[StringLength(1000)]
-		public string PostalAddress { get; set; } = String.Empty;
+		public string PostalAddress { get; set; } = string.Empty;
+
+		[Required]
+		[Column("OGRN")]
+		[StringLength(13)]
+		public string OGRN { get; set; } = string.Empty;
 
 		[Required]
 		[Column("Director")]
-		public string Director { get; set; } = String.Empty;
+		public string Director { get; set; } = string.Empty;
 
+		[Required]
 		[Column("Logo")]
 		public byte[] Logo { get; set; }
 
