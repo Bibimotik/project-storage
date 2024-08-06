@@ -9,35 +9,23 @@
 		<Setter
 			Property="FontSize"
 			Value="17" />
-		
+
 		<Setter
 			Property="Template">
 			<Setter.Value>
 				<ControlTemplate
 					TargetType="RadioButton">
-					<!--<Border
-						Background="{TemplateBinding Background}"
-						BorderThickness="1"
-						BorderBrush="#D9D9D9"
-						CornerRadius="6">
-						<ContentPresenter
-							HorizontalAlignment="Center"
-							VerticalAlignment="Center" />
-					</Border>-->
 					<StackPanel
 						Background="Transparent"
 						Orientation="Horizontal">
 						<Border
 							Margin="3 0 0 0"
-							Background="{TemplateBinding Background}"
-							BorderThickness="1"
 							VerticalAlignment="Center"
-							BorderBrush="#D9D9D9"
 							CornerRadius="6">
 							<Image
 								Source="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}"
-								Width="18"
-								Height="18"
+								Width="20"
+								Height="20"
 								Margin="6 6 6 6" />
 						</Border>
 						<Border
@@ -49,21 +37,6 @@
 								Margin="20 0 0 0" />
 						</Border>
 					</StackPanel>
-					<!--<ControlTemplate.Triggers>
-						<Trigger
-							Property="IsMouseOver"
-							Value="True">
-							<Setter
-								Property="BorderThickness"
-								Value="1" />
-							<Setter
-								Property="BorderBrush"
-								Value="#000000" />
-							<Setter
-								Property="Foreground"
-								Value="White" />
-						</Trigger>
-					</ControlTemplate.Triggers>-->
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
