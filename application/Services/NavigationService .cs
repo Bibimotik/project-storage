@@ -14,26 +14,28 @@ public class NavigationService : INavigationService
 
 	public NavigationService(IServiceProvider serviceProvider) => _serviceProvider = serviceProvider;
 
-	// TODO - исправить ошибку 
-	// System.InvalidOperationException: "Нельзя задать Visibility или вызвать Show, ShowDialog или WindowInteropHelper.EnsureHandle после закрытия окна."
-	// возникает через раз
-	// P.S у меня в курсаче было норм а щас хуй знает
 	public void ShowAuth()
 	{
-		AuthView authWindow = _serviceProvider.GetRequiredService<AuthView>();
+		var authWindow = _serviceProvider.GetRequiredService<AuthView>();
+		authWindow.ContentRendered += NewWindowContentRendered;
 		authWindow.Show();
-
-		CloseCurrentWindow();
-		_currentWindow = authWindow;
 	}
 
 	public void ShowMain()
 	{
-		MainWindow mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
+		var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
+		mainWindow.ContentRendered += NewWindowContentRendered;
 		mainWindow.Show();
+	}
 
-		CloseCurrentWindow();
-		_currentWindow = mainWindow;
+	private void NewWindowContentRendered(object sender, EventArgs e)
+	{
+		if (sender is Window newWindow)
+		{
+			newWindow.ContentRendered -= NewWindowContentRendered;
+			CloseCurrentWindow();
+			_currentWindow = newWindow;
+		}
 	}
 
 	private void CloseCurrentWindow()

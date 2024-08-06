@@ -1,10 +1,6 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-
-using application.Abstraction;
+﻿using application.Abstraction;
 using application.MVVM.Model;
 using application.MVVM.View.Auth;
-using application.Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -38,6 +34,7 @@ public partial class AuthViewModel : ObservableObject
 	[ObservableProperty]
 	private bool authTypeConfirmEmailReverse;
 
+
 	public AuthViewModel(IStatusRepository statusRepository, IAuthService authService, INavigationService navigationService)
 	{
 		_statusRepository = statusRepository;
@@ -62,11 +59,11 @@ public partial class AuthViewModel : ObservableObject
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 
 		// TODO - проверка в бд
-		ObservableCollection<StatusModel> status = new(_statusRepository.GetAllStatus());
+		//ObservableCollection<StatusModel> status = new(_statusRepository.GetAllStatus());
 
-		foreach (StatusModel statusModel in status)
-			Debug.WriteLine(statusModel.Title);
-}
+		//foreach (StatusModel statusModel in status)
+		//	Debug.WriteLine(statusModel.Title);
+	}
 	[RelayCommand]
 	private void RegistrationUser()
 	{
@@ -134,11 +131,13 @@ public partial class AuthViewModel : ObservableObject
 	{
 		string? email = AuthModel.Email;
 		string? password = AuthModel.Password;
-		_authService.SaveAuthData(email, password);
-		_authService.LoadAuthData();
 
 		if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password))
 			return;
+		// TODO - здесь проверка данных из репозитория
+
+		_authService.SaveAuthData(email, password);
+		_authService.LoadAuthData();
 
 		_navigationService.ShowMain();
 	}

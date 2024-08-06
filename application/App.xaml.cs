@@ -35,12 +35,12 @@ public partial class App : Application
 		services.AddScoped<MainViewModel>();
 		services.AddScoped<AccountViewModel>();
 		services.AddScoped<AccountView>();
-		//services.AddScoped<StatisticsView>();
-		//services.AddScoped<SalesView>();
-		//services.AddScoped<StorageView>();
-		//services.AddScoped<StaffView>();
-		//services.AddScoped<SupportView>();
-		//services.AddScoped<InfoView>();
+		services.AddScoped<StatisticsView>();
+		services.AddScoped<SalesView>();
+		services.AddScoped<StorageView>();
+		services.AddScoped<StaffView>();
+		services.AddScoped<SupportView>();
+		services.AddScoped<InfoView>();
 
 		_serviceProvider = services.BuildServiceProvider();
 

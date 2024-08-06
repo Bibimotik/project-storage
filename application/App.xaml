@@ -29,6 +29,9 @@
 					Source="./Theme/General/SendButtonGray.xaml" />
 
 				<ResourceDictionary
+					Source="./Theme/General/SendButtonRed.xaml" />
+
+				<ResourceDictionary
 					Source="./Theme/Login_Registration/AuthInput.xaml" />
 
 				<ResourceDictionary

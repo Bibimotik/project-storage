@@ -26,6 +26,11 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Page Update="Theme\General\SendButtonRed.xaml">
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
       <Page Update="Theme\Login_Registration\AuthAccountButton.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>

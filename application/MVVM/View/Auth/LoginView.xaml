@@ -4,6 +4,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:application.MVVM.View.Auth"
+	xmlns:c="clr-namespace:application.Utilities.Converter"
 	xmlns:Auth="clr-namespace:application.MVVM.ViewModel.Auth"
 	x:Class="application.MVVM.View.Auth.LoginView"
 	mc:Ignorable="d">
@@ -11,6 +12,11 @@
 	<UserControl.DataContext>
 		<Auth:LoginViewModel />
 	</UserControl.DataContext>
+
+	<UserControl.Resources>
+		<c:BoolToVisibilityConverter
+			x:Key="BoolToVisibilityConverter" />
+	</UserControl.Resources>
 
 	<StackPanel
 		Orientation="Vertical"
@@ -25,51 +31,57 @@
 			<TextBox
 				Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" />
+			<TextBlock
+				Visibility="{Binding IsInvalidEmail, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Invalid Email..." />
 		</StackPanel>
-		
-		<StackPanel 
+
+		<StackPanel
 			Margin="0 0 0 10"
 			Orientation="Vertical">
-			<TextBlock 
-				Margin="0 0 0 8" 
+			<TextBlock
+				Margin="0 0 0 8"
 				Text="Password" />
 			<Grid>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition
+						Width="*" />
+					<ColumnDefinition
+						Width="Auto" />
 				</Grid.ColumnDefinitions>
 				<TextBox
 					Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
-					x:Name="passwordTextBox" 
+					x:Name="passwordTextBox"
 					PreviewTextInput="Password_OnPreviewTextInput"
 					PreviewKeyDown="Password_OnPreviewKeyDown"
 					Visibility="Hidden"
-					Style="{StaticResource AuthInput}"/>
+					Style="{StaticResource AuthInput}" />
 				<!--TODO - сделать получение пароля в PasswordBox -->
 				<!--Password="{Binding Password, UpdateSourceTrigger=PropertyChanged}"-->
 				<PasswordBox
 					x:Name="passwordPasswordBox"
-					Grid.Column="0" 
+					Grid.Column="0"
 					PreviewTextInput="Password_OnPreviewTextInput"
-					PreviewKeyDown="Password_OnPreviewKeyDown" 
+					PreviewKeyDown="Password_OnPreviewKeyDown"
 					Style="{StaticResource AuthPassword}" />
-				
-				<Border 
+
+				<Border
 					Grid.Column="1">
 					<CheckBox
 						x:Name="passwordCheckBox"
 						Margin="3 0 0 0"
 						Style="{StaticResource AuthEye}"
 						Click="CheckBox_Click1">
-						<Image 
-							Source="../../../Assets/Icons/Eye.png" 
-							Width="20" 
+						<Image
+							Source="../../../Assets/Icons/Eye.png"
+							Width="20"
 							Height="20" />
 					</CheckBox>
 				</Border>
 			</Grid>
 		</StackPanel>
-		
+
 	</StackPanel>
 
 </UserControl>

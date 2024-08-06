@@ -34,6 +34,9 @@
     <Page Update="MVVM\View\Auth\RegistrationUserView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Theme\General\SendButtonRed.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Utilities\Pages.xaml">
       <SubType>Designer</SubType>
     </Page>
