@@ -9,7 +9,7 @@
 	mc:Ignorable="d"
 	d:DesignHeight="450"
 	d:DesignWidth="800">
-	
+
 	<UserControl.DataContext>
 		<Auth:RegistrationUserViewModel />
 	</UserControl.DataContext>
@@ -69,81 +69,88 @@
 				PreviewKeyDown="Password_OnPreviewKeyDown"
 				Style="{StaticResource AuthInput}" />
 		</StackPanel>
-		
-		<StackPanel 
-			Margin="0 0 0 10"
+
+		<StackPanel
+			Margin="0 0 0 7"
 			Orientation="Vertical">
-			<TextBlock 
-				Margin="0 0 0 8" 
+			<TextBlock
+				Margin="0 0 0 8"
 				Text="Password" />
 			<Grid>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition
+						Width="*" />
+					<ColumnDefinition
+						Width="Auto" />
 				</Grid.ColumnDefinitions>
-				<TextBox 
-					x:Name="passwordTextBox" 
+				<TextBox
+					Height="23.96"
+					x:Name="passwordTextBox"
 					PreviewTextInput="Password_OnPreviewTextInput"
 					PreviewKeyDown="Password_OnPreviewKeyDown"
 					Visibility="Hidden"
-					Style="{StaticResource AuthInput}"/>
+					Style="{StaticResource AuthInput}" />
 				<PasswordBox
+					Height="23.96"
 					x:Name="passwordPasswordBox"
-					Grid.Column="0" 
+					Grid.Column="0"
 					PreviewTextInput="Password_OnPreviewTextInput"
-					PreviewKeyDown="Password_OnPreviewKeyDown" 
+					PreviewKeyDown="Password_OnPreviewKeyDown"
 					Style="{StaticResource AuthPassword}" />
-				
-				<Border 
+
+				<Border
 					Grid.Column="1">
 					<CheckBox
 						x:Name="passwordCheckBox"
 						Margin="3 0 0 0"
 						Style="{StaticResource AuthEye}"
 						Click="CheckBox_Click1">
-						<Image 
-							Source="../../../Assets/Icons/Eye.png" 
-							Width="20" 
+						<Image
+							Source="../../../Assets/Icons/Eye.png"
+							Width="20"
 							Height="20" />
 					</CheckBox>
 				</Border>
 			</Grid>
 		</StackPanel>
-		
-		<StackPanel 
-			Margin="0 0 0 10"
+
+		<StackPanel
 			Orientation="Vertical">
-			<TextBlock 
-				Margin="0 0 0 8" 
-				Text="Confirm Password"/>
+			<TextBlock
+				Margin="0 0 0 7"
+				Text="Confirm Password" />
 			<Grid>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition
+						Width="*" />
+					<ColumnDefinition
+						Width="Auto" />
 				</Grid.ColumnDefinitions>
-				<TextBox 
-					x:Name="confirmPasswordTextBox" 
+				<TextBox
+					Height="23.96"
+					x:Name="confirmPasswordTextBox"
 					PreviewTextInput="Password_OnPreviewTextInput"
 					PreviewKeyDown="Password_OnPreviewKeyDown"
 					Visibility="Hidden"
-					Style="{StaticResource AuthInput}"/>
+					Style="{StaticResource AuthInput}" />
 				<PasswordBox
+					Height="23.96"
 					x:Name="confirmPasswordPasswordBox"
-					Grid.Column="0" 
+					Grid.Column="0"
 					PreviewTextInput="Password_OnPreviewTextInput"
-					PreviewKeyDown="Password_OnPreviewKeyDown" 
+					PreviewKeyDown="Password_OnPreviewKeyDown"
 					Style="{StaticResource AuthPassword}" />
-				
-				<Border 
+
+				<Border
 					Grid.Column="1">
 					<CheckBox
 						x:Name="confirmPasswordCheckBox"
 						Margin="3 0 0 0"
 						Style="{StaticResource AuthEye}"
 						Click="CheckBox_Click2">
-						<Image 
-							Source="../../../Assets/Icons/Eye.png" 
-							Width="20" 
+						<Image
+							Source="../../../Assets/Icons/Eye.png"
+							Width="20"
 							Height="20" />
 					</CheckBox>
 				</Border>
@@ -151,5 +158,5 @@
 		</StackPanel>
 
 	</StackPanel>
-	
+
 </UserControl>
