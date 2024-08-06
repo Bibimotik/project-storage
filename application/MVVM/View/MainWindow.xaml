@@ -49,41 +49,24 @@
 			<Grid>
 
 				<Grid.RowDefinitions>
-					<RowDefinition 
-						Height="*"/>
-					<RowDefinition 
-						Height="auto"/>
+					<RowDefinition
+						Height="*" />
+					<RowDefinition
+						Height="auto" />
 				</Grid.RowDefinitions>
-				
+
 				<StackPanel
 					Orientation="Vertical"
 					VerticalAlignment="Top">
 
 					<Border
-						Style="{StaticResource MenuBorder}"
-						CornerRadius="0, 6, 0, 0">
-						<StackPanel
+						Style="{StaticResource MenuBorder}">
+						<RadioButton
 							Margin="10 5 0 5"
-							VerticalAlignment="Center"
-							HorizontalAlignment="Stretch"
-							Orientation="Horizontal">
-
-							<Button
-								Style="{StaticResource MenuShowButton}"
-								Command="{Binding OpenMenuCommand}">
-								<Image
-									Source="../../Assets/Icons/List.png"
-									Width="25"
-									Height="25"
-									Margin="6" />
-							</Button>
-
-							<Label
-								Margin="20 0 0 0"
-								Content="Hide"
-								Style="{StaticResource MenuText}" />
-
-						</StackPanel>
+							Command="{Binding OpenMenuCommand}"
+							Style="{StaticResource MenuShowButton}"
+							Content="Hide"
+							Tag="../../Assets/Icons/List.png" />
 					</Border>
 
 					<Border
@@ -133,127 +116,55 @@
 
 					<Border
 						Style="{StaticResource MenuBorder}">
-						<StackPanel
+						<RadioButton
 							Margin="10 5 0 5"
-							VerticalAlignment="Center"
-							HorizontalAlignment="Stretch"
-							Orientation="Horizontal">
-
-							<RadioButton
-								Command="{Binding StatisticsCommand}"
-								CommandParameter="Statistics"
-								x:Name="Statistics"
-								Height="40"
-								Width="40"
-								Style="{StaticResource MenuRadioButton}"
-								Checked="RadioButton_Checked">
-								<Image
-									Source="../../Assets/Icons/Trending up.png"
-									Width="25"
-									Height="25"
-									Margin="6" />
-							</RadioButton>
-
-							<Label
-								Margin="20 0 0 0"
-								Content="Statistics"
-								Style="{StaticResource MenuText}" />
-
-						</StackPanel>
+							Command="{Binding StatisticsCommand}"
+							CommandParameter="Statistics"
+							x:Name="Statistics"
+							Style="{StaticResource MenuRadioButton}"
+							Checked="RadioButton_Checked"
+							Content="Statistics"
+							Tag="../../Assets/Icons/Trending up.png" />
 					</Border>
 
 					<Border
 						Style="{StaticResource MenuBorder}">
-						<StackPanel
+						<RadioButton
 							Margin="10 5 0 5"
-							VerticalAlignment="Center"
-							HorizontalAlignment="Stretch"
-							Orientation="Horizontal">
-
-							<RadioButton
-								Command="{Binding SalesCommand}"
-								CommandParameter="Sales"
-								x:Name="Sales"
-								Height="40"
-								Width="40"
-								Style="{StaticResource MenuRadioButton}"
-								Checked="RadioButton_Checked">
-								<Image
-									Source="../../Assets/Icons/Dollar.png"
-									Width="25"
-									Height="25"
-									Margin="6" />
-							</RadioButton>
-
-							<Label
-								Margin="20 0 0 0"
-								Content="Sales"
-								Style="{StaticResource MenuText}" />
-
-						</StackPanel>
+							Command="{Binding SalesCommand}"
+							CommandParameter="Sales"
+							x:Name="Sales"
+							Style="{StaticResource MenuRadioButton}"
+							Checked="RadioButton_Checked"
+							Content="Sales"
+							Tag="../../Assets/Icons/Dollar.png" />
 					</Border>
 
 					<Border
 						Style="{StaticResource MenuBorder}">
-						<StackPanel
+						<RadioButton
 							Margin="10 5 0 5"
-							VerticalAlignment="Center"
-							HorizontalAlignment="Stretch"
-							Orientation="Horizontal">
-
-							<RadioButton
-								Command="{Binding StorageCommand}"
-								CommandParameter="Storage"
-								x:Name="Storage"
-								Height="40"
-								Width="40"
-								Style="{StaticResource MenuRadioButton}"
-								Checked="RadioButton_Checked">
-								<Image
-									Source="../../Assets/Icons/Box.png"
-									Width="25"
-									Height="25"
-									Margin="6" />
-							</RadioButton>
-
-							<Label
-								Margin="20 0 0 0"
-								Content="Storage"
-								Style="{StaticResource MenuText}" />
-
-						</StackPanel>
+							Command="{Binding StorageCommand}"
+							CommandParameter="Storage"
+							x:Name="Storage"
+							Style="{StaticResource MenuRadioButton}"
+							Checked="RadioButton_Checked"
+							Content="Storage"
+							Tag="../../Assets/Icons/Box.png" />
 					</Border>
 
 					<Border
 						Style="{StaticResource MenuBorder}">
-						<StackPanel
+						<RadioButton
 							Margin="10 5 0 5"
-							VerticalAlignment="Center"
-							HorizontalAlignment="Stretch"
-							Orientation="Horizontal">
-
-							<RadioButton
-								Command="{Binding StaffCommand}"
-								CommandParameter="Staff"
-								x:Name="Staff"
-								Height="40"
-								Width="40"
-								Style="{StaticResource MenuRadioButton}"
-								Checked="RadioButton_Checked">
-								<Image
-									Source="../../Assets/Icons/Person.png"
-									Width="25"
-									Height="25"
-									Margin="6" />
-							</RadioButton>
-
-							<Label
-								Margin="20 0 0 0"
-								Content="Staff"
-								Style="{StaticResource MenuText}" />
-
-						</StackPanel>
-					</Border> 
+							Command="{Binding StaffCommand}"
+							CommandParameter="Staff"
+							x:Name="Staff"
+							Style="{StaticResource MenuRadioButton}"
+							Checked="RadioButton_Checked"
+							Content="Staff"
+							Tag="../../Assets/Icons/Person.png" />
+					</Border>
 
 				</StackPanel>
 
@@ -263,69 +174,32 @@
 
 					<Border
 						Style="{StaticResource MenuBorder}">
-						<StackPanel
+						<RadioButton
 							Margin="10 5 0 5"
-							VerticalAlignment="Center"
-							HorizontalAlignment="Stretch"
-							Orientation="Horizontal">
-
-							<RadioButton
-								Command="{Binding SupportCommand}"
-								CommandParameter="Support"
-								x:Name="Support"
-								Height="40"
-								Width="40"
-								Style="{StaticResource MenuRadioButton}"
-								Checked="RadioButton_Checked">
-								<Image
-									Source="../../Assets/Icons/Alert triangle.png"
-									Width="25"
-									Height="25"
-									Margin="6" />
-							</RadioButton>
-
-							<Label
-								Margin="20 0 0 0"
-								Content="Support"
-								Style="{StaticResource MenuText}" />
-
-						</StackPanel>
+							Command="{Binding SupportCommand}"
+							CommandParameter="Support"
+							x:Name="Support"
+							Style="{StaticResource MenuRadioButton}"
+							Checked="RadioButton_Checked"
+							Content="Support"
+							Tag="../../Assets/Icons/Alert triangle.png" />
 					</Border>
 
 					<Border
-						Style="{StaticResource MenuBorder}"
-						CornerRadius="0, 0, 6, 0">
-						<StackPanel
+						Style="{StaticResource MenuBorder}">
+						<RadioButton
 							Margin="10 5 0 5"
-							VerticalAlignment="Center"
-							HorizontalAlignment="Stretch"
-							Orientation="Horizontal">
-
-							<RadioButton
-								Command="{Binding InfoCommand}"
-								CommandParameter="Info"
-								x:Name="Info"
-								Height="40"
-								Width="40"
-								Style="{StaticResource MenuRadioButton}"
-								Checked="RadioButton_Checked">
-								<Image
-									Source="../../Assets/Icons/Info.png"
-									Width="25"
-									Height="25"
-									Margin="6" />
-							</RadioButton>
-
-							<Label
-								Margin="20 0 0 0"
-								Content="Info"
-								Style="{StaticResource MenuText}" />
-
-						</StackPanel>
+							Command="{Binding InfoCommand}"
+							CommandParameter="Info"
+							x:Name="Info"
+							Style="{StaticResource MenuRadioButton}"
+							Checked="RadioButton_Checked"
+							Content="Info"
+							Tag="../../Assets/Icons/Info.png" />
 					</Border>
 
 				</StackPanel>
-				
+
 			</Grid>
 		</Border>
 
