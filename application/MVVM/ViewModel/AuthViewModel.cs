@@ -139,11 +139,11 @@ public partial class AuthViewModel : ObservableObject
 
 		//if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password))
 		//	return;
-		//// TODO - здесь проверка данных из репозитория
+		// TODO - здесь проверка данных из репозитория
 
-		//_authService.SaveAuthData(email, password);
-		//_authService.LoadAuthData();
+		_authService.SaveAuthData(LoginModel.Model.Email, LoginModel.Model.Password);
+		_authService.LoadAuthData();
 
-		//_navigationService.ShowMain();
+		_navigationService.ShowMain();
 	}
 }

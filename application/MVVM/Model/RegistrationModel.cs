@@ -2,6 +2,8 @@
 {
 	class RegistrationModel : LoginModel
 	{
+		public static string SLAVA { get; set; } = string.Empty;
+
 		public string INN { get; set; } = string.Empty;
 		public string KPP { get; set; } = string.Empty;
 		public string FullName { get; set; } = string.Empty;
@@ -17,37 +19,5 @@
 		public static new RegistrationModel Model { get; set; } = new();
 
 		public RegistrationModel() { }
-
-		private RegistrationModel(string email, string password, string confirmPassword) : base(email, password, confirmPassword) { }
-
-		public RegistrationModel(string director, string email, string password, string confirmPassword) : base(email, password, confirmPassword)
-		{
-			Director = director;
-		}
-
-		public static RegistrationModel CreateCompany(string inn, string kpp, string fullName, string shortName, string legalAddress, string postalAddress, string ogrn)
-		{
-			return new RegistrationModel
-			{
-				INN = inn,
-				KPP = kpp,
-				FullName = fullName,
-				ShortName = shortName,
-				LegalAddress = legalAddress,
-				PostalAddress = postalAddress,
-				OGRN = ogrn
-			};
-		}
-
-		public static RegistrationModel CreateUser(string firstName, string secondName, string thirdName, string phone, string email, string password, string confirmPassword)
-		{
-			return new RegistrationModel(email, password, confirmPassword)
-			{
-				FirstName = firstName,
-				SecondName = secondName,
-				ThirdName = thirdName,
-				Phone = phone
-			};
-		}
 	}
 }

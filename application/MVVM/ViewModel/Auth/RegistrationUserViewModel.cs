@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 
 using application.MVVM.Model;
 
@@ -45,7 +46,16 @@ partial class RegistrationUserViewModel : ObservableObject
 
 	private void CreateModel()
 	{
-		RegistrationModel.Model = RegistrationModel.CreateUser(FirstName, SecondName, ThirdName, Phone, Email, Password, ConfirmPassword);
+		RegistrationModel.Model ??= new RegistrationModel();
+
+		RegistrationModel model = RegistrationModel.Model;
+		model.FirstName = FirstName;
+		model.SecondName = SecondName;
+		model.ThirdName = ThirdName;
+		model.Phone = Phone;
+		model.Email = Email;
+		model.Password = Password;
+		model.ConfirmPassword = ConfirmPassword;
 
 		//Debug.WriteLine($"director1: {RegistrationModel.Model.Director}\n" +
 		//	$"email: {RegistrationModel.Model.Email}\n" +

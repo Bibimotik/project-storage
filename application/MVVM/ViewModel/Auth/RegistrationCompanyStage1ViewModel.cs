@@ -1,4 +1,6 @@
-﻿using application.MVVM.Model;
+﻿using System.Diagnostics;
+
+using application.MVVM.Model;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -31,6 +33,21 @@ partial class RegistrationCompanyStage1ViewModel : ObservableObject
 
 	private void CreateModel()
 	{
-		RegistrationModel.Model = RegistrationModel.CreateCompany(Inn, Kpp, FullName, ShortName, LegalAddress, PostalAddress, Ogrn);
+		RegistrationModel.Model ??= new RegistrationModel();
+
+		RegistrationModel model = RegistrationModel.Model;
+		model.INN = Inn;
+		model.KPP = Kpp;
+		model.FullName = FullName;
+		model.ShortName = ShortName;
+		model.LegalAddress = LegalAddress;
+		model.PostalAddress = PostalAddress;
+		model.OGRN = Ogrn;
+
+		Debug.WriteLine($"director: {model.Director}\n" +
+			$"email: {model.Email}\n" +
+			$"password: {model.Password}\n" +
+			$"confirmPassword: {model.ConfirmPassword}");
+		Debug.WriteLine("slava: " + RegistrationModel.SLAVA);
 	}
 }

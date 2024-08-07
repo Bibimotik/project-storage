@@ -36,11 +36,19 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 
 	private void CreateModel()
 	{
-		RegistrationModel.Model = new RegistrationModel(Director, Email, Password, ConfirmPassword);
+		RegistrationModel.Model ??= new RegistrationModel();
 
-		//Debug.WriteLine($"director: {RegistrationModel.Model.Director}\n" +
-		//	$"email: {RegistrationModel.Model.Email}\n" +
-		//	$"password: {RegistrationModel.Model.Password}\n" +
-		//	$"confirmPassword: {RegistrationModel.Model.ConfirmPassword}");
+		RegistrationModel model = RegistrationModel.Model;
+		model.Director = Director;
+		model.Email = Email;
+		model.Password = Password;
+		model.ConfirmPassword = ConfirmPassword;
+
+		Debug.WriteLine($"director: {model.Director}\n" +
+			$"email: {model.Email}\n" +
+			$"password: {model.Password}\n" +
+			$"confirmPassword: {model.ConfirmPassword}");
+		RegistrationModel.SLAVA = "slava";
+		Debug.WriteLine("slava: " + RegistrationModel.SLAVA);
 	}
 }

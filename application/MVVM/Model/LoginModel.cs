@@ -11,12 +11,6 @@ namespace application.MVVM.Model
 
 		public LoginModel() { }
 
-		public LoginModel(string email, string password)
-		{
-			Email = email;
-			Password = password;
-		}
-
 		public LoginModel(string email, string password, string confirmPassword)
 		{
 			Email = email;

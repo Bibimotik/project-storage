@@ -31,9 +31,13 @@ partial class LoginViewModel : ObservableObject
 
 	private void CreateModel()
 	{
-		LoginModel.Model = new LoginModel(Email, Password);
+		LoginModel.Model ??= new LoginModel();
 
-		//Debug.WriteLine($"email: {LoginModel.Model.Email}\n" +
-		//	$"password: {LoginModel.Model.Password}");
+		LoginModel model = LoginModel.Model;
+		model.Email = Email;
+		model.Password = Password;
+
+		Debug.WriteLine($"email: {model.Email}\n" +
+			$"password: {model.Password}");
 	}
 }
