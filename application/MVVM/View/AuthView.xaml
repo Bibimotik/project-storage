@@ -69,6 +69,7 @@
 					</MultiBinding>
 				</Grid.Visibility>
 
+				<!-- TODO - когда стоит IsEnabled="False" не работает стиль при наведнии, но пока так оставлю -->
 				<Button
 					Visibility="{Binding AuthTypeRegistrationUserReverse, Converter={StaticResource BoolToVisibilityConverter}}"
 					Margin="0 0 5 0"
@@ -83,6 +84,7 @@
 					Content="User"
 					Command="{Binding RegistrationUserCommand}"
 					HorizontalAlignment="Stretch"
+					IsEnabled="False"
 					Style="{StaticResource SendButtonGray}" />
 
 				<Button
@@ -92,6 +94,7 @@
 					Content="Company"
 					Command="{Binding RegistrationCompany1Command}"
 					HorizontalAlignment="Stretch"
+					IsEnabled="False"
 					Style="{StaticResource SendButtonGray}" />
 
 				<Button

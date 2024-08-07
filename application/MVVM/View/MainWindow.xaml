@@ -69,6 +69,7 @@
 							Tag="../../Assets/Icons/List.png" />
 					</Border>
 
+					<!-- TODO - CommandParameter у RadioButton можно убрать -->
 					<Border
 						Style="{StaticResource MenuBorder}">
 						<StackPanel

@@ -32,8 +32,9 @@
 					<ColumnDefinition
 						Width="80"/>
 				</Grid.ColumnDefinitions>
- 
+
 				<TextBox
+					Text="{Binding Inn, UpdateSourceTrigger=PropertyChanged}"
 					Style="{StaticResource AuthInput}" />
 
 				<Button
@@ -54,6 +55,7 @@
 				Margin="0 0 0 8"
 				Text="KPP" />
 			<TextBox
+				Text="{Binding Kpp, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" />
 		</StackPanel>
 
@@ -64,6 +66,7 @@
 				Margin="0 0 0 8"
 				Text="Full Name" />
 			<TextBox
+				Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" />
 		</StackPanel>
 
@@ -74,6 +77,7 @@
 				Margin="0 0 0 8"
 				Text="Short Name" />
 			<TextBox
+				Text="{Binding ShortName, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" />
 		</StackPanel>
 
@@ -84,6 +88,7 @@
 				Margin="0 0 0 8"
 				Text="Legal Address" />
 			<TextBox
+				Text="{Binding LegalAddress, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" />
 		</StackPanel>
 
@@ -94,6 +99,7 @@
 				Margin="0 0 0 8"
 				Text="Postal Address" />
 			<TextBox
+				Text="{Binding PostalAddress, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" />
 		</StackPanel>
 
@@ -103,6 +109,7 @@
 				Margin="0 0 0 8"
 				Text="OGRN" />
 			<TextBox
+				Text="{Binding Ogrn, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" />
 		</StackPanel>
 

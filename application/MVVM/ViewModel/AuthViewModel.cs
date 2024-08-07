@@ -1,4 +1,6 @@
-﻿using application.Abstraction;
+﻿using System.Diagnostics;
+
+using application.Abstraction;
 using application.MVVM.Model;
 using application.MVVM.View.Auth;
 
@@ -63,6 +65,8 @@ public partial class AuthViewModel : ObservableObject
 
 		//foreach (StatusModel statusModel in status)
 		//	Debug.WriteLine(statusModel.Title);
+		Debug.WriteLine($"email: {LoginModel.Model.Email}\n" +
+			$"password: {LoginModel.Model.Password}");
 	}
 	[RelayCommand]
 	private void RegistrationUser()
@@ -106,6 +110,7 @@ public partial class AuthViewModel : ObservableObject
 		AuthTypeConfirmEmail = true;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 	}
+	// TODO - на одинаковые ConfirmEmail можно добавить CommandParameter чтобы различать разные функции регистрации
 	[RelayCommand]
 	private void ConfirmEmail()
 	{
@@ -129,16 +134,16 @@ public partial class AuthViewModel : ObservableObject
 	[RelayCommand]
 	private void LoginButton()
 	{
-		string? email = LoginModel.Email;
-		string? password = LoginModel.Password;
+		//string? email = LoginModel.Email;
+		//string? password = LoginModel.Password;
 
-		if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password))
-			return;
-		// TODO - здесь проверка данных из репозитория
+		//if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password))
+		//	return;
+		//// TODO - здесь проверка данных из репозитория
 
-		_authService.SaveAuthData(email, password);
-		_authService.LoadAuthData();
+		//_authService.SaveAuthData(email, password);
+		//_authService.LoadAuthData();
 
-		_navigationService.ShowMain();
+		//_navigationService.ShowMain();
 	}
 }

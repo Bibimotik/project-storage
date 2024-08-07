@@ -24,11 +24,16 @@ partial class LoginViewModel : ObservableObject
 			IsInvalidEmail = true;
 			return;
 		}
-		LoginModel.Email = value;
 		IsInvalidEmail = false;
+		CreateModel();
 	}
-	partial void OnPasswordChanged(string value)
+	partial void OnPasswordChanged(string value) => CreateModel();
+
+	private void CreateModel()
 	{
-		LoginModel.Password = value;
+		LoginModel.Model = new LoginModel(Email, Password);
+
+		//Debug.WriteLine($"email: {LoginModel.Model.Email}\n" +
+		//	$"password: {LoginModel.Model.Password}");
 	}
 }
