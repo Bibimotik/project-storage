@@ -11,7 +11,7 @@ namespace application.MVVM.ViewModel;
 
 public partial class AuthViewModel : ObservableObject
 {
-	private readonly IStatusRepository _statusRepository;
+	private readonly IUserRepository _userRepository;
 	private readonly IAuthService _authService;
 	private readonly INavigationService _navigationService;
 
@@ -37,9 +37,9 @@ public partial class AuthViewModel : ObservableObject
 	private bool authTypeConfirmEmailReverse;
 
 
-	public AuthViewModel(IStatusRepository statusRepository, IAuthService authService, INavigationService navigationService)
+	public AuthViewModel(IUserRepository userRepository, IAuthService authService, INavigationService navigationService)
 	{
-		_statusRepository = statusRepository;
+		_userRepository = userRepository;
 		_authService = authService;
 		_navigationService = navigationService;
 		Login();
@@ -61,12 +61,10 @@ public partial class AuthViewModel : ObservableObject
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 
 		// TODO - проверка в бд
-		//ObservableCollection<StatusModel> status = new(_statusRepository.GetAllStatus());
+		//ObservableCollection<StatusEntity> status = new(_statusRepository.GetAllStatus());
 
-		//foreach (StatusModel statusModel in status)
+		//foreach (StatusEntity statusModel in status)
 		//	Debug.WriteLine(statusModel.Title);
-		Debug.WriteLine($"email: {LoginModel.Model.Email}\n" +
-			$"password: {LoginModel.Model.Password}");
 	}
 	[RelayCommand]
 	private void RegistrationUser()
@@ -131,15 +129,21 @@ public partial class AuthViewModel : ObservableObject
 		// TODO - код проверки почты
 	}
 
+	// TODO - здесь проверка данных из репозитория
 	[RelayCommand]
 	private void LoginButton()
 	{
-		//string? email = LoginModel.Email;
-		//string? password = LoginModel.Password;
+		LoginModel model = LoginModel.Model;
+		if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password))
+			return;
 
-		//if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password))
-		//	return;
-		// TODO - здесь проверка данных из репозитория
+		LoginModel user = _userRepository.GetUserLogin(model.Email);
+
+		if (user.Email != model.Email || user.Password != model.Password)
+			return;
+
+		Debug.WriteLine($"email: {user.Email}");
+		Debug.WriteLine($"password: {user.Password}");
 
 		_authService.SaveAuthData(LoginModel.Model.Email, LoginModel.Model.Password);
 		_authService.LoadAuthData();

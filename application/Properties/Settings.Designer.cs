@@ -52,9 +52,19 @@ namespace application.Properties {
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Host=roundhouse.proxy.rlwy.net;Port=15481;Database=railway;User Id=postgres;Passw" +
             "ord=quQDOxYuLrkpFJchiWzkYeOWzzYcdxwl;")]
-        public string Postgresql {
+        public string PostgresqlProd {
             get {
-                return ((string)(this["Postgresql"]));
+                return ((string)(this["PostgresqlProd"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Host=localhost;Port=5432;Database=storage;User Id=slava;Password=1;")]
+        public string PostgresqlDev {
+            get {
+                return ((string)(this["PostgresqlDev"]));
             }
         }
     }

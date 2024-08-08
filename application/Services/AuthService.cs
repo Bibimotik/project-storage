@@ -19,7 +19,7 @@ public class AuthService : IAuthService
 		var authEmail = Settings.Default.AuthEmail;
 		var authPassword = Settings.Default.AuthPassword;
 
-		Debug.WriteLine("!!!!!!!! " + authEmail + " " + authPassword);
+		Debug.WriteLine("save data: " + authEmail + " " + authPassword);
 
 		return (authEmail, authPassword);
 	}
