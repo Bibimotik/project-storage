@@ -4,5 +4,6 @@ namespace application.Abstraction;
 
 public interface IUserRepository
 {
-	public LoginModel GetUserLogin(string email);
+	public Task<EntityModel> GetUserLogin(string email);
+	public Task<Guid> UserRegistration(EntityModel entity);
 }

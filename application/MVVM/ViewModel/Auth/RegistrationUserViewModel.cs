@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.IO;
 
 using application.MVVM.Model;
 
@@ -32,7 +31,7 @@ partial class RegistrationUserViewModel : ObservableObject
 	partial void OnPhoneChanged(string value) => CreateModel();
 	partial void OnEmailChanged(string value)
 	{
-		if (!RegistrationModel.IsValidEmail(value))
+		if (!EntityModel.IsValidEmail(value))
 		{
 			// TODO - уведомление под инпутом что почта не валидна
 			IsInvalidEmail = true;
@@ -46,9 +45,9 @@ partial class RegistrationUserViewModel : ObservableObject
 
 	private void CreateModel()
 	{
-		RegistrationModel.Model ??= new RegistrationModel();
+		EntityModel.Model ??= new EntityModel();
 
-		RegistrationModel model = RegistrationModel.Model;
+		EntityModel model = EntityModel.Model;
 		model.FirstName = FirstName;
 		model.SecondName = SecondName;
 		model.ThirdName = ThirdName;
@@ -56,10 +55,5 @@ partial class RegistrationUserViewModel : ObservableObject
 		model.Email = Email;
 		model.Password = Password;
 		model.ConfirmPassword = ConfirmPassword;
-
-		//Debug.WriteLine($"director1: {RegistrationModel.Model.Director}\n" +
-		//	$"email: {RegistrationModel.Model.Email}\n" +
-		//	$"password: {RegistrationModel.Model.Password}\n" +
-		//	$"confirmPassword: {RegistrationModel.Model.ConfirmPassword}");
 	}
 }
