@@ -18,7 +18,7 @@ partial class LoginViewModel : ObservableObject
 	// TODO - здесь скорее всего сделать валидацию самой почты, чтобы в этом компоненте выкидывать красный текст под инпутом что email не подходит
 	partial void OnEmailChanged(string value)
 	{
-		if (!LoginModel.IsValidEmail(value))
+		if (!EntityModel.IsValidEmail(value))
 		{
 			// TODO - уведомление под инпутом что почта не валидна
 			IsInvalidEmail = true;
@@ -31,13 +31,13 @@ partial class LoginViewModel : ObservableObject
 
 	private void CreateModel()
 	{
-		LoginModel.Model ??= new LoginModel();
+		EntityModel.Model ??= new EntityModel();
 
-		LoginModel model = LoginModel.Model;
+		EntityModel model = EntityModel.Model;
 		model.Email = Email;
 		model.Password = Password;
 
-		Debug.WriteLine($"email: {model.Email}\n" +
-			$"password: {model.Password}");
+		Debug.WriteLine($"email1: {model.Email}\n" +
+			$"password1: {model.Password}");
 	}
 }

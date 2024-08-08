@@ -16,7 +16,7 @@ CREATE TABLE COMPANY
 CREATE TABLE "user"
 (
 	UserID     uuid         NOT NULL PRIMARY KEY,
-	NickName   varchar(100) NOT NULL,
+	NickName   varchar(100),
 	FirstName  varchar(100) NOT NULL,
 	SecondName varchar(100) NOT NULL,
 	ThirdName  varchar(100) NOT NULL,

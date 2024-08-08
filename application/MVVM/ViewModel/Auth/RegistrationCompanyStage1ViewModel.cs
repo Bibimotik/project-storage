@@ -33,9 +33,9 @@ partial class RegistrationCompanyStage1ViewModel : ObservableObject
 
 	private void CreateModel()
 	{
-		RegistrationModel.Model ??= new RegistrationModel();
+		EntityModel.Model ??= new EntityModel();
 
-		RegistrationModel model = RegistrationModel.Model;
+		EntityModel model = EntityModel.Model;
 		model.INN = Inn;
 		model.KPP = Kpp;
 		model.FullName = FullName;
@@ -48,6 +48,5 @@ partial class RegistrationCompanyStage1ViewModel : ObservableObject
 			$"email: {model.Email}\n" +
 			$"password: {model.Password}\n" +
 			$"confirmPassword: {model.ConfirmPassword}");
-		Debug.WriteLine("slava: " + RegistrationModel.SLAVA);
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 using application.Abstraction;
 using application.MVVM.Model;
@@ -131,13 +132,13 @@ public partial class AuthViewModel : ObservableObject
 
 	// TODO - здесь проверка данных из репозитория
 	[RelayCommand]
-	private void LoginButton()
+	private async Task LoginButton()
 	{
-		LoginModel model = LoginModel.Model;
+		EntityModel model = EntityModel.Model;
 		if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password))
 			return;
 
-		LoginModel user = _userRepository.GetUserLogin(model.Email);
+		EntityModel user = await _userRepository.GetUserLogin(model.Email);
 
 		if (user.Email != model.Email || user.Password != model.Password)
 			return;
@@ -145,9 +146,30 @@ public partial class AuthViewModel : ObservableObject
 		Debug.WriteLine($"email: {user.Email}");
 		Debug.WriteLine($"password: {user.Password}");
 
-		_authService.SaveAuthData(LoginModel.Model.Email, LoginModel.Model.Password);
+		_authService.SaveAuthData(EntityModel.Model.Email, EntityModel.Model.Password);
 		_authService.LoadAuthData();
 
 		_navigationService.ShowMain();
+	}
+	[RelayCommand]
+	private async Task UserRegistrationButton()
+	{
+		EntityModel model = EntityModel.Model;
+		model.Id = Guid.NewGuid();
+		model.FirstName = "w";
+		model.SecondName = "w";
+		model.ThirdName = "w";
+		model.Phone = "+431463";
+		model.Email = "w@gmail.com";
+		model.Password = "w";
+		model.ConfirmPassword = "w";
+		// TODO - сделать проверки на наличие всех заполненных полей
+
+		if (!model.Password.Equals(model.ConfirmPassword))
+			return;
+
+		Guid id = await _userRepository.UserRegistration(model);
+
+		Debug.WriteLine("ID: " + id.ToString());
 	}
 }

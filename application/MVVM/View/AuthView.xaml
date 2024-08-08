@@ -166,7 +166,7 @@
 								<Button
 									Visibility="{Binding AuthTypeRegistrationUser, Converter={StaticResource BoolToVisibilityConverter}}"
 									Content="Registration"
-									Command="{Binding ConfirmEmailCommand}"
+									Command="{Binding UserRegistrationButtonCommand}"
 									HorizontalAlignment="Center"
 									Style="{StaticResource SendButton}" />
 

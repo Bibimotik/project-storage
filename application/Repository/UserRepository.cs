@@ -14,18 +14,44 @@ public class UserRepository : IUserRepository
 
 	public UserRepository(IDatabaseService databaseService) => _databaseService = databaseService;
 
-	public LoginModel GetUserLogin(string email)
+	public async Task<EntityModel> GetUserLogin(string email)
 	{
-		return RepositoryHelper.ExecuteWithErrorHandling(dbConnection =>
+		return await RepositoryHelper.ExecuteWithErrorHandling(async dbConnection =>
 		{
 			Debug.WriteLine("GetUser!!!!!!!");
 
 			string query = $@"SELECT 
-				email as {nameof(LoginModel.Email)}, 
-				password as {nameof(LoginModel.Password)} 
+				email as {nameof(EntityModel.Email)}, 
+				password as {nameof(EntityModel.Password)} 
 				FROM ""user"" 
-				where email = @Email";
-			return dbConnection.QuerySingle<LoginModel>(query, new { Email = email });
+				where email = @{nameof(EntityModel.Email)}";
+			return await dbConnection.QuerySingleAsync<EntityModel>(query, new { Email = email });
+		}, _databaseService);
+	}
+
+	public async Task<Guid> UserRegistration(EntityModel entity)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandling(async dbConnection =>
+		{
+			Debug.WriteLine("UserRegistration!!!!!!!");
+
+			// TODO - добавить проверки на неповторяющийся email
+
+			string query = $@"INSERT into ""user"" 
+				(userid, nickname, firstname, secondname, thirdname, phone, email, password, logo, isdeleted)
+				values (
+				@{nameof(EntityModel.Id)},
+				NULL,
+				@{nameof(EntityModel.FirstName)},
+				@{nameof(EntityModel.SecondName)},
+				@{nameof(EntityModel.ThirdName)},
+				@{nameof(EntityModel.Phone)},
+				@{nameof(EntityModel.Email)},
+				@{nameof(EntityModel.Password)},
+				NULL,
+				FALSE)
+				returning userid";
+			return await dbConnection.QuerySingleAsync<Guid>(query, entity);
 		}, _databaseService);
 	}
 }

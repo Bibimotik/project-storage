@@ -22,7 +22,7 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 	partial void OnDirectorChanged(string value) => CreateModel();
 	partial void OnEmailChanged(string value)
 	{
-		if (!RegistrationModel.IsValidEmail(value))
+		if (!EntityModel.IsValidEmail(value))
 		{
 			// TODO - уведомление под инпутом что почта не валидна
 			IsInvalidEmail = true;
@@ -36,9 +36,9 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 
 	private void CreateModel()
 	{
-		RegistrationModel.Model ??= new RegistrationModel();
+		EntityModel.Model ??= new EntityModel();
 
-		RegistrationModel model = RegistrationModel.Model;
+		EntityModel model = EntityModel.Model;
 		model.Director = Director;
 		model.Email = Email;
 		model.Password = Password;
@@ -48,7 +48,5 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 			$"email: {model.Email}\n" +
 			$"password: {model.Password}\n" +
 			$"confirmPassword: {model.ConfirmPassword}");
-		RegistrationModel.SLAVA = "slava";
-		Debug.WriteLine("slava: " + RegistrationModel.SLAVA);
 	}
 }
