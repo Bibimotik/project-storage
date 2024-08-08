@@ -34,16 +34,7 @@
     <Page Update="MVVM\View\Auth\RegistrationUserView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Theme\AuthAccountButton.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Theme\Button.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Theme\SendButtonWhite.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Theme\SendButtonGray.xaml">
+    <Page Update="Theme\General\SendButtonRed.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Utilities\Pages.xaml">

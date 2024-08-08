@@ -25,9 +25,8 @@ public partial class ConfirmEmailView : UserControl
 		InitializeComponent();
 	}
 	
-	private void textbox_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+	private void TextBox_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
 	{
-		// TODO - почему то можно вводить пробелы
 		Regex inputRegex = new Regex(@"^\d*$");
 		
 		Match match = inputRegex.Match(e.Text);
@@ -36,8 +35,16 @@ public partial class ConfirmEmailView : UserControl
 			e.Handled = true;
 		}
 	}
+	
+	private void TextBox_OnPreviewKeyDown(object sender, KeyEventArgs e)
+	{
+		if (e.Key == Key.Space)
+		{
+			e.Handled = true;
+		}
+	}
 
-	private void textbox_OnTextChanged(object sender, TextChangedEventArgs e)
+	private void TextBox_OnTextChanged(object sender, TextChangedEventArgs e)
 	{
 		TextBox textBox = sender as TextBox;
 		if (textBox.Text.Length > 0)

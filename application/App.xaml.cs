@@ -1,42 +1,60 @@
 ﻿using System.Windows;
 
+using application.Abstraction;
 using application.MVVM.View;
+using application.MVVM.View.Pages;
+using application.MVVM.ViewModel;
+using application.MVVM.ViewModel.Pages;
+using application.Properties;
+using application.Repository;
+using application.Services;
+
+using Microsoft.Extensions.DependencyInjection;
 
 namespace application;
 
-/// <summary>
-/// Interaction logic for App.xaml
-/// </summary>
 public partial class App : Application
 {
+	private static IServiceProvider? _serviceProvider;
+
 	protected override void OnStartup(StartupEventArgs e)
 	{
 		base.OnStartup(e);
 
-		// TODO - механизм проверки сохраненной авторизации
+		IServiceCollection services = new ServiceCollection();
 
-		//ShowAuth();
-		ShowMain();
-	}
+		services.AddScoped<IDatabaseService>(provider => new DatabaseService(Settings.Default.PostgresqlDev));
+		services.AddScoped<IUserRepository, UserRepository>();
+		services.AddScoped<IAuthService, AuthService>();
+		services.AddSingleton<INavigationService, NavigationService>();
 
-	private void ShowMain()
-	{
-		MainWindow mainWindow = new MainWindow();
-		mainWindow.Show();
+		services.AddSingleton<App>();
+		services.AddScoped<AuthViewModel>();
+		services.AddScoped<AuthView>();
+		services.AddScoped<MainWindow>();
+		services.AddScoped<MainViewModel>();
+		services.AddScoped<AccountViewModel>();
+		services.AddScoped<AccountView>();
+		services.AddScoped<StatisticsView>();
+		services.AddScoped<SalesView>();
+		services.AddScoped<StorageView>();
+		services.AddScoped<StaffView>();
+		services.AddScoped<SupportView>();
+		services.AddScoped<InfoView>();
 
-		//CloseCurrentWindow();
+		_serviceProvider = services.BuildServiceProvider();
 
-		//_currentWindow = mainWindow;
+		IAuthService authService = _serviceProvider.GetRequiredService<IAuthService>();
+		INavigationService navigationService = _serviceProvider.GetRequiredService<INavigationService>();
 
-	}
-
-	private void ShowAuth()
-	{
-		AuthView authWindow = new AuthView();
-		authWindow.Show();
-
-		//CloseCurrentWindow();
-
-		//_currentWindow = authWindow;
+		switch (authService.IsUserAuthenticated())
+		{
+			case true:
+				navigationService.ShowMain();
+				break;
+			case false:
+				navigationService.ShowAuth();
+				break;
+		}
 	}
 }

@@ -1,15 +1,15 @@
 CREATE TABLE COMPANY
 (
 	CompanyID     uuid            NOT NULL PRIMARY KEY,
-	INN           char(12) UNIQUE NOT NULL,
-	KPP           char(12) UNIQUE NOT NULL,
-	OGRN          char(13) UNIQUE NOT NULL,
+	INN           char(12)        UNIQUE NOT NULL,
+	KPP           char(12)        UNIQUE NOT NULL,
+	OGRN          char(13)        UNIQUE NOT NULL,
 	FullName      varchar(100)    NOT NULL,
 	ShortName     varchar(100)    NOT NULL,
 	LegalAddress  varchar(1000)   NOT NULL,
 	PostalAddress varchar(1000)   NOT NULL,
 	Director      text            NOT NULL,
-	Logo          bytea                   ,
+	Logo          bytea,
 	IsDeleted     bool            NOT NULL
 );
 
@@ -23,7 +23,7 @@ CREATE TABLE "user"
 	Phone      varchar(20)  NOT NULL,
 	Mail       varchar(100) NOT NULL,
 	Password   varchar(100) NOT NULL,
-	Logo       bytea                ,
+	Logo       bytea,
 	IsDeleted  bool         NOT NULL
 );
 
@@ -93,9 +93,9 @@ CREATE TABLE COMPANY_CURRENCY
 
 CREATE TABLE MARKING
 (
-	MarkingID serial       NOT NULL PRIMARY KEY,
-	Title     varchar(50)  NOT NULL,
-	CompanyID uuid         NOT NULL REFERENCES COMPANY (CompanyID)
+	MarkingID serial      NOT NULL PRIMARY KEY,
+	Title     varchar(50) NOT NULL,
+	CompanyID uuid        NOT NULL REFERENCES COMPANY (CompanyID)
 );
 
 CREATE TABLE PROJECT
@@ -151,7 +151,7 @@ CREATE TABLE PRODUCT
 	Title     varchar(100)     NOT NULL,
 	Unit      varchar(20)      NOT NULL, -- литры, кг, штуки и тд
 	Price     double precision NOT NULL,
-	Image     bytea                    ,
+	Image     bytea,
 	IsDeleted bool             NOT NULL
 );
 
@@ -204,3 +204,9 @@ CREATE TABLE COMPANY_STORAGE
 	StorageID        uuid   NOT NULL REFERENCES STORAGE (StorageID)
 );
 
+CREATE TABLE SUPPORT
+{
+	SupportID serial NOT NULL PRIMARY KEY,
+	UserID    uuid   NOT NULL REFERENCES "user" (UserID),
+	Message   text   NOT NULL
+};

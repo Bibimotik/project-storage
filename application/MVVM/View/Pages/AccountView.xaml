@@ -1,0 +1,177 @@
+<UserControl
+	x:Class="application.MVVM.View.Pages.AccountView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:application.MVVM.View.Pages"
+	xmlns:Pages="clr-namespace:application.MVVM.ViewModel.Pages"
+	mc:Ignorable="d">
+
+	<ScrollViewer>
+
+		<StackPanel
+			VerticalAlignment="Stretch"
+			HorizontalAlignment="Center">
+
+			<Label
+				Width="400"
+				FontSize="30"
+				Content="Edit Account"
+				Margin="-5 0 0 15" />
+
+			<StackPanel
+				Orientation="Horizontal"
+				VerticalAlignment="Top">
+				<TextBlock
+					Margin="0 0 20 0"
+					Text="Add Photo"
+					FontSize="14"
+					HorizontalAlignment="Stretch"
+					VerticalAlignment="Center" />
+				<Button
+					Content="File"
+					Command="{Binding }"
+					Style="{StaticResource SendButton}" />
+			</StackPanel>
+
+			<StackPanel
+				Margin="0 10 0 10"
+				Orientation="Vertical">
+				<TextBlock
+					Margin="0 0 0 8"
+					Text="INN" />
+				<TextBox
+					Style="{StaticResource AuthInput}" />
+			</StackPanel>
+
+			<StackPanel
+				Margin="0 0 0 10"
+				Orientation="Vertical">
+				<TextBlock
+					Margin="0 0 0 8"
+					Text="KPP" />
+				<TextBox
+					Style="{StaticResource AuthInput}" />
+			</StackPanel>
+
+			<StackPanel
+				Margin="0 0 0 10"
+				Orientation="Vertical">
+				<TextBlock
+					Margin="0 0 0 8"
+					Text="Full Name" />
+				<TextBox
+					Style="{StaticResource AuthInput}" />
+			</StackPanel>
+
+			<StackPanel
+				Margin="0 0 0 10"
+				Orientation="Vertical">
+				<TextBlock
+					Margin="0 0 0 8"
+					Text="Short Name" />
+				<TextBox
+					Style="{StaticResource AuthInput}" />
+			</StackPanel>
+
+			<StackPanel
+				Margin="0 0 0 10"
+				Orientation="Vertical">
+				<TextBlock
+					Margin="0 0 0 8"
+					Text="Legal Address" />
+				<TextBox
+					Style="{StaticResource AuthInput}" />
+			</StackPanel>
+
+			<StackPanel
+				Margin="0 0 0 10"
+				Orientation="Vertical">
+				<TextBlock
+					Margin="0 0 0 8"
+					Text="Postal Address" />
+				<TextBox
+					Style="{StaticResource AuthInput}" />
+			</StackPanel>
+
+			<StackPanel
+				Orientation="Vertical">
+				<TextBlock
+					Margin="0 0 0 8"
+					Text="OGRN" />
+				<TextBox
+					Style="{StaticResource AuthInput}" />
+			</StackPanel>
+
+			<StackPanel
+				Margin="0 0 0 10"
+				Orientation="Vertical">
+				<TextBlock
+					Margin="0 0 0 8"
+					Text="Director" />
+				<TextBox
+					Style="{StaticResource AuthInput}" />
+			</StackPanel>
+
+			<StackPanel
+				Margin="0 0 0 10"
+				Orientation="Vertical">
+				<TextBlock
+					Margin="0 0 0 8"
+					Text="Email" />
+				<TextBox
+					Style="{StaticResource AuthInput}" />
+			</StackPanel>
+
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition 
+						Width="auto"/>
+					<ColumnDefinition
+						Width="auto" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition 
+						Height="40"/>
+					<RowDefinition
+						Height="40" />
+				</Grid.RowDefinitions>
+
+				<Button
+					Margin="0 0 10 0"
+					Grid.Row="0"
+					Grid.Column="0"
+					Content="Save"
+					Command="{Binding }"
+					Style="{StaticResource SendButton}" />
+
+				<Button
+					Margin="0 0 10 0"
+					Grid.Row="1"
+					Grid.Column="0"
+					Content="Exit"
+					Command="{Binding ExitCommand}"
+					Style="{StaticResource SendButton}" />
+
+				<Button
+					Grid.Row="0"
+					Grid.Column="1"
+					Content="Change Password"
+					Command="{Binding }"
+					Style="{StaticResource SendButton}" />
+
+				<Button
+					Grid.Row="1"
+					Grid.Column="1"
+					Content="Delete Account"
+					Command="{Binding }"
+					Style="{StaticResource SendButtonRed}" />
+
+			</Grid>
+
+		</StackPanel>
+
+	</ScrollViewer>
+
+</UserControl>

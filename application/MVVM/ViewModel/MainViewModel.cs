@@ -1,22 +1,26 @@
-﻿using System.Diagnostics;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using System.Windows.Media.Animation;
+
+using application.MVVM.View.Pages;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
+using Microsoft.Extensions.DependencyInjection;
+
 namespace application.MVVM.ViewModel;
 
-//[ObservableObject]
 public partial class MainViewModel : ObservableObject
 {
-	[ObservableProperty]
-	private string name;
+	private readonly IServiceProvider _serviceProvider;
 
-	public MainViewModel()
+	[ObservableProperty]
+	private object? currentView;
+
+	public MainViewModel(IServiceProvider serviceProvider)
 	{
-		Name = "bibimotik";
+		_serviceProvider = serviceProvider;
+		Account();
 	}
 
 	private bool isMenuExpanded = false;
@@ -29,4 +33,18 @@ public partial class MainViewModel : ObservableObject
 		storyboard.Begin();
 		isMenuExpanded = !isMenuExpanded;
 	}
+	[RelayCommand]
+	private void Account() => CurrentView = _serviceProvider.GetRequiredService<AccountView>();
+	[RelayCommand]
+	private void Statistics() => CurrentView = _serviceProvider.GetRequiredService<StatisticsView>();
+	[RelayCommand]
+	private void Sales() => CurrentView = _serviceProvider.GetRequiredService<SalesView>();
+	[RelayCommand]
+	private void Storage() => CurrentView = _serviceProvider.GetRequiredService<StorageView>();
+	[RelayCommand]
+	private void Staff() => CurrentView = _serviceProvider.GetRequiredService<StaffView>();
+	[RelayCommand]
+	private void Support() => CurrentView = _serviceProvider.GetRequiredService<SupportView>();
+	[RelayCommand]
+	private void Info() => CurrentView = _serviceProvider.GetRequiredService<InfoView>();
 }

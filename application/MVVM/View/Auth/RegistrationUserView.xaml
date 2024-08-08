@@ -4,15 +4,21 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:application.MVVM.View.Auth"
+	xmlns:c="clr-namespace:application.Utilities.Converter"
 	xmlns:Auth="clr-namespace:application.MVVM.ViewModel.Auth"
 	x:Class="application.MVVM.View.Auth.RegistrationUserView"
 	mc:Ignorable="d"
 	d:DesignHeight="450"
 	d:DesignWidth="800">
-	
+
 	<UserControl.DataContext>
 		<Auth:RegistrationUserViewModel />
 	</UserControl.DataContext>
+
+	<UserControl.Resources>
+		<c:BoolToVisibilityConverter
+			x:Key="BoolToVisibilityConverter" />
+	</UserControl.Resources>
 
 	<StackPanel
 		Orientation="Vertical"
@@ -25,6 +31,7 @@
 				Margin="0 0 0 8"
 				Text="First Name" />
 			<TextBox
+				Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" />
 		</StackPanel>
 
@@ -35,6 +42,7 @@
 				Margin="0 0 0 8"
 				Text="Second Name" />
 			<TextBox
+				Text="{Binding SecondName, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" />
 		</StackPanel>
 
@@ -45,6 +53,7 @@
 				Margin="0 0 0 8"
 				Text="Third Name" />
 			<TextBox
+				Text="{Binding ThirdName, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" />
 		</StackPanel>
 
@@ -55,6 +64,7 @@
 				Margin="0 0 0 8"
 				Text="Phone" />
 			<TextBox
+				Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" />
 		</StackPanel>
 
@@ -65,29 +75,105 @@
 				Margin="0 0 0 8"
 				Text="Email" />
 			<TextBox
+				Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
+				PreviewTextInput="Password_OnPreviewTextInput"
+				PreviewKeyDown="Password_OnPreviewKeyDown"
 				Style="{StaticResource AuthInput}" />
+			<TextBlock
+				Visibility="{Binding IsInvalidEmail, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Invalid Email..." />
 		</StackPanel>
 
-		<!-- TODO - добавить глазик для проверки пароля -->
 		<StackPanel
-			Margin="0 0 0 10"
+			Margin="0 0 0 7"
 			Orientation="Vertical">
 			<TextBlock
 				Margin="0 0 0 8"
 				Text="Password" />
-			<PasswordBox
-				Style="{StaticResource AuthPassword}" />
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="*" />
+					<ColumnDefinition
+						Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<TextBox
+					Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+					Height="23.96"
+					x:Name="passwordTextBox"
+					PreviewTextInput="Password_OnPreviewTextInput"
+					PreviewKeyDown="Password_OnPreviewKeyDown"
+					Visibility="Hidden"
+					Style="{StaticResource AuthInput}" />
+				<PasswordBox
+					Height="23.96"
+					x:Name="passwordPasswordBox"
+					Grid.Column="0"
+					PreviewTextInput="Password_OnPreviewTextInput"
+					PreviewKeyDown="Password_OnPreviewKeyDown"
+					Style="{StaticResource AuthPassword}" />
+
+				<Border
+					Grid.Column="1">
+					<CheckBox
+						x:Name="passwordCheckBox"
+						Margin="3 0 0 0"
+						Style="{StaticResource AuthEye}"
+						Click="CheckBox_Click1">
+						<Image
+							Source="../../../Assets/Icons/Eye.png"
+							Width="20"
+							Height="20" />
+					</CheckBox>
+				</Border>
+			</Grid>
 		</StackPanel>
-		
+
 		<StackPanel
 			Orientation="Vertical">
 			<TextBlock
-				Margin="0 0 0 8"
+				Margin="0 0 0 7"
 				Text="Confirm Password" />
-			<PasswordBox
-				Style="{StaticResource AuthPassword}" />
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="*" />
+					<ColumnDefinition
+						Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<TextBox
+					Text="{Binding ConfirmPassword, UpdateSourceTrigger=PropertyChanged}"
+					Height="23.96"
+					x:Name="confirmPasswordTextBox"
+					PreviewTextInput="Password_OnPreviewTextInput"
+					PreviewKeyDown="Password_OnPreviewKeyDown"
+					Visibility="Hidden"
+					Style="{StaticResource AuthInput}" />
+				<PasswordBox
+					Height="23.96"
+					x:Name="confirmPasswordPasswordBox"
+					Grid.Column="0"
+					PreviewTextInput="Password_OnPreviewTextInput"
+					PreviewKeyDown="Password_OnPreviewKeyDown"
+					Style="{StaticResource AuthPassword}" />
+
+				<Border
+					Grid.Column="1">
+					<CheckBox
+						x:Name="confirmPasswordCheckBox"
+						Margin="3 0 0 0"
+						Style="{StaticResource AuthEye}"
+						Click="CheckBox_Click2">
+						<Image
+							Source="../../../Assets/Icons/Eye.png"
+							Width="20"
+							Height="20" />
+					</CheckBox>
+				</Border>
+			</Grid>
 		</StackPanel>
 
 	</StackPanel>
-	
+
 </UserControl>
