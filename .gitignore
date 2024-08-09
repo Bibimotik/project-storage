@@ -32,3 +32,6 @@ landing_assets
 *.sw?
 
 .vercel
+
+.$*
+*.bkp

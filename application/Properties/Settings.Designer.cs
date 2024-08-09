@@ -8,64 +8,78 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace application.Properties {
-    
-    
-    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.10.0.0")]
-    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
-        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-        
-        public static Settings Default {
-            get {
-                return defaultInstance;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string AuthEmail {
-            get {
-                return ((string)(this["AuthEmail"]));
-            }
-            set {
-                this["AuthEmail"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string AuthPassword {
-            get {
-                return ((string)(this["AuthPassword"]));
-            }
-            set {
-                this["AuthPassword"] = value;
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Host=roundhouse.proxy.rlwy.net;Port=15481;Database=railway;User Id=postgres;Passw" +
-            "ord=quQDOxYuLrkpFJchiWzkYeOWzzYcdxwl;")]
-        public string PostgresqlProd {
-            get {
-                return ((string)(this["PostgresqlProd"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Host=localhost;Port=5432;Database=storage;User Id=slava;Password=1;")]
-        public string PostgresqlDev {
-            get {
-                return ((string)(this["PostgresqlDev"]));
-            }
-        }
-    }
+namespace application.Properties
+{
+
+
+	[global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.10.0.0")]
+	public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
+	{
+
+		private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+
+		public static Settings Default
+		{
+			get
+			{
+				return defaultInstance;
+			}
+		}
+
+		[global::System.Configuration.UserScopedSettingAttribute()]
+		[global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+		[global::System.Configuration.DefaultSettingValueAttribute("")]
+		public string AuthEmail
+		{
+			get
+			{
+				return ((string)(this["AuthEmail"]));
+			}
+			set
+			{
+				this["AuthEmail"] = value;
+			}
+		}
+
+		[global::System.Configuration.UserScopedSettingAttribute()]
+		[global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+		[global::System.Configuration.DefaultSettingValueAttribute("")]
+		public string AuthPassword
+		{
+			get
+			{
+				return ((string)(this["AuthPassword"]));
+			}
+			set
+			{
+				this["AuthPassword"] = value;
+			}
+		}
+
+		[global::System.Configuration.ApplicationScopedSettingAttribute()]
+		[global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+		[global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+		[global::System.Configuration.DefaultSettingValueAttribute("Host=roundhouse.proxy.rlwy.net;Port=15481;Database=railway;User Id=postgres;Passw" +
+			"ord=quQDOxYuLrkpFJchiWzkYeOWzzYcdxwl;")]
+		public string PostgresqlProd
+		{
+			get
+			{
+				return ((string)(this["PostgresqlProd"]));
+			}
+		}
+
+		[global::System.Configuration.ApplicationScopedSettingAttribute()]
+		[global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+		[global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+		[global::System.Configuration.DefaultSettingValueAttribute("Host=localhost;Port=5432;Database=storage;User Id=postgres;Password=1;")]
+		public string PostgresqlDev
+		{
+			get
+			{
+				return ((string)(this["PostgresqlDev"]));
+			}
+		}
+	}
 }

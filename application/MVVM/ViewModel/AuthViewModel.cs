@@ -1,18 +1,20 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 using application.Abstraction;
 using application.MVVM.Model;
 using application.MVVM.View.Auth;
+using application.Repository;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+
+using StackExchange.Redis;
 
 namespace application.MVVM.ViewModel;
 
 public partial class AuthViewModel : ObservableObject
 {
-	private readonly IUserRepository _userRepository;
+	private readonly IEntityRepository _entityRepository;
 	private readonly IAuthService _authService;
 	private readonly INavigationService _navigationService;
 
@@ -38,9 +40,9 @@ public partial class AuthViewModel : ObservableObject
 	private bool authTypeConfirmEmailReverse;
 
 
-	public AuthViewModel(IUserRepository userRepository, IAuthService authService, INavigationService navigationService)
+	public AuthViewModel(IEntityRepository entityRepository, IAuthService authService, INavigationService navigationService)
 	{
-		_userRepository = userRepository;
+		_entityRepository = entityRepository;
 		_authService = authService;
 		_navigationService = navigationService;
 		Login();
@@ -131,14 +133,15 @@ public partial class AuthViewModel : ObservableObject
 	}
 
 	// TODO - здесь проверка данных из репозитория
+	// TODO - оставить async void или сделать async Task. Т.к. void отвечает за обработчики событий
 	[RelayCommand]
-	private async Task LoginButton()
+	private async void LoginButton()
 	{
 		EntityModel model = EntityModel.Model;
 		if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password))
 			return;
 
-		EntityModel user = await _userRepository.GetUserLogin(model.Email);
+		EntityModel user = await _entityRepository.GetEntityLogin(model.Email);
 
 		if (user.Email != model.Email || user.Password != model.Password)
 			return;
@@ -152,7 +155,7 @@ public partial class AuthViewModel : ObservableObject
 		_navigationService.ShowMain();
 	}
 	[RelayCommand]
-	private async Task UserRegistrationButton()
+	private async void UserRegistrationButton()
 	{
 		EntityModel model = EntityModel.Model;
 		model.Id = Guid.NewGuid();
@@ -168,8 +171,11 @@ public partial class AuthViewModel : ObservableObject
 		if (!model.Password.Equals(model.ConfirmPassword))
 			return;
 
-		Guid id = await _userRepository.UserRegistration(model);
+		var id = await _entityRepository.UserRegistration(model);
 
-		Debug.WriteLine("ID: " + id.ToString());
+		if (id.IsFailure)
+			return;
+
+		Debug.WriteLine("ID: " + id.Value.ToString());
 	}
 }

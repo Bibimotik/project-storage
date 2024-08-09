@@ -24,7 +24,7 @@ public partial class App : Application
 		IServiceCollection services = new ServiceCollection();
 
 		services.AddScoped<IDatabaseService>(provider => new DatabaseService(Settings.Default.PostgresqlDev));
-		services.AddScoped<IUserRepository, UserRepository>();
+		services.AddScoped<IEntityRepository, EntityRepository>();
 		services.AddScoped<IAuthService, AuthService>();
 		services.AddSingleton<INavigationService, NavigationService>();
 
