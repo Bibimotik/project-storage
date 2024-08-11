@@ -38,7 +38,7 @@ public class UserRepository : IUserRepository
 			// TODO - добавить проверки на неповторяющийся email
 
 			string query = $@"INSERT into ""user"" 
-				(userid, nickname, firstname, secondname, thirdname, phone, email, password, logo, isdeleted)
+				(user_id, nickname, firstname, secondname, thirdname, phone, email, password, logo, is_deleted)
 				values (
 				@{nameof(EntityModel.Id)},
 				NULL,
@@ -50,7 +50,7 @@ public class UserRepository : IUserRepository
 				@{nameof(EntityModel.Password)},
 				NULL,
 				FALSE)
-				returning userid";
+				returning user_id";
 			return await dbConnection.QuerySingleAsync<Guid>(query, entity);
 		}, _databaseService);
 	}

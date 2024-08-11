@@ -168,7 +168,8 @@
 									Content="Registration"
 									Command="{Binding UserRegistrationButtonCommand}"
 									HorizontalAlignment="Center"
-									Style="{StaticResource SendButton}" />
+									Style="{StaticResource SendButton}" 
+									/>
 
 								<StackPanel
 									Orientation="Vertical">
@@ -254,7 +255,8 @@
 
 			<Button
 				Style="{StaticResource Button}"
-				Margin="0,0,3,0">
+				Margin="0,0,3,0"
+				Click="RegistrationUser_OnClick">
 				<Image
 					Source="../../Assets/Icons/Alert triangle.png"
 					Width="20"

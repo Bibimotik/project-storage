@@ -37,7 +37,18 @@ namespace application.MVVM.View.Auth
             }
         }
         
-        private void Password_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        private void Phone_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+	        Regex inputRegex = new Regex(@"^[0-9]+$");
+		
+	        Match match = inputRegex.Match(e.Text);
+	        if (!match.Success) 
+	        {
+		        e.Handled = true;
+	        }
+        }
+        
+        private void Space_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Space)
             {
