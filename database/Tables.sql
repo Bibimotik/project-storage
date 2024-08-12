@@ -5,6 +5,7 @@ CREATE TABLE ENTITY
 	Type_ID   uuid               NOT NULL
 );
 
+-- TODO может для Is_Deleted ставить DEFAULT FALSE ?
 CREATE TABLE COMPANY
 (
 	Company_ID     uuid            NOT NULL PRIMARY KEY,
@@ -12,7 +13,9 @@ CREATE TABLE COMPANY
 	KPP            char(12) UNIQUE NOT NULL,
 	OGRN           char(13) UNIQUE NOT NULL,
 	FullName       varchar(100)    NOT NULL,
-	ShortName      varchar(100)    NOT NULL,
+	ShortName      varchar(100)    NOT NULL, -- TODO я запутался что за FullName и ShortName
+	Email          varchar(100)    NOT NULL,
+	Password       varchar(100)    NOT NULL,
 	Legal_Address  varchar(1000)   NOT NULL,
 	Postal_Address varchar(1000)   NOT NULL,
 	Director       text            NOT NULL,
@@ -23,7 +26,6 @@ CREATE TABLE COMPANY
 CREATE TABLE "user"
 (
 	User_ID    uuid         NOT NULL PRIMARY KEY,
-	NickName   varchar(100) NOT NULL,
 	FirstName  varchar(100) NOT NULL,
 	SecondName varchar(100) NOT NULL,
 	ThirdName  varchar(100) NOT NULL,
