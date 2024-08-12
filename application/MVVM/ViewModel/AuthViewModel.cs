@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics;
+using System.Windows;
 
 using application.Abstraction;
 using application.MVVM.Model;
 using application.MVVM.View.Auth;
 using application.Repository;
+using application.Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -126,6 +128,7 @@ public partial class AuthViewModel : ObservableObject
 		AuthTypeConfirmEmail = false;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 	}
+	
 	[RelayCommand]
 	private void Check()
 	{
@@ -154,6 +157,13 @@ public partial class AuthViewModel : ObservableObject
 
 		_navigationService.ShowMain();
 	}
+	
+	private string GenerateRandomCode()
+	{
+		Random rand = new Random();
+		return rand.Next(100000, 999999).ToString();
+	}
+	
 	[RelayCommand]
 	private async void UserRegistrationButton()
 	{
@@ -163,7 +173,7 @@ public partial class AuthViewModel : ObservableObject
 		model.SecondName = "w";
 		model.ThirdName = "w";
 		model.Phone = "+431463";
-		model.Email = "w@gmail.com";
+		model.Email = "misha2005.b@yandex.ru";
 		model.Password = "w";
 		model.ConfirmPassword = "w";
 		// TODO - сделать проверки на наличие всех заполненных полей
@@ -176,6 +186,15 @@ public partial class AuthViewModel : ObservableObject
 		if (id.IsFailure)
 			return;
 
-		Debug.WriteLine("ID: " + id.Value.ToString());
+		Console.WriteLine("ID: " + id.Value.ToString());
+		
+		ISecurityService securityService = new SecurityService();
+		securityService.GenerateKeys();
+		string encryptedCode = securityService.Encrypt(GenerateRandomCode());
+		
+		IMailService mailService = new MailService();
+		//mailService.SendMail(securityService.Decrypt(encryptedCode), model.Email); // Используем userEmail, который был установлен при изменении эл. почты
+
+		model.Code = encryptedCode;
 	}
 }

@@ -20,6 +20,7 @@ public class EntityModel
 	public string PostalAddress { get; set; } = string.Empty;
 	public string OGRN { get; set; } = string.Empty;
 	public string Director { get; set; } = string.Empty;
+	public string Code { get; set; } = string.Empty;
 	public static EntityModel Model { get; set; } = new();
 
 	public static bool IsValidEmail(string email)

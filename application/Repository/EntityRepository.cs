@@ -37,7 +37,7 @@ public class EntityRepository : IEntityRepository
 	{
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
-			if (!IsEmailExist(entity.Email))
+			if (IsEmailExist(entity.Email))
 				return Result.Failure<Guid>("Пользователь с таким email уже существует.");
 
 			string query = $@"INSERT into ""user"" 
@@ -62,7 +62,7 @@ public class EntityRepository : IEntityRepository
 	{
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
-			if (!IsEmailExist(entity.Email))
+			if (IsEmailExist(entity.Email))
 				return Result.Failure<Guid>("Компания с таким email уже существует.");
 
 			string query = $@"INSERT into company
@@ -99,7 +99,7 @@ public class EntityRepository : IEntityRepository
 				FROM company
 				WHERE email = @Email";
 
-			int emailCount = dbConnection.QuerySingle<int>(query, new { Email = email });
+			int emailCount = dbConnection.QueryFirstOrDefault<int>(query, new { Email = email });
 
 			if (emailCount == 0)
 				return false;
