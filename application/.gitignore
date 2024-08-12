@@ -31,3 +31,4 @@ landing_assets
 *.sw?
 
 .vercel
+.env
