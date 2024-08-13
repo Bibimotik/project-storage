@@ -4,13 +4,13 @@ using System.Windows;
 using application.Abstraction;
 using application.MVVM.Model;
 using application.MVVM.View.Auth;
-using application.Repository;
-using application.Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-using StackExchange.Redis;
+using CSharpFunctionalExtensions;
+
+using static application.Abstraction.EntityAbstraction;
 
 namespace application.MVVM.ViewModel;
 
@@ -19,6 +19,8 @@ public partial class AuthViewModel : ObservableObject
 	private readonly IEntityRepository _entityRepository;
 	private readonly IAuthService _authService;
 	private readonly INavigationService _navigationService;
+	private readonly ISecurityService _securityService;
+	private readonly IMailService _mailService;
 
 	[ObservableProperty]
 	private object? currentView;
@@ -42,11 +44,14 @@ public partial class AuthViewModel : ObservableObject
 	private bool authTypeConfirmEmailReverse;
 
 
-	public AuthViewModel(IEntityRepository entityRepository, IAuthService authService, INavigationService navigationService)
+	public AuthViewModel(IEntityRepository entityRepository, IAuthService authService, INavigationService navigationService, ISecurityService securityService, IMailService mailService)
 	{
 		_entityRepository = entityRepository;
 		_authService = authService;
 		_navigationService = navigationService;
+		_securityService = securityService;
+		_mailService = mailService;
+
 		Login();
 	}
 
@@ -117,6 +122,9 @@ public partial class AuthViewModel : ObservableObject
 	[RelayCommand]
 	private void ConfirmEmail()
 	{
+		if (!Registration())
+			return;
+
 		CurrentView = new ConfirmEmailView();
 		AuthTypeLogin = false;
 		AuthTypeLoginReverse = !AuthTypeLogin;
@@ -128,17 +136,50 @@ public partial class AuthViewModel : ObservableObject
 		AuthTypeConfirmEmail = false;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 	}
-	
+	// TODO - это кто и для чего снизу ?
 	[RelayCommand]
-	private void Check()
+	private void SwitchView()
 	{
-		// TODO - код проверки почты
-	}
 
+	}
+	[RelayCommand]
+	private async Task Check()
+	{
+		EntityModel model = EntityModel.Model;
+
+		Debug.WriteLine("input code: " + model.InputCode);
+		Debug.WriteLine("storage code: " + model.Code);
+		Debug.WriteLine("storage code decrypy: " + _securityService.Decrypt(model.Code));
+
+		if (model.InputCode != _securityService.Decrypt(model.Code))
+			return;
+
+		Result<Guid> id = new();
+		switch (model.EntityType)
+		{
+			case EntityType.User:
+				id = await _entityRepository.UserRegistration(model);
+				break;
+			case EntityType.Company:
+				id = await _entityRepository.UserRegistration(model);
+				break;
+		}
+
+		if (id.IsFailure)
+		{
+			Debug.WriteLine(id.Error);
+			return;
+		}
+
+		MessageBox.Show("УРА");
+		_navigationService.ShowMain();
+
+		Console.WriteLine("ID: " + id.Value.ToString());
+	}
 	// TODO - здесь проверка данных из репозитория
 	// TODO - оставить async void или сделать async Task. Т.к. void отвечает за обработчики событий
 	[RelayCommand]
-	private async void LoginButton()
+	private async Task LoginButton()
 	{
 		EntityModel model = EntityModel.Model;
 		if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password))
@@ -157,44 +198,41 @@ public partial class AuthViewModel : ObservableObject
 
 		_navigationService.ShowMain();
 	}
-	
-	private string GenerateRandomCode()
-	{
-		Random rand = new Random();
-		return rand.Next(100000, 999999).ToString();
-	}
-	
-	[RelayCommand]
-	private async void UserRegistrationButton()
+
+	private bool Registration()
 	{
 		EntityModel model = EntityModel.Model;
-		model.Id = Guid.NewGuid();
-		model.FirstName = "w";
-		model.SecondName = "w";
-		model.ThirdName = "w";
-		model.Phone = "+431463";
-		model.Email = "misha2005.b@yandex.ru";
-		model.Password = "w";
-		model.ConfirmPassword = "w";
+		//model.Email = "kuncovs1.0@gmail.com";
+		//model.Email = "misha2005.b@yandex.ru";
+
 		// TODO - сделать проверки на наличие всех заполненных полей
 
+		// TODO - проверка на существование такого email
+		Result email = _entityRepository.IsEmailExist(model.Email);
+		if (email.IsFailure)
+		{
+			MessageBox.Show(email.Error);
+			return false;
+		}
+
 		if (!model.Password.Equals(model.ConfirmPassword))
-			return;
+			return false;
 
-		var id = await _entityRepository.UserRegistration(model);
-
-		if (id.IsFailure)
-			return;
-
-		Console.WriteLine("ID: " + id.Value.ToString());
-		
-		ISecurityService securityService = new SecurityService();
-		securityService.GenerateKeys();
-		string encryptedCode = securityService.Encrypt(GenerateRandomCode());
-		
-		IMailService mailService = new MailService();
-		//mailService.SendMail(securityService.Decrypt(encryptedCode), model.Email); // Используем userEmail, который был установлен при изменении эл. почты
+		string code = GenerateRandomCode();
+		string encryptedCode = _securityService.Encrypt(code);
+		// TODO - нахуя сразу шфировать а потом в mailService передавать расшифровку
+		//_mailService.SendMail(_securityService.Decrypt(encryptedCode), model.Email); // Используем userEmail, который был установлен при изменении эл. почты
+		// почему не так
+		_mailService.SendMail(code, model.Email);
 
 		model.Code = encryptedCode;
+
+		return true;
+	}
+
+	private string GenerateRandomCode()
+	{
+		Random rand = new();
+		return rand.Next(100000, 999999).ToString();
 	}
 }

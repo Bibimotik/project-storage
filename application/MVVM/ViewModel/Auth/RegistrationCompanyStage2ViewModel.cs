@@ -4,6 +4,8 @@ using application.MVVM.Model;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 
+using static application.Abstraction.EntityAbstraction;
+
 namespace application.MVVM.ViewModel.Auth;
 
 partial class RegistrationCompanyStage2ViewModel : ObservableObject
@@ -39,6 +41,7 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 		EntityModel.Model ??= new EntityModel();
 
 		EntityModel model = EntityModel.Model;
+		model.EntityType = EntityType.Company;
 		model.Director = Director;
 		model.Email = Email;
 		model.Password = Password;

@@ -15,7 +15,7 @@ CREATE TABLE COMPANY
 	FullName       varchar(100)    NOT NULL,
 	ShortName      varchar(100)    NOT NULL, -- TODO я запутался что за FullName и ShortName
 	Email          varchar(100)    NOT NULL,
-	Password       varchar(100)    NOT NULL,
+	Password       text            NOT NULL,
 	Legal_Address  varchar(1000)   NOT NULL,
 	Postal_Address varchar(1000)   NOT NULL,
 	Director       text            NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE "user"
 	ThirdName  varchar(100) NOT NULL,
 	Phone      varchar(20)  NOT NULL,
 	Email      varchar(100) NOT NULL,
-	Password   varchar(100) NOT NULL,
+	Password   text         NOT NULL,
 	Logo       bytea,
 	Is_Deleted bool         NOT NULL
 );

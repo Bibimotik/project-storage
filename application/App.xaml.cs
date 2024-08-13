@@ -5,9 +5,10 @@ using application.MVVM.View;
 using application.MVVM.View.Pages;
 using application.MVVM.ViewModel;
 using application.MVVM.ViewModel.Pages;
-using application.Properties;
 using application.Repository;
 using application.Services;
+
+using DotNetEnv;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,12 +22,16 @@ public partial class App : Application
 	{
 		base.OnStartup(e);
 
+		Env.Load("../../../.env");
+
 		IServiceCollection services = new ServiceCollection();
 
-		services.AddScoped<IDatabaseService>(provider => new DatabaseService(Settings.Default.PostgresqlDev));
+		services.AddScoped<IDatabaseService>(provider => new DatabaseService(Environment.GetEnvironmentVariable("POSTGRESQL__DEV")));
 		services.AddScoped<IEntityRepository, EntityRepository>();
 		services.AddScoped<IAuthService, AuthService>();
+		services.AddScoped<IMailService, MailService>();
 		services.AddSingleton<INavigationService, NavigationService>();
+		services.AddSingleton<ISecurityService, SecurityService>();
 
 		services.AddSingleton<App>();
 		services.AddScoped<AuthViewModel>();
@@ -46,6 +51,8 @@ public partial class App : Application
 
 		IAuthService authService = _serviceProvider.GetRequiredService<IAuthService>();
 		INavigationService navigationService = _serviceProvider.GetRequiredService<INavigationService>();
+		ISecurityService securityService = _serviceProvider.GetRequiredService<ISecurityService>();
+		securityService.GenerateKeys();
 
 		switch (authService.IsUserAuthenticated())
 		{

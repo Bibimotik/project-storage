@@ -1,6 +1,5 @@
 using System.Net;
 using System.Net.Mail;
-using System.Windows;
 
 using application.Abstraction;
 
@@ -19,7 +18,7 @@ public class MailService : IMailService
 		string smtpUsername = Environment.GetEnvironmentVariable("MAIL");
 		string smtpPassword = Environment.GetEnvironmentVariable("MAIL_PASSWORD");
 
-		using (SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort))
+		using (SmtpClient smtpClient = new(smtpServer, smtpPort))
 		{
 			smtpClient.Credentials = new NetworkCredential(smtpUsername, smtpPassword);
 			smtpClient.EnableSsl = true;
@@ -29,7 +28,7 @@ public class MailService : IMailService
 				mailMessage.From = new MailAddress(smtpUsername);
 				mailMessage.To.Add($"{toMail}"); //адрес получателя
 				mailMessage.Subject = "КОД ДЛЯ ПОДТВЕРЖДЕНИЯ";
-				mailMessage.Body = $"{code}"; //контент письма
+				mailMessage.Body = $"{code}"; //контент письма // TODO - добавить как то выделение кода более большим шрифтом
 
 				try
 				{

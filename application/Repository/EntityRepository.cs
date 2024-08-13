@@ -37,8 +37,9 @@ public class EntityRepository : IEntityRepository
 	{
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
-			if (IsEmailExist(entity.Email))
-				return Result.Failure<Guid>("Пользователь с таким email уже существует.");
+			Result email = IsEmailExist(entity.Email);
+			if (email.IsFailure)
+				return Result.Failure<Guid>(email.Error);
 
 			string query = $@"INSERT into ""user"" 
 				(user_id, firstname, secondname, thirdname, phone, email, password, logo, is_deleted)
@@ -62,8 +63,9 @@ public class EntityRepository : IEntityRepository
 	{
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
-			if (IsEmailExist(entity.Email))
-				return Result.Failure<Guid>("Компания с таким email уже существует.");
+			Result email = IsEmailExist(entity.Email);
+			if (email.IsFailure)
+				return Result.Failure<Guid>(email.Error);
 
 			string query = $@"INSERT into company
 				(company_id, inn, kpp, ogrn, fullname, shortname, email, password, legal_address, postal_address, director, logo, is_deleted)
@@ -87,7 +89,9 @@ public class EntityRepository : IEntityRepository
 		}, _databaseService);
 	}
 
-	private bool IsEmailExist(string email)
+	// return true if exist
+	// TODO - какой вариант лучше? этот или с bool. просто здесь можно указать одну ошибку сразу для всех проверок
+	public Result IsEmailExist(string email)
 	{
 		return RepositoryHelper.ExecuteWithErrorHandling(dbConnection =>
 		{
@@ -102,9 +106,9 @@ public class EntityRepository : IEntityRepository
 			int emailCount = dbConnection.QueryFirstOrDefault<int>(query, new { Email = email });
 
 			if (emailCount == 0)
-				return false;
+				return Result.Success();
 
-			return true;
+			return Result.Failure("Entity with this email already exists.");
 		}, _databaseService);
 	}
 }

@@ -1,8 +1,8 @@
-﻿using System.Diagnostics;
-
-using application.MVVM.Model;
+﻿using application.MVVM.Model;
 
 using CommunityToolkit.Mvvm.ComponentModel;
+
+using static application.Abstraction.EntityAbstraction;
 
 namespace application.MVVM.ViewModel.Auth;
 
@@ -48,6 +48,8 @@ partial class RegistrationUserViewModel : ObservableObject
 		EntityModel.Model ??= new EntityModel();
 
 		EntityModel model = EntityModel.Model;
+		model.Id = Guid.NewGuid();
+		model.EntityType = EntityType.User;
 		model.FirstName = FirstName;
 		model.SecondName = SecondName;
 		model.ThirdName = ThirdName;
