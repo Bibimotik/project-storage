@@ -30,7 +30,8 @@
 				Text="Email" />
 			<TextBox
 				Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
-				Style="{StaticResource AuthInput}" />
+				Style="{StaticResource AuthInput}" 
+				MaxLength="100" />
 			<TextBlock
 				Visibility="{Binding IsInvalidEmail, Converter={StaticResource BoolToVisibilityConverter}}"
 				Foreground="red"
@@ -58,13 +59,14 @@
 					Visibility="Hidden"
 					Style="{StaticResource AuthInput}" />
 				<!--TODO - сделать получение пароля в PasswordBox -->
-				<!--Password="{Binding Password, UpdateSourceTrigger=PropertyChanged}"-->
 				<PasswordBox
 					x:Name="passwordPasswordBox"
 					Grid.Column="0"
 					PreviewTextInput="Password_OnPreviewTextInput"
 					PreviewKeyDown="Password_OnPreviewKeyDown"
-					Style="{StaticResource AuthPassword}" />
+					PasswordChanged="PasswordPasswordBox_PasswordChanged"
+					Style="{StaticResource AuthPassword}"
+					MaxLength="100" />
 
 				<Border
 					Grid.Column="1">

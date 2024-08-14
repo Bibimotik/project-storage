@@ -256,8 +256,7 @@
 
 			<Button
 				Style="{StaticResource Button}"
-				Margin="0,0,3,0"
-				Click="RegistrationUser_OnClick">
+				Margin="0,0,3,0">
 				<Image
 					Source="../../Assets/Icons/Alert triangle.png"
 					Width="20"

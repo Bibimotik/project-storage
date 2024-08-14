@@ -49,4 +49,12 @@ public partial class LoginView : UserControl
 			passwordPasswordBox.Visibility = Visibility.Visible;
 		}
 	}
+	// TODO - костыль ебнутый но пока будет так чтобы не тормозить
+	private void PasswordPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+	{
+		if (sender is PasswordBox passwordBox && passwordTextBox != null)
+		{
+			passwordTextBox.Text = passwordBox.Password;
+		}
+	}
 }

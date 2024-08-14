@@ -136,7 +136,6 @@ public partial class AuthViewModel : ObservableObject
 		AuthTypeConfirmEmail = false;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 	}
-	// TODO - это кто и для чего снизу ?
 	[RelayCommand]
 	private void SwitchView()
 	{

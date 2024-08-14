@@ -32,7 +32,8 @@
 				Text="First Name" />
 			<TextBox
 				Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"
-				Style="{StaticResource AuthInput}" />
+				Style="{StaticResource AuthInput}" 
+				MaxLength="100" />
 		</StackPanel>
 
 		<StackPanel
@@ -43,7 +44,8 @@
 				Text="Second Name" />
 			<TextBox
 				Text="{Binding SecondName, UpdateSourceTrigger=PropertyChanged}"
-				Style="{StaticResource AuthInput}" />
+				Style="{StaticResource AuthInput}"
+				MaxLength="100" />
 		</StackPanel>
 
 		<StackPanel
@@ -54,7 +56,8 @@
 				Text="Third Name" />
 			<TextBox
 				Text="{Binding ThirdName, UpdateSourceTrigger=PropertyChanged}"
-				Style="{StaticResource AuthInput}" />
+				Style="{StaticResource AuthInput}"
+				MaxLength="100" />
 		</StackPanel>
 
 		<StackPanel
@@ -67,7 +70,8 @@
 				PreviewTextInput="Phone_OnPreviewTextInput"
 				PreviewKeyDown="Space_OnPreviewKeyDown"
 				Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"
-				Style="{StaticResource AuthInput}" MaxLength="20"/>
+				Style="{StaticResource AuthInput}" 
+				MaxLength="20" />
 		</StackPanel>
 
 		<StackPanel
@@ -80,7 +84,8 @@
 				Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
 				PreviewTextInput="Password_OnPreviewTextInput"
 				PreviewKeyDown="Space_OnPreviewKeyDown"
-				Style="{StaticResource AuthInput}" />
+				Style="{StaticResource AuthInput}" 
+				MaxLength="100" />
 			<TextBlock
 				Visibility="{Binding IsInvalidEmail, Converter={StaticResource BoolToVisibilityConverter}}"
 				Foreground="red"
@@ -107,14 +112,17 @@
 					PreviewTextInput="Password_OnPreviewTextInput"
 					PreviewKeyDown="Space_OnPreviewKeyDown"
 					Visibility="Hidden"
-					Style="{StaticResource AuthInput}" />
+					Style="{StaticResource AuthInput}" 
+					MaxLength="100" />
 				<PasswordBox
 					Height="23.96"
 					x:Name="passwordPasswordBox"
 					Grid.Column="0"
 					PreviewTextInput="Password_OnPreviewTextInput"
 					PreviewKeyDown="Space_OnPreviewKeyDown"
-					Style="{StaticResource AuthPassword}" />
+					PasswordChanged="PasswordPasswordBox_PasswordChanged"
+					Style="{StaticResource AuthPassword}" 
+					MaxLength="100" />
 
 				<Border
 					Grid.Column="1">
@@ -151,14 +159,17 @@
 					PreviewTextInput="Password_OnPreviewTextInput"
 					PreviewKeyDown="Space_OnPreviewKeyDown"
 					Visibility="Hidden"
-					Style="{StaticResource AuthInput}" />
+					Style="{StaticResource AuthInput}" 
+					MaxLength="100" />
 				<PasswordBox
 					Height="23.96"
 					x:Name="confirmPasswordPasswordBox"
 					Grid.Column="0"
 					PreviewTextInput="Password_OnPreviewTextInput"
 					PreviewKeyDown="Space_OnPreviewKeyDown"
-					Style="{StaticResource AuthPassword}" />
+					PasswordChanged="PasswordPasswordBox_PasswordChanged"
+					Style="{StaticResource AuthPassword}" 
+					MaxLength="100" />
 
 				<Border
 					Grid.Column="1">

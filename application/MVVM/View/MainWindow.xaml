@@ -60,7 +60,8 @@
 					VerticalAlignment="Top">
 
 					<Border
-						Style="{StaticResource MenuBorder}">
+						Style="{StaticResource MenuBorder}"
+						CornerRadius="0 6 0 0">
 						<RadioButton
 							Margin="10 5 0 5"
 							Command="{Binding OpenMenuCommand}"
@@ -180,7 +181,8 @@
 					</Border>
 
 					<Border
-						Style="{StaticResource MenuBorder}">
+						Style="{StaticResource MenuBorder}"
+						CornerRadius="0 0 6 0">
 						<RadioButton
 							Margin="10 5 0 5"
 							Command="{Binding InfoCommand}"

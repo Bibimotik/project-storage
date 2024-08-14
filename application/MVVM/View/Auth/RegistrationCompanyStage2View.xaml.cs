@@ -77,4 +77,12 @@ public partial class RegistrationCompanyStage2View : UserControl
             confirmPasswordPasswordBox.Visibility = Visibility.Visible;
         }
     }
+    
+    private void PasswordPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+    {
+	    if (sender is PasswordBox passwordBox && passwordTextBox != null)
+	    {
+		    passwordTextBox.Text = passwordBox.Password;
+	    }
+    }
 }

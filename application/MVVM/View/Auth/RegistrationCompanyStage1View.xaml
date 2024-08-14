@@ -67,7 +67,8 @@
 				Text="Full Name" />
 			<TextBox
 				Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"
-				Style="{StaticResource AuthInput}" />
+				Style="{StaticResource AuthInput}" 
+				MaxLength="100" />
 		</StackPanel>
 
 		<StackPanel
@@ -78,7 +79,8 @@
 				Text="Short Name" />
 			<TextBox
 				Text="{Binding ShortName, UpdateSourceTrigger=PropertyChanged}"
-				Style="{StaticResource AuthInput}" />
+				Style="{StaticResource AuthInput}"
+				MaxLength="100" />
 		</StackPanel>
 
 		<StackPanel
@@ -89,7 +91,8 @@
 				Text="Legal Address" />
 			<TextBox
 				Text="{Binding LegalAddress, UpdateSourceTrigger=PropertyChanged}"
-				Style="{StaticResource AuthInput}" />
+				Style="{StaticResource AuthInput}" 
+				MaxLength="1000" />
 		</StackPanel>
 
 		<StackPanel
@@ -100,7 +103,8 @@
 				Text="Postal Address" />
 			<TextBox
 				Text="{Binding PostalAddress, UpdateSourceTrigger=PropertyChanged}"
-				Style="{StaticResource AuthInput}" />
+				Style="{StaticResource AuthInput}"
+				MaxLength="1000" />
 		</StackPanel>
 
 		<StackPanel

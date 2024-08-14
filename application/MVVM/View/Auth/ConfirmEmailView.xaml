@@ -46,8 +46,6 @@
 						Width="*" />
 				</Grid.ColumnDefinitions>
 
-				<!-- TODO - при нажатии Backspace удалялся предыдущий символ -->
-				<!-- TODO - при удалении символа не перескакивало на следующее поле -->
 				<TextBox
 					Style="{StaticResource ConfirmInput}"
 					MaxLength="1"
