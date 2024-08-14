@@ -89,8 +89,6 @@ public class EntityRepository : IEntityRepository
 		}, _databaseService);
 	}
 
-	// return true if exist
-	// TODO - какой вариант лучше? этот или с bool. просто здесь можно указать одну ошибку сразу для всех проверок
 	public Result IsEmailExist(string email)
 	{
 		return RepositoryHelper.ExecuteWithErrorHandling(dbConnection =>

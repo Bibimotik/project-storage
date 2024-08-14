@@ -15,12 +15,10 @@ partial class LoginViewModel : ObservableObject
 	[ObservableProperty]
 	private bool isInvalidEmail = false;
 
-	// TODO - здесь скорее всего сделать валидацию самой почты, чтобы в этом компоненте выкидывать красный текст под инпутом что email не подходит
 	partial void OnEmailChanged(string value)
 	{
 		if (!EntityModel.IsValidEmail(value))
 		{
-			// TODO - уведомление под инпутом что почта не валидна
 			IsInvalidEmail = true;
 			return;
 		}

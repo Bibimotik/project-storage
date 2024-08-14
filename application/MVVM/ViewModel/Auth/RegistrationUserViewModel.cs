@@ -33,7 +33,6 @@ partial class RegistrationUserViewModel : ObservableObject
 	{
 		if (!EntityModel.IsValidEmail(value))
 		{
-			// TODO - уведомление под инпутом что почта не валидна
 			IsInvalidEmail = true;
 			return;
 		}

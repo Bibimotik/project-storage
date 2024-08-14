@@ -207,7 +207,6 @@ public partial class AuthViewModel : ObservableObject
 
 		// TODO - сделать проверки на наличие всех заполненных полей
 
-		// TODO - проверка на существование такого email
 		Result email = _entityRepository.IsEmailExist(model.Email);
 		if (email.IsFailure)
 		{

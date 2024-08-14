@@ -69,7 +69,6 @@
 							Tag="../../Assets/Icons/List.png" />
 					</Border>
 
-					<!-- TODO - CommandParameter у RadioButton можно убрать -->
 					<Border
 						Style="{StaticResource MenuBorder}">
 						<StackPanel
@@ -80,7 +79,6 @@
 
 							<RadioButton
 								Command="{Binding AccountCommand}"
-								CommandParameter="Account"
 								x:Name="Account"
 								Height="40"
 								Width="40"
@@ -120,7 +118,6 @@
 						<RadioButton
 							Margin="10 5 0 5"
 							Command="{Binding StatisticsCommand}"
-							CommandParameter="Statistics"
 							x:Name="Statistics"
 							Style="{StaticResource MenuRadioButton}"
 							Checked="RadioButton_Checked"
@@ -133,7 +130,6 @@
 						<RadioButton
 							Margin="10 5 0 5"
 							Command="{Binding SalesCommand}"
-							CommandParameter="Sales"
 							x:Name="Sales"
 							Style="{StaticResource MenuRadioButton}"
 							Checked="RadioButton_Checked"
@@ -146,7 +142,6 @@
 						<RadioButton
 							Margin="10 5 0 5"
 							Command="{Binding StorageCommand}"
-							CommandParameter="Storage"
 							x:Name="Storage"
 							Style="{StaticResource MenuRadioButton}"
 							Checked="RadioButton_Checked"
@@ -159,7 +154,6 @@
 						<RadioButton
 							Margin="10 5 0 5"
 							Command="{Binding StaffCommand}"
-							CommandParameter="Staff"
 							x:Name="Staff"
 							Style="{StaticResource MenuRadioButton}"
 							Checked="RadioButton_Checked"
@@ -178,7 +172,6 @@
 						<RadioButton
 							Margin="10 5 0 5"
 							Command="{Binding SupportCommand}"
-							CommandParameter="Support"
 							x:Name="Support"
 							Style="{StaticResource MenuRadioButton}"
 							Checked="RadioButton_Checked"
@@ -191,7 +184,6 @@
 						<RadioButton
 							Margin="10 5 0 5"
 							Command="{Binding InfoCommand}"
-							CommandParameter="Info"
 							x:Name="Info"
 							Style="{StaticResource MenuRadioButton}"
 							Checked="RadioButton_Checked"

@@ -14,8 +14,6 @@ public class NavigationService : INavigationService
 
 	public NavigationService(IServiceProvider serviceProvider) => _serviceProvider = serviceProvider;
 
-	// TODO - как то работает - как не знаю
-
 	public void ShowAuth()
 	{
 		var authWindow = _serviceProvider.GetRequiredService<AuthView>();
