@@ -120,9 +120,9 @@ public partial class AuthViewModel : ObservableObject
 	}
 	// TODO - на одинаковые ConfirmEmail можно добавить CommandParameter чтобы различать разные функции регистрации
 	[RelayCommand]
-	private void ConfirmEmail()
+	private async Task ConfirmEmail()
 	{
-		if (!Registration())
+		if (!await Registration())
 			return;
 
 		CurrentView = new ConfirmEmailView();
@@ -199,7 +199,7 @@ public partial class AuthViewModel : ObservableObject
 		_navigationService.ShowMain();
 	}
 
-	private bool Registration()
+	private async Task<bool> Registration()
 	{
 		EntityModel model = EntityModel.Model;
 		//model.Email = "kuncovs1.0@gmail.com";
@@ -221,9 +221,9 @@ public partial class AuthViewModel : ObservableObject
 		string code = GenerateRandomCode();
 		string encryptedCode = _securityService.Encrypt(code);
 		// TODO - нахуя сразу шфировать а потом в mailService передавать расшифровку
-		//_mailService.SendMail(_securityService.Decrypt(encryptedCode), model.Email); // Используем userEmail, который был установлен при изменении эл. почты
+		//_mailService.SendMail(_securityService.Decrypt(encryptedCode), model.Email); 
 		// почему не так
-		_mailService.SendMail(code, model.Email);
+		await _mailService.SendMail(code, model.Email);
 
 		model.Code = encryptedCode;
 

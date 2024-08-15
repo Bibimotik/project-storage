@@ -20,6 +20,7 @@
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="Npgsql" Version="8.0.3" />
       <PackageReference Include="StackExchange.Redis" Version="2.8.0" />
+      <PackageReference Include="UniversalModal.WPF" Version="1.0.0.4" />
     </ItemGroup>
 
     <ItemGroup>

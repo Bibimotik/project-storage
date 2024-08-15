@@ -9,7 +9,7 @@ namespace application.Services;
 
 public class MailService : IMailService
 {
-	public void SendMail(string code, string toMail)
+	public async Task SendMail(string code, string toMail)
 	{
 		Env.Load("../../../.env");
 
@@ -23,7 +23,7 @@ public class MailService : IMailService
 			smtpClient.Credentials = new NetworkCredential(smtpUsername, smtpPassword);
 			smtpClient.EnableSsl = true;
 
-			using (MailMessage mailMessage = new MailMessage())
+			using (MailMessage mailMessage = new())
 			{
 				mailMessage.From = new MailAddress(smtpUsername);
 				mailMessage.To.Add($"{toMail}"); //адрес получателя
@@ -32,7 +32,7 @@ public class MailService : IMailService
 
 				try
 				{
-					smtpClient.Send(mailMessage);
+					await smtpClient.SendMailAsync(mailMessage);
 					// TODO - убрать потом
 					Console.WriteLine("Сообщение успешно отправлено.");
 				}
