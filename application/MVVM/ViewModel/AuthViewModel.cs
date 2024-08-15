@@ -10,6 +10,8 @@ using CommunityToolkit.Mvvm.Input;
 
 using CSharpFunctionalExtensions;
 
+using MailServiceLibrary;
+
 using static application.Abstraction.EntityAbstraction;
 
 namespace application.MVVM.ViewModel;

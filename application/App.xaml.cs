@@ -10,6 +10,8 @@ using application.Services;
 
 using DotNetEnv;
 
+using MailServiceLibrary;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace application;
@@ -29,7 +31,12 @@ public partial class App : Application
 		services.AddScoped<IDatabaseService>(provider => new DatabaseService(Environment.GetEnvironmentVariable("POSTGRESQL__DEV")));
 		services.AddScoped<IEntityRepository, EntityRepository>();
 		services.AddScoped<IAuthService, AuthService>();
-		services.AddScoped<IMailService, MailService>();
+		services.AddScoped<IMailService>(mail => 
+			new MailService(
+				"smtp.mail.ru", 
+				587, 
+				Environment.GetEnvironmentVariable("MAIL"), 
+				Environment.GetEnvironmentVariable("MAIL_PASSWORD")));
 		services.AddSingleton<INavigationService, NavigationService>();
 		services.AddSingleton<ISecurityService, SecurityService>();
 

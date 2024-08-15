@@ -119,6 +119,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Reference Include="MailServiceLibrary">
+        <HintPath>Libraries\MailServiceLibrary.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
       <Compile Update="Properties\Settings.Designer.cs">
         <DesignTimeSharedInput>True</DesignTimeSharedInput>
         <AutoGen>True</AutoGen>
