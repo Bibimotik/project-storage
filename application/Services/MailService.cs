@@ -30,7 +30,6 @@ public class MailService : IMailService
                     mailMessage.To.Add(toMail);
                     mailMessage.Subject = "КОД ДЛЯ ПОДТВЕРЖДЕНИЯ";
 
-                    // Заменяем текстовое письмо на HTML-шаблон
                     mailMessage.IsBodyHtml = true;
                     StringBuilder htmlBody = new StringBuilder();
                     htmlBody.Append("<!DOCTYPE html>");

@@ -122,6 +122,8 @@ public partial class AuthViewModel : ObservableObject
 	[RelayCommand]
 	private void ConfirmEmail()
 	{
+		EntityModel model = EntityModel.Model;
+		
 		if (!Registration())
 			return;
 

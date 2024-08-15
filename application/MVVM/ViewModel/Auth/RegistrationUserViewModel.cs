@@ -1,4 +1,6 @@
-﻿using application.MVVM.Model;
+﻿using System.Windows;
+
+using application.MVVM.Model;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -24,11 +26,68 @@ partial class RegistrationUserViewModel : ObservableObject
 	private string confirmPassword = string.Empty;
 	[ObservableProperty]
 	private bool isInvalidEmail = false;
+	[ObservableProperty]
+	private bool isInvalidFirstName = false;
+	[ObservableProperty]
+	private bool isInvalidSecondName = false;
+	[ObservableProperty]
+	private bool isInvalidThirdName = false;
+	[ObservableProperty]
+	private bool isInvalidPhone = false;
+	[ObservableProperty]
+	private bool isInvalidPassword = false;
+	[ObservableProperty]
+	private bool isInvalidConfirmPassword = false;
+	[ObservableProperty]
+	private bool isPasswordFormatInvalid = false;
+	[ObservableProperty]
+	private bool arePasswordsMismatch = false;
 
-	partial void OnFirstNameChanged(string value) => CreateModel();
-	partial void OnSecondNameChanged(string value) => CreateModel();
-	partial void OnThirdNameChanged(string value) => CreateModel();
-	partial void OnPhoneChanged(string value) => CreateModel();
+	partial void OnFirstNameChanged(string value)
+	{
+		if (!EntityModel.IsFilledFirstName(value))
+		{
+			IsInvalidFirstName = true;
+			return;
+		}
+		
+		IsInvalidFirstName = false;
+		CreateModel();
+	}
+
+	partial void OnSecondNameChanged(string value)
+	{
+		if (!EntityModel.IsFilledSecondName(value))
+		{
+			IsInvalidSecondName = true;
+			return;
+		}
+		
+		IsInvalidSecondName = false;
+		CreateModel();
+	}
+	partial void OnThirdNameChanged(string value)
+	{
+		if (!EntityModel.IsFilledThirdName(value))
+		{
+			IsInvalidThirdName = true;
+			return;
+		}
+		
+		IsInvalidThirdName = false;
+		CreateModel();
+	}
+	partial void OnPhoneChanged(string value)
+	{
+		if (!EntityModel.IsFilledPhone(value))
+		{
+			IsInvalidPhone = true;
+			return;
+		}
+		
+		IsInvalidPhone = false;
+		CreateModel();
+	}
 	partial void OnEmailChanged(string value)
 	{
 		if (!EntityModel.IsValidEmail(value))
@@ -36,11 +95,39 @@ partial class RegistrationUserViewModel : ObservableObject
 			IsInvalidEmail = true;
 			return;
 		}
+		
 		IsInvalidEmail = false;
 		CreateModel();
 	}
-	partial void OnPasswordChanged(string value) => CreateModel();
-	partial void OnConfirmPasswordChanged(string value) => CreateModel();
+	partial void OnPasswordChanged(string value)
+	{
+		if (!EntityModel.IsFilledPassword(value))
+		{
+			IsInvalidPassword = true;
+			return;
+		}
+		
+		IsInvalidPassword = false;
+		CreateModel();
+	}
+	partial void OnConfirmPasswordChanged(string value)
+	{
+		IsPasswordFormatInvalid = false;
+		ArePasswordsMismatch = false;
+
+		if (!EntityModel.IsFilledConfirmPassword(value))
+		{
+			IsPasswordFormatInvalid = true;
+		}
+		else if (!EntityModel.ComparePasswords(Password, value))
+		{
+			ArePasswordsMismatch = true;
+		}
+		else
+		{
+			CreateModel();
+		}
+	}
 
 	private void CreateModel()
 	{

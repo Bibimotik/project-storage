@@ -41,4 +41,56 @@ public class EntityModel
 			return false;
 		}
 	}
+	
+	public static bool IsFilledFirstName(string firstname)
+	{
+		return !string.IsNullOrWhiteSpace(firstname);
+	}
+	
+	public static bool IsFilledSecondName(string secondname)
+	{
+		return !string.IsNullOrWhiteSpace(secondname);
+	}
+	
+	public static bool IsFilledThirdName(string thirdname)
+	{
+		return !string.IsNullOrWhiteSpace(thirdname);
+	}
+	
+	public static bool IsFilledPhone(string phone)
+	{
+		return !string.IsNullOrWhiteSpace(phone);
+	}
+	
+	public static bool IsFilledPassword(string password)
+	{
+		if (string.IsNullOrWhiteSpace(password))
+			return false;
+		try
+		{
+			var regex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$", RegexOptions.Compiled);
+			return regex.IsMatch(password);
+		}
+		catch (RegexMatchTimeoutException)
+		{
+			return false;
+		}
+	}
+	
+	public static bool IsFilledConfirmPassword(string confirmpassword)
+	{
+		if (string.IsNullOrWhiteSpace(confirmpassword))
+			return false;
+		try
+		{
+			var regex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$", RegexOptions.Compiled);
+			return regex.IsMatch(confirmpassword);
+		}
+		catch (RegexMatchTimeoutException)
+		{
+			return false;
+		}
+	}
+
+	public static bool ComparePasswords(string password, string confirmPassword) => password == confirmPassword;
 }

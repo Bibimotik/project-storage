@@ -168,8 +168,7 @@
 									Command="{Binding ConfirmEmailCommand}"
 									CommandParameter="User"
 									HorizontalAlignment="Center"
-									Style="{StaticResource SendButton}" 
-									/>
+									Style="{StaticResource SendButton}" />
 
 								<StackPanel
 									Orientation="Vertical">

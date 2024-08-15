@@ -34,6 +34,10 @@
 				Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" 
 				MaxLength="100" />
+			<TextBlock
+				Visibility="{Binding IsInvalidFirstName, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Fill Your First Name..." />
 		</StackPanel>
 
 		<StackPanel
@@ -46,6 +50,10 @@
 				Text="{Binding SecondName, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}"
 				MaxLength="100" />
+			<TextBlock
+				Visibility="{Binding IsInvalidSecondName, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Fill Your Second Name..." />
 		</StackPanel>
 
 		<StackPanel
@@ -58,6 +66,10 @@
 				Text="{Binding ThirdName, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}"
 				MaxLength="100" />
+			<TextBlock
+				Visibility="{Binding IsInvalidThirdName, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Fill Your Third Name..." />
 		</StackPanel>
 
 		<StackPanel
@@ -72,6 +84,10 @@
 				Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" 
 				MaxLength="20" />
+			<TextBlock
+				Visibility="{Binding IsInvalidPhone, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Fill Your Phone..." />
 		</StackPanel>
 
 		<StackPanel
@@ -138,6 +154,10 @@
 					</CheckBox>
 				</Border>
 			</Grid>
+			<TextBlock
+				Visibility="{Binding IsInvalidPassword, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Password Error! Enter a-z, A-Z and number..." />
 		</StackPanel>
 
 		<StackPanel
@@ -167,10 +187,10 @@
 					Grid.Column="0"
 					PreviewTextInput="Password_OnPreviewTextInput"
 					PreviewKeyDown="Space_OnPreviewKeyDown"
-					PasswordChanged="PasswordPasswordBox_PasswordChanged"
+					PasswordChanged="ConfirmPasswordPasswordBox_PasswordChanged"
 					Style="{StaticResource AuthPassword}" 
 					MaxLength="100" />
-
+				
 				<Border
 					Grid.Column="1">
 					<CheckBox
@@ -185,8 +205,16 @@
 					</CheckBox>
 				</Border>
 			</Grid>
+			<TextBlock
+				Visibility="{Binding IsPasswordFormatInvalid, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Password Error! Enter a-z, A-Z and number..." />
+			<TextBlock
+				Visibility="{Binding ArePasswordsMismatch, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Passwords don't match..." />
 		</StackPanel>
-
+		
 	</StackPanel>
 
 </UserControl>

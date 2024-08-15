@@ -97,5 +97,13 @@ namespace application.MVVM.View.Auth
 		        passwordTextBox.Text = passwordBox.Password;
 	        }
         }
+        
+        private void ConfirmPasswordPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+	        if (sender is PasswordBox confirmPpasswordBox && confirmPasswordTextBox != null)
+	        {
+		        confirmPasswordTextBox.Text = confirmPpasswordBox.Password;
+	        }
+        }
     }
 }
