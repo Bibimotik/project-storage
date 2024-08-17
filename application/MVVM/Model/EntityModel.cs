@@ -9,18 +9,22 @@ namespace application.MVVM.Model;
 public class EntityModel
 {
 	public Guid Id { get; set; }
+	
+	[RequiredForValidation]
+	public string? FirstName { get; set; } = null;
+	[RequiredForValidation]
+	public string? SecondName { get; set; } = null;
+	[RequiredForValidation]
+	public string? ThirdName { get; set; } = null;
+	[RequiredForValidation]
+	public string? Phone { get; set; } = null;
+	
 	[RequiredForValidation]
 	public string Email { get; set; } = string.Empty;
 	[RequiredForValidation]
 	public string Password { get; set; } = string.Empty;
 	[RequiredForValidation]
 	public string ConfirmPassword { get; set; } = string.Empty;
-
-	public string? FirstName { get; set; } = null;
-	public string? SecondName { get; set; } = null;
-	public string? ThirdName { get; set; } = null;
-	[RequiredForValidation]
-	public string? Phone { get; set; } = null;
 
 	[RequiredForValidation]
 	public string INN { get; set; } = string.Empty;
@@ -55,7 +59,7 @@ public class EntityModel
 			return false;
 		try
 		{
-			var regex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+			var regex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 			return regex.IsMatch(email);
 		}
 		catch (RegexMatchTimeoutException)
@@ -63,56 +67,6 @@ public class EntityModel
 			return false;
 		}
 	}
-
-	public static bool IsFilledFirstName(string firstname)
-	{
-		return !string.IsNullOrWhiteSpace(firstname);
-	}
-
-	public static bool IsFilledSecondName(string secondname)
-	{
-		return !string.IsNullOrWhiteSpace(secondname);
-	}
-
-	public static bool IsFilledThirdName(string thirdname)
-	{
-		return !string.IsNullOrWhiteSpace(thirdname);
-	}
-
-	public static bool IsFilledPhone(string phone)
-	{
-		return !string.IsNullOrWhiteSpace(phone);
-	}
-
-	public static bool IsFilledPassword(string password)
-	{
-		if (string.IsNullOrWhiteSpace(password))
-			return false;
-		try
-		{
-			var regex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$", RegexOptions.Compiled);
-			return regex.IsMatch(password);
-		}
-		catch (RegexMatchTimeoutException)
-		{
-			return false;
-		}
-	}
-
-	public static bool IsFilledConfirmPassword(string confirmpassword)
-	{
-		if (string.IsNullOrWhiteSpace(confirmpassword))
-			return false;
-		try
-		{
-			var regex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$", RegexOptions.Compiled);
-			return regex.IsMatch(confirmpassword);
-		}
-		catch (RegexMatchTimeoutException)
-		{
-			return false;
-		}
-	}
-
+	
 	public static bool ComparePasswords(string password, string confirmPassword) => password == confirmPassword;
 }

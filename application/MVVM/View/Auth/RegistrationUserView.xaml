@@ -157,7 +157,7 @@
 			<TextBlock
 				Visibility="{Binding IsInvalidPassword, Converter={StaticResource BoolToVisibilityConverter}}"
 				Foreground="red"
-				Text="Password Error! Enter a-z, A-Z and number..." />
+				Text="Password Error! Enter 8 symbols, a-z, A-Z and number..." />
 		</StackPanel>
 
 		<StackPanel
@@ -208,7 +208,7 @@
 			<TextBlock
 				Visibility="{Binding IsPasswordFormatInvalid, Converter={StaticResource BoolToVisibilityConverter}}"
 				Foreground="red"
-				Text="Password Error! Enter a-z, A-Z and number..." />
+				Text="Password Error! Enter 8 symbols, a-z, A-Z and number..." />
 			<TextBlock
 				Visibility="{Binding ArePasswordsMismatch, Converter={StaticResource BoolToVisibilityConverter}}"
 				Foreground="red"

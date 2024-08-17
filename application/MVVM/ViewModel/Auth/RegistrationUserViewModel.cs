@@ -10,7 +10,7 @@ using static application.Abstraction.EntityAbstraction;
 
 namespace application.MVVM.ViewModel.Auth;
 
-partial class RegistrationUserViewModel : ObservableObject
+public partial class RegistrationUserViewModel : ObservableObject
 {
 	private readonly Dictionary<string, Action<string?>> _validationActions;
 
@@ -54,13 +54,13 @@ partial class RegistrationUserViewModel : ObservableObject
 
 		_validationActions = new Dictionary<string, Action<string?>>
 		{
-			{ nameof(Email), value => IsInvalidEmail = ValidateAndCreateModel(value) },
-			{ nameof(Password), value => IsInvalidPassword = ValidateAndCreateModel(value) },
-			//{ nameof(ConfirmPassword), value => IsInvalidConfirmPassword = ValidateAndCreateModel(value) },
 			{ nameof(FirstName), value => IsInvalidFirstName = ValidateAndCreateModel(value) },
 			{ nameof(SecondName), value => IsInvalidSecondName = ValidateAndCreateModel(value) },
 			{ nameof(ThirdName), value => IsInvalidThirdName = ValidateAndCreateModel(value) },
-			{ nameof(Phone), value => IsInvalidPhone = ValidateAndCreateModel(value) }
+			{ nameof(Phone), value => IsInvalidPhone = ValidateAndCreateModel(value) },
+			{ nameof(Email), value => IsInvalidEmail = ValidateAndCreateModel(value) },
+			{ nameof(Password), value => IsInvalidPassword = ValidateAndCreateModel(value) },
+			{ nameof(ConfirmPassword), value => IsInvalidConfirmPassword = ValidateAndCreateModel(value) }
 		};
 	}
 
@@ -73,12 +73,14 @@ partial class RegistrationUserViewModel : ObservableObject
 		try
 		{
 			Debug.WriteLine("email " + value);
-			var regex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+			var regex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        
 			if (!regex.IsMatch(value))
 			{
 				IsInvalidEmail = true;
 				return;
 			}
+        
 			IsInvalidEmail = false;
 		}
 		catch (RegexMatchTimeoutException)
@@ -86,40 +88,77 @@ partial class RegistrationUserViewModel : ObservableObject
 			IsInvalidEmail = false;
 			return;
 		}
+    
 		IsInvalidEmail = ValidateAndCreateModel(value);
 	}
+
 	partial void OnPasswordChanged(string value)
 	{
 		try
 		{
 			var regex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$", RegexOptions.Compiled);
+			
 			if (!regex.IsMatch(value))
 			{
 				IsInvalidPassword = true;
+				ArePasswordsMismatch = false;
 				return;
 			}
+
 			IsInvalidPassword = false;
+
+			if (!EntityModel.ComparePasswords(value, ConfirmPassword))
+			{
+				ArePasswordsMismatch = true;
+				return;
+			}
+
+			ArePasswordsMismatch = false;
 		}
 		catch (RegexMatchTimeoutException)
 		{
 			IsInvalidPassword = false;
+			ArePasswordsMismatch = false;
 			return;
 		}
+
 		IsInvalidPassword = ValidateAndCreateModel(value);
 	}
-	// TODO - что то не работает с confirmPassword, а я уже хочу спать, так что все поля после confirm password на тебе или на мне после сна
+
 	partial void OnConfirmPasswordChanged(string value)
 	{
-		IsInvalidConfirmPassword = ValidateAndCreateModel(value);
-		if (ArePasswordsMismatch = !string.Equals(Password, value))
+		try
 		{
-			IsPasswordFormatInvalid = true;
+			var regex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$", RegexOptions.Compiled);
+
+			if (!regex.IsMatch(value))
+			{
+				IsPasswordFormatInvalid = true;
+				ArePasswordsMismatch = false;
+				return;
+			}
+
+			IsPasswordFormatInvalid = false;
+
+			if (!EntityModel.ComparePasswords(Password, value))
+			{
+				ArePasswordsMismatch = true;
+				return;
+			}
+
+			ArePasswordsMismatch = false;
 		}
-		else
+		catch (RegexMatchTimeoutException)
 		{
-			CreateModel();
+			IsPasswordFormatInvalid = false;
+			ArePasswordsMismatch = false;
+			return;
 		}
+
+		CreateModel();
 	}
+
+
 	//partial void OnFirstNameChanged(string value)
 	//{
 	//	ValidateAndCreateModel(nameof(IsInvalidFirstName), value);
@@ -243,7 +282,7 @@ partial class RegistrationUserViewModel : ObservableObject
 
 		if (_validationActions.TryGetValue(property, out var validate))
 		{
-			validate(string.Empty);  // Передаем пустую строку или замените на актуальное значение, если требуется.
+			validate(string.Empty);
 		}
 	}
 
@@ -314,6 +353,19 @@ partial class RegistrationUserViewModel : ObservableObject
 	//	}
 	//}
 
+	public void ClearValidationErrors()
+	{
+		IsInvalidFirstName = false;
+		IsInvalidSecondName = false;
+		IsInvalidThirdName = false;
+		IsInvalidEmail = false;
+		IsInvalidPhone = false;
+		IsInvalidPassword = false;
+		IsInvalidConfirmPassword = false;
+		IsPasswordFormatInvalid = false;
+		ArePasswordsMismatch = false;
+	}
+	
 	private void CreateModel()
 	{
 		EntityModel.Model ??= new EntityModel();

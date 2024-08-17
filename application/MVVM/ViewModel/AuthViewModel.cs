@@ -4,6 +4,7 @@ using System.Windows;
 using application.Abstraction;
 using application.MVVM.Model;
 using application.MVVM.View.Auth;
+using application.MVVM.ViewModel.Auth;
 using application.Utilities;
 
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -24,6 +25,7 @@ public partial class AuthViewModel : ObservableObject
 	private readonly INavigationService _navigationService;
 	private readonly ISecurityService _securityService;
 	private readonly IMailService _mailService;
+	private readonly RegistrationUserViewModel _registrationUserViewModel;
 
 	public static event Action<string> Invalided;
 	[ObservableProperty]
@@ -49,18 +51,23 @@ public partial class AuthViewModel : ObservableObject
 	private bool authTypeConfirmEmailReverse;
 
 
-	public AuthViewModel(IEntityRepository entityRepository, IAuthService authService, INavigationService navigationService, ISecurityService securityService, IMailService mailService)
+	public AuthViewModel(IEntityRepository entityRepository, 
+						IAuthService authService, 
+						INavigationService navigationService, 
+						ISecurityService securityService,
+						IMailService mailService,
+						RegistrationUserViewModel registrationUserViewModel)
 	{
 		_entityRepository = entityRepository;
 		_authService = authService;
 		_navigationService = navigationService;
 		_securityService = securityService;
 		_mailService = mailService;
-
+		_registrationUserViewModel = registrationUserViewModel;
+		
 		Login();
 	}
 
-	// TODO - возможно можно как то переделать логику на switch case
 	[RelayCommand]
 	private void Login()
 	{
@@ -123,7 +130,7 @@ public partial class AuthViewModel : ObservableObject
 		AuthTypeConfirmEmail = true;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 	}
-	// TODO - на одинаковые ConfirmEmail можно добавить CommandParameter чтобы различать разные функции регистрации
+	
 	[RelayCommand]
 	private void ConfirmEmail()
 	{
@@ -204,44 +211,9 @@ public partial class AuthViewModel : ObservableObject
 	private bool Registration()
 	{
 		EntityModel model = EntityModel.Model;
-		//model.Email = "kuncovs1.0@gmail.com";
-		//model.Email = "misha2005.b@yandex.ru";
-
-		// TODO - сделать проверки на наличие всех заполненных полей
 
 		if (!IsValidModel(model))
 			return false;
-
-		//if (string.IsNullOrWhiteSpace(model.Email))
-		//	Invalided?.Invoke();
-		//if (string.IsNullOrWhiteSpace(model.Password))
-		//	Invalided?.Invoke();
-		//if (string.IsNullOrWhiteSpace(model.ConfirmPassword))
-		//	Invalided?.Invoke();
-		//if (string.IsNullOrWhiteSpace(model.FirstName))
-		//	Invalided?.Invoke();
-		//if (string.IsNullOrWhiteSpace(model.SecondName))
-		//	Invalided?.Invoke();
-		//if (string.IsNullOrWhiteSpace(model.ThirdName))
-		//	Invalided?.Invoke();
-		//if (string.IsNullOrWhiteSpace(model.Phone))
-		//	Invalided?.Invoke();
-		//if (string.IsNullOrWhiteSpace(model.INN))
-		//	Invalided?.Invoke();
-		//if (string.IsNullOrWhiteSpace(model.KPP))
-		//	Invalided?.Invoke();
-		//if (string.IsNullOrWhiteSpace(model.FullName))
-		//	Invalided?.Invoke();
-		//if (string.IsNullOrWhiteSpace(model.ShortName))
-		//	Invalided?.Invoke();
-		//if (string.IsNullOrWhiteSpace(model.LegalAddress))
-		//	Invalided?.Invoke();
-		//if (string.IsNullOrWhiteSpace(model.PostalAddress))
-		//	Invalided?.Invoke();
-		//if (string.IsNullOrWhiteSpace(model.OGRN))
-		//	Invalided?.Invoke();
-		//if (string.IsNullOrWhiteSpace(model.Director))
-		//	Invalided?.Invoke();
 
 		Result email = _entityRepository.IsEmailExist(model.Email);
 		if (email.IsFailure)
@@ -256,9 +228,6 @@ public partial class AuthViewModel : ObservableObject
 
 		string code = GenerateRandomCode();
 		string encryptedCode = _securityService.Encrypt(code);
-		// TODO - нахуя сразу шфировать а потом в mailService передавать расшифровку
-		//_mailService.SendMail(_securityService.Decrypt(encryptedCode), model.Email); // Используем userEmail, который был установлен при изменении эл. почты
-		// почему не так
 		_mailService.SendMail(code, model.Email);
 
 		model.Code = encryptedCode;
@@ -269,6 +238,8 @@ public partial class AuthViewModel : ObservableObject
 	// TODO - вопрос только как это упорядочить чтобы ошибка указывалась на нужный инпут в правильной последовательности
 	private bool IsValidModel(EntityModel model)
 	{
+		_registrationUserViewModel.ClearValidationErrors();
+		
 		var properties = model.GetType().GetProperties()
 		.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
 
@@ -283,8 +254,7 @@ public partial class AuthViewModel : ObservableObject
 		}
 		return true;
 	}
-
-
+	
 	private string GenerateRandomCode()
 	{
 		Random rand = new();

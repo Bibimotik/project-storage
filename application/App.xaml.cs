@@ -4,6 +4,7 @@ using application.Abstraction;
 using application.MVVM.View;
 using application.MVVM.View.Pages;
 using application.MVVM.ViewModel;
+using application.MVVM.ViewModel.Auth;
 using application.MVVM.ViewModel.Pages;
 using application.Repository;
 using application.Services;
@@ -39,6 +40,7 @@ public partial class App : Application
 				Environment.GetEnvironmentVariable("MAIL_PASSWORD")));
 		services.AddSingleton<INavigationService, NavigationService>();
 		services.AddSingleton<ISecurityService, SecurityService>();
+		services.AddTransient<RegistrationUserViewModel>();
 
 		services.AddSingleton<App>();
 		services.AddScoped<AuthViewModel>();
