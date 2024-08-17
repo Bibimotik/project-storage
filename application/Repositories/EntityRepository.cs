@@ -1,4 +1,6 @@
-﻿using application.Abstraction;
+﻿using System.Diagnostics;
+
+using application.Abstraction;
 using application.MVVM.Model;
 using application.Utilities;
 
@@ -89,10 +91,15 @@ public class EntityRepository : IEntityRepository
 		}, _databaseService);
 	}
 
+	// TODO - можно сделать чтобы возвращал bool, но есть ли смысл
 	public Result IsEmailExist(string email)
 	{
+		if (string.IsNullOrWhiteSpace(email))
+			return Result.Failure("Email cannot be empty or whitespace.");
+
 		return RepositoryHelper.ExecuteWithErrorHandling(dbConnection =>
 		{
+			Debug.WriteLine("email " + email);
 			string query = @"SELECT COUNT(1) 
 				FROM ""user"" 
 				WHERE email = @Email

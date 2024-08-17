@@ -207,7 +207,7 @@
 										Height="30"
 										Visibility="{Binding AuthTypeConfirmEmailReverse, Converter={StaticResource BoolToVisibilityConverter}}"
 										Content="← Back"
-										Command="{Binding LoginCommand}"
+										Command="{Binding RegistrationCompany1Command}"
 										HorizontalAlignment="Center"
 										Style="{StaticResource SendButtonWhite}" />
 

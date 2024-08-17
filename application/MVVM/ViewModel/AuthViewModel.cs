@@ -4,6 +4,7 @@ using System.Windows;
 using application.Abstraction;
 using application.MVVM.Model;
 using application.MVVM.View.Auth;
+using application.Utilities;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -24,8 +25,10 @@ public partial class AuthViewModel : ObservableObject
 	private readonly ISecurityService _securityService;
 	private readonly IMailService _mailService;
 
+	public static event Action<string> Invalided;
 	[ObservableProperty]
 	private object? currentView;
+
 	[ObservableProperty]
 	private bool authTypeLogin;
 	[ObservableProperty]
@@ -124,8 +127,6 @@ public partial class AuthViewModel : ObservableObject
 	[RelayCommand]
 	private void ConfirmEmail()
 	{
-		EntityModel model = EntityModel.Model;
-		
 		if (!Registration())
 			return;
 
@@ -179,8 +180,6 @@ public partial class AuthViewModel : ObservableObject
 
 		Console.WriteLine("ID: " + id.Value.ToString());
 	}
-	// TODO - здесь проверка данных из репозитория
-	// TODO - оставить async void или сделать async Task. Т.к. void отвечает за обработчики событий
 	[RelayCommand]
 	private async Task LoginButton()
 	{
@@ -210,9 +209,44 @@ public partial class AuthViewModel : ObservableObject
 
 		// TODO - сделать проверки на наличие всех заполненных полей
 
+		if (!IsValidModel(model))
+			return false;
+
+		//if (string.IsNullOrWhiteSpace(model.Email))
+		//	Invalided?.Invoke();
+		//if (string.IsNullOrWhiteSpace(model.Password))
+		//	Invalided?.Invoke();
+		//if (string.IsNullOrWhiteSpace(model.ConfirmPassword))
+		//	Invalided?.Invoke();
+		//if (string.IsNullOrWhiteSpace(model.FirstName))
+		//	Invalided?.Invoke();
+		//if (string.IsNullOrWhiteSpace(model.SecondName))
+		//	Invalided?.Invoke();
+		//if (string.IsNullOrWhiteSpace(model.ThirdName))
+		//	Invalided?.Invoke();
+		//if (string.IsNullOrWhiteSpace(model.Phone))
+		//	Invalided?.Invoke();
+		//if (string.IsNullOrWhiteSpace(model.INN))
+		//	Invalided?.Invoke();
+		//if (string.IsNullOrWhiteSpace(model.KPP))
+		//	Invalided?.Invoke();
+		//if (string.IsNullOrWhiteSpace(model.FullName))
+		//	Invalided?.Invoke();
+		//if (string.IsNullOrWhiteSpace(model.ShortName))
+		//	Invalided?.Invoke();
+		//if (string.IsNullOrWhiteSpace(model.LegalAddress))
+		//	Invalided?.Invoke();
+		//if (string.IsNullOrWhiteSpace(model.PostalAddress))
+		//	Invalided?.Invoke();
+		//if (string.IsNullOrWhiteSpace(model.OGRN))
+		//	Invalided?.Invoke();
+		//if (string.IsNullOrWhiteSpace(model.Director))
+		//	Invalided?.Invoke();
+
 		Result email = _entityRepository.IsEmailExist(model.Email);
 		if (email.IsFailure)
 		{
+			Debug.WriteLine("false");
 			MessageBox.Show(email.Error);
 			return false;
 		}
@@ -231,6 +265,25 @@ public partial class AuthViewModel : ObservableObject
 
 		return true;
 	}
+
+	// TODO - вопрос только как это упорядочить чтобы ошибка указывалась на нужный инпут в правильной последовательности
+	private bool IsValidModel(EntityModel model)
+	{
+		var properties = model.GetType().GetProperties()
+		.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
+
+		foreach (var property in properties)
+		{
+			var value = property.GetValue(model) as string;
+			if (string.IsNullOrWhiteSpace(value))
+			{
+				Invalided?.Invoke(property.Name);
+				return false;
+			}
+		}
+		return true;
+	}
+
 
 	private string GenerateRandomCode()
 	{
