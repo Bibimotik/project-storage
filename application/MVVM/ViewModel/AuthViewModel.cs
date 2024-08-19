@@ -51,9 +51,9 @@ public partial class AuthViewModel : ObservableObject
 	private bool authTypeConfirmEmailReverse;
 
 
-	public AuthViewModel(IEntityRepository entityRepository, 
-						IAuthService authService, 
-						INavigationService navigationService, 
+	public AuthViewModel(IEntityRepository entityRepository,
+						IAuthService authService,
+						INavigationService navigationService,
 						ISecurityService securityService,
 						IMailService mailService,
 						RegistrationUserViewModel registrationUserViewModel)
@@ -64,7 +64,7 @@ public partial class AuthViewModel : ObservableObject
 		_securityService = securityService;
 		_mailService = mailService;
 		_registrationUserViewModel = registrationUserViewModel;
-		
+
 		Login();
 	}
 
@@ -130,7 +130,7 @@ public partial class AuthViewModel : ObservableObject
 		AuthTypeConfirmEmail = true;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 	}
-	
+
 	[RelayCommand]
 	private void ConfirmEmail()
 	{
@@ -239,22 +239,57 @@ public partial class AuthViewModel : ObservableObject
 	private bool IsValidModel(EntityModel model)
 	{
 		_registrationUserViewModel.ClearValidationErrors();
-		
-		var properties = model.GetType().GetProperties()
-		.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
+
+		var properties = model
+			.GetType()
+			.GetProperties()
+			.Where(p => Attribute
+			.IsDefined(p, typeof(RequiredForValidationAttribute)));
 
 		foreach (var property in properties)
 		{
+			Debug.WriteLine("IsValidModel prop: " + property.Name);
+
 			var value = property.GetValue(model) as string;
+			if (!string.IsNullOrWhiteSpace(value))
+			{
+				Debug.WriteLine("value: " + value);
+				continue;
+			}
+
+			// TODO - switch case?
+			if (
+				model.EntityType == EntityType.User &&
+				!Enum.TryParse(typeof(UserProperties), property.Name, out _)
+				)
+				continue;
+			if (
+				model.EntityType == EntityType.Company &&
+				!Enum.TryParse(typeof(CompanyProperties), property.Name, out _)
+				)
+				continue;
+
 			if (string.IsNullOrWhiteSpace(value))
 			{
+				Debug.WriteLine("prop in if " + property.Name);
 				Invalided?.Invoke(property.Name);
 				return false;
 			}
+			// как я понимаю else можно убрать и просто оставить return false в конце этого foreach
+			else
+			{
+				return false;
+			}
 		}
+
 		return true;
 	}
-	
+
+	//private bool IsEntityProperty(string propertyName)
+	//{
+	//	return Enum.TryParse(typeof(UserProperties), propertyName, out _);
+	//}
+
 	private string GenerateRandomCode()
 	{
 		Random rand = new();

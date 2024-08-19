@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Text.RegularExpressions;
-using System.Windows;
 
 using application.MVVM.Model;
 
@@ -74,13 +73,13 @@ public partial class RegistrationUserViewModel : ObservableObject
 		{
 			Debug.WriteLine("email " + value);
 			var regex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        
+
 			if (!regex.IsMatch(value))
 			{
 				IsInvalidEmail = true;
 				return;
 			}
-        
+
 			IsInvalidEmail = false;
 		}
 		catch (RegexMatchTimeoutException)
@@ -88,16 +87,15 @@ public partial class RegistrationUserViewModel : ObservableObject
 			IsInvalidEmail = false;
 			return;
 		}
-    
+
 		IsInvalidEmail = ValidateAndCreateModel(value);
 	}
-
 	partial void OnPasswordChanged(string value)
 	{
 		try
 		{
 			var regex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$", RegexOptions.Compiled);
-			
+
 			if (!regex.IsMatch(value))
 			{
 				IsInvalidPassword = true;
@@ -124,7 +122,6 @@ public partial class RegistrationUserViewModel : ObservableObject
 
 		IsInvalidPassword = ValidateAndCreateModel(value);
 	}
-
 	partial void OnConfirmPasswordChanged(string value)
 	{
 		try
@@ -158,6 +155,48 @@ public partial class RegistrationUserViewModel : ObservableObject
 		CreateModel();
 	}
 
+	private void OnInvalided(string property)
+	{
+		if (_validationActions.TryGetValue(property, out var validate))
+		{
+			validate(string.Empty);
+		}
+	}
+
+	private bool ValidateAndCreateModel(string? value)
+	{
+		CreateModel();
+		return string.IsNullOrWhiteSpace(value);
+	}
+
+	public void ClearValidationErrors()
+	{
+		IsInvalidFirstName = false;
+		IsInvalidSecondName = false;
+		IsInvalidThirdName = false;
+		IsInvalidEmail = false;
+		IsInvalidPhone = false;
+		IsInvalidPassword = false;
+		IsInvalidConfirmPassword = false;
+		IsPasswordFormatInvalid = false;
+		ArePasswordsMismatch = false;
+	}
+
+	private void CreateModel()
+	{
+		EntityModel.Model ??= new EntityModel();
+
+		EntityModel model = EntityModel.Model;
+		model.Id = Guid.NewGuid();
+		model.EntityType = EntityType.User;
+		model.FirstName = FirstName;
+		model.SecondName = SecondName;
+		model.ThirdName = ThirdName;
+		model.Phone = Phone;
+		model.Email = Email;
+		model.Password = Password;
+		model.ConfirmPassword = ConfirmPassword;
+	}
 
 	//partial void OnFirstNameChanged(string value)
 	//{
@@ -275,28 +314,6 @@ public partial class RegistrationUserViewModel : ObservableObject
 	//		CreateModel();
 	//	}
 	//}
-
-	private void OnInvalided(string property)
-	{
-		Debug.WriteLine("Invalided " + property);
-
-		if (_validationActions.TryGetValue(property, out var validate))
-		{
-			validate(string.Empty);
-		}
-	}
-
-	private bool ValidateAndCreateModel(string? value)
-	{
-		bool isInvalid = string.IsNullOrWhiteSpace(value);
-
-		if (!isInvalid)
-		{
-			CreateModel();
-		}
-
-		return isInvalid;
-	}
 	//private void ValidateAndCreateModel(bool isInvalidProperty, string? value = null)
 	//{
 	//	isInvalidProperty = string.IsNullOrWhiteSpace(value);
@@ -352,33 +369,4 @@ public partial class RegistrationUserViewModel : ObservableObject
 	//			break;
 	//	}
 	//}
-
-	public void ClearValidationErrors()
-	{
-		IsInvalidFirstName = false;
-		IsInvalidSecondName = false;
-		IsInvalidThirdName = false;
-		IsInvalidEmail = false;
-		IsInvalidPhone = false;
-		IsInvalidPassword = false;
-		IsInvalidConfirmPassword = false;
-		IsPasswordFormatInvalid = false;
-		ArePasswordsMismatch = false;
-	}
-	
-	private void CreateModel()
-	{
-		EntityModel.Model ??= new EntityModel();
-
-		EntityModel model = EntityModel.Model;
-		model.Id = Guid.NewGuid();
-		model.EntityType = EntityType.User;
-		model.FirstName = FirstName;
-		model.SecondName = SecondName;
-		model.ThirdName = ThirdName;
-		model.Phone = Phone;
-		model.Email = Email;
-		model.Password = Password;
-		model.ConfirmPassword = ConfirmPassword;
-	}
 }

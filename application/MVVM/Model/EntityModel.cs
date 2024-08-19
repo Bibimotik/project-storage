@@ -11,13 +11,13 @@ public class EntityModel
 	public Guid Id { get; set; }
 	
 	[RequiredForValidation]
-	public string? FirstName { get; set; } = null;
+	public string FirstName { get; set; } = string.Empty;
 	[RequiredForValidation]
-	public string? SecondName { get; set; } = null;
+	public string SecondName { get; set; } = string.Empty;
 	[RequiredForValidation]
-	public string? ThirdName { get; set; } = null;
+	public string ThirdName { get; set; } = string.Empty;
 	[RequiredForValidation]
-	public string? Phone { get; set; } = null;
+	public string Phone { get; set; } = string.Empty;
 	
 	[RequiredForValidation]
 	public string Email { get; set; } = string.Empty;
@@ -27,9 +27,9 @@ public class EntityModel
 	public string ConfirmPassword { get; set; } = string.Empty;
 
 	[RequiredForValidation]
-	public string INN { get; set; } = string.Empty;
+	public string? INN { get; set; } = string.Empty;
 	[RequiredForValidation]
-	public string KPP { get; set; } = string.Empty;
+	public string? KPP { get; set; } = string.Empty;
 
 	[RequiredForValidation]
 	public string FullName { get; set; } = string.Empty;

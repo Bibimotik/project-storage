@@ -7,4 +7,30 @@ public class EntityAbstraction
 		User,
 		Company
 	}
+
+	public enum UserProperties
+	{
+		FirstName,
+		SecondName,
+		ThirdName,
+		Phone,
+		Email,
+		Password,
+		ConfirmPassword
+	}
+
+	public enum CompanyProperties
+	{
+		INN,
+		KPP,
+		FullName,
+		ShortName,
+		LegalAddress,
+		PostalAddress,
+		OGRN,
+		Director,
+		Email,
+		Password,
+		ConfirmPassword
+	}
 }
