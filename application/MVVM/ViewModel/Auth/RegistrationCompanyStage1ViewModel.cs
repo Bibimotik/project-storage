@@ -48,7 +48,9 @@ partial class RegistrationCompanyStage1ViewModel : ObservableObject
 
 		_validationActions = new Dictionary<string, Action<string?>>
 		{
-			{ nameof(Inn), value => IsInvalidInn = ValidateAndCreateModel(value) },
+			// TODO - БЛЯТЬ МИША Я ИЗ ЗА ЭТОГО ПОТЕРЯЛ ПОЛ ЧАСА, НУ КАКОГО ТЫ ПОЛЯ БЕРЕШЬ ИЗ ЭТОГО КЛАССА А НЕ ИЗ МОДЕЛИ СУЩНОСТИ ГДЕ НАЗВАНИЕ ХОТЯ БЫ СХОДИТСЯ С ТЕМ ЧТО ПРИХОДИТ. Inn != INN. НУ МИША НУ...........
+			// TODO - вот и испарвляй во всех остальных файлых
+			{ nameof(EntityModel.INN), value => IsInvalidInn = ValidateAndCreateModel(value) },
 			{ nameof(Kpp), value => IsInvalidKpp = ValidateAndCreateModel(value) },
 			{ nameof(FullName), value => IsInvalidFullName = ValidateAndCreateModel(value) },
 			{ nameof(ShortName), value => IsInvalidShortName = ValidateAndCreateModel(value) },
@@ -74,6 +76,7 @@ partial class RegistrationCompanyStage1ViewModel : ObservableObject
 	
 	private void OnInvalided(string property)
 	{
+		Debug.WriteLine("invalided " + property);
 		if (_validationActions.TryGetValue(property, out var validate))
 		{
 			validate(string.Empty);

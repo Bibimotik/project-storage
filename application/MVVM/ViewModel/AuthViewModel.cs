@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
 
 using application.Abstraction;
@@ -27,7 +28,7 @@ public partial class AuthViewModel : ObservableObject
 	private readonly IMailService _mailService;
 	private readonly RegistrationUserViewModel _registrationUserViewModel;
 
-	public static event Action<string> Invalided;
+	public static event Action<string>? Invalided;
 	[ObservableProperty]
 	private object? currentView;
 
@@ -51,11 +52,11 @@ public partial class AuthViewModel : ObservableObject
 	private bool authTypeConfirmEmailReverse;
 
 	public AuthViewModel(IEntityRepository entityRepository,
-						IAuthService authService,
-						INavigationService navigationService,
-						ISecurityService securityService,
-						IMailService mailService,
-						RegistrationUserViewModel registrationUserViewModel)
+		IAuthService authService,
+		INavigationService navigationService,
+		ISecurityService securityService,
+		IMailService mailService,
+		RegistrationUserViewModel registrationUserViewModel)
 	{
 		_entityRepository = entityRepository;
 		_authService = authService;
@@ -80,16 +81,13 @@ public partial class AuthViewModel : ObservableObject
 		AuthTypeRegistrationCompany2 = false;
 		AuthTypeConfirmEmail = true;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
-
-		// TODO - проверка в бд
-		//ObservableCollection<StatusEntity> status = new(_statusRepository.GetAllStatus());
-
-		//foreach (StatusEntity statusModel in status)
-		//	Debug.WriteLine(statusModel.Title);
 	}
 	[RelayCommand]
 	private void RegistrationUser()
 	{
+		EntityModel model = EntityModel.Model;
+		model.EntityType = EntityType.User;
+
 		CurrentView = new RegistrationUserView();
 		AuthTypeLogin = false;
 		AuthTypeLoginReverse = !AuthTypeLogin;
@@ -104,6 +102,9 @@ public partial class AuthViewModel : ObservableObject
 	[RelayCommand]
 	private void RegistrationCompany1()
 	{
+		EntityModel model = EntityModel.Model;
+		model.EntityType = EntityType.Company;
+
 		CurrentView = new RegistrationCompanyStage1View();
 		AuthTypeLogin = false;
 		AuthTypeLoginReverse = !AuthTypeLogin;
@@ -115,10 +116,15 @@ public partial class AuthViewModel : ObservableObject
 		AuthTypeConfirmEmail = true;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 	}
-	
+	// TODO - кнопка Next
 	[RelayCommand]
 	private void RegistrationCompany2()
 	{
+		EntityModel model = EntityModel.Model;
+
+		if (!IsValidModel(model))
+			return;
+
 		CurrentView = new RegistrationCompanyStage2View();
 		AuthTypeLogin = false;
 		AuthTypeLoginReverse = !AuthTypeLogin;
@@ -130,7 +136,6 @@ public partial class AuthViewModel : ObservableObject
 		AuthTypeConfirmEmail = true;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 	}
-
 	[RelayCommand]
 	private void ConfirmEmail()
 	{
@@ -235,38 +240,83 @@ public partial class AuthViewModel : ObservableObject
 		return true;
 	}
 
-	// TODO - вопрос только как это упорядочить чтобы ошибка указывалась на нужный инпут в правильной последовательности
+	// TODO - с помощью этого метода должны тригеррить поля по кнопке Next, вопрос как
 	private bool IsValidModel(EntityModel model)
 	{
 		_registrationUserViewModel.ClearValidationErrors();
 
-		var properties = model
+		//var properties = model
+		//	.GetType()
+		//	.GetProperties()
+		//	.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
+
+		var userProperties = model
 			.GetType()
 			.GetProperties()
-			.Where(p => Attribute
-			.IsDefined(p, typeof(RequiredForValidationAttribute)));
+			.Where(p => Attribute.IsDefined(p, typeof(RequiredForUserAttribute)))
+			.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
 
+		var companyProperties = model
+			.GetType()
+			.GetProperties()
+			.Where(p => Attribute.IsDefined(p, typeof(RequiredForCompanyAttribute)))
+			.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
+
+		switch (model.EntityType)
+		{
+			case EntityType.User:
+				return IsValidModelConditions(userProperties, model);
+			case EntityType.Company:
+				return IsValidModelConditions(companyProperties, model);
+			default:
+				return false;
+		}
+
+		//Debug.WriteLine("user:");
+		//foreach (var prop in properties2)
+		//{
+		//	Debug.WriteLine(prop.Name);
+		//}
+		//Debug.WriteLine("company:");
+		//foreach (var prop in properties3)
+		//{
+		//	Debug.WriteLine(prop.Name);
+		//}
+
+		// TODO - без него метод ругается что нада чета возвращать, хотя switch все равно чета вернет
+		return true;
+	}
+
+	private bool IsValidModelConditions(IEnumerable<PropertyInfo> properties, EntityModel model)
+	{
 		foreach (var property in properties)
 		{
 			Debug.WriteLine("IsValidModel prop: " + property.Name);
 
 			var value = property.GetValue(model) as string;
+			// TODO -  эта проверка чисто чтобы была для отладки, можно убрать в будущем
 			if (!string.IsNullOrWhiteSpace(value))
 			{
 				Debug.WriteLine("value: " + value);
 				continue;
 			}
-			
+
 			if (
 				model.EntityType == EntityType.User &&
 				!Enum.TryParse(typeof(UserProperties), property.Name, out _)
 				)
+			{
+				Debug.WriteLine("user");
 				continue;
+			}
 			if (
 				model.EntityType == EntityType.Company &&
 				!Enum.TryParse(typeof(CompanyProperties), property.Name, out _)
 				)
+			{
+				Debug.WriteLine("company");
 				continue;
+			}
 
 			if (string.IsNullOrWhiteSpace(value))
 			{
