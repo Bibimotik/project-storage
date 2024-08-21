@@ -6,6 +6,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:application.MVVM.View.Auth"
 	xmlns:Auth="clr-namespace:application.MVVM.ViewModel.Auth"
+	xmlns:c = "clr-namespace:application.Utilities.Converter"
 	mc:Ignorable="d"
 	d:DesignHeight="450"
 	d:DesignWidth="800">
@@ -13,6 +14,11 @@
 	<UserControl.DataContext>
 		<Auth:RegistrationCompanyStage1ViewModel />
 	</UserControl.DataContext>
+	
+	<UserControl.Resources>
+		<c:BoolToVisibilityConverter
+			x:Key="BoolToVisibilityConverter" />
+	</UserControl.Resources>
 
 	<StackPanel
 		Orientation="Vertical"
@@ -35,7 +41,8 @@
 
 				<TextBox
 					Text="{Binding Inn, UpdateSourceTrigger=PropertyChanged}"
-					Style="{StaticResource AuthInput}" />
+					Style="{StaticResource AuthInput}" 
+					MaxLength="12" />
 
 				<Button
 					Grid.Column="1"
@@ -45,7 +52,10 @@
 					Style="{StaticResource SendButtonWhite}" />
 
 			</Grid>
-
+			<TextBlock
+				Visibility="{Binding IsInvalidInn, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Fill Your INN..." />
 		</StackPanel>
 
 		<StackPanel
@@ -56,7 +66,12 @@
 				Text="KPP" />
 			<TextBox
 				Text="{Binding Kpp, UpdateSourceTrigger=PropertyChanged}"
-				Style="{StaticResource AuthInput}" />
+				Style="{StaticResource AuthInput}" 
+				MaxLength="9" />
+			<TextBlock
+				Visibility="{Binding IsInvalidKpp, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Fill Your KPP..." />
 		</StackPanel>
 
 		<StackPanel
@@ -69,6 +84,10 @@
 				Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" 
 				MaxLength="100" />
+			<TextBlock
+				Visibility="{Binding IsInvalidFullName, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Fill Your Full Name..." />
 		</StackPanel>
 
 		<StackPanel
@@ -81,6 +100,10 @@
 				Text="{Binding ShortName, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}"
 				MaxLength="100" />
+			<TextBlock
+				Visibility="{Binding IsInvalidShortName, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Fill Your Short Name..." />
 		</StackPanel>
 
 		<StackPanel
@@ -93,6 +116,10 @@
 				Text="{Binding LegalAddress, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" 
 				MaxLength="1000" />
+			<TextBlock
+				Visibility="{Binding IsInvalidLegalAddress, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Fill Your Legal Address..." />
 		</StackPanel>
 
 		<StackPanel
@@ -105,6 +132,10 @@
 				Text="{Binding PostalAddress, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}"
 				MaxLength="1000" />
+			<TextBlock
+				Visibility="{Binding IsInvalidPostalAddress, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Fill Your Postal Address..." />
 		</StackPanel>
 
 		<StackPanel
@@ -114,7 +145,12 @@
 				Text="OGRN" />
 			<TextBox
 				Text="{Binding Ogrn, UpdateSourceTrigger=PropertyChanged}"
-				Style="{StaticResource AuthInput}" />
+				Style="{StaticResource AuthInput}" 
+				MaxLength="13" />
+			<TextBlock
+				Visibility="{Binding IsInvalidOgrn, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Fill Your OGRN..." />
 		</StackPanel>
 
 	</StackPanel>

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 using application.MVVM.Model;
 
@@ -10,6 +11,8 @@ namespace application.MVVM.ViewModel.Auth;
 
 partial class RegistrationCompanyStage2ViewModel : ObservableObject
 {
+	private readonly Dictionary<string, Action<string?>> _validationActions;
+	
 	[ObservableProperty]
 	private string director = string.Empty;
 	[ObservableProperty]
@@ -18,22 +21,135 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 	private string password = string.Empty;
 	[ObservableProperty]
 	private string confirmPassword = string.Empty;
+	
+	[ObservableProperty]
+	private bool isInvalidDirector = false;
 	[ObservableProperty]
 	private bool isInvalidEmail = false;
+	[ObservableProperty]
+	private bool isInvalidPassword = false;
+	[ObservableProperty]
+	private bool isInvalidConfirmPassword = false;
+	[ObservableProperty]
+	private bool isPasswordFormatInvalid = false;
+	[ObservableProperty]
+	private bool arePasswordsMismatch = false;
+	
+	public RegistrationCompanyStage2ViewModel()
+	{
+		AuthViewModel.Invalided += OnInvalided;
 
-	partial void OnDirectorChanged(string value) => CreateModel();
+		_validationActions = new Dictionary<string, Action<string?>>
+		{
+			{ nameof(Director), value => IsInvalidDirector = ValidateAndCreateModel(value) },
+			{ nameof(Email), value => IsInvalidEmail = ValidateAndCreateModel(value) },
+			{ nameof(Password), value => IsInvalidPassword = ValidateAndCreateModel(value) },
+			{ nameof(ConfirmPassword), value => IsInvalidConfirmPassword = ValidateAndCreateModel(value) }
+		};
+	}
+	
+	partial void OnDirectorChanged(string value) => IsInvalidDirector = ValidateAndCreateModel(value);
 	partial void OnEmailChanged(string value)
 	{
-		if (!EntityModel.IsValidEmail(value))
+		try
 		{
-			IsInvalidEmail = true;
+			Debug.WriteLine("email " + value);
+			var regex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+			if (!regex.IsMatch(value))
+			{
+				IsInvalidEmail = true;
+				return;
+			}
+
+			IsInvalidEmail = false;
+		}
+		catch (RegexMatchTimeoutException)
+		{
+			IsInvalidEmail = false;
 			return;
 		}
-		IsInvalidEmail = false;
+
+		IsInvalidEmail = ValidateAndCreateModel(value);
+	}
+	partial void OnPasswordChanged(string value)
+	{
+		try
+		{
+			var regex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$", RegexOptions.Compiled);
+
+			if (!regex.IsMatch(value))
+			{
+				IsInvalidPassword = true;
+				ArePasswordsMismatch = false;
+				return;
+			}
+
+			IsInvalidPassword = false;
+
+			if (!EntityModel.ComparePasswords(value, ConfirmPassword))
+			{
+				ArePasswordsMismatch = true;
+				return;
+			}
+
+			ArePasswordsMismatch = false;
+		}
+		catch (RegexMatchTimeoutException)
+		{
+			IsInvalidPassword = false;
+			ArePasswordsMismatch = false;
+			return;
+		}
+
+		IsInvalidPassword = ValidateAndCreateModel(value);
+	}
+	partial void OnConfirmPasswordChanged(string value)
+	{
+		try
+		{
+			var regex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$", RegexOptions.Compiled);
+
+			if (!regex.IsMatch(value))
+			{
+				IsPasswordFormatInvalid = true;
+				ArePasswordsMismatch = false;
+				return;
+			}
+
+			IsPasswordFormatInvalid = false;
+
+			if (!EntityModel.ComparePasswords(Password, value))
+			{
+				ArePasswordsMismatch = true;
+				return;
+			}
+
+			ArePasswordsMismatch = false;
+		}
+		catch (RegexMatchTimeoutException)
+		{
+			IsPasswordFormatInvalid = false;
+			ArePasswordsMismatch = false;
+			return;
+		}
+
 		CreateModel();
 	}
-	partial void OnPasswordChanged(string value) => CreateModel();
-	partial void OnConfirmPasswordChanged(string value) => CreateModel();
+	
+	private bool ValidateAndCreateModel(string? value)
+	{
+		CreateModel();
+		return string.IsNullOrWhiteSpace(value);
+	}
+	
+	private void OnInvalided(string property)
+	{
+		if (_validationActions.TryGetValue(property, out var validate))
+		{
+			validate(string.Empty);
+		}
+	}
 
 	private void CreateModel()
 	{

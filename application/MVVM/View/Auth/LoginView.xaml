@@ -58,7 +58,7 @@
 					PreviewKeyDown="Password_OnPreviewKeyDown"
 					Visibility="Hidden"
 					Style="{StaticResource AuthInput}" />
-				<!--TODO - сделать получение пароля в PasswordBox -->
+				
 				<PasswordBox
 					x:Name="passwordPasswordBox"
 					Grid.Column="0"

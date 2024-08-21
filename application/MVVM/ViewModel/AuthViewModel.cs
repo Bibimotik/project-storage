@@ -50,7 +50,6 @@ public partial class AuthViewModel : ObservableObject
 	[ObservableProperty]
 	private bool authTypeConfirmEmailReverse;
 
-
 	public AuthViewModel(IEntityRepository entityRepository,
 						IAuthService authService,
 						INavigationService navigationService,
@@ -116,6 +115,7 @@ public partial class AuthViewModel : ObservableObject
 		AuthTypeConfirmEmail = true;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
 	}
+	
 	[RelayCommand]
 	private void RegistrationCompany2()
 	{
@@ -256,8 +256,7 @@ public partial class AuthViewModel : ObservableObject
 				Debug.WriteLine("value: " + value);
 				continue;
 			}
-
-			// TODO - switch case?
+			
 			if (
 				model.EntityType == EntityType.User &&
 				!Enum.TryParse(typeof(UserProperties), property.Name, out _)
@@ -275,7 +274,6 @@ public partial class AuthViewModel : ObservableObject
 				Invalided?.Invoke(property.Name);
 				return false;
 			}
-			// как я понимаю else можно убрать и просто оставить return false в конце этого foreach
 			else
 			{
 				return false;
