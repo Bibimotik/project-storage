@@ -35,7 +35,7 @@
 				Style="{StaticResource AuthInput}"
 				MaxLength="300" />
 			<TextBlock
-				Visibility="{Binding IsInvalidOgrn, Converter={StaticResource BoolToVisibilityConverter}}"
+				Visibility="{Binding IsInvalidDirector, Converter={StaticResource BoolToVisibilityConverter}}"
 				Foreground="red"
 				Text="Fill Director..." />
 		</StackPanel>

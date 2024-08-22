@@ -90,8 +90,7 @@ public class EntityRepository : IEntityRepository
 			return Result.Success(await dbConnection.QuerySingleAsync<Guid>(query, entity));
 		}, _databaseService);
 	}
-
-	// TODO - можно сделать чтобы возвращал bool, но есть ли смысл
+	
 	public Result IsEmailExist(string email)
 	{
 		if (string.IsNullOrWhiteSpace(email))

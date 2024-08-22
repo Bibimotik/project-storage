@@ -40,6 +40,7 @@
 				</Grid.ColumnDefinitions>
 
 				<TextBox
+					x:Name="INN"
 					Text="{Binding Inn, UpdateSourceTrigger=PropertyChanged}"
 					Style="{StaticResource AuthInput}" 
 					MaxLength="12" />
@@ -65,6 +66,7 @@
 				Margin="0 0 0 8"
 				Text="KPP" />
 			<TextBox
+				x:Name="KPP"
 				Text="{Binding Kpp, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" 
 				MaxLength="9" />
@@ -81,6 +83,7 @@
 				Margin="0 0 0 8"
 				Text="Full Name" />
 			<TextBox
+				x:Name="FullName"
 				Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" 
 				MaxLength="100" />
@@ -97,6 +100,7 @@
 				Margin="0 0 0 8"
 				Text="Short Name" />
 			<TextBox
+				x:Name="ShortName"
 				Text="{Binding ShortName, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}"
 				MaxLength="100" />
@@ -113,6 +117,7 @@
 				Margin="0 0 0 8"
 				Text="Legal Address" />
 			<TextBox
+				x:Name="LegalAddress"
 				Text="{Binding LegalAddress, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" 
 				MaxLength="1000" />
@@ -129,6 +134,7 @@
 				Margin="0 0 0 8"
 				Text="Postal Address" />
 			<TextBox
+				x:Name="PostalAddress"
 				Text="{Binding PostalAddress, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}"
 				MaxLength="1000" />
@@ -144,6 +150,7 @@
 				Margin="0 0 0 8"
 				Text="OGRN" />
 			<TextBox
+				x:Name="OGRN"
 				Text="{Binding Ogrn, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" 
 				MaxLength="13" />

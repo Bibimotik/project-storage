@@ -197,8 +197,7 @@
 
 			</Grid>
 		</Border>
-
-		<!--Margin="10"-->
+		
 		<ContentControl
 			Grid.Column="1"
 			x:Name="Pages"

@@ -2,7 +2,9 @@
 using System.Net.Mail;
 using System.Windows;
 
+using application.MVVM.View.Auth;
 using application.MVVM.ViewModel;
+using application.MVVM.ViewModel.Auth;
 using application.Services;
 
 using DotNetEnv;

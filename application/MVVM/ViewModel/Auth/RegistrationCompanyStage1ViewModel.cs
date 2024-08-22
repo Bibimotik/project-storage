@@ -41,9 +41,7 @@ partial class RegistrationCompanyStage1ViewModel : ObservableObject
 	private bool isInvalidPostalAddress = false;
 	[ObservableProperty]
 	private bool isInvalidOgrn = false;
-
-	// TODO при перехоже с рег2 на рег1 теряются данные :(
-	// TODO аааааа, я понял, они в самой EntityModel есть, но не передаются оттуда в input при наличии
+	
 	public RegistrationCompanyStage1ViewModel()
 	{
 		AuthViewModel.Invalided += OnInvalided;

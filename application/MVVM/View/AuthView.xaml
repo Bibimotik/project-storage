@@ -185,7 +185,7 @@
 									<Button
 										Height="30"
 										Visibility="{Binding AuthTypeRegistrationCompany2, Converter={StaticResource BoolToVisibilityConverter}}"
-										Content="← Back"
+										Content="← Back1"
 										Command="{Binding RegistrationCompany1Command}"
 										HorizontalAlignment="Center"
 										Style="{StaticResource SendButtonWhite}" />
@@ -206,8 +206,8 @@
 									<Button
 										Height="30"
 										Visibility="{Binding AuthTypeConfirmEmailReverse, Converter={StaticResource BoolToVisibilityConverter}}"
-										Content="← Back"
-										Command="{Binding RegistrationCompany1Command}"
+										Content="← Back2"
+										Command="{Binding RegistrationUserCommand}"
 										HorizontalAlignment="Center"
 										Style="{StaticResource SendButtonWhite}" />
 
@@ -239,7 +239,7 @@
 				<Button
 					Visibility="{Binding AuthTypeLogin, Converter={StaticResource BoolToVisibilityConverter}}"
 					Content="Don't have an account yet?"
-					Command="{Binding RegistrationCompany1Command}"
+					Command="{Binding RegistrationUserCommand}"
 					Style="{StaticResource AuthAccountButton}" />
 
 			</StackPanel>

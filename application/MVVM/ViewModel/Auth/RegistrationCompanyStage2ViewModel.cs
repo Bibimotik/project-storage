@@ -48,7 +48,6 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 		};
 	}
 	
-	// TODO - почему то продолжает гореть красная подпись FILL Director - почему? в душе не ебу, попробуй найди
 	partial void OnDirectorChanged(string value) => IsInvalidDirector = ValidateAndCreateModel(value);
 	partial void OnEmailChanged(string value)
 	{
@@ -162,10 +161,5 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 		model.Email = Email;
 		model.Password = Password;
 		model.ConfirmPassword = ConfirmPassword;
-
-		//Debug.WriteLine($"director: {model.Director}\n" +
-		//	$"email: {model.Email}\n" +
-		//	$"password: {model.Password}\n" +
-		//	$"confirmPassword: {model.ConfirmPassword}");
 	}
 }
