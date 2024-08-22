@@ -53,13 +53,13 @@ public partial class RegistrationUserViewModel : ObservableObject
 
 		_validationActions = new Dictionary<string, Action<string?>>
 		{
-			{ nameof(FirstName), value => IsInvalidFirstName = ValidateAndCreateModel(value) },
-			{ nameof(SecondName), value => IsInvalidSecondName = ValidateAndCreateModel(value) },
-			{ nameof(ThirdName), value => IsInvalidThirdName = ValidateAndCreateModel(value) },
-			{ nameof(Phone), value => IsInvalidPhone = ValidateAndCreateModel(value) },
-			{ nameof(Email), value => IsInvalidEmail = ValidateAndCreateModel(value) },
-			{ nameof(Password), value => IsInvalidPassword = ValidateAndCreateModel(value) },
-			{ nameof(ConfirmPassword), value => IsInvalidConfirmPassword = ValidateAndCreateModel(value) }
+			{ nameof(EntityModel.FirstName), value => IsInvalidFirstName = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.SecondName), value => IsInvalidSecondName = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.ThirdName), value => IsInvalidThirdName = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.Phone), value => IsInvalidPhone = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.Email), value => IsInvalidEmail = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.Password), value => IsInvalidPassword = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.ConfirmPassword), value => IsInvalidConfirmPassword = ValidateAndCreateModel(value) }
 		};
 	}
 

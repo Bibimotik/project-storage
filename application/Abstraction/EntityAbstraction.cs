@@ -33,4 +33,10 @@ public class EntityAbstraction
 		Password,
 		ConfirmPassword
 	}
+
+	public enum CompanyRegistrationStages
+	{
+		First = 1,
+		Second = 2
+	}
 }

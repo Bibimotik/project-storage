@@ -122,7 +122,7 @@ public partial class AuthViewModel : ObservableObject
 	{
 		EntityModel model = EntityModel.Model;
 
-		if (!IsValidModel(model))
+		if (!IsValidModel(model, CompanyRegistrationStages.First))
 			return;
 
 		CurrentView = new RegistrationCompanyStage2View();
@@ -179,6 +179,8 @@ public partial class AuthViewModel : ObservableObject
 			case EntityType.Company:
 				id = await _entityRepository.UserRegistration(model);
 				break;
+			default:
+				return;
 		}
 
 		if (id.IsFailure)
@@ -217,8 +219,19 @@ public partial class AuthViewModel : ObservableObject
 	{
 		EntityModel model = EntityModel.Model;
 
-		if (!IsValidModel(model))
-			return false;
+		switch (model.EntityType)
+		{
+			case EntityType.User:
+				if (!IsValidModel(model))
+					return false;
+				break;
+			case EntityType.Company:
+				if (!IsValidModel(model, CompanyRegistrationStages.Second))
+					return false;
+				break;
+			default:
+				return false;
+		}
 
 		Result email = _entityRepository.IsEmailExist(model.Email);
 		if (email.IsFailure)
@@ -241,7 +254,7 @@ public partial class AuthViewModel : ObservableObject
 	}
 
 	// TODO - с помощью этого метода должны тригеррить поля по кнопке Next, вопрос как
-	private bool IsValidModel(EntityModel model)
+	private bool IsValidModel(EntityModel model, CompanyRegistrationStages stage = CompanyRegistrationStages.First)
 	{
 		_registrationUserViewModel.ClearValidationErrors();
 
@@ -256,10 +269,16 @@ public partial class AuthViewModel : ObservableObject
 			.Where(p => Attribute.IsDefined(p, typeof(RequiredForUserAttribute)))
 			.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
 
-		var companyProperties = model
+		var companyPropertiesStage1 = model
 			.GetType()
 			.GetProperties()
-			.Where(p => Attribute.IsDefined(p, typeof(RequiredForCompanyAttribute)))
+			.Where(p => Attribute.IsDefined(p, typeof(RequiredForCompany1Attribute)))
+			.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
+
+		var companyPropertiesStage2 = model
+			.GetType()
+			.GetProperties()
+			.Where(p => Attribute.IsDefined(p, typeof(RequiredForCompany2Attribute)))
 			.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
 
 		switch (model.EntityType)
@@ -267,7 +286,11 @@ public partial class AuthViewModel : ObservableObject
 			case EntityType.User:
 				return IsValidModelConditions(userProperties, model);
 			case EntityType.Company:
-				return IsValidModelConditions(companyProperties, model);
+				if (stage == CompanyRegistrationStages.First)
+					return IsValidModelConditions(companyPropertiesStage1, model);
+				else if (stage == CompanyRegistrationStages.Second)
+					return IsValidModelConditions(companyPropertiesStage2, model);
+				break;
 			default:
 				return false;
 		}

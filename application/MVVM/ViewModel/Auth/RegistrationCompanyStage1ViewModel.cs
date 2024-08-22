@@ -41,22 +41,22 @@ partial class RegistrationCompanyStage1ViewModel : ObservableObject
 	private bool isInvalidPostalAddress = false;
 	[ObservableProperty]
 	private bool isInvalidOgrn = false;
-	
+
+	// TODO при перехоже с рег2 на рег1 теряются данные :(
+	// TODO аааааа, я понял, они в самой EntityModel есть, но не передаются оттуда в input при наличии
 	public RegistrationCompanyStage1ViewModel()
 	{
 		AuthViewModel.Invalided += OnInvalided;
 
 		_validationActions = new Dictionary<string, Action<string?>>
 		{
-			// TODO - БЛЯТЬ МИША Я ИЗ ЗА ЭТОГО ПОТЕРЯЛ ПОЛ ЧАСА, НУ КАКОГО ТЫ ПОЛЯ БЕРЕШЬ ИЗ ЭТОГО КЛАССА А НЕ ИЗ МОДЕЛИ СУЩНОСТИ ГДЕ НАЗВАНИЕ ХОТЯ БЫ СХОДИТСЯ С ТЕМ ЧТО ПРИХОДИТ. Inn != INN. НУ МИША НУ...........
-			// TODO - вот и испарвляй во всех остальных файлых
 			{ nameof(EntityModel.INN), value => IsInvalidInn = ValidateAndCreateModel(value) },
-			{ nameof(Kpp), value => IsInvalidKpp = ValidateAndCreateModel(value) },
-			{ nameof(FullName), value => IsInvalidFullName = ValidateAndCreateModel(value) },
-			{ nameof(ShortName), value => IsInvalidShortName = ValidateAndCreateModel(value) },
-			{ nameof(LegalAddress), value => IsInvalidLegalAddress = ValidateAndCreateModel(value) },
-			{ nameof(PostalAddress), value => IsInvalidPostalAddress = ValidateAndCreateModel(value) },
-			{ nameof(Ogrn), value => IsInvalidOgrn = ValidateAndCreateModel(value) }
+			{ nameof(EntityModel.KPP), value => IsInvalidKpp = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.FullName), value => IsInvalidFullName = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.ShortName), value => IsInvalidShortName = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.LegalAddress), value => IsInvalidLegalAddress = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.PostalAddress), value => IsInvalidPostalAddress = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.OGRN), value => IsInvalidOgrn = ValidateAndCreateModel(value) }
 		};
 	}
 

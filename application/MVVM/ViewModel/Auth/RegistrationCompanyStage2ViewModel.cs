@@ -41,13 +41,14 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 
 		_validationActions = new Dictionary<string, Action<string?>>
 		{
-			{ nameof(Director), value => IsInvalidDirector = ValidateAndCreateModel(value) },
-			{ nameof(Email), value => IsInvalidEmail = ValidateAndCreateModel(value) },
-			{ nameof(Password), value => IsInvalidPassword = ValidateAndCreateModel(value) },
-			{ nameof(ConfirmPassword), value => IsInvalidConfirmPassword = ValidateAndCreateModel(value) }
+			{ nameof(EntityModel.Director), value => IsInvalidDirector = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.Email), value => IsInvalidEmail = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.Password), value => IsInvalidPassword = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.ConfirmPassword), value => IsInvalidConfirmPassword = ValidateAndCreateModel(value) }
 		};
 	}
 	
+	// TODO - почему то продолжает гореть красная подпись FILL Director - почему? в душе не ебу, попробуй найди
 	partial void OnDirectorChanged(string value) => IsInvalidDirector = ValidateAndCreateModel(value);
 	partial void OnEmailChanged(string value)
 	{
@@ -162,9 +163,9 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 		model.Password = Password;
 		model.ConfirmPassword = ConfirmPassword;
 
-		Debug.WriteLine($"director: {model.Director}\n" +
-			$"email: {model.Email}\n" +
-			$"password: {model.Password}\n" +
-			$"confirmPassword: {model.ConfirmPassword}");
+		//Debug.WriteLine($"director: {model.Director}\n" +
+		//	$"email: {model.Email}\n" +
+		//	$"password: {model.Password}\n" +
+		//	$"confirmPassword: {model.ConfirmPassword}");
 	}
 }

@@ -26,44 +26,44 @@ public class EntityModel
 	public string? Phone { get; set; } = null;
 
 	[RequiredForValidation]
-	[RequiredForCompany]
+	[RequiredForCompany1]
 	public string? INN { get; set; } = null;
 	[RequiredForValidation]
-	[RequiredForCompany]
+	[RequiredForCompany1]
 	public string? KPP { get; set; } = null;
 
 	[RequiredForValidation]
-	[RequiredForCompany]
+	[RequiredForCompany1]
 	public string? FullName { get; set; } = null;
 	[RequiredForValidation]
-	[RequiredForCompany]
+	[RequiredForCompany1]
 	public string? ShortName { get; set; } = null;
 
 	[RequiredForValidation]
-	[RequiredForCompany]
+	[RequiredForCompany1]
 	public string? LegalAddress { get; set; } = null;
 	[RequiredForValidation]
-	[RequiredForCompany]
+	[RequiredForCompany1]
 	public string? PostalAddress { get; set; } = null;
 
 	[RequiredForValidation]
-	[RequiredForCompany]
+	[RequiredForCompany1]
 	public string? OGRN { get; set; } = null;
 	[RequiredForValidation]
-	[RequiredForCompany]
+	[RequiredForCompany2]
 	public string? Director { get; set; } = null;
 
 	[RequiredForValidation]
 	[RequiredForUser]
-	[RequiredForCompany]
+	[RequiredForCompany2]
 	public string? Email { get; set; } = null;
 	[RequiredForValidation]
 	[RequiredForUser]
-	[RequiredForCompany]
+	[RequiredForCompany2]
 	public string? Password { get; set; } = null;
 	[RequiredForValidation]
 	[RequiredForUser]
-	[RequiredForCompany]
+	[RequiredForCompany2]
 	public string? ConfirmPassword { get; set; } = null;
 
 	public string Code { get; set; } = string.Empty;
