@@ -131,7 +131,7 @@
 					Grid.Column="0"
 					PreviewTextInput="Password_OnPreviewTextInput"
 					PreviewKeyDown="Password_OnPreviewKeyDown"
-					PasswordChanged="PasswordPasswordBox_PasswordChanged"
+					PasswordChanged="ConfirmPasswordPasswordBox_PasswordChanged"
 					Style="{StaticResource AuthPassword}"
 					MaxLength="100" />
 
