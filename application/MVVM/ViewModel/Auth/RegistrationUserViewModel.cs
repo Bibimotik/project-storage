@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 
 using application.MVVM.Model;
@@ -12,6 +13,7 @@ namespace application.MVVM.ViewModel.Auth;
 public partial class RegistrationUserViewModel : ObservableObject
 {
 	private readonly Dictionary<string, Action<string?>> _validationActions;
+	private readonly bool _isInitializing = false;
 
 	[ObservableProperty]
 	private string firstName = string.Empty;
@@ -49,6 +51,8 @@ public partial class RegistrationUserViewModel : ObservableObject
 
 	public RegistrationUserViewModel()
 	{
+		_isInitializing = true;
+
 		AuthViewModel.Invalided += OnInvalided;
 
 		_validationActions = new Dictionary<string, Action<string?>>
@@ -61,6 +65,20 @@ public partial class RegistrationUserViewModel : ObservableObject
 			{ nameof(EntityModel.Password), value => IsInvalidPassword = ValidateAndCreateModel(value) },
 			{ nameof(EntityModel.ConfirmPassword), value => IsInvalidConfirmPassword = ValidateAndCreateModel(value) }
 		};
+
+		EntityModel.Model ??= new EntityModel();
+
+		EntityModel model = EntityModel.Model;
+		// TODO - единственное что, так это то что значения Null ставятся, не знаю, нужно ли менять на string.Empty
+		FirstName = model.FirstName;
+		SecondName = model.SecondName;
+		ThirdName = model.ThirdName;
+		Phone = model.Phone;
+		Email = model.Email;
+		Password = model.Password;
+		ConfirmPassword = model.ConfirmPassword;
+
+		_isInitializing = false;
 	}
 
 	partial void OnFirstNameChanged(string value) => IsInvalidFirstName = ValidateAndCreateModel(value);
@@ -105,7 +123,7 @@ public partial class RegistrationUserViewModel : ObservableObject
 
 			IsInvalidPassword = false;
 
-			if (!EntityModel.ComparePasswords(value, ConfirmPassword))
+			if (!string.Equals(value, ConfirmPassword))
 			{
 				ArePasswordsMismatch = true;
 				return;
@@ -137,7 +155,7 @@ public partial class RegistrationUserViewModel : ObservableObject
 
 			IsPasswordFormatInvalid = false;
 
-			if (!EntityModel.ComparePasswords(Password, value))
+			if (!string.Equals(value, Password))
 			{
 				ArePasswordsMismatch = true;
 				return;
@@ -165,6 +183,9 @@ public partial class RegistrationUserViewModel : ObservableObject
 
 	private bool ValidateAndCreateModel(string? value)
 	{
+		if (_isInitializing)
+			return false;
+
 		CreateModel();
 		return string.IsNullOrWhiteSpace(value);
 	}

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 
 using application.MVVM.Model;
@@ -12,7 +13,8 @@ namespace application.MVVM.ViewModel.Auth;
 partial class RegistrationCompanyStage2ViewModel : ObservableObject
 {
 	private readonly Dictionary<string, Action<string?>> _validationActions;
-	
+	private readonly bool _isInitializing = false;
+
 	[ObservableProperty]
 	private string director = string.Empty;
 	[ObservableProperty]
@@ -21,7 +23,7 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 	private string password = string.Empty;
 	[ObservableProperty]
 	private string confirmPassword = string.Empty;
-	
+
 	[ObservableProperty]
 	private bool isInvalidDirector = false;
 	[ObservableProperty]
@@ -34,9 +36,12 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 	private bool isPasswordFormatInvalid = false;
 	[ObservableProperty]
 	private bool arePasswordsMismatch = false;
-	
+
+	// TODO - почему то именно ConfirmPassword копируется в Password и чета там не так. в RegUserVM тоже самое
 	public RegistrationCompanyStage2ViewModel()
 	{
+		_isInitializing = true;
+
 		AuthViewModel.Invalided += OnInvalided;
 
 		_validationActions = new Dictionary<string, Action<string?>>
@@ -46,8 +51,18 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 			{ nameof(EntityModel.Password), value => IsInvalidPassword = ValidateAndCreateModel(value) },
 			{ nameof(EntityModel.ConfirmPassword), value => IsInvalidConfirmPassword = ValidateAndCreateModel(value) }
 		};
+
+		EntityModel.Model ??= new EntityModel();
+
+		EntityModel model = EntityModel.Model;
+		Director = model.Director;
+		Email = model.Email;
+		Password = model.Password;
+		ConfirmPassword = model.ConfirmPassword;
+
+		_isInitializing = false;
 	}
-	
+
 	partial void OnDirectorChanged(string value) => IsInvalidDirector = ValidateAndCreateModel(value);
 	partial void OnEmailChanged(string value)
 	{
@@ -87,7 +102,7 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 
 			IsInvalidPassword = false;
 
-			if (!EntityModel.ComparePasswords(value, ConfirmPassword))
+			if (!string.Equals(value, ConfirmPassword))
 			{
 				ArePasswordsMismatch = true;
 				return;
@@ -119,7 +134,7 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 
 			IsPasswordFormatInvalid = false;
 
-			if (!EntityModel.ComparePasswords(Password, value))
+			if (!string.Equals(value, Password))
 			{
 				ArePasswordsMismatch = true;
 				return;
@@ -136,13 +151,16 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 
 		CreateModel();
 	}
-	
+
 	private bool ValidateAndCreateModel(string? value)
 	{
+		if (_isInitializing)
+			return false;
+
 		CreateModel();
 		return string.IsNullOrWhiteSpace(value);
 	}
-	
+
 	private void OnInvalided(string property)
 	{
 		if (_validationActions.TryGetValue(property, out var validate))

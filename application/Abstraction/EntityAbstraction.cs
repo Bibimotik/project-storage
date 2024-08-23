@@ -36,7 +36,7 @@ public class EntityAbstraction
 
 	public enum CompanyRegistrationStages
 	{
-		First = 1,
-		Second = 2
+		First,
+		Second
 	}
 }

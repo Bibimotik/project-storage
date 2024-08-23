@@ -11,7 +11,8 @@ namespace application.MVVM.ViewModel.Auth;
 partial class RegistrationCompanyStage1ViewModel : ObservableObject
 {
 	private readonly Dictionary<string, Action<string?>> _validationActions;
-	
+	private readonly bool _isInitializing = false;
+
 	[ObservableProperty]
 	private string inn = string.Empty;
 	[ObservableProperty]
@@ -26,7 +27,7 @@ partial class RegistrationCompanyStage1ViewModel : ObservableObject
 	private string postalAddress = string.Empty;
 	[ObservableProperty]
 	private string ogrn = string.Empty;
-	
+
 	[ObservableProperty]
 	private bool isInvalidInn = false;
 	[ObservableProperty]
@@ -41,9 +42,11 @@ partial class RegistrationCompanyStage1ViewModel : ObservableObject
 	private bool isInvalidPostalAddress = false;
 	[ObservableProperty]
 	private bool isInvalidOgrn = false;
-	
+
 	public RegistrationCompanyStage1ViewModel()
 	{
+		_isInitializing = true;
+
 		AuthViewModel.Invalided += OnInvalided;
 
 		_validationActions = new Dictionary<string, Action<string?>>
@@ -56,6 +59,20 @@ partial class RegistrationCompanyStage1ViewModel : ObservableObject
 			{ nameof(EntityModel.PostalAddress), value => IsInvalidPostalAddress = ValidateAndCreateModel(value) },
 			{ nameof(EntityModel.OGRN), value => IsInvalidOgrn = ValidateAndCreateModel(value) }
 		};
+
+		EntityModel.Model ??= new EntityModel();
+
+		EntityModel model = EntityModel.Model;
+		// TODO - единственное что, так это то что значения Null ставятся, не знаю, нужно ли менять на string.Empty
+		Inn = model.INN;
+		Kpp = model.KPP;
+		FullName = model.FullName;
+		ShortName = model.ShortName;
+		LegalAddress = model.LegalAddress;
+		PostalAddress = model.PostalAddress;
+		Ogrn = model.OGRN;
+
+		_isInitializing = false;
 	}
 
 	partial void OnInnChanged(string value) => IsInvalidInn = ValidateAndCreateModel(value);
@@ -65,13 +82,16 @@ partial class RegistrationCompanyStage1ViewModel : ObservableObject
 	partial void OnLegalAddressChanged(string value) => IsInvalidLegalAddress = ValidateAndCreateModel(value);
 	partial void OnPostalAddressChanged(string value) => IsInvalidPostalAddress = ValidateAndCreateModel(value);
 	partial void OnOgrnChanged(string value) => IsInvalidOgrn = ValidateAndCreateModel(value);
-	
+
 	private bool ValidateAndCreateModel(string? value)
 	{
+		if (_isInitializing)
+			return false;
+
 		CreateModel();
 		return string.IsNullOrWhiteSpace(value);
 	}
-	
+
 	private void OnInvalided(string property)
 	{
 		Debug.WriteLine("invalided " + property);
