@@ -69,14 +69,14 @@ public partial class RegistrationUserViewModel : ObservableObject
 		EntityModel.Model ??= new EntityModel();
 
 		EntityModel model = EntityModel.Model;
-		// TODO - единственное что, так это то что значения Null ставятся, не знаю, нужно ли менять на string.Empty
+		// TODO - убрал пока а то эти поля пересекаются в двух регистрациях
 		FirstName = model.FirstName;
 		SecondName = model.SecondName;
 		ThirdName = model.ThirdName;
 		Phone = model.Phone;
-		Email = model.Email;
+		/*Email = model.Email;
 		Password = model.Password;
-		ConfirmPassword = model.ConfirmPassword;
+		ConfirmPassword = model.ConfirmPassword;*/
 
 		_isInitializing = false;
 	}

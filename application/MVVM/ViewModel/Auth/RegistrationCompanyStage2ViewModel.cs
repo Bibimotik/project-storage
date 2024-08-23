@@ -37,7 +37,6 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 	[ObservableProperty]
 	private bool arePasswordsMismatch = false;
 
-	// TODO - почему то именно ConfirmPassword копируется в Password и чета там не так. в RegUserVM тоже самое
 	public RegistrationCompanyStage2ViewModel()
 	{
 		_isInitializing = true;
@@ -56,9 +55,9 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 
 		EntityModel model = EntityModel.Model;
 		Director = model.Director;
-		Email = model.Email;
+		/*Email = model.Email;
 		Password = model.Password;
-		ConfirmPassword = model.ConfirmPassword;
+		ConfirmPassword = model.ConfirmPassword;*/
 
 		_isInitializing = false;
 	}

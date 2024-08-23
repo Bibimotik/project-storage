@@ -245,6 +245,7 @@ public partial class AuthViewModel : ObservableObject
 			return false;
 
 		string code = GenerateRandomCode();
+		Console.WriteLine(code);
 		string encryptedCode = _securityService.Encrypt(code);
 		_mailService.SendMail(code, model.Email);
 
@@ -294,19 +295,7 @@ public partial class AuthViewModel : ObservableObject
 			default:
 				return false;
 		}
-
-		//Debug.WriteLine("user:");
-		//foreach (var prop in properties2)
-		//{
-		//	Debug.WriteLine(prop.Name);
-		//}
-		//Debug.WriteLine("company:");
-		//foreach (var prop in properties3)
-		//{
-		//	Debug.WriteLine(prop.Name);
-		//}
-
-		// TODO - без него метод ругается что нада чета возвращать, хотя switch все равно чета вернет
+		
 		return true;
 	}
 
@@ -355,11 +344,6 @@ public partial class AuthViewModel : ObservableObject
 
 		return true;
 	}
-
-	//private bool IsEntityProperty(string propertyName)
-	//{
-	//	return Enum.TryParse(typeof(UserProperties), propertyName, out _);
-	//}
 
 	private string GenerateRandomCode()
 	{

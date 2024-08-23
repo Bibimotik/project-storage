@@ -4,7 +4,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:application.MVVM.View.Auth"
-	xmlns:c="clr-namespace:application.Utilities.Converter"
+	xmlns:conventer="clr-namespace:application.Utilities.Converter"
 	xmlns:Auth="clr-namespace:application.MVVM.ViewModel.Auth"
 	x:Class="application.MVVM.View.Auth.RegistrationCompanyStage2View"
 	mc:Ignorable="d"
@@ -16,7 +16,7 @@
 	</UserControl.DataContext>
 
 	<UserControl.Resources>
-		<c:BoolToVisibilityConverter
+		<conventer:BoolToVisibilityConverter
 			x:Key="BoolToVisibilityConverter" />
 	</UserControl.Resources>
 

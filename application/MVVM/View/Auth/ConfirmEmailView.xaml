@@ -5,6 +5,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:application.MVVM.View.Auth"
 	xmlns:Auth="clr-namespace:application.MVVM.ViewModel.Auth"
+	xmlns:converter = "clr-namespace:application.Utilities.Converter"
 	x:Class="application.MVVM.View.Auth.ConfirmEmailView"
 	mc:Ignorable="d"
 	d:DesignHeight="450"
@@ -13,6 +14,11 @@
 	<UserControl.DataContext>
 		<Auth:ConfirmEmailViewModel />
 	</UserControl.DataContext>
+	
+	<UserControl.Resources>
+		<converter:BoolToVisibilityConverter
+			x:Key="BoolToVisibilityConverter" />
+	</UserControl.Resources>
 
 	<StackPanel
 		Width="300"
@@ -24,9 +30,10 @@
 			HorizontalAlignment="Stretch">
 			
 			<TextBlock
+				x:Name="codeFor"
 				Margin="0 0 0 15"
 				FontSize="14"
-				Text="Code for email@gmail.com" />
+				Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" />
 
 			<Grid
 				HorizontalAlignment="Stretch">
@@ -99,6 +106,14 @@
 					Text="{Binding Input_6, UpdateSourceTrigger=PropertyChanged}"
 					x:Name="_6" />
 			</Grid>
+			<TextBlock
+				Visibility="{Binding IsCodeInvalid, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Code Error! Please fill all fields!" />
+			<TextBlock
+				Visibility="{Binding IsConfirmCodeInvalid, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Code Error! The code does not match!" />
 			
 		</StackPanel>
 
