@@ -46,6 +46,7 @@
 					MaxLength="12" />
 
 				<Button
+					Click="Button_Click"
 					Grid.Column="1"
 					Margin="5 0 0 0"
 					Command="{Binding }"
@@ -86,7 +87,7 @@
 				x:Name="FullName"
 				Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"
 				Style="{StaticResource AuthInput}" 
-				MaxLength="100" />
+				MaxLength="1000" />
 			<TextBlock
 				Visibility="{Binding IsInvalidFullName, Converter={StaticResource BoolToVisibilityConverter}}"
 				Foreground="red"

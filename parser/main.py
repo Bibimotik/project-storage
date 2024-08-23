@@ -1,17 +1,14 @@
+import sys
+import json
 import psycopg2
 import requests
 
 db_params = {
     "dbname": "parserDataBase",
-    "user": "postgres",  # ПОМЕНЯТЬ ПОТОМ
+    "user": "postgres",
     "password": "222120111m",
-    "host": "localhost",  # ИЛИ АДРЕС СЕРВЕРА
+    "host": "localhost",
     "port": "5432"
-}
-
-search_url = "https://egrul.nalog.ru/"
-search_data = {
-    "query": "7723431957"  # ИНН ДЛЯ ВСТАВКИ
 }
 
 def insert_data_to_db(data):
@@ -25,12 +22,12 @@ def insert_data_to_db(data):
         """
 
         record_to_insert = (
-            data['i'],
-            data['p'],
-            data['o'],
-            data['c'],
-            data['n'],
-            data['g'].replace("ГЕНЕРАЛЬНЫЙ ДИРЕКТОР:", "").strip()
+            data.get('i', ''),
+            data.get('p', ''),
+            data.get('o', ''),
+            data.get('c', ''),
+            data.get('n', ''),
+            data.get('g', '').replace("ГЕНЕРАЛЬНЫЙ ДИРЕКТОР:", "").strip()
         )
 
         cursor.execute(insert_query, record_to_insert)
@@ -46,25 +43,42 @@ def insert_data_to_db(data):
             cursor.close()
             conn.close()
 
-response = requests.post(search_url, data=search_data)
+def main():
+    if len(sys.argv) != 2:
+        print("Использование: parser.py <ИНН>")
+        return
+    
+    inn = sys.argv[1]
+    
+    search_url = "https://egrul.nalog.ru/"
+    search_data = {"query": inn}
+    
+    response = requests.post(search_url, data=search_data)
+    
+    if response.status_code == 200:
+        search_id = response.json().get("t")
 
-if response.status_code == 200:
-    search_id = response.json()["t"]
+        if not search_id:
+            print("Не удалось получить идентификатор поиска.")
+            return
 
-    result_url = f"https://egrul.nalog.ru/search-result/{search_id}"
+        result_url = f"https://egrul.nalog.ru/search-result/{search_id}"
 
-    result_response = requests.get(result_url)
+        result_response = requests.get(result_url)
 
-    if result_response.status_code == 200:
-        result_data = result_response.json()
+        if result_response.status_code == 200:
+            result_data = result_response.json()
 
-        if "rows" in result_data:
-            for row in result_data["rows"]:
-                filtered_data = {key: row[key] for key in ['c', 'g', 'i', 'n', 'o', 'p']}
-                insert_data_to_db(filtered_data)
+            if "rows" in result_data:
+                for row in result_data["rows"]:
+                    filtered_data = {key: row.get(key, "") for key in ['c', 'g', 'i', 'n', 'o', 'p']}
+                    print(json.dumps(filtered_data))  # вывод данных в JSON формате
+            else:
+                print("Никаких результатов найдено не было.")
         else:
-            print("Никаких результатов найдено не было.")
+            print(f"Ошибка при получении результатов: {result_response.status_code}")
     else:
-        print(f"Ошибка при получении результатов: {result_response.status_code}")
-else:
-    print(f"Ошибка во время поиска: {response.status_code}")
+        print(f"Ошибка во время поиска: {response.status_code}")
+
+if __name__ == "__main__":
+    main()
