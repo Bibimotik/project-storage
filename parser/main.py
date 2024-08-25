@@ -11,6 +11,7 @@ db_params = {
     "port": "5432"
 }
 
+
 def insert_data_to_db(data):
     try:
         conn = psycopg2.connect(**db_params)
@@ -43,18 +44,19 @@ def insert_data_to_db(data):
             cursor.close()
             conn.close()
 
+
 def main():
     if len(sys.argv) != 2:
         print("Использование: parser.py <ИНН>")
         return
-    
+
     inn = sys.argv[1]
-    
+
     search_url = "https://egrul.nalog.ru/"
     search_data = {"query": inn}
-    
+
     response = requests.post(search_url, data=search_data)
-    
+
     if response.status_code == 200:
         search_id = response.json().get("t")
 
@@ -79,6 +81,7 @@ def main():
             print(f"Ошибка при получении результатов: {result_response.status_code}")
     else:
         print(f"Ошибка во время поиска: {response.status_code}")
+
 
 if __name__ == "__main__":
     main()

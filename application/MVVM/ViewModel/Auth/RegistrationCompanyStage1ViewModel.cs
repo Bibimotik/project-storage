@@ -1,8 +1,15 @@
 ﻿using System.Diagnostics;
+using System.Net.Http;
+using System.Windows;
 
+using application.Abstraction;
 using application.MVVM.Model;
+using application.Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+
+using Newtonsoft.Json;
 
 using static application.Abstraction.EntityAbstraction;
 
@@ -63,7 +70,6 @@ partial class RegistrationCompanyStage1ViewModel : ObservableObject
 		EntityModel.Model ??= new EntityModel();
 
 		EntityModel model = EntityModel.Model;
-		// TODO - единственное что, так это то что значения Null ставятся, не знаю, нужно ли менять на string.Empty
 		Inn = model.INN;
 		Kpp = model.KPP;
 		FullName = model.FullName;
@@ -116,4 +122,34 @@ partial class RegistrationCompanyStage1ViewModel : ObservableObject
 		model.PostalAddress = PostalAddress;
 		model.OGRN = Ogrn;
 	}
+	
+	[RelayCommand]
+	public async Task GetParserDataINN(string inputINN)
+	{
+		var parserInnService = new ParserINNService();
+		var parserData = await parserInnService.GetParserDataAsync(inputINN);
+
+		if (parserData != null)
+		{
+			EntityModel.Model ??= new EntityModel();
+
+			EntityModel model = EntityModel.Model;
+			model.INN = inputINN;
+			model.KPP = parserData.Kpp;
+			model.FullName = parserData.FullName;
+			model.ShortName = parserData.ShortName;
+			model.OGRN = parserData.Ogrn;
+			model.Director = parserData.Director;
+
+			Kpp = parserData.Kpp;
+			FullName = parserData.FullName;
+			ShortName = parserData.ShortName;
+			Ogrn = parserData.Ogrn;
+		}
+		else
+		{
+			MessageBox.Show("Не удалось получить данные.");
+		}
+	}
+
 }

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Net.Http;
 using System.Reflection;
 using System.Windows;
 
@@ -6,6 +7,7 @@ using application.Abstraction;
 using application.MVVM.Model;
 using application.MVVM.View.Auth;
 using application.MVVM.ViewModel.Auth;
+using application.Services;
 using application.Utilities;
 
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -14,6 +16,8 @@ using CommunityToolkit.Mvvm.Input;
 using CSharpFunctionalExtensions;
 
 using MailServiceLibrary;
+
+using Newtonsoft.Json;
 
 using static application.Abstraction.EntityAbstraction;
 
@@ -64,7 +68,7 @@ public partial class AuthViewModel : ObservableObject
 		_securityService = securityService;
 		_mailService = mailService;
 		_registrationUserViewModel = registrationUserViewModel;
-
+		
 		Login();
 	}
 

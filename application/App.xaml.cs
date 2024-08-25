@@ -41,6 +41,7 @@ public partial class App : Application
 		services.AddSingleton<INavigationService, NavigationService>();
 		services.AddSingleton<ISecurityService, SecurityService>();
 		services.AddTransient<RegistrationUserViewModel>();
+		services.AddTransient<IParserINNService, ParserINNService>();
 
 		services.AddSingleton<App>();
 		services.AddScoped<AuthViewModel>();

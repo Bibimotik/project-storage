@@ -7,4 +7,6 @@ public class ParserModel
 	public string ShortName { get; set; }
 	public string Ogrn { get; set; }
 	public string Director { get; set; }
+	
+	public static ParserModel Model { get; set; } = new();
 }

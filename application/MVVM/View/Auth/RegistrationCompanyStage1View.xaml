@@ -46,10 +46,10 @@
 					MaxLength="12" />
 
 				<Button
-					Click="Button_Click"
 					Grid.Column="1"
 					Margin="5 0 0 0"
-					Command="{Binding }"
+					Command="{Binding GetParserDataINNCommand}"
+					CommandParameter="{Binding Text, ElementName=INN}"
 					Content="GET"
 					Style="{StaticResource SendButtonWhite}" />
 
