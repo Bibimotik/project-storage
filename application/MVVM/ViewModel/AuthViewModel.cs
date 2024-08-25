@@ -31,6 +31,7 @@ public partial class AuthViewModel : ObservableObject
 	private readonly ISecurityService _securityService;
 	private readonly IMailService _mailService;
 	private readonly RegistrationUserViewModel _registrationUserViewModel;
+	private readonly IParserINNService _parserInnService;
 
 	public static event Action<string>? Invalided;
 	[ObservableProperty]
@@ -60,7 +61,8 @@ public partial class AuthViewModel : ObservableObject
 		INavigationService navigationService,
 		ISecurityService securityService,
 		IMailService mailService,
-		RegistrationUserViewModel registrationUserViewModel)
+		RegistrationUserViewModel registrationUserViewModel,
+		IParserINNService parserInnService)
 	{
 		_entityRepository = entityRepository;
 		_authService = authService;
@@ -68,8 +70,14 @@ public partial class AuthViewModel : ObservableObject
 		_securityService = securityService;
 		_mailService = mailService;
 		_registrationUserViewModel = registrationUserViewModel;
+		_parserInnService = parserInnService;
 		
 		Login();
+	}
+	//TODO - это новый конструктор для парсера
+	public AuthViewModel(IParserINNService parserInnService)
+	{
+		_parserInnService = parserInnService; 
 	}
 
 	[RelayCommand]
@@ -218,6 +226,30 @@ public partial class AuthViewModel : ObservableObject
 
 		_navigationService.ShowMain();
 	}
+	[RelayCommand]
+	public async Task<ParserModel> GetParserDataINN(string inputINN)
+	{
+		var parserData = await _parserInnService.GetParserDataAsync(inputINN);
+		if (parserData != null)
+		{
+			EntityModel.Model ??= new EntityModel();
+			EntityModel model = EntityModel.Model;
+
+			model.INN = inputINN;
+			model.KPP = parserData.Kpp;
+			model.FullName = parserData.FullName;
+			model.ShortName = parserData.ShortName;
+			model.OGRN = parserData.Ogrn;
+			model.Director = parserData.Director;
+		}
+		else
+		{
+			MessageBox.Show("Не удалось получить данные.");
+		}
+
+		return parserData;
+	}
+
 
 	private bool Registration()
 	{

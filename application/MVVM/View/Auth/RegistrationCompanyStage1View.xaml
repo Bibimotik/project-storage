@@ -48,7 +48,7 @@
 				<Button
 					Grid.Column="1"
 					Margin="5 0 0 0"
-					Command="{Binding GetParserDataINNCommand}"
+					Command="{Binding GetParserDataINN11Command}"
 					CommandParameter="{Binding Text, ElementName=INN}"
 					Content="GET"
 					Style="{StaticResource SendButtonWhite}" />

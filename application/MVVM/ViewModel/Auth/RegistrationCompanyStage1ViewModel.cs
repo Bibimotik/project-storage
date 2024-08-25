@@ -19,6 +19,11 @@ partial class RegistrationCompanyStage1ViewModel : ObservableObject
 {
 	private readonly Dictionary<string, Action<string?>> _validationActions;
 	private readonly bool _isInitializing = false;
+	
+	private static readonly IParserINNService parserInnService = new ParserINNService();
+	private readonly AuthViewModel authViewModel = new AuthViewModel(parserInnService);
+	
+	public event Action<EntityModel> ModelUpdated;
 
 	[ObservableProperty]
 	private string inn = string.Empty;
@@ -124,32 +129,16 @@ partial class RegistrationCompanyStage1ViewModel : ObservableObject
 	}
 	
 	[RelayCommand]
-	public async Task GetParserDataINN(string inputINN)
+	public async Task GetParserDataINN11(string inputINN)
 	{
-		var parserInnService = new ParserINNService();
-		var parserData = await parserInnService.GetParserDataAsync(inputINN);
-
+		var parserData = await authViewModel.GetParserDataINN(inputINN);
+		
 		if (parserData != null)
 		{
-			EntityModel.Model ??= new EntityModel();
-
-			EntityModel model = EntityModel.Model;
-			model.INN = inputINN;
-			model.KPP = parserData.Kpp;
-			model.FullName = parserData.FullName;
-			model.ShortName = parserData.ShortName;
-			model.OGRN = parserData.Ogrn;
-			model.Director = parserData.Director;
-
 			Kpp = parserData.Kpp;
 			FullName = parserData.FullName;
 			ShortName = parserData.ShortName;
 			Ogrn = parserData.Ogrn;
 		}
-		else
-		{
-			MessageBox.Show("Не удалось получить данные.");
-		}
 	}
-
 }
