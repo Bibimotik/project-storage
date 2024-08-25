@@ -73,8 +73,18 @@ def main():
 
             if "rows" in result_data:
                 for row in result_data["rows"]:
-                    filtered_data = {key: row.get(key, "") for key in ['c', 'g', 'i', 'n', 'o', 'p']}
-                    print(json.dumps(filtered_data))  # вывод данных в JSON формате
+                    director_info = row.get('p', "").replace("ГЕНЕРАЛЬНЫЙ ДИРЕКТОР: ", "").strip()
+
+                    filtered_data = {
+                        'i': row.get('i', ''),
+                        'p': director_info,
+                        'o': row.get('o', ''),
+                        'c': row.get('c', ''),
+                        'n': row.get('n', ''),
+                        'g': row.get('g', '')
+                    }
+
+                    print(json.dumps(filtered_data))
             else:
                 print("Никаких результатов найдено не было.")
         else:

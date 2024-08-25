@@ -240,7 +240,16 @@ public partial class AuthViewModel : ObservableObject
 			model.FullName = parserData.FullName;
 			model.ShortName = parserData.ShortName;
 			model.OGRN = parserData.Ogrn;
-			model.Director = parserData.Director;
+			if (parserData.Director != null)
+			{
+				string cleanedDirector = parserData.Director
+					.Replace("ГЕНЕРАЛЬНЫЙ", "")
+					.Replace("ДИРЕКТОР", "")
+					.Replace(":", "")
+					.Trim();
+
+				model.Director = cleanedDirector;
+			}
 		}
 		else
 		{
