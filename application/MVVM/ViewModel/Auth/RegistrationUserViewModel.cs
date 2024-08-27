@@ -69,14 +69,11 @@ public partial class RegistrationUserViewModel : ObservableObject
 		EntityModel.Model ??= new EntityModel();
 
 		EntityModel model = EntityModel.Model;
-		// TODO - убрал пока а то эти поля пересекаются в двух регистрациях
+		
 		FirstName = model.FirstName;
 		SecondName = model.SecondName;
 		ThirdName = model.ThirdName;
 		Phone = model.Phone;
-		/*Email = model.Email;
-		Password = model.Password;
-		ConfirmPassword = model.ConfirmPassword;*/
 
 		_isInitializing = false;
 	}
@@ -89,7 +86,6 @@ public partial class RegistrationUserViewModel : ObservableObject
 	{
 		try
 		{
-			Debug.WriteLine("email " + value);
 			var regex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
 			if (!regex.IsMatch(value))

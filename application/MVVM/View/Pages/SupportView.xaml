@@ -6,6 +6,7 @@
 	xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local = "clr-namespace:application.MVVM.View.Pages"
 	xmlns:Pages = "clr-namespace:application.MVVM.ViewModel.Pages"
+	xmlns:converter = "clr-namespace:application.Utilities.Converter"
 	mc:Ignorable = "d"
 	d:DesignHeight = "300"
 	d:DesignWidth = "300">
@@ -14,7 +15,67 @@
 		<Pages:SupportViewModel/>
 	</UserControl.DataContext>
 	
-	<StackPanel Width="100" Height="100">
-		<Label>Support</Label>
+	<UserControl.Resources>
+		<converter:BoolToVisibilityConverter
+			x:Key="BoolToVisibilityConverter" />
+	</UserControl.Resources>
+	
+	<StackPanel
+		Orientation="Vertical"
+		VerticalAlignment="Center">
+		
+		
+		<StackPanel
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Email" />
+			<TextBox
+				Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
+				PreviewTextInput="Password_OnPreviewTextInput"
+				PreviewKeyDown="Space_OnPreviewKeyDown"
+				Style="{StaticResource AuthInput}" 
+				MaxLength="100" />
+			<TextBlock
+				Visibility="{Binding IsInvalidEmail, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Invalid Email..." />
+		</StackPanel>
+		
+		<StackPanel
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Message" />
+			<TextBox
+				Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
+				PreviewTextInput="Password_OnPreviewTextInput"
+				PreviewKeyDown="Space_OnPreviewKeyDown"
+				Style="{StaticResource AuthInput}" 
+				MaxLength="100" />
+			<TextBlock
+				Visibility="{Binding IsInvalidMessage, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Invalid Message..." />
+		</StackPanel>
+		
+		<StackPanel
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Attach Screenshot" />
+			<Button
+				Content="Select File"
+				Command="{Binding SelectFileCommand}" 
+				Style="{StaticResource SendButtonWhite}" />
+			<TextBlock
+				Margin="5 0 0 0"
+				Foreground="Gray"
+				Text="{Binding SelectedFileNamesDisplay}" />
+		</StackPanel>
+		
 	</StackPanel>
 </UserControl>

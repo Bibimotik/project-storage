@@ -6,6 +6,7 @@ using System.Windows;
 using application.Abstraction;
 using application.MVVM.Model;
 using application.MVVM.View.Auth;
+using application.MVVM.View.Pages;
 using application.MVVM.ViewModel.Auth;
 using application.Services;
 using application.Utilities;
@@ -16,6 +17,8 @@ using CommunityToolkit.Mvvm.Input;
 using CSharpFunctionalExtensions;
 
 using MailServiceLibrary;
+
+using Microsoft.Extensions.DependencyInjection;
 
 using Newtonsoft.Json;
 
@@ -32,6 +35,7 @@ public partial class AuthViewModel : ObservableObject
 	private readonly IMailService _mailService;
 	private readonly RegistrationUserViewModel _registrationUserViewModel;
 	private readonly IParserINNService _parserInnService;
+	private readonly IServiceProvider _serviceProvider;
 
 	public static event Action<string>? Invalided;
 	[ObservableProperty]
@@ -55,6 +59,10 @@ public partial class AuthViewModel : ObservableObject
 	private bool authTypeConfirmEmail;
 	[ObservableProperty]
 	private bool authTypeConfirmEmailReverse;
+	[ObservableProperty]
+	private bool authSendProblem;
+	[ObservableProperty]
+	private bool authApplicationInfo;
 
 	public AuthViewModel(IEntityRepository entityRepository,
 		IAuthService authService,
@@ -62,7 +70,8 @@ public partial class AuthViewModel : ObservableObject
 		ISecurityService securityService,
 		IMailService mailService,
 		RegistrationUserViewModel registrationUserViewModel,
-		IParserINNService parserInnService)
+		IParserINNService parserInnService,
+		IServiceProvider serviceProvider)
 	{
 		_entityRepository = entityRepository;
 		_authService = authService;
@@ -71,6 +80,7 @@ public partial class AuthViewModel : ObservableObject
 		_mailService = mailService;
 		_registrationUserViewModel = registrationUserViewModel;
 		_parserInnService = parserInnService;
+		_serviceProvider = serviceProvider;
 		
 		Login();
 	}
@@ -93,6 +103,8 @@ public partial class AuthViewModel : ObservableObject
 		AuthTypeRegistrationCompany2 = false;
 		AuthTypeConfirmEmail = true;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
+		AuthSendProblem = false;
+		AuthApplicationInfo = false;
 	}
 	[RelayCommand]
 	private void RegistrationUser()
@@ -110,6 +122,8 @@ public partial class AuthViewModel : ObservableObject
 		AuthTypeRegistrationCompany2 = false;
 		AuthTypeConfirmEmail = true;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
+		AuthSendProblem = false;
+		AuthApplicationInfo = false;
 	}
 	[RelayCommand]
 	private void RegistrationCompany1()
@@ -127,6 +141,8 @@ public partial class AuthViewModel : ObservableObject
 		AuthTypeRegistrationCompany2 = false;
 		AuthTypeConfirmEmail = true;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
+		AuthSendProblem = false;
+		AuthApplicationInfo = false;
 	}
 	// TODO - кнопка Next
 	[RelayCommand]
@@ -147,6 +163,8 @@ public partial class AuthViewModel : ObservableObject
 		AuthTypeRegistrationCompany2 = true;
 		AuthTypeConfirmEmail = true;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
+		AuthSendProblem = false;
+		AuthApplicationInfo = false;
 	}
 	[RelayCommand]
 	private void ConfirmEmail()
@@ -164,6 +182,8 @@ public partial class AuthViewModel : ObservableObject
 		AuthTypeRegistrationCompany2 = false;
 		AuthTypeConfirmEmail = false;
 		AuthTypeConfirmEmailReverse = !AuthTypeConfirmEmail;
+		AuthSendProblem = false;
+		AuthApplicationInfo = false;
 	}
 	[RelayCommand]
 	private void SwitchView()
@@ -257,6 +277,41 @@ public partial class AuthViewModel : ObservableObject
 		}
 
 		return parserData;
+	}
+	[RelayCommand]
+	private void Support()
+	{
+		CurrentView = _serviceProvider.GetRequiredService<SupportView>();
+    
+		AuthTypeLogin = false;
+		AuthTypeLoginReverse = false;
+		AuthTypeRegistration = false;
+		AuthTypeRegistrationUser = false;
+		AuthTypeRegistrationUserReverse = false;
+		AuthTypeRegistrationCompany1 = false;
+		AuthTypeRegistrationCompany2 = false;
+		AuthTypeConfirmEmail = false;
+		AuthTypeConfirmEmailReverse = false;
+		AuthSendProblem = true;
+		AuthApplicationInfo = false;
+	}
+
+	[RelayCommand]
+	private void Info()
+	{
+		CurrentView = _serviceProvider.GetRequiredService<InfoView>();
+		
+		AuthTypeLogin = false;
+		AuthTypeLoginReverse = false;
+		AuthTypeRegistration = false;
+		AuthTypeRegistrationUser = false;
+		AuthTypeRegistrationUserReverse = false;
+		AuthTypeRegistrationCompany1 = false;
+		AuthTypeRegistrationCompany2 = false;
+		AuthTypeConfirmEmail = false;
+		AuthTypeConfirmEmailReverse = false;
+		AuthSendProblem = false;
+		AuthApplicationInfo = true;
 	}
 
 

@@ -212,6 +212,40 @@
 										Style="{StaticResource SendButtonWhite}" />
 
 								</StackPanel>
+								
+								<StackPanel
+									Orientation="Vertical">
+
+									<Button
+										Margin="0 0 0 7"
+										Visibility="{Binding AuthSendProblem, Converter={StaticResource BoolToVisibilityConverter}}"
+										Content="Send"
+										Style="{StaticResource SendButton}"
+										Command="{Binding CheckCommand}"
+										HorizontalAlignment="Center" />
+
+									<Button
+										Height="30"
+										Visibility="{Binding AuthSendProblem, Converter={StaticResource BoolToVisibilityConverter}}"
+										Content="← Back3"
+										Command="{Binding RegistrationUserCommand}"
+										HorizontalAlignment="Center"
+										Style="{StaticResource SendButtonWhite}" />
+
+								</StackPanel>
+								
+								<StackPanel
+									Orientation="Vertical">
+
+									<Button
+										Height="30"
+										Visibility="{Binding AuthApplicationInfo, Converter={StaticResource BoolToVisibilityConverter}}"
+										Content="← Back4"
+										Command="{Binding RegistrationUserCommand}"
+										HorizontalAlignment="Center"
+										Style="{StaticResource SendButtonWhite}" />
+
+								</StackPanel>
 
 							</StackPanel>
 						</StackPanel>
@@ -254,6 +288,7 @@
 			Margin="0,5,5,0">
 
 			<Button
+				Command="{Binding SupportCommand}"
 				Style="{StaticResource Button}"
 				Margin="0,0,3,0">
 				<Image
@@ -264,6 +299,7 @@
 			</Button>
 
 			<Button
+				Command="{Binding InfoCommand}"
 				Style="{StaticResource Button}">
 				<Image
 					Source="../../Assets/Icons/Info.png"

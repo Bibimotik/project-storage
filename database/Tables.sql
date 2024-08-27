@@ -1,7 +1,7 @@
 CREATE TABLE ENTITY
 (
 	Entity_ID serial             NOT NULL PRIMARY KEY,
-	Type      varchar(20) UNIQUE NOT NULL,
+	Type      varchar(20) UNIQUE NOT NULL, -- TODO почему оно уникально???
 	Type_ID   uuid               NOT NULL
 );
 
@@ -13,7 +13,7 @@ CREATE TABLE COMPANY
 	KPP            char(12) UNIQUE NOT NULL,
 	OGRN           char(13) UNIQUE NOT NULL,
 	FullName       varchar(100)    NOT NULL,
-	ShortName      varchar(100)    NOT NULL, -- TODO я запутался что за FullName и ShortName
+	ShortName      varchar(100)    NOT NULL,
 	Email          varchar(100)    NOT NULL,
 	Password       text            NOT NULL,
 	Legal_Address  varchar(1000)   NOT NULL,
@@ -214,7 +214,14 @@ CREATE TABLE PROJECT
 
 CREATE TABLE SUPPORT
 (
-	SupportID SERIAL NOT NULL PRIMARY KEY,
-	Entity_ID serial NOT NULL REFERENCES ENTITY (Entity_ID),
-	MESSAGE   TEXT   NOT NULL
+    Support_ID SERIAL NOT NULL PRIMARY KEY,
+    Entity_ID  SERIAL NOT NULL REFERENCES ENTITY (Entity_ID),
+    Message    TEXT   NOT NULL
+);
+
+CREATE TABLE SUPPORT_IMAGES
+(
+    Image_ID    SERIAL NOT NULL PRIMARY KEY,
+    Support_ID  INT    NOT NULL REFERENCES SUPPORT (Support_ID) ON DELETE CASCADE,
+    Image       BYTEA  NOT NULL
 );
