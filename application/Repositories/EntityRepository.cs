@@ -115,4 +115,19 @@ public class EntityRepository : IEntityRepository
 			return Result.Failure("Entity with this email already exists.");
 		}, _databaseService);
 	}
+	
+	public async Task SendToSupport(EntityModel entity)
+	{
+		await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			string query = $@"INSERT into support
+	            (email, message)
+	            values (
+	            @{nameof(EntityModel.Email)},
+	            @{nameof(EntityModel.Message)})";
+			
+			await dbConnection.ExecuteAsync(query, entity);
+			return Task.CompletedTask;
+		}, _databaseService);
+	}
 }

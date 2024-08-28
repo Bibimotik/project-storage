@@ -5,7 +5,8 @@ public class EntityAbstraction
 	public enum EntityType
 	{
 		User,
-		Company
+		Company,
+		Support
 	}
 
 	public enum UserProperties
@@ -38,5 +39,11 @@ public class EntityAbstraction
 	{
 		First,
 		Second
+	}
+	
+	public enum SupportProperties
+	{
+		Email,
+		Message
 	}
 }

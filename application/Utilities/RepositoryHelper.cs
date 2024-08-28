@@ -23,17 +23,17 @@ public static class RepositoryHelper
 	}
 
 	public static async Task<T> ExecuteWithErrorHandlingAsync<T>(Func<IDbConnection, Task<T>> func, IDatabaseService databaseService)
-    {
-        try
-        {
+	{
+		try
+		{
 			Debug.WriteLine("REPOSITORY:\t" + nameof(func));
-            using IDbConnection dbConnection = databaseService.CreateConnection();
-            return await func(dbConnection);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Ошибка при выполнении операции с базой данных: {ex.Message}");
-            throw;
-        }
-    }
+			using IDbConnection dbConnection = databaseService.CreateConnection();
+			return await func(dbConnection);
+		}
+		catch (Exception ex)
+		{
+			MessageBox.Show($"Ошибка при выполнении операции с базой данных: {ex.Message}");
+			throw;
+		}
+	}
 }

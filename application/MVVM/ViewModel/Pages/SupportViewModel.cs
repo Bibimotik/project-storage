@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Input;
 
 using application.MVVM.Model;
+using application.Utilities;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -22,14 +23,15 @@ public partial class SupportViewModel : ObservableObject
 	private string email = string.Empty;
 	[ObservableProperty]
 	private string message = string.Empty;
+	[ObservableProperty]
+	private List<string> selectedFileNames = new();
 	
 	[ObservableProperty]
 	private bool isInvalidEmail = false;
 	[ObservableProperty]
 	private bool isInvalidMessage = false;
-	
 	[ObservableProperty]
-	private List<string> selectedFileNames = new();
+	private byte[] image;
 	
 	public SupportViewModel()
 	{
@@ -41,13 +43,13 @@ public partial class SupportViewModel : ObservableObject
 
 		_validationActions = new Dictionary<string, Action<string?>>
 		{
-			{ nameof(SupportModel.Email), value => IsInvalidEmail = ValidateAndCreateModel(value) },
-			{ nameof(SupportModel.Message), value => IsInvalidMessage = ValidateAndCreateModel(value) }
+			{ nameof(EntityModel.Email), value => IsInvalidEmail = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.Message), value => IsInvalidMessage = ValidateAndCreateModel(value) }
 		};
 		
-		SupportModel.Model ??= new SupportModel();
+		EntityModel.Model ??= new EntityModel();
 
-		SupportModel model = SupportModel.Model;
+		EntityModel model = EntityModel.Model;
 		
 		Email = model.Email;
 		Message = model.Message;
@@ -94,6 +96,11 @@ public partial class SupportViewModel : ObservableObject
 			{
 				SelectedFileNames.Add(fileName);
 			}
+
+			if (SelectedFileNames.Count > 0)
+			{
+				Image = ImageHelper.ConvertImageToByteArray(SelectedFileNames[0]);
+			}
 		}
 		
 		CreateModel();
@@ -118,13 +125,11 @@ public partial class SupportViewModel : ObservableObject
 	
 	private void CreateModel()
 	{
-		SupportModel.Model ??= new SupportModel();
+		EntityModel.Model ??= new EntityModel();
 
-		SupportModel model = SupportModel.Model;
+		EntityModel model = EntityModel.Model;
 		model.Email = Email;
 		model.Message = Message;
-		model.Screenshots = SelectedFileNames
-			.Select(fileName => File.ReadAllBytes(fileName))
-			.ToList();
+		model.Image = Image;
 	}
 }

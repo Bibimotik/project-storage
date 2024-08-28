@@ -84,7 +84,6 @@ public partial class AuthViewModel : ObservableObject
 		
 		Login();
 	}
-	//TODO - это новый конструктор для парсера
 	public AuthViewModel(IParserINNService parserInnService)
 	{
 		_parserInnService = parserInnService; 
@@ -111,6 +110,11 @@ public partial class AuthViewModel : ObservableObject
 	{
 		EntityModel model = EntityModel.Model;
 		model.EntityType = EntityType.User;
+		
+		model.Email = string.Empty;
+		model.Message = string.Empty;
+		model.Code = string.Empty;
+		model.InputCode = string.Empty;
 
 		CurrentView = new RegistrationUserView();
 		AuthTypeLogin = false;
@@ -144,7 +148,6 @@ public partial class AuthViewModel : ObservableObject
 		AuthSendProblem = false;
 		AuthApplicationInfo = false;
 	}
-	// TODO - кнопка Next
 	[RelayCommand]
 	private void RegistrationCompany2()
 	{
@@ -167,11 +170,49 @@ public partial class AuthViewModel : ObservableObject
 		AuthApplicationInfo = false;
 	}
 	[RelayCommand]
+	private void Support()
+	{
+		EntityModel model = EntityModel.Model;
+		model.EntityType = EntityType.Support;
+		// TODO - я хз как это сделать лучше
+		model.FirstName = string.Empty;
+		model.SecondName = string.Empty;
+		model.ThirdName = string.Empty;
+		model.Phone = string.Empty;
+		model.INN = string.Empty;
+		model.KPP = string.Empty;
+		model.FullName = string.Empty;
+		model.ShortName = string.Empty;
+		model.LegalAddress = string.Empty;
+		model.PostalAddress = string.Empty;
+		model.OGRN = string.Empty;
+		model.Director = string.Empty;
+		model.Email = string.Empty;
+		model.Password = string.Empty;
+		model.ConfirmPassword = string.Empty;
+		model.Code = string.Empty;
+		model.InputCode = string.Empty;
+		
+		CurrentView = _serviceProvider.GetRequiredService<SupportView>();
+    
+		AuthTypeLogin = false;
+		AuthTypeLoginReverse = false;
+		AuthTypeRegistration = false;
+		AuthTypeRegistrationUser = false;
+		AuthTypeRegistrationUserReverse = false;
+		AuthTypeRegistrationCompany1 = false;
+		AuthTypeRegistrationCompany2 = false;
+		AuthTypeConfirmEmail = false;
+		AuthTypeConfirmEmailReverse = false;
+		AuthSendProblem = true;
+		AuthApplicationInfo = false;
+	}
+	[RelayCommand]
 	private void ConfirmEmail()
 	{
-		if (!Registration())
+		if(!Registration())
 			return;
-
+		
 		CurrentView = new ConfirmEmailView();
 		AuthTypeLogin = false;
 		AuthTypeLoginReverse = !AuthTypeLogin;
@@ -211,6 +252,10 @@ public partial class AuthViewModel : ObservableObject
 			case EntityType.Company:
 				id = await _entityRepository.UserRegistration(model);
 				break;
+			case EntityType.Support:
+				await _entityRepository.SendToSupport(model);
+				RegistrationUser();
+				return;
 			default:
 				return;
 		}
@@ -226,6 +271,7 @@ public partial class AuthViewModel : ObservableObject
 
 		Console.WriteLine("ID: " + id.Value.ToString());
 	}
+
 	[RelayCommand]
 	private async Task LoginButton()
 	{
@@ -279,24 +325,6 @@ public partial class AuthViewModel : ObservableObject
 		return parserData;
 	}
 	[RelayCommand]
-	private void Support()
-	{
-		CurrentView = _serviceProvider.GetRequiredService<SupportView>();
-    
-		AuthTypeLogin = false;
-		AuthTypeLoginReverse = false;
-		AuthTypeRegistration = false;
-		AuthTypeRegistrationUser = false;
-		AuthTypeRegistrationUserReverse = false;
-		AuthTypeRegistrationCompany1 = false;
-		AuthTypeRegistrationCompany2 = false;
-		AuthTypeConfirmEmail = false;
-		AuthTypeConfirmEmailReverse = false;
-		AuthSendProblem = true;
-		AuthApplicationInfo = false;
-	}
-
-	[RelayCommand]
 	private void Info()
 	{
 		CurrentView = _serviceProvider.GetRequiredService<InfoView>();
@@ -314,7 +342,6 @@ public partial class AuthViewModel : ObservableObject
 		AuthApplicationInfo = true;
 	}
 
-
 	private bool Registration()
 	{
 		EntityModel model = EntityModel.Model;
@@ -329,20 +356,30 @@ public partial class AuthViewModel : ObservableObject
 				if (!IsValidModel(model, CompanyRegistrationStages.Second))
 					return false;
 				break;
+			case EntityType.Support:
+				if (!IsValidModel(model))
+					return false;
+				break;
 			default:
 				return false;
 		}
 
-		Result email = _entityRepository.IsEmailExist(model.Email);
-		if (email.IsFailure)
+		if (model.EntityType == EntityType.User || model.EntityType == EntityType.Company)
 		{
-			Debug.WriteLine("false");
-			MessageBox.Show(email.Error);
-			return false;
+			Result email = _entityRepository.IsEmailExist(model.Email);
+			if (email.IsFailure)
+			{
+				Debug.WriteLine("false");
+				MessageBox.Show(email.Error);
+				return false;
+			}
 		}
 
-		if (!model.Password.Equals(model.ConfirmPassword))
-			return false;
+		if (model.EntityType == EntityType.User || model.EntityType == EntityType.Company)
+		{
+			if (!model.Password.Equals(model.ConfirmPassword))
+				return false;
+		}
 
 		string code = GenerateRandomCode();
 		Console.WriteLine(code);
@@ -354,96 +391,108 @@ public partial class AuthViewModel : ObservableObject
 		return true;
 	}
 
-	// TODO - с помощью этого метода должны тригеррить поля по кнопке Next, вопрос как
+
 	private bool IsValidModel(EntityModel model, CompanyRegistrationStages stage = CompanyRegistrationStages.First)
 	{
-		_registrationUserViewModel.ClearValidationErrors();
+	    _registrationUserViewModel.ClearValidationErrors();
 
-		//var properties = model
-		//	.GetType()
-		//	.GetProperties()
-		//	.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
+	    var userProperties = model
+	        .GetType()
+	        .GetProperties()
+	        .Where(p => Attribute.IsDefined(p, typeof(RequiredForUserAttribute)))
+	        .Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
 
-		var userProperties = model
-			.GetType()
-			.GetProperties()
-			.Where(p => Attribute.IsDefined(p, typeof(RequiredForUserAttribute)))
-			.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
+	    var companyPropertiesStage1 = model
+	        .GetType()
+	        .GetProperties()
+	        .Where(p => Attribute.IsDefined(p, typeof(RequiredForCompany1Attribute)))
+	        .Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
 
-		var companyPropertiesStage1 = model
-			.GetType()
-			.GetProperties()
-			.Where(p => Attribute.IsDefined(p, typeof(RequiredForCompany1Attribute)))
-			.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
+	    var companyPropertiesStage2 = model
+	        .GetType()
+	        .GetProperties()
+	        .Where(p => Attribute.IsDefined(p, typeof(RequiredForCompany2Attribute)))
+	        .Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
 
-		var companyPropertiesStage2 = model
-			.GetType()
-			.GetProperties()
-			.Where(p => Attribute.IsDefined(p, typeof(RequiredForCompany2Attribute)))
-			.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
+	    var supportProperties = model
+	        .GetType()
+	        .GetProperties()
+	        .Where(p => Attribute.IsDefined(p, typeof(RequiredForSupportAttribute)))
+	        .Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
 
-		switch (model.EntityType)
-		{
-			case EntityType.User:
-				return IsValidModelConditions(userProperties, model);
-			case EntityType.Company:
-				if (stage == CompanyRegistrationStages.First)
-					return IsValidModelConditions(companyPropertiesStage1, model);
-				else if (stage == CompanyRegistrationStages.Second)
-					return IsValidModelConditions(companyPropertiesStage2, model);
-				break;
-			default:
-				return false;
-		}
-		
-		return true;
+	    switch (model.EntityType)
+	    {
+	        case EntityType.User:
+	            return IsValidModelConditions(userProperties, model);
+	        case EntityType.Company:
+	            if (stage == CompanyRegistrationStages.First)
+	                return IsValidModelConditions(companyPropertiesStage1, model);
+	            else if (stage == CompanyRegistrationStages.Second)
+	                return IsValidModelConditions(companyPropertiesStage2, model);
+	            break;
+	        case EntityType.Support:
+	            return IsValidModelConditions(supportProperties, model);
+	        default:
+	            return false;
+	    }
+	    
+	    return true;
 	}
 
 	private bool IsValidModelConditions(IEnumerable<PropertyInfo> properties, EntityModel model)
 	{
-		foreach (var property in properties)
-		{
-			Debug.WriteLine("IsValidModel prop: " + property.Name);
+	    foreach (var property in properties)
+	    {
+	        Debug.WriteLine("IsValidModel prop: " + property.Name);
 
-			var value = property.GetValue(model) as string;
-			// TODO -  эта проверка чисто чтобы была для отладки, можно убрать в будущем
-			if (!string.IsNullOrWhiteSpace(value))
-			{
-				Debug.WriteLine("value: " + value);
-				continue;
-			}
+	        var value = property.GetValue(model) as string;
 
-			if (
-				model.EntityType == EntityType.User &&
-				!Enum.TryParse(typeof(UserProperties), property.Name, out _)
-				)
-			{
-				Debug.WriteLine("user");
-				continue;
-			}
-			if (
-				model.EntityType == EntityType.Company &&
-				!Enum.TryParse(typeof(CompanyProperties), property.Name, out _)
-				)
-			{
-				Debug.WriteLine("company");
-				continue;
-			}
+	        if (!string.IsNullOrWhiteSpace(value))
+	        {
+	            Debug.WriteLine("value: " + value);
+	            continue;
+	        }
 
-			if (string.IsNullOrWhiteSpace(value))
-			{
-				Debug.WriteLine("prop in if " + property.Name);
-				Invalided?.Invoke(property.Name);
-				return false;
-			}
-			else
-			{
-				return false;
-			}
-		}
+	        if (
+	            model.EntityType == EntityType.User &&
+	            !Enum.TryParse(typeof(UserProperties), property.Name, out _)
+	            )
+	        {
+	            Debug.WriteLine("user");
+	            continue;
+	        }
+	        if (
+	            model.EntityType == EntityType.Company &&
+	            !Enum.TryParse(typeof(CompanyProperties), property.Name, out _)
+	            )
+	        {
+	            Debug.WriteLine("company");
+	            continue;
+	        }
+	        if (
+	            model.EntityType == EntityType.Support &&
+	            !Enum.TryParse(typeof(SupportProperties), property.Name, out _)
+	            )
+	        {
+	            Debug.WriteLine("support");
+	            continue;
+	        }
 
-		return true;
+	        if (string.IsNullOrWhiteSpace(value))
+	        {
+	            Debug.WriteLine("prop in if " + property.Name);
+	            Invalided?.Invoke(property.Name);
+	            return false;
+	        }
+	        else
+	        {
+	            return false;
+	        }
+	    }
+
+	    return true;
 	}
+
 
 	private string GenerateRandomCode()
 	{

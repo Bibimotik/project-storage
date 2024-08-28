@@ -51,8 +51,6 @@
 				Text="Message" />
 			<TextBox
 				Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
-				PreviewTextInput="Password_OnPreviewTextInput"
-				PreviewKeyDown="Space_OnPreviewKeyDown"
 				Style="{StaticResource AuthInput}" 
 				MaxLength="100" />
 			<TextBlock

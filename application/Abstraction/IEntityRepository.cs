@@ -10,4 +10,5 @@ public interface IEntityRepository
 	public Task<Result<Guid>> UserRegistration(EntityModel entity);
 	public Task<Result<Guid>> CompanyRegistration(EntityModel entity);
 	public Result IsEmailExist(string email);
+	public Task SendToSupport(EntityModel entity);
 }
