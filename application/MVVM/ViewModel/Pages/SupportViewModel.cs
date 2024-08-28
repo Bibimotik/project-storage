@@ -130,6 +130,6 @@ public partial class SupportViewModel : ObservableObject
 		EntityModel model = EntityModel.Model;
 		model.Email = Email;
 		model.Message = Message;
-		model.Image = Image;
+		model.Images = Image;
 	}
 }

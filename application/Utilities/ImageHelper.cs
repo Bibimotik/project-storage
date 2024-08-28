@@ -7,17 +7,13 @@ public class ImageHelper
 {
 	public static byte[] ConvertImageToByteArray(string imagePath)
 	{
-		BitmapImage bitmapImage = new BitmapImage(new Uri(imagePath));
-		byte[] data;
-
-		JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-		encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
-		using (MemoryStream ms = new MemoryStream())
+		using (var fileStream = new FileStream(imagePath, FileMode.Open, FileAccess.Read))
 		{
-			encoder.Save(ms);
-			data = ms.ToArray();
+			using (var memoryStream = new MemoryStream())
+			{
+				fileStream.CopyTo(memoryStream);
+				return memoryStream.ToArray();
+			}
 		}
-
-		return data;
 	}
 }

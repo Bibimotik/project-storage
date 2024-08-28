@@ -76,7 +76,7 @@ public class EntityModel
 	public string ConfirmPassword { get; set; } = string.Empty;
 	[RequiredForSupport]
 	public string Message { get; set; } = string.Empty;
-	public byte[] Image { get; set; } = Array.Empty<byte>();
+	public byte[]? Images { get; set; } = Array.Empty<byte>();
 
 	public string Code { get; set; } = string.Empty;
 	public string InputCode { get; set; } = string.Empty;

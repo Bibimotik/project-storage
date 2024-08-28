@@ -120,13 +120,32 @@ public class EntityRepository : IEntityRepository
 	{
 		await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
-			string query = $@"INSERT into support
-	            (email, message)
-	            values (
-	            @{nameof(EntityModel.Email)},
-	            @{nameof(EntityModel.Message)})";
+			string insertSupportQuery = $@"INSERT INTO support
+                                        (email, message)
+                                        VALUES 
+                                        (@Email, @Message) 
+                                        RETURNING Support_ID";
+
+			int supportId = await dbConnection.QuerySingleAsync<int>(insertSupportQuery, new
+			{
+				Email = entity.Email,
+				Message = entity.Message
+			});
 			
-			await dbConnection.ExecuteAsync(query, entity);
+			if (entity.Images != null)
+			{
+				string insertImageQuery = $@"INSERT INTO support_images
+                                          (support_id, image)
+                                          VALUES 
+                                          (@SupportId, @Image)";
+
+				await dbConnection.ExecuteAsync(insertImageQuery, new
+				{
+					SupportId = supportId,
+					Image = entity.Images
+				});
+			}
+
 			return Task.CompletedTask;
 		}, _databaseService);
 	}
