@@ -57,12 +57,12 @@ public class EntityModel
 
 	[RequiredForValidation]
 	[RequiredForCompany2]
-	[RequiredForSupport]
 	public string Director { get; set; } = string.Empty;
 
 	[RequiredForValidation]
 	[RequiredForUser]
 	[RequiredForCompany2]
+	[RequiredForSupport]
 	public string Email { get; set; } = string.Empty;
 
 	[RequiredForValidation]
@@ -74,6 +74,7 @@ public class EntityModel
 	[RequiredForUser]
 	[RequiredForCompany2]
 	public string ConfirmPassword { get; set; } = string.Empty;
+
 	[RequiredForSupport]
 	public string Message { get; set; } = string.Empty;
 	public byte[]? Images { get; set; } = Array.Empty<byte>();

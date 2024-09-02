@@ -11,6 +11,8 @@ using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.Win32;
 
+using static application.Abstraction.EntityAbstraction;
+
 namespace application.MVVM.ViewModel.Pages;
 
 public partial class SupportViewModel : ObservableObject
@@ -66,6 +68,7 @@ public partial class SupportViewModel : ObservableObject
 			if (!regex.IsMatch(value))
 			{
 				IsInvalidEmail = true;
+				Debug.WriteLine("is invalid");
 				return;
 			}
 
@@ -131,5 +134,6 @@ public partial class SupportViewModel : ObservableObject
 		model.Email = Email;
 		model.Message = Message;
 		model.Images = Image;
+		model.EntityType = EntityType.Support;
 	}
 }

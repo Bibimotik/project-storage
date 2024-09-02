@@ -81,12 +81,12 @@ public partial class AuthViewModel : ObservableObject
 		_registrationUserViewModel = registrationUserViewModel;
 		_parserInnService = parserInnService;
 		_serviceProvider = serviceProvider;
-		
+
 		Login();
 	}
 	public AuthViewModel(IParserINNService parserInnService)
 	{
-		_parserInnService = parserInnService; 
+		_parserInnService = parserInnService;
 	}
 
 	[RelayCommand]
@@ -110,7 +110,7 @@ public partial class AuthViewModel : ObservableObject
 	{
 		EntityModel model = EntityModel.Model;
 		model.EntityType = EntityType.User;
-		
+
 		model.Email = string.Empty;
 		model.Message = string.Empty;
 		model.Code = string.Empty;
@@ -192,9 +192,9 @@ public partial class AuthViewModel : ObservableObject
 		model.ConfirmPassword = string.Empty;
 		model.Code = string.Empty;
 		model.InputCode = string.Empty;
-		
+
 		CurrentView = _serviceProvider.GetRequiredService<SupportView>();
-    
+
 		AuthTypeLogin = false;
 		AuthTypeLoginReverse = false;
 		AuthTypeRegistration = false;
@@ -210,9 +210,9 @@ public partial class AuthViewModel : ObservableObject
 	[RelayCommand]
 	private void ConfirmEmail()
 	{
-		if(!Registration())
+		if (!Registration())
 			return;
-		
+
 		CurrentView = new ConfirmEmailView();
 		AuthTypeLogin = false;
 		AuthTypeLoginReverse = !AuthTypeLogin;
@@ -328,7 +328,7 @@ public partial class AuthViewModel : ObservableObject
 	private void Info()
 	{
 		CurrentView = _serviceProvider.GetRequiredService<InfoView>();
-		
+
 		AuthTypeLogin = false;
 		AuthTypeLoginReverse = false;
 		AuthTypeRegistration = false;
@@ -391,106 +391,106 @@ public partial class AuthViewModel : ObservableObject
 		return true;
 	}
 
-
 	private bool IsValidModel(EntityModel model, CompanyRegistrationStages stage = CompanyRegistrationStages.First)
 	{
-	    _registrationUserViewModel.ClearValidationErrors();
+		_registrationUserViewModel.ClearValidationErrors();
 
-	    var userProperties = model
-	        .GetType()
-	        .GetProperties()
-	        .Where(p => Attribute.IsDefined(p, typeof(RequiredForUserAttribute)))
-	        .Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
+		var userProperties = model
+			.GetType()
+			.GetProperties()
+			.Where(p => Attribute.IsDefined(p, typeof(RequiredForUserAttribute)))
+			.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
 
-	    var companyPropertiesStage1 = model
-	        .GetType()
-	        .GetProperties()
-	        .Where(p => Attribute.IsDefined(p, typeof(RequiredForCompany1Attribute)))
-	        .Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
+		var companyPropertiesStage1 = model
+			.GetType()
+			.GetProperties()
+			.Where(p => Attribute.IsDefined(p, typeof(RequiredForCompany1Attribute)))
+			.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
 
-	    var companyPropertiesStage2 = model
-	        .GetType()
-	        .GetProperties()
-	        .Where(p => Attribute.IsDefined(p, typeof(RequiredForCompany2Attribute)))
-	        .Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
+		var companyPropertiesStage2 = model
+			.GetType()
+			.GetProperties()
+			.Where(p => Attribute.IsDefined(p, typeof(RequiredForCompany2Attribute)))
+			.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
 
-	    var supportProperties = model
-	        .GetType()
-	        .GetProperties()
-	        .Where(p => Attribute.IsDefined(p, typeof(RequiredForSupportAttribute)))
-	        .Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
+		var supportProperties = model
+			.GetType()
+			.GetProperties()
+			.Where(p => Attribute.IsDefined(p, typeof(RequiredForSupportAttribute)));
 
-	    switch (model.EntityType)
-	    {
-	        case EntityType.User:
-	            return IsValidModelConditions(userProperties, model);
-	        case EntityType.Company:
-	            if (stage == CompanyRegistrationStages.First)
-	                return IsValidModelConditions(companyPropertiesStage1, model);
-	            else if (stage == CompanyRegistrationStages.Second)
-	                return IsValidModelConditions(companyPropertiesStage2, model);
-	            break;
-	        case EntityType.Support:
-	            return IsValidModelConditions(supportProperties, model);
-	        default:
-	            return false;
-	    }
-	    
-	    return true;
+		switch (model.EntityType)
+		{
+			case EntityType.User:
+				return IsValidModelConditions(userProperties, model);
+			case EntityType.Company:
+				if (stage == CompanyRegistrationStages.First)
+					return IsValidModelConditions(companyPropertiesStage1, model);
+				else if (stage == CompanyRegistrationStages.Second)
+					return IsValidModelConditions(companyPropertiesStage2, model);
+				break;
+			case EntityType.Support:
+				return IsValidModelConditions(supportProperties, model);
+			default:
+				return false;
+		}
+
+		return true;
 	}
 
 	private bool IsValidModelConditions(IEnumerable<PropertyInfo> properties, EntityModel model)
 	{
-	    foreach (var property in properties)
-	    {
-	        Debug.WriteLine("IsValidModel prop: " + property.Name);
+		foreach (var property in properties)
+		{
+			Debug.WriteLine("IsValidModel prop: " + property.Name);
 
-	        var value = property.GetValue(model) as string;
+			var value = property.GetValue(model) as string;
 
-	        if (!string.IsNullOrWhiteSpace(value))
-	        {
-	            Debug.WriteLine("value: " + value);
-	            continue;
-	        }
+			if (!string.IsNullOrWhiteSpace(value))
+			{
+				Debug.WriteLine("value: " + value);
+				continue;
+			}
 
-	        if (
-	            model.EntityType == EntityType.User &&
-	            !Enum.TryParse(typeof(UserProperties), property.Name, out _)
-	            )
-	        {
-	            Debug.WriteLine("user");
-	            continue;
-	        }
-	        if (
-	            model.EntityType == EntityType.Company &&
-	            !Enum.TryParse(typeof(CompanyProperties), property.Name, out _)
-	            )
-	        {
-	            Debug.WriteLine("company");
-	            continue;
-	        }
-	        if (
-	            model.EntityType == EntityType.Support &&
-	            !Enum.TryParse(typeof(SupportProperties), property.Name, out _)
-	            )
-	        {
-	            Debug.WriteLine("support");
-	            continue;
-	        }
+			if (
+				model.EntityType == EntityType.User &&
+				!Enum.TryParse(typeof(UserProperties), property.Name, out _)
+				)
+			{
+				Debug.WriteLine("user");
+				continue;
+			}
+			if (
+				model.EntityType == EntityType.Company &&
+				!Enum.TryParse(typeof(CompanyProperties), property.Name, out _)
+				)
+			{
+				Debug.WriteLine("company");
+				continue;
+			}
+			if (
+				model.EntityType == EntityType.Support &&
+				!Enum.TryParse(typeof(SupportProperties), property.Name, out _)
+				)
+			{
+				Debug.WriteLine("support");
+				continue;
+			}
 
-	        if (string.IsNullOrWhiteSpace(value))
-	        {
-	            Debug.WriteLine("prop in if " + property.Name);
-	            Invalided?.Invoke(property.Name);
-	            return false;
-	        }
-	        else
-	        {
-	            return false;
-	        }
-	    }
+			Debug.WriteLine("invalid prop:");
 
-	    return true;
+			if (string.IsNullOrWhiteSpace(value))
+			{
+				Debug.WriteLine("prop in if " + property.Name);
+				Invalided?.Invoke(property.Name);
+				return false;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 
