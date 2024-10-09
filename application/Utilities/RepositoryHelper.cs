@@ -1,5 +1,4 @@
 ﻿using System.Data;
-using System.Diagnostics;
 using System.Windows;
 
 using application.Abstraction;
@@ -26,7 +25,6 @@ public static class RepositoryHelper
 	{
 		try
 		{
-			Debug.WriteLine("REPOSITORY:\t" + nameof(func));
 			using IDbConnection dbConnection = databaseService.CreateConnection();
 			return await func(dbConnection);
 		}

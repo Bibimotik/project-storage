@@ -29,7 +29,6 @@ public partial class App : Application
 
 		IServiceCollection services = new ServiceCollection();
 
-		services.AddScoped<IDatabaseService>(provider => new DatabaseService(Environment.GetEnvironmentVariable("POSTGRESQL__DEV")));
 		services.AddScoped<IEntityRepository, EntityRepository>();
 		services.AddScoped<IAuthService, AuthService>();
 		services.AddScoped<IMailService>(mail => 
