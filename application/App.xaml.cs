@@ -41,12 +41,15 @@ public partial class App : Application
 		services.AddSingleton<ISecurityService, SecurityService>();
 		services.AddTransient<RegistrationUserViewModel>();
 		services.AddTransient<IParserINNService, ParserINNService>();
+		services.AddSingleton<IEntityApi, EntityApi>();
 
 		services.AddSingleton<App>();
-		services.AddScoped<AuthViewModel>();
-		services.AddScoped<AuthView>();
-		services.AddScoped<MainWindow>();
-		services.AddScoped<MainViewModel>();
+
+		services.AddTransient<AuthViewModel>();
+		services.AddTransient<AuthView>();
+		services.AddTransient<MainViewModel>();
+		services.AddTransient<MainWindow>();
+		
 		services.AddScoped<AccountViewModel>();
 		services.AddScoped<AccountView>();
 		services.AddScoped<StatisticsView>();
