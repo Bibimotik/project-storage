@@ -1,24 +1,14 @@
-﻿using System.Diagnostics;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Windows.Controls;
 
-using application.MVVM.Model;
-using application.MVVM.ViewModel;
+using application.MVVM.ViewModel.Auth;
 
-namespace application.MVVM.View.Auth
+namespace application.MVVM.View.Auth;
+
+public partial class RegistrationCompanyStage1View : UserControl
 {
-    /// <summary>
-    /// Логика взаимодействия для RegistrationStage1.xaml
-    /// </summary>
-    public partial class RegistrationCompanyStage1View : UserControl
-    {
-        public RegistrationCompanyStage1View()
-        {
-            InitializeComponent();
-        }
-    }
+	public RegistrationCompanyStage1View(RegistrationCompanyStage1ViewModel registrationViewModel)
+	{
+		DataContext = registrationViewModel;
+		InitializeComponent();
+	}
 }

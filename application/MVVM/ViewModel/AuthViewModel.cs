@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Net.Http;
 using System.Reflection;
 using System.Windows;
 
@@ -8,7 +7,6 @@ using application.MVVM.Model;
 using application.MVVM.View.Auth;
 using application.MVVM.View.Pages;
 using application.MVVM.ViewModel.Auth;
-using application.Services;
 using application.Utilities;
 
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -20,15 +18,13 @@ using MailServiceLibrary;
 
 using Microsoft.Extensions.DependencyInjection;
 
-using Newtonsoft.Json;
-
 using static application.Abstraction.EntityAbstraction;
 
 namespace application.MVVM.ViewModel;
 
 public partial class AuthViewModel : ObservableObject
 {
-	private readonly IEntityRepository _entityRepository;
+	private readonly IEntityApi _entityApi;
 	private readonly IAuthService _authService;
 	private readonly INavigationService _navigationService;
 	private readonly ISecurityService _securityService;
@@ -38,42 +34,33 @@ public partial class AuthViewModel : ObservableObject
 	private readonly IServiceProvider _serviceProvider;
 
 	public static event Action<string>? Invalided;
+
 	[ObservableProperty]
 	private object? currentView;
 
 	[ObservableProperty]
-	private bool authTypeLogin;
-	[ObservableProperty]
-	private bool authTypeLoginReverse;
-	[ObservableProperty]
-	private bool authTypeRegistration;
-	[ObservableProperty]
-	private bool authTypeRegistrationUser;
-	[ObservableProperty]
-	private bool authTypeRegistrationUserReverse;
-	[ObservableProperty]
-	private bool authTypeRegistrationCompany1;
-	[ObservableProperty]
-	private bool authTypeRegistrationCompany2;
-	[ObservableProperty]
-	private bool authTypeConfirmEmail;
-	[ObservableProperty]
-	private bool authTypeConfirmEmailReverse;
-	[ObservableProperty]
-	private bool authSendProblem;
-	[ObservableProperty]
-	private bool authApplicationInfo;
+	private bool authTypeLogin,
+		authTypeLoginReverse,
+		authTypeRegistration,
+		authTypeRegistrationUser,
+		authTypeRegistrationUserReverse,
+		authTypeRegistrationCompany1,
+		authTypeRegistrationCompany2,
+		authTypeConfirmEmail,
+		authTypeConfirmEmailReverse,
+		authSendProblem,
+		authApplicationInfo;
 
-	public AuthViewModel(IEntityRepository entityRepository,
-		IAuthService authService,
-		INavigationService navigationService,
-		ISecurityService securityService,
-		IMailService mailService,
-		RegistrationUserViewModel registrationUserViewModel,
-		IParserINNService parserInnService,
-		IServiceProvider serviceProvider)
+	public AuthViewModel(IEntityApi entityApi,
+					  IAuthService authService,
+					  INavigationService navigationService,
+					  ISecurityService securityService,
+					  IMailService mailService,
+					  RegistrationUserViewModel registrationUserViewModel,
+					  IParserINNService parserInnService,
+					  IServiceProvider serviceProvider)
 	{
-		_entityRepository = entityRepository;
+		_entityApi = entityApi;
 		_authService = authService;
 		_navigationService = navigationService;
 		_securityService = securityService;
@@ -83,10 +70,6 @@ public partial class AuthViewModel : ObservableObject
 		_serviceProvider = serviceProvider;
 
 		Login();
-	}
-	public AuthViewModel(IParserINNService parserInnService)
-	{
-		_parserInnService = parserInnService;
 	}
 
 	[RelayCommand]
@@ -135,7 +118,8 @@ public partial class AuthViewModel : ObservableObject
 		EntityModel model = EntityModel.Model;
 		model.EntityType = EntityType.Company;
 
-		CurrentView = new RegistrationCompanyStage1View();
+		//CurrentView = new RegistrationCompanyStage1View();
+		CurrentView = _serviceProvider.GetRequiredService<RegistrationCompanyStage1View>();
 		AuthTypeLogin = false;
 		AuthTypeLoginReverse = !AuthTypeLogin;
 		AuthTypeRegistration = true;
@@ -153,7 +137,7 @@ public partial class AuthViewModel : ObservableObject
 	{
 		EntityModel model = EntityModel.Model;
 
-		if (!IsValidModel(model, CompanyRegistrationStages.First))
+		if (!IsValidModel(model, stage: CompanyRegistrationStages.First))
 			return;
 
 		CurrentView = new RegistrationCompanyStage2View();
@@ -208,9 +192,9 @@ public partial class AuthViewModel : ObservableObject
 		AuthApplicationInfo = false;
 	}
 	[RelayCommand]
-	private void ConfirmEmail()
+	private async Task ConfirmEmail()
 	{
-		if (!Registration())
+		if (!await Registration())
 			return;
 
 		CurrentView = new ConfirmEmailView();
@@ -247,13 +231,13 @@ public partial class AuthViewModel : ObservableObject
 		switch (model.EntityType)
 		{
 			case EntityType.User:
-				id = await _entityRepository.UserRegistration(model);
+				id = await _entityApi.UserRegistration(model);
 				break;
 			case EntityType.Company:
-				id = await _entityRepository.UserRegistration(model);
+				id = await _entityApi.UserRegistration(model);
 				break;
 			case EntityType.Support:
-				await _entityRepository.SendToSupport(model);
+				//await _entityApi.SendToSupport(model);
 				RegistrationUser();
 				return;
 			default:
@@ -271,21 +255,28 @@ public partial class AuthViewModel : ObservableObject
 
 		Console.WriteLine("ID: " + id.Value.ToString());
 	}
-
+	// TODO - почему название ...Button
 	[RelayCommand]
 	private async Task LoginButton()
 	{
 		EntityModel model = EntityModel.Model;
-		if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password))
+		//if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password))
+		//	return;
+
+		if (!IsValidModel(model, isLogin: true))
 			return;
 
-		EntityModel user = await _entityRepository.GetEntityLogin(model.Email);
+		var user = await _entityApi.Login(model.Email, model.Password);
 
-		if (user.Email != model.Email || user.Password != model.Password)
+		if (user.IsFailure)
+		{
+			MessageBox.Show(user.Error);
+			EntityModel.Reset();
 			return;
+		}
 
-		Debug.WriteLine($"email: {user.Email}");
-		Debug.WriteLine($"password: {user.Password}");
+		Debug.WriteLine($"email: {model.Email}");
+		Debug.WriteLine($"password: {model.Password}");
 
 		_authService.SaveAuthData(EntityModel.Model.Email, EntityModel.Model.Password);
 		_authService.LoadAuthData();
@@ -293,36 +284,19 @@ public partial class AuthViewModel : ObservableObject
 		_navigationService.ShowMain();
 	}
 	[RelayCommand]
-	public async Task<ParserModel> GetParserDataINN(string inputINN)
+	public async Task<ParserModel?> GetParserDataINN(string inputINN)
 	{
-		var parserData = await _parserInnService.GetParserDataAsync(inputINN);
+		var (parserData, error) = await _parserInnService.GetParserDataINN(inputINN);
+
+		if (!string.IsNullOrEmpty(error))
+		{
+			MessageBox.Show(error);
+			return null;
+		}
 		if (parserData != null)
-		{
-			EntityModel.Model ??= new EntityModel();
-			EntityModel model = EntityModel.Model;
+			return parserData;
 
-			model.INN = inputINN;
-			model.KPP = parserData.Kpp;
-			model.FullName = parserData.FullName;
-			model.ShortName = parserData.ShortName;
-			model.OGRN = parserData.Ogrn;
-			if (parserData.Director != null)
-			{
-				string cleanedDirector = parserData.Director
-					.Replace("ГЕНЕРАЛЬНЫЙ", "")
-					.Replace("ДИРЕКТОР", "")
-					.Replace(":", "")
-					.Trim();
-
-				model.Director = cleanedDirector;
-			}
-		}
-		else
-		{
-			MessageBox.Show("Не удалось получить данные.");
-		}
-
-		return parserData;
+		return null;
 	}
 	[RelayCommand]
 	private void Info()
@@ -342,7 +316,7 @@ public partial class AuthViewModel : ObservableObject
 		AuthApplicationInfo = true;
 	}
 
-	private bool Registration()
+	private async Task<bool> Registration()
 	{
 		EntityModel model = EntityModel.Model;
 
@@ -353,7 +327,7 @@ public partial class AuthViewModel : ObservableObject
 					return false;
 				break;
 			case EntityType.Company:
-				if (!IsValidModel(model, CompanyRegistrationStages.Second))
+				if (!IsValidModel(model, stage: CompanyRegistrationStages.Second))
 					return false;
 				break;
 			case EntityType.Support:
@@ -364,12 +338,13 @@ public partial class AuthViewModel : ObservableObject
 				return false;
 		}
 
+		// TODO - как минимум при разном пароле переходит к блоке кода ниже, хотя должен возвращать return;
+
 		if (model.EntityType == EntityType.User || model.EntityType == EntityType.Company)
 		{
-			Result email = _entityRepository.IsEmailExist(model.Email);
+			var email = await _entityApi.IsUserExist(model.Email);
 			if (email.IsFailure)
 			{
-				Debug.WriteLine("false");
 				MessageBox.Show(email.Error);
 				return false;
 			}
@@ -384,51 +359,64 @@ public partial class AuthViewModel : ObservableObject
 		string code = GenerateRandomCode();
 		Console.WriteLine(code);
 		string encryptedCode = _securityService.Encrypt(code);
-		_mailService.SendMail(code, model.Email);
+		await _mailService.SendMail(code, model.Email);
 
 		model.Code = encryptedCode;
 
 		return true;
 	}
 
-	private bool IsValidModel(EntityModel model, CompanyRegistrationStages stage = CompanyRegistrationStages.First)
+	private bool IsValidModel(EntityModel model, bool isLogin = false, CompanyRegistrationStages stage = CompanyRegistrationStages.First)
 	{
+		// TODO - а зачем оно ваще?
 		_registrationUserViewModel.ClearValidationErrors();
-
-		var userProperties = model
-			.GetType()
-			.GetProperties()
-			.Where(p => Attribute.IsDefined(p, typeof(RequiredForUserAttribute)))
-			.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
-
-		var companyPropertiesStage1 = model
-			.GetType()
-			.GetProperties()
-			.Where(p => Attribute.IsDefined(p, typeof(RequiredForCompany1Attribute)))
-			.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
-
-		var companyPropertiesStage2 = model
-			.GetType()
-			.GetProperties()
-			.Where(p => Attribute.IsDefined(p, typeof(RequiredForCompany2Attribute)))
-			.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
-
-		var supportProperties = model
-			.GetType()
-			.GetProperties()
-			.Where(p => Attribute.IsDefined(p, typeof(RequiredForSupportAttribute)));
 
 		switch (model.EntityType)
 		{
 			case EntityType.User:
+				IEnumerable<PropertyInfo>? userProperties;
+				if (isLogin)
+				{
+					userProperties = model
+						.GetType()
+						.GetProperties()
+						.Where(p => Attribute.IsDefined(p, typeof(RequiredForLoginAttribute)))
+						.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
+				}
+				else
+				{
+					userProperties = model
+						.GetType()
+						.GetProperties()
+						.Where(p => Attribute.IsDefined(p, typeof(RequiredForUserAttribute)))
+						.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
+				}
+
 				return IsValidModelConditions(userProperties, model);
 			case EntityType.Company:
+				var companyPropertiesStage1 = model
+					.GetType()
+					.GetProperties()
+					.Where(p => Attribute.IsDefined(p, typeof(RequiredForCompany1Attribute)))
+					.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
+
+				var companyPropertiesStage2 = model
+						.GetType()
+						.GetProperties()
+						.Where(p => Attribute.IsDefined(p, typeof(RequiredForCompany2Attribute)))
+						.Where(p => Attribute.IsDefined(p, typeof(RequiredForValidationAttribute)));
+
 				if (stage == CompanyRegistrationStages.First)
 					return IsValidModelConditions(companyPropertiesStage1, model);
 				else if (stage == CompanyRegistrationStages.Second)
 					return IsValidModelConditions(companyPropertiesStage2, model);
 				break;
 			case EntityType.Support:
+				var supportProperties = model
+					.GetType()
+					.GetProperties()
+					.Where(p => Attribute.IsDefined(p, typeof(RequiredForSupportAttribute)));
+
 				return IsValidModelConditions(supportProperties, model);
 			default:
 				return false;
@@ -492,7 +480,6 @@ public partial class AuthViewModel : ObservableObject
 
 		return true;
 	}
-
 
 	private string GenerateRandomCode()
 	{

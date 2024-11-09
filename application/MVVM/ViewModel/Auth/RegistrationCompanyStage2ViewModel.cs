@@ -65,26 +65,13 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 	partial void OnDirectorChanged(string value) => IsInvalidDirector = ValidateAndCreateModel(value);
 	partial void OnEmailChanged(string value)
 	{
-		try
+		if (!EntityModel.IsValidEmail(value))
 		{
-			Debug.WriteLine("email " + value);
-			var regex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+			IsInvalidEmail = ValidateAndCreateModel(value);
 
-			if (!regex.IsMatch(value))
-			{
-				IsInvalidEmail = true;
-				return;
-			}
-
-			IsInvalidEmail = false;
-		}
-		catch (RegexMatchTimeoutException)
-		{
-			IsInvalidEmail = false;
 			return;
 		}
-
-		IsInvalidEmail = ValidateAndCreateModel(value);
+		IsInvalidEmail = false;
 	}
 	partial void OnPasswordChanged(string value)
 	{
@@ -115,8 +102,6 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 			ArePasswordsMismatch = false;
 			return;
 		}
-
-		IsInvalidPassword = ValidateAndCreateModel(value);
 	}
 	partial void OnConfirmPasswordChanged(string value)
 	{

@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 
 using application.Abstraction;
+using application.MVVM.Model;
 using application.Properties;
 
 namespace application.Services;
@@ -34,6 +35,8 @@ public class AuthService : IAuthService
 		Settings.Default.AuthEmail = string.Empty;
 		Settings.Default.AuthPassword = string.Empty;
 		Settings.Default.Save();
+
+		EntityModel.Reset();
 	}
 }
 

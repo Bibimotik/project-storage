@@ -1,29 +1,22 @@
 ﻿using System.Diagnostics;
-using System.Net.Http;
 using System.Windows;
 
 using application.Abstraction;
 using application.MVVM.Model;
-using application.Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
-using Newtonsoft.Json;
 
 using static application.Abstraction.EntityAbstraction;
 
 namespace application.MVVM.ViewModel.Auth;
 
-partial class RegistrationCompanyStage1ViewModel : ObservableObject
+public partial class RegistrationCompanyStage1ViewModel : ObservableObject
 {
+	private readonly IParserINNService _parserInnService;
+
 	private readonly Dictionary<string, Action<string?>> _validationActions;
 	private readonly bool _isInitializing = false;
-	
-	private static readonly IParserINNService parserInnService = new ParserINNService();
-	private readonly AuthViewModel authViewModel = new AuthViewModel(parserInnService);
-	
-	public event Action<EntityModel> ModelUpdated;
 
 	[ObservableProperty]
 	private string inn = string.Empty;
@@ -55,8 +48,10 @@ partial class RegistrationCompanyStage1ViewModel : ObservableObject
 	[ObservableProperty]
 	private bool isInvalidOgrn = false;
 
-	public RegistrationCompanyStage1ViewModel()
+	public RegistrationCompanyStage1ViewModel(IParserINNService parserInnService)
 	{
+		_parserInnService = parserInnService;
+
 		_isInitializing = true;
 
 		AuthViewModel.Invalided += OnInvalided;
@@ -127,12 +122,17 @@ partial class RegistrationCompanyStage1ViewModel : ObservableObject
 		model.PostalAddress = PostalAddress;
 		model.OGRN = Ogrn;
 	}
-	
+
 	[RelayCommand]
 	public async Task GetParserDataINN11(string inputINN)
 	{
-		var parserData = await authViewModel.GetParserDataINN(inputINN);
-		
+		var (parserData, error) = await _parserInnService.GetParserDataINN(inputINN);
+
+		if (!string.IsNullOrEmpty(error))
+		{
+			MessageBox.Show(error);
+			return;
+		}
 		if (parserData != null)
 		{
 			Kpp = parserData.Kpp;

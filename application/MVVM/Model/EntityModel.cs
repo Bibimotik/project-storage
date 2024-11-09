@@ -63,11 +63,13 @@ public class EntityModel
 	[RequiredForUser]
 	[RequiredForCompany2]
 	[RequiredForSupport]
+	[RequiredForLogin]
 	public string Email { get; set; } = string.Empty;
 
 	[RequiredForValidation]
 	[RequiredForUser]
 	[RequiredForCompany2]
+	[RequiredForLogin]
 	public string Password { get; set; } = string.Empty;
 
 	[RequiredForValidation]
@@ -99,4 +101,35 @@ public class EntityModel
 			return false;
 		}
 	}
+
+	private void Clear()
+	{
+		Id = Guid.Empty;
+		FirstName = string.Empty;
+		SecondName = string.Empty;
+		ThirdName = string.Empty;
+		Phone = string.Empty;
+		INN = string.Empty;
+		KPP = string.Empty;
+		FullName = string.Empty;
+		ShortName = string.Empty;
+		LegalAddress = string.Empty;
+		PostalAddress = string.Empty;
+		OGRN = string.Empty;
+		Director = string.Empty;
+		Email = string.Empty;
+		Password = string.Empty;
+		ConfirmPassword = string.Empty;
+		Message = string.Empty;
+		Images = Array.Empty<byte>();
+		Code = string.Empty;
+		InputCode = string.Empty;
+		EntityType = default;
+	}
+
+	public static void Reset()
+	{
+		Model.Clear();
+	}
+
 }

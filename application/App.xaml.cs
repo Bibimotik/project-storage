@@ -1,7 +1,9 @@
 ﻿using System.Windows;
 
 using application.Abstraction;
+using application.API;
 using application.MVVM.View;
+using application.MVVM.View.Auth;
 using application.MVVM.View.Pages;
 using application.MVVM.ViewModel;
 using application.MVVM.ViewModel.Auth;
@@ -49,6 +51,9 @@ public partial class App : Application
 		services.AddTransient<AuthView>();
 		services.AddTransient<MainViewModel>();
 		services.AddTransient<MainWindow>();
+		
+		services.AddScoped<RegistrationCompanyStage1ViewModel>();
+		services.AddScoped<RegistrationCompanyStage1View>();
 		
 		services.AddScoped<AccountViewModel>();
 		services.AddScoped<AccountView>();

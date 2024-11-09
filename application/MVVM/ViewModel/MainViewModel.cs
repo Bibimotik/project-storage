@@ -28,6 +28,7 @@ public partial class MainViewModel : ObservableObject
 	[RelayCommand]
 	private void OpenMenu()
 	{
+		// TODO - может при переходе с auth не успевает создать window
 		var window = Application.Current.MainWindow;
 		var storyboard = (Storyboard)window.FindResource(isMenuExpanded ? "CollapseStoryboard" : "ExpandStoryboard");
 		storyboard.Begin();
