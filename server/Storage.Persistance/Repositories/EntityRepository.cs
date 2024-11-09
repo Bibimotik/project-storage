@@ -17,6 +17,7 @@ public class EntityRepository(IStorageDBContext context) : IEntityRepository
 		return await RepositoryHelper.ExecuteWithErrorHandling(async dbConnection =>
 		{
 			string userQuery = $@"SELECT 
+                user_id as {nameof(EntityModel.Id)},
                 firstname as {nameof(EntityModel.FirstName)},
                 secondname as {nameof(EntityModel.SecondName)},
                 thirdname as {nameof(EntityModel.ThirdName)},
@@ -33,6 +34,7 @@ public class EntityRepository(IStorageDBContext context) : IEntityRepository
 				return user;
 
 			string companyQuery = $@"SELECT 
+                company_id as {nameof(EntityModel.Id)}, 
                 inn as {nameof(EntityModel.INN)}, 
                 kpp as {nameof(EntityModel.KPP)}, 
                 ogrn as {nameof(EntityModel.OGRN)}, 
@@ -62,6 +64,7 @@ public class EntityRepository(IStorageDBContext context) : IEntityRepository
 		return await RepositoryHelper.ExecuteWithErrorHandling(async dbConnection =>
 		{
 			string userQuery = $@"SELECT 
+                user_id as {nameof(EntityModel.Id)},
                 firstname as {nameof(EntityModel.FirstName)},
                 secondname as {nameof(EntityModel.SecondName)},
                 thirdname as {nameof(EntityModel.ThirdName)},
@@ -78,6 +81,7 @@ public class EntityRepository(IStorageDBContext context) : IEntityRepository
 				return user;
 
 			string companyQuery = $@"SELECT 
+                company_id as {nameof(EntityModel.Id)},
                 inn as {nameof(EntityModel.INN)}, 
                 kpp as {nameof(EntityModel.KPP)}, 
                 ogrn as {nameof(EntityModel.OGRN)}, 

@@ -1,4 +1,7 @@
+using HealthChecks.UI.Client;
+
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 using Storage.API.Extensions;
 using Storage.API.Middlewares;
@@ -25,12 +28,6 @@ services
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-	app.UseSwagger();
-	app.UseSwaggerUI();
-}
-
 app.UseExceptionHandler(config =>
 {
 	config.Run(async context =>
@@ -41,15 +38,40 @@ app.UseExceptionHandler(config =>
 		if (exception != null)
 		{
 			var handler = app.Services.GetRequiredService<GlobalExceptionHandler>();
-			await handler.TryHandleAsync(context, exception, CancellationToken.None);
+
+			// Обрабатываем исключение и предотвращаем его дальнейшее выбрасывание
+			bool handled = await handler.TryHandleAsync(context, exception, CancellationToken.None);
+
+			if (handled)
+			{
+				// Если исключение обработано, не выбрасываем его снова
+				return;
+			}
 		}
+
+		// Если исключение не обработано, можно выбросить его повторно, но лучше избегать этого
+		throw exception;
 	});
 });
 
-app.UseHttpsRedirection();
+app.MapHealthChecks(
+	"/health",
+	new HealthCheckOptions
+	{
+		ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+	});
 
-app.UseAuthorization();
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseHttpsRedirection();
+//app.UseCors();
+
+app.UseRouting();
 
 app.MapControllers();
+
+//app.UseAuthentication();
+//app.UseAuthorization();
 
 app.Run();

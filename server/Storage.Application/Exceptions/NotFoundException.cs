@@ -1,8 +1,5 @@
 ﻿namespace Storage.Application.Exceptions;
 
-public class NotFoundException : SystemException
+public class NotFoundException(string message) : SystemException(message)
 {
-	public NotFoundException() { }
-
-	public NotFoundException(string message) : base(message) { }
 }

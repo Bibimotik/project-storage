@@ -12,6 +12,14 @@ public static class ApiExtensions
 {
 	public static IServiceCollection AddAPI(this IServiceCollection services, IConfiguration configuration)
 	{
+		string? connectionString = configuration.GetConnectionString("POSTGRESQL__DEV");
+
+		if (connectionString == null)
+			throw new NullReferenceException("Ошибка обращения к БД!");
+
+		services.AddHealthChecks()
+			 .AddNpgSql(connectionString);
+
 		var typeAdapterConfig = TypeAdapterConfig.GlobalSettings;
 		typeAdapterConfig.Scan(Assembly.GetExecutingAssembly());
 

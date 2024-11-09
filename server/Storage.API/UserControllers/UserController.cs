@@ -2,9 +2,11 @@
 
 using MediatR;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using Storage.API.Contracts.Users;
+using Storage.Application.Exceptions;
 using Storage.Application.Handlers.Users;
 using Storage.Domain.Abstractions;
 using Storage.Domain.DTOs;
@@ -28,7 +30,7 @@ public class UserController(IMediator mediator, IMapper mapper) : ControllerBase
 
 		await _mediator.Send(new LoginUserQuery(user, request.Password));
 
-		return Ok();
+		return Ok(user.Id);
 	}
 
 	[HttpPost(nameof(UserRegistration))]
@@ -63,7 +65,7 @@ public class UserController(IMediator mediator, IMapper mapper) : ControllerBase
 
 		var user = await _mediator.Send(new CompanyRegistrationCommand<CompanyDto>(request.FirstName,
 															  request.SecondName,
-															  request.ThirdName,
+									 						  request.ThirdName,
 															  request.Phone,
 															  request.Email,
 															  request.Password,
@@ -71,5 +73,16 @@ public class UserController(IMediator mediator, IMapper mapper) : ControllerBase
 															  request.Logo));
 
 		return Ok(user);
+	}
+
+	[HttpGet(nameof(IsUserExist) + "/{email}")]
+	public async Task<IActionResult> IsUserExist(string email)
+	{
+		var user = await _mediator.Send(new GetUserByFilterQuery(email: email));
+
+		if (user == null)
+			throw new NotFoundException($"Пользователя с почтой {email} не существует");
+
+		return Ok();
 	}
 }

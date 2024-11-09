@@ -15,8 +15,6 @@ public static class PersistenceExtensions
 	{
 		string? connectionString = configuration.GetConnectionString("POSTGRESQL__DEV");
 
-		Debug.WriteLine("--------- " + connectionString);
-
 		if (connectionString == null)
 			throw new NullReferenceException("Ошибка обращения к БД!");
 
