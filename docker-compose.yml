@@ -1,0 +1,40 @@
+networks:
+  storage:
+    driver: bridge
+    
+services:
+
+  server:
+    container_name: server
+    build:
+      context: ./server
+      dockerfile: Storage.API/Dockerfile
+    networks:
+      - storage
+    ports:
+    - "8000:8080"
+    - "8001:8081"
+    environment:
+     # - ConnectionStrings__DefaultConnection=Server=postgres;Database=storage;User Id=postgres;Password=1;
+     - ASPNETCORE_ENVIRONMENT=Release
+    depends_on:
+    - postgres
+    # - redis
+    
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: storage
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+     - storage
+
+volumes:
+  postgres-data:
