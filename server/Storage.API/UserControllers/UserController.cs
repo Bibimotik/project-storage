@@ -26,7 +26,8 @@ public class UserController(IMediator mediator, IMapper mapper) : ControllerBase
 		var user = await _mediator.Send(new GetUserByFilterQuery(email: request.Email));
 
 		if (user == null)
-			throw new InvalidOperationException("Пользователь с такой почтой не существует.");
+			throw new InvalidOperationException("email");
+			//throw new InvalidOperationException("Пользователь с такой почтой не существует.");
 
 		await _mediator.Send(new LoginUserQuery(user, request.Password));
 

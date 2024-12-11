@@ -2,6 +2,7 @@
 using System.Text;
 
 using application.Abstraction;
+using application.API.Contracts;
 using application.MVVM.Model;
 
 using CSharpFunctionalExtensions;
@@ -9,25 +10,12 @@ using CSharpFunctionalExtensions;
 using Newtonsoft.Json;
 
 namespace application.API;
-public class UserResponse
-{
-	public Guid Id { get; set; }
-	public string FirstName { get; set; }
-	public string SecondName { get; set; }
-	public string ThirdName { get; set; }
-	public string Phone { get; set; }
-	public string Email { get; set; }
-	public string Password { get; set; }
-	public string Logo { get; set; } // Если логотип в Base64
-	public string Type { get; set; }
-}
 
-public class EntityApi() : IEntityApi
+public class EntityApi : IEntityApi
 {
-	private readonly HttpClient _httpClient = new()
-	{
-		BaseAddress = new Uri("http://localhost:5210/")
-	};
+	private readonly HttpClient _httpClient;
+
+	public EntityApi(HttpClient httpClient) => _httpClient = httpClient;
 
 	public async Task<Result> Login(string email, string password)
 	{

@@ -14,7 +14,7 @@ public partial class MainWindow : Window
 		DataContext = mainViewModel;
 		InitializeComponent();
 	}
-	
+
 	private void RadioButton_Checked(object sender, RoutedEventArgs e)
 	{
 		//сюда что-нибудь с внешним видом можно дописать

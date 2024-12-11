@@ -45,27 +45,37 @@ partial class LoginViewModel : ObservableObject
 
 		_isInitializing = false;
 	}
+	//partial void OnEmailChanged(string value)
+	//{
+	//	try
+	//	{
+	//		var regex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+	//		if (!regex.IsMatch(value))
+	//		{
+	//			IsInvalidEmail = true;
+	//			return;
+	//		}
+
+	//		IsInvalidEmail = false;
+	//	}
+	//	catch (RegexMatchTimeoutException)
+	//	{
+	//		IsInvalidEmail = false;
+	//		return;
+	//	}
+
+	//	IsInvalidEmail = ValidateAndCreateModel(value);
+	//}
 	partial void OnEmailChanged(string value)
 	{
-		try
+		if (!EntityModel.IsValidEmail(value))
 		{
-			var regex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+			IsInvalidEmail = ValidateAndCreateModel(value);
 
-			if (!regex.IsMatch(value))
-			{
-				IsInvalidEmail = true;
-				return;
-			}
-
-			IsInvalidEmail = false;
-		}
-		catch (RegexMatchTimeoutException)
-		{
-			IsInvalidEmail = false;
 			return;
 		}
-
-		IsInvalidEmail = ValidateAndCreateModel(value);
+		IsInvalidEmail = false;
 	}
 	partial void OnPasswordChanged(string value)
 	{
@@ -101,7 +111,7 @@ partial class LoginViewModel : ObservableObject
 
 	private void OnInvalided(string property)
 	{
-		Debug.WriteLine("invalided " + property);
+		Debug.WriteLine("LOGIN invalided " + property);
 		if (_validationActions.TryGetValue(property, out var validate))
 		{
 			validate(string.Empty);

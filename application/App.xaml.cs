@@ -33,17 +33,20 @@ public partial class App : Application
 
 		services.AddScoped<IEntityRepository, EntityRepository>();
 		services.AddScoped<IAuthService, AuthService>();
-		services.AddScoped<IMailService>(mail => 
+		services.AddScoped<IMailService>(mail =>
 			new MailService(
-				"smtp.mail.ru", 
-				587, 
-				Environment.GetEnvironmentVariable("MAIL"), 
+				"smtp.mail.ru",
+				587,
+				Environment.GetEnvironmentVariable("MAIL"),
 				Environment.GetEnvironmentVariable("MAIL_PASSWORD")));
 		services.AddSingleton<INavigationService, NavigationService>();
 		services.AddSingleton<ISecurityService, SecurityService>();
 		services.AddTransient<RegistrationUserViewModel>();
 		services.AddTransient<IParserINNService, ParserINNService>();
-		services.AddSingleton<IEntityApi, EntityApi>();
+		services.AddHttpClient<IEntityApi, EntityApi>(client =>
+		{
+			client.BaseAddress = new Uri("http://localhost:5210/");
+		});
 
 		services.AddSingleton<App>();
 
@@ -51,10 +54,12 @@ public partial class App : Application
 		services.AddTransient<AuthView>();
 		services.AddTransient<MainViewModel>();
 		services.AddTransient<MainWindow>();
-		
+		services.AddTransient<AdminViewModel>();
+		services.AddTransient<AdminView>();
+
 		services.AddScoped<RegistrationCompanyStage1ViewModel>();
 		services.AddScoped<RegistrationCompanyStage1View>();
-		
+
 		services.AddScoped<AccountViewModel>();
 		services.AddScoped<AccountView>();
 		services.AddScoped<StatisticsView>();
@@ -74,7 +79,12 @@ public partial class App : Application
 		switch (authService.IsUserAuthenticated())
 		{
 			case true:
-				navigationService.ShowMain();
+				var (email, password) = authService.LoadAuthData();
+
+				if (email == "admin" && password == "admin")
+					navigationService.ShowAdmin();
+				else
+					navigationService.ShowMain();
 				break;
 			case false:
 				navigationService.ShowAuth();

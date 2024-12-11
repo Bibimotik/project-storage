@@ -28,6 +28,13 @@ public class NavigationService : INavigationService
 		mainWindow.Show();
 	}
 
+	public void ShowAdmin()
+	{
+		var adminWindow = _serviceProvider.GetRequiredService<AdminView>();
+		adminWindow.ContentRendered += NewWindowContentRendered;
+		adminWindow.Show();
+	}
+
 	private void NewWindowContentRendered(object sender, EventArgs e)
 	{
 		if (sender is Window newWindow)

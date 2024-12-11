@@ -4,4 +4,5 @@ public interface INavigationService
 {
 	void ShowAuth();
 	void ShowMain();
+	void ShowAdmin();
 }

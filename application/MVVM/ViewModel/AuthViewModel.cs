@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Windows;
 
 using application.Abstraction;
+using application.API.Contracts;
 using application.MVVM.Model;
 using application.MVVM.View.Auth;
 using application.MVVM.View.Pages;
@@ -17,6 +18,8 @@ using CSharpFunctionalExtensions;
 using MailServiceLibrary;
 
 using Microsoft.Extensions.DependencyInjection;
+
+using Newtonsoft.Json;
 
 using static application.Abstraction.EntityAbstraction;
 
@@ -263,6 +266,20 @@ public partial class AuthViewModel : ObservableObject
 		//if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password))
 		//	return;
 
+		if(model.Email == "admin" && model.Password == "admin")
+		{
+			MessageBox.Show("qweqweqwe");
+
+			Debug.WriteLine($"email: {model.Email}");
+			Debug.WriteLine($"password: {model.Password}");
+
+			_authService.SaveAuthData(EntityModel.Model.Email, EntityModel.Model.Password);
+			_authService.LoadAuthData();
+
+			_navigationService.ShowAdmin();
+			return;
+		}
+
 		if (!IsValidModel(model, isLogin: true))
 			return;
 
@@ -270,10 +287,29 @@ public partial class AuthViewModel : ObservableObject
 
 		if (user.IsFailure)
 		{
-			MessageBox.Show(user.Error);
+			var errorDetails = JsonConvert.DeserializeObject<ErrorResponse>(user.Error);
+
+			if (errorDetails != null)
+			{
+				string detail = errorDetails.Detail;
+				MessageBox.Show(detail);
+
+				if(detail == "email")
+					Invalided?.Invoke(nameof(EntityModel.Email));
+				else if(detail == "password")
+					Invalided?.Invoke(nameof(EntityModel.Password));
+
+				EntityModel.Reset();
+			}
+
+			//MessageBox.Show(user.Error);
+			//if(user.Error)
+			Invalided?.Invoke(nameof(EntityModel.Password));
 			EntityModel.Reset();
 			return;
 		}
+
+		MessageBox.Show("qweqweqwe");
 
 		Debug.WriteLine($"email: {model.Email}");
 		Debug.WriteLine($"password: {model.Password}");

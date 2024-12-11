@@ -2,14 +2,13 @@
 
 using application.MVVM.ViewModel;
 
-
 namespace application.MVVM.View;
 
-public partial class AuthView : Window
+public partial class AdminView : Window
 {
-	public AuthView(AuthViewModel authViewModel)
+	public AdminView(AdminViewModel adminViewModel)
 	{
-		DataContext = authViewModel;
+		DataContext = adminViewModel;
 		InitializeComponent();
 	}
 }

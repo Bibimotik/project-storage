@@ -20,7 +20,8 @@ public class LoginUserQueryHandler(IPasswordHash passwordHash) : IRequestHandler
 		var isCorrectPassword = _passwordHash.Verify(request.Password, request.User.Password);
 
 		if (!isCorrectPassword)
-			throw new UnauthorizedAccessException("Неверный пароль!");
+			throw new UnauthorizedAccessException("password");
+			//throw new UnauthorizedAccessException("Неверный пароль!");
 
 		return Task.CompletedTask;
 	}

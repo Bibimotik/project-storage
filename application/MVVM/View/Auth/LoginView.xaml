@@ -82,6 +82,11 @@
 					</CheckBox>
 				</Border>
 			</Grid>
+
+			<TextBlock
+				Visibility="{Binding IsInvalidPassword, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Invalid Password..." />
 		</StackPanel>
 
 	</StackPanel>
