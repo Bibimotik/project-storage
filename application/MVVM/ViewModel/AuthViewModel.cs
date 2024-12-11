@@ -220,9 +220,9 @@ public partial class AuthViewModel : ObservableObject
 	{
 		EntityModel model = EntityModel.Model;
 
-		Debug.WriteLine("input code: " + model.InputCode);
-		Debug.WriteLine("storage code: " + model.Code);
-		Debug.WriteLine("storage code decrypy: " + _securityService.Decrypt(model.Code));
+		Console.WriteLine("input code: " + model.InputCode);
+		Console.WriteLine("storage code: " + model.Code);
+		Console.WriteLine("storage code decrypy: " + _securityService.Decrypt(model.Code));
 
 		if (model.InputCode != _securityService.Decrypt(model.Code))
 			return;
@@ -343,7 +343,7 @@ public partial class AuthViewModel : ObservableObject
 		if (model.EntityType == EntityType.User || model.EntityType == EntityType.Company)
 		{
 			var email = await _entityApi.IsUserExist(model.Email);
-			if (email.IsFailure)
+			if (email.IsSuccess)
 			{
 				MessageBox.Show(email.Error);
 				return false;

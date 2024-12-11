@@ -36,7 +36,7 @@ public class UserController(IMediator mediator, IMapper mapper) : ControllerBase
 	[HttpPost(nameof(UserRegistration))]
 	public async Task<IActionResult> UserRegistration([FromBody] CreateUserRegistrationRequest request)
 	{
-		if (!Enum.TryParse<EntityType>(request.Type, out var type))
+		if (!Enum.TryParse<EntityType>(request.EntityType, out var type))
 			throw new InvalidOperationException("Такого типа пользователя не сущестувует.");
 
 		if (type != EntityType.User)
@@ -57,7 +57,7 @@ public class UserController(IMediator mediator, IMapper mapper) : ControllerBase
 	[HttpPost(nameof(CompanyRegistration))]
 	public async Task<IActionResult> CompanyRegistration([FromBody] CreateUserRegistrationRequest request)
 	{
-		if (!Enum.TryParse<EntityType>(request.Type, out var type))
+		if (!Enum.TryParse<EntityType>(request.EntityType, out var type))
 			throw new InvalidOperationException("Такого типа пользователя не сущестувует.");
 
 		if (type != EntityType.Company)
