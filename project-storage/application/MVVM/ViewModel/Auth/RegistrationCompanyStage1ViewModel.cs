@@ -1,0 +1,144 @@
+﻿using System.Diagnostics;
+using System.Windows;
+
+using application.Abstraction;
+using application.MVVM.Model;
+
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+
+using static application.Abstraction.EntityAbstraction;
+
+namespace application.MVVM.ViewModel.Auth;
+
+public partial class RegistrationCompanyStage1ViewModel : ObservableObject
+{
+	private readonly IParserINNService _parserInnService;
+
+	private readonly Dictionary<string, Action<string?>> _validationActions;
+	private readonly bool _isInitializing = false;
+
+	[ObservableProperty]
+	private string inn = string.Empty;
+	[ObservableProperty]
+	private string kpp = string.Empty;
+	[ObservableProperty]
+	private string fullName = string.Empty;
+	[ObservableProperty]
+	private string shortName = string.Empty;
+	[ObservableProperty]
+	private string legalAddress = string.Empty;
+	[ObservableProperty]
+	private string postalAddress = string.Empty;
+	[ObservableProperty]
+	private string ogrn = string.Empty;
+
+	[ObservableProperty]
+	private bool isInvalidInn = false;
+	[ObservableProperty]
+	private bool isInvalidKpp = false;
+	[ObservableProperty]
+	private bool isInvalidFullName = false;
+	[ObservableProperty]
+	private bool isInvalidShortName = false;
+	[ObservableProperty]
+	private bool isInvalidLegalAddress = false;
+	[ObservableProperty]
+	private bool isInvalidPostalAddress = false;
+	[ObservableProperty]
+	private bool isInvalidOgrn = false;
+
+	public RegistrationCompanyStage1ViewModel(IParserINNService parserInnService)
+	{
+		_parserInnService = parserInnService;
+
+		_isInitializing = true;
+
+		AuthViewModel.Invalided += OnInvalided;
+
+		_validationActions = new Dictionary<string, Action<string?>>
+		{
+			{ nameof(EntityModel.INN), value => IsInvalidInn = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.KPP), value => IsInvalidKpp = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.FullName), value => IsInvalidFullName = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.ShortName), value => IsInvalidShortName = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.LegalAddress), value => IsInvalidLegalAddress = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.PostalAddress), value => IsInvalidPostalAddress = ValidateAndCreateModel(value) },
+			{ nameof(EntityModel.OGRN), value => IsInvalidOgrn = ValidateAndCreateModel(value) }
+		};
+
+		EntityModel.Model ??= new EntityModel();
+
+		EntityModel model = EntityModel.Model;
+		Inn = model.INN;
+		Kpp = model.KPP;
+		FullName = model.FullName;
+		ShortName = model.ShortName;
+		LegalAddress = model.LegalAddress;
+		PostalAddress = model.PostalAddress;
+		Ogrn = model.OGRN;
+
+		_isInitializing = false;
+	}
+
+	partial void OnInnChanged(string value) => IsInvalidInn = ValidateAndCreateModel(value);
+	partial void OnKppChanged(string value) => IsInvalidKpp = ValidateAndCreateModel(value);
+	partial void OnFullNameChanged(string value) => IsInvalidFullName = ValidateAndCreateModel(value);
+	partial void OnShortNameChanged(string value) => IsInvalidShortName = ValidateAndCreateModel(value);
+	partial void OnLegalAddressChanged(string value) => IsInvalidLegalAddress = ValidateAndCreateModel(value);
+	partial void OnPostalAddressChanged(string value) => IsInvalidPostalAddress = ValidateAndCreateModel(value);
+	partial void OnOgrnChanged(string value) => IsInvalidOgrn = ValidateAndCreateModel(value);
+
+	private bool ValidateAndCreateModel(string? value)
+	{
+		if (_isInitializing)
+			return false;
+
+		CreateModel();
+		return string.IsNullOrWhiteSpace(value);
+	}
+
+	private void OnInvalided(string property)
+	{
+		Debug.WriteLine("invalided " + property);
+		if (_validationActions.TryGetValue(property, out var validate))
+		{
+			validate(string.Empty);
+		}
+	}
+
+	private void CreateModel()
+	{
+		EntityModel.Model ??= new EntityModel();
+
+		EntityModel model = EntityModel.Model;
+		model.EntityType = EntityType.Company;
+		model.Id = Guid.NewGuid();
+		model.INN = Inn;
+		model.KPP = Kpp;
+		model.FullName = FullName;
+		model.ShortName = ShortName;
+		model.LegalAddress = LegalAddress;
+		model.PostalAddress = PostalAddress;
+		model.OGRN = Ogrn;
+	}
+
+	[RelayCommand]
+	public async Task GetParserDataINN11(string inputINN)
+	{
+		var (parserData, error) = await _parserInnService.GetParserDataINN(inputINN);
+
+		if (!string.IsNullOrEmpty(error))
+		{
+			MessageBox.Show(error);
+			return;
+		}
+		if (parserData != null)
+		{
+			Kpp = parserData.Kpp;
+			FullName = parserData.FullName;
+			ShortName = parserData.ShortName;
+			Ogrn = parserData.Ogrn;
+		}
+	}
+}

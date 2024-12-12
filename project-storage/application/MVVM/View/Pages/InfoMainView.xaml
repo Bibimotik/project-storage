@@ -1,0 +1,49 @@
+<UserControl x:Class="application.MVVM.View.Pages.InfoMainView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:Pages="clr-namespace:application.MVVM.ViewModel.Pages"
+	mc:Ignorable="d">
+
+	<UserControl.DataContext>
+		<Pages:InfoViewModel/>
+	</UserControl.DataContext>
+
+	<StackPanel Margin="50 0 50 0">
+		<Label
+			FontSize="45"
+			Content="Answers to frequently asked questions"/>
+		<Grid>
+			<!--TODO - сделать чтобы при наведении не выделялось синим-->
+			<ListBox SelectionMode="Single" Background="Transparent" BorderThickness="0">
+				<ListBoxItem>
+					<Border Width="1100" BorderBrush="#000000" BorderThickness="1" CornerRadius="6" Margin="0,5,0,5" Padding="10">
+						<Expander Header="Как быстро отвечает техподдержка?" IsExpanded="False" FontSize="16">
+							<TextBlock Text="Техподдержка обычно отвечает в течение 24 часов."
+							           TextWrapping="Wrap" Margin="5" FontSize="16"/>
+						</Expander>
+					</Border>
+				</ListBoxItem>
+
+				<ListBoxItem>
+					<Border Width="1100" BorderBrush="#000000" BorderThickness="1" CornerRadius="6" Margin="0,5,0,5" Padding="10">
+						<Expander Header="Как создать отчет?" IsExpanded="False" FontSize="16">
+							<TextBlock Text="Для создания отчета перейдите в раздел 'Отчеты' и следуйте инструкциям."
+							           TextWrapping="Wrap" Margin="5" FontSize="16"/>
+						</Expander>
+					</Border>
+				</ListBoxItem>
+
+				<ListBoxItem>
+					<Border Width="1100" BorderBrush="#000000" BorderThickness="1" CornerRadius="6" Margin="0,5,0,5" Padding="10">
+						<Expander Header="Как сообщить о проблеме?" IsExpanded="False" FontSize="16">
+							<TextBlock Text="Вы можете сообщить о проблеме через форму обратной связи или по электронной почте support@example.com."
+							           TextWrapping="Wrap" Margin="5" FontSize="16"/>
+						</Expander>
+					</Border>
+				</ListBoxItem>
+			</ListBox>
+		</Grid>
+	</StackPanel>
+</UserControl>
