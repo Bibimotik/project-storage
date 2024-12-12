@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Windows;
 
 using application.Abstraction;
+using application.Abstraction.Interfaces;
 using application.API.Contracts;
 using application.MVVM.Model;
 using application.MVVM.View.Auth;
@@ -27,7 +28,9 @@ namespace application.MVVM.ViewModel;
 
 public partial class AuthViewModel : ObservableObject
 {
-	private readonly IEntityApi _entityApi;
+	//private readonly IEntityApi _entityApi;
+	private readonly IEntityService _entityService;
+	private readonly IEntityRepository _entityRepository;
 	private readonly IAuthService _authService;
 	private readonly INavigationService _navigationService;
 	private readonly ISecurityService _securityService;
@@ -54,16 +57,21 @@ public partial class AuthViewModel : ObservableObject
 		authSendProblem,
 		authApplicationInfo;
 
-	public AuthViewModel(IEntityApi entityApi,
-					  IAuthService authService,
-					  INavigationService navigationService,
-					  ISecurityService securityService,
-					  IMailService mailService,
-					  RegistrationUserViewModel registrationUserViewModel,
-					  IParserINNService parserInnService,
-					  IServiceProvider serviceProvider)
+	public AuthViewModel(
+		//IEntityApi entityApi,
+		IEntityRepository entityRepository,
+		IEntityService entityService,
+		IAuthService authService,
+		INavigationService navigationService,
+		ISecurityService securityService,
+		IMailService mailService,
+		RegistrationUserViewModel registrationUserViewModel,
+		IParserINNService parserInnService,
+		IServiceProvider serviceProvider)
 	{
-		_entityApi = entityApi;
+		_entityRepository = entityRepository;
+		//_entityApi = entityApi;
+		_entityService = entityService;
 		_authService = authService;
 		_navigationService = navigationService;
 		_securityService = securityService;
@@ -231,20 +239,25 @@ public partial class AuthViewModel : ObservableObject
 			return;
 
 		Result<Guid> id = new();
-		switch (model.EntityType)
+
+		if (model.EntityType == EntityType.User || model.EntityType == EntityType.Company)
 		{
-			case EntityType.User:
-				id = await _entityApi.UserRegistration(model);
-				break;
-			case EntityType.Company:
-				id = await _entityApi.UserRegistration(model);
-				break;
-			case EntityType.Support:
-				//await _entityApi.SendToSupport(model);
-				RegistrationUser();
+			var reg = await _entityService.Registration(model);
+			if (reg.IsFailure)
+			{
+				MessageBox.Show(reg.Error);
 				return;
-			default:
-				return;
+			}
+			id = reg.Value.Id;
+		}
+		else if (model.EntityType == EntityType.Support)
+		{
+			//await _entityApi.SendToSupport(model);
+			RegistrationUser();
+		}
+		else
+		{
+			return;
 		}
 
 		if (id.IsFailure)
@@ -266,7 +279,7 @@ public partial class AuthViewModel : ObservableObject
 		//if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password))
 		//	return;
 
-		if(model.Email == "admin" && model.Password == "admin")
+		if (model.Email == "admin" && model.Password == "admin")
 		{
 			MessageBox.Show("qweqweqwe");
 
@@ -283,28 +296,15 @@ public partial class AuthViewModel : ObservableObject
 		if (!IsValidModel(model, isLogin: true))
 			return;
 
-		var user = await _entityApi.Login(model.Email, model.Password);
-
+		var user = await _entityService.Login(model.Email, model.Password);
+		// TODO - переделать
 		if (user.IsFailure)
 		{
-			var errorDetails = JsonConvert.DeserializeObject<ErrorResponse>(user.Error);
+			if (user.Error == "email")
+				Invalided?.Invoke(nameof(EntityModel.Email));
+			else if (user.Error == "password")
+				Invalided?.Invoke(nameof(EntityModel.Password));
 
-			if (errorDetails != null)
-			{
-				string detail = errorDetails.Detail;
-				MessageBox.Show(detail);
-
-				if(detail == "email")
-					Invalided?.Invoke(nameof(EntityModel.Email));
-				else if(detail == "password")
-					Invalided?.Invoke(nameof(EntityModel.Password));
-
-				EntityModel.Reset();
-			}
-
-			//MessageBox.Show(user.Error);
-			//if(user.Error)
-			Invalided?.Invoke(nameof(EntityModel.Password));
 			EntityModel.Reset();
 			return;
 		}
@@ -378,10 +378,10 @@ public partial class AuthViewModel : ObservableObject
 
 		if (model.EntityType == EntityType.User || model.EntityType == EntityType.Company)
 		{
-			var email = await _entityApi.IsUserExist(model.Email);
-			if (email.IsSuccess)
+			var email = await _entityRepository.Get(model.Email);
+			if (email is not null)
 			{
-				MessageBox.Show(email.Error);
+				MessageBox.Show($"Пользователь с почтой {model.Email} уже существует");
 				return false;
 			}
 		}

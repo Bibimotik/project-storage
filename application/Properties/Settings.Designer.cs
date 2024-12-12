@@ -46,5 +46,14 @@ namespace application.Properties {
                 this["AuthPassword"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Host=localhost;Port=5432;Database=storage;User Id=postgres;Password=1;")]
+        public string PostgresqlDev {
+            get {
+                return ((string)(this["PostgresqlDev"]));
+            }
+        }
     }
 }

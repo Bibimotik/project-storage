@@ -1,11 +1,16 @@
-﻿namespace application.Abstraction;
+﻿using System.ComponentModel;
+
+namespace application.Abstraction;
 
 public class EntityAbstraction
 {
 	public enum EntityType
 	{
+		[Description(nameof(User))]
 		User,
+		[Description(nameof(Company))]
 		Company,
+		[Description(nameof(Support))]
 		Support
 	}
 

@@ -74,6 +74,7 @@ public partial class RegistrationUserViewModel : ObservableObject
 		SecondName = model.SecondName;
 		ThirdName = model.ThirdName;
 		Phone = model.Phone;
+		Email = model.Email;
 
 		_isInitializing = false;
 	}

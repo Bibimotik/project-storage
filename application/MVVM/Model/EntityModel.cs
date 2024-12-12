@@ -77,15 +77,40 @@ public class EntityModel
 	[RequiredForCompany2]
 	public string ConfirmPassword { get; set; } = string.Empty;
 
+	// TODO - Что это вообще за поле такое, я не помню
 	[RequiredForSupport]
 	public string Message { get; set; } = string.Empty;
-	public byte[]? Images { get; set; } = Array.Empty<byte>();
+	public byte[]? Logo { get; set; } = [];
+	public byte[]? Images { get; set; } = [];
 
 	public string Code { get; set; } = string.Empty;
 	public string InputCode { get; set; } = string.Empty;
 
 	public EntityType EntityType { get; set; }
 	public static EntityModel Model { get; set; } = new();
+
+	public EntityModel() { }
+	public EntityModel(
+		Guid id,
+		string firstName,
+		string secondName,
+		string thirdName,
+		string phone,
+		string email,
+		string password,
+		EntityType entityType,
+		byte[] logo)
+	{
+		Id = id;
+		FirstName = firstName;
+		SecondName = secondName;
+		ThirdName = thirdName;
+		Phone = phone;
+		Email = email;
+		Password = password;
+		EntityType = entityType;
+		Logo = logo;
+	}
 
 	public static bool IsValidEmail(string email)
 	{
