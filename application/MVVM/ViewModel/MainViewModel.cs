@@ -2,6 +2,7 @@
 using System.Windows.Media.Animation;
 
 using application.MVVM.View.Pages;
+using application.MVVM.ViewModel.Pages;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -19,6 +20,7 @@ public partial class MainViewModel : ObservableObject
 
 	public MainViewModel(IServiceProvider serviceProvider)
 	{
+		StorageViewModel.OpenAddStorage += OnOpenAddStorage;
 		_serviceProvider = serviceProvider;
 		Account();
 	}
@@ -48,4 +50,7 @@ public partial class MainViewModel : ObservableObject
 	private void Support() => CurrentView = _serviceProvider.GetRequiredService<SupportView>();
 	[RelayCommand]
 	private void Info() => CurrentView = _serviceProvider.GetRequiredService<InfoView>();
+
+	// вызов из StorageView
+	private void OnOpenAddStorage() => CurrentView = _serviceProvider.GetRequiredService<AddStorageView>();
 }

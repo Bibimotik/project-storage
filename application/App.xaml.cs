@@ -15,8 +15,6 @@ using application.Utilities;
 
 using DotNetEnv;
 
-using MailServiceLibrary;
-
 using Microsoft.Extensions.DependencyInjection;
 
 namespace application;
@@ -31,10 +29,8 @@ public partial class App : Application
 
 		// Глобальная обработка исключений в потоке UI WPF
 		this.DispatcherUnhandledException += App_DispatcherUnhandledException;
-
 		// Обработка необработанных исключений в других потоках
 		AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-
 		// Обработка необработанных исключений в задачах
 		TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
@@ -43,7 +39,6 @@ public partial class App : Application
 		IServiceCollection services = new ServiceCollection();
 
 		services.AddScoped<IDatabaseService>(provider =>
-			//new DatabaseService(Settings.Default.PostgresqlDev)
 			new DatabaseService(Environment.GetEnvironmentVariable("POSTGRESQL"))
 			);
 		services.AddScoped<IEntityRepository, EntityRepository>();
@@ -59,10 +54,6 @@ public partial class App : Application
 		services.AddSingleton<ISecurityService, SecurityService>();
 		services.AddTransient<RegistrationUserViewModel>();
 		services.AddTransient<IParserINNService, ParserINNService>();
-		//services.AddHttpClient<IEntityApi, EntityApi>(client =>
-		//{
-		//	client.BaseAddress = new Uri("http://localhost:5210/");
-		//});
 		services.AddScoped<IEntityService, EntityService>();
 
 		services.AddSingleton<App>();
@@ -74,6 +65,8 @@ public partial class App : Application
 		services.AddTransient<AdminViewModel>();
 		services.AddTransient<AdminView>();
 
+		services.AddScoped<StorageViewModel>();
+		services.AddScoped<StorageView>();
 		services.AddScoped<RegistrationCompanyStage1ViewModel>();
 		services.AddScoped<RegistrationCompanyStage1View>();
 
@@ -81,10 +74,10 @@ public partial class App : Application
 		services.AddScoped<AccountView>();
 		services.AddScoped<StatisticsView>();
 		services.AddScoped<SalesView>();
-		services.AddScoped<StorageView>();
 		services.AddScoped<StaffView>();
 		services.AddScoped<SupportView>();
 		services.AddScoped<InfoView>();
+		services.AddScoped<AddStorageView>();
 
 		services.AddScoped<IPasswordHash, PasswordHash>();
 

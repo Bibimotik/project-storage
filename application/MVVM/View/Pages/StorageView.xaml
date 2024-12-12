@@ -16,5 +16,9 @@
 	
 	<StackPanel Width="100" Height="100">
 		<Label>Storage</Label>
+		<Button
+			Content="Add Storage"
+			Command="{Binding TriggerAddStorageCommand}" />
+
 	</StackPanel>
 </UserControl>

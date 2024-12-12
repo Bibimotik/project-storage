@@ -4,7 +4,6 @@ using System.Windows;
 
 using application.Abstraction;
 using application.Abstraction.Interfaces;
-using application.API.Contracts;
 using application.MVVM.Model;
 using application.MVVM.View.Auth;
 using application.MVVM.View.Pages;
@@ -16,11 +15,7 @@ using CommunityToolkit.Mvvm.Input;
 
 using CSharpFunctionalExtensions;
 
-using MailServiceLibrary;
-
 using Microsoft.Extensions.DependencyInjection;
-
-using Newtonsoft.Json;
 
 using static application.Abstraction.EntityAbstraction;
 
