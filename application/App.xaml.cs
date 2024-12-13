@@ -65,8 +65,6 @@ public partial class App : Application
 		services.AddTransient<AdminViewModel>();
 		services.AddTransient<AdminView>();
 
-		services.AddScoped<StorageViewModel>();
-		services.AddScoped<StorageView>();
 		services.AddScoped<RegistrationCompanyStage1ViewModel>();
 		services.AddScoped<RegistrationCompanyStage1View>();
 
@@ -76,7 +74,11 @@ public partial class App : Application
 		services.AddScoped<SalesView>();
 		services.AddScoped<StaffView>();
 		services.AddScoped<SupportView>();
+		services.AddScoped<StorageViewModel>();
+		services.AddScoped<StorageView>();
 		services.AddScoped<InfoView>();
+		services.AddScoped<InfoMainView>();
+		services.AddScoped<AddStorageViewModel>();
 		services.AddScoped<AddStorageView>();
 
 		services.AddScoped<IPasswordHash, PasswordHash>();

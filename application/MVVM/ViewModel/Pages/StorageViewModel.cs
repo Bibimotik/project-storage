@@ -1,5 +1,3 @@
-using application.MVVM.Model;
-
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -14,9 +12,5 @@ public partial class StorageViewModel : ObservableObject
 	}
 
 	[RelayCommand]
-	public void TriggerAddStorage()
-	{
-
-		OpenAddStorage?.Invoke();
-	}
+	public void TriggerAddStorage() => OpenAddStorage?.Invoke();
 }

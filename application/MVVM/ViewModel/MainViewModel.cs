@@ -20,9 +20,12 @@ public partial class MainViewModel : ObservableObject
 
 	public MainViewModel(IServiceProvider serviceProvider)
 	{
-		StorageViewModel.OpenAddStorage += OnOpenAddStorage;
 		_serviceProvider = serviceProvider;
+
 		Account();
+		
+		StorageViewModel.OpenAddStorage += OnOpenAddStorage;
+		AddStorageViewModel.OpenStorage += OnOpenStorage;
 	}
 
 	private bool isMenuExpanded = false;
@@ -30,7 +33,6 @@ public partial class MainViewModel : ObservableObject
 	[RelayCommand]
 	private void OpenMenu()
 	{
-		// TODO - может при переходе с auth не успевает создать window
 		var window = Application.Current.MainWindow;
 		var storyboard = (Storyboard)window.FindResource(isMenuExpanded ? "CollapseStoryboard" : "ExpandStoryboard");
 		storyboard.Begin();
@@ -49,8 +51,8 @@ public partial class MainViewModel : ObservableObject
 	[RelayCommand]
 	private void Support() => CurrentView = _serviceProvider.GetRequiredService<SupportView>();
 	[RelayCommand]
-	private void Info() => CurrentView = _serviceProvider.GetRequiredService<InfoView>();
+	private void Info() => CurrentView = _serviceProvider.GetRequiredService<InfoMainView>();
 
-	// вызов из StorageView
 	private void OnOpenAddStorage() => CurrentView = _serviceProvider.GetRequiredService<AddStorageView>();
+	private void OnOpenStorage() => CurrentView = _serviceProvider.GetRequiredService<StorageView>();
 }

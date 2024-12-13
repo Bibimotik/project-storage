@@ -58,5 +58,12 @@
 			Margin="0,20"
 			Style="{StaticResource SendButton}"
 			Command="{Binding InsertStorageCommand}" />
+		<Button 
+			Grid.Column="1"
+			Content="Back" 
+			Foreground="#ffffff"
+			VerticalAlignment="Center" 
+			Command="{Binding TriggerBackStorageCommand}"
+			Style="{StaticResource SendButton}" />
 	</StackPanel>
 </UserControl>
