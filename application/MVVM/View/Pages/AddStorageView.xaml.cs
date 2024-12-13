@@ -13,14 +13,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using application.MVVM.ViewModel.Pages;
+
+using Microsoft.Extensions.DependencyInjection;
+
 namespace application.MVVM.View.Pages;
 /// <summary>
 /// Логика взаимодействия для AddStorageView.xaml
 /// </summary>
 public partial class AddStorageView : UserControl
 {
-	public AddStorageView()
+	public AddStorageView(AddStorageViewModel viewModel)
 	{
+		DataContext = viewModel;
 		InitializeComponent();
 	}
 }

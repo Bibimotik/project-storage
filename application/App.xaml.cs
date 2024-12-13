@@ -2,6 +2,7 @@
 
 using application.Abstraction;
 using application.Abstraction.Interfaces;
+using application.MVVM.Model;
 using application.MVVM.View;
 using application.MVVM.View.Auth;
 using application.MVVM.View.Pages;
@@ -55,6 +56,7 @@ public partial class App : Application
 		services.AddTransient<RegistrationUserViewModel>();
 		services.AddTransient<IParserINNService, ParserINNService>();
 		services.AddScoped<IEntityService, EntityService>();
+		services.AddTransient<IEntityStorageRepository, EntityStorageRepository>();
 
 		services.AddSingleton<App>();
 
@@ -67,6 +69,11 @@ public partial class App : Application
 
 		services.AddScoped<RegistrationCompanyStage1ViewModel>();
 		services.AddScoped<RegistrationCompanyStage1View>();
+		
+		services.AddTransient<AddStorageViewModel>();
+		services.AddScoped<AddStorageView>();
+		services.AddScoped<StorageViewModel>();
+		services.AddScoped<StorageView>();
 
 		services.AddScoped<AccountViewModel>();
 		services.AddScoped<AccountView>();
@@ -74,12 +81,8 @@ public partial class App : Application
 		services.AddScoped<SalesView>();
 		services.AddScoped<StaffView>();
 		services.AddScoped<SupportView>();
-		services.AddScoped<StorageViewModel>();
-		services.AddScoped<StorageView>();
 		services.AddScoped<InfoView>();
 		services.AddScoped<InfoMainView>();
-		services.AddScoped<AddStorageViewModel>();
-		services.AddScoped<AddStorageView>();
 
 		services.AddScoped<IPasswordHash, PasswordHash>();
 

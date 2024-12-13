@@ -10,7 +10,7 @@ public partial class StorageViewModel : ObservableObject
 	public StorageViewModel()
 	{
 	}
-
+	
 	[RelayCommand]
 	public void TriggerAddStorage() => OpenAddStorage?.Invoke();
 }
