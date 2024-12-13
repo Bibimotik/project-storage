@@ -9,8 +9,13 @@ public class EntityStorageModel
 	public string Address { get; set; } = null!;
 	public string Index { get; set; } = null!;
 
-	public EntityStorageModel(Guid id)
+	public EntityStorageModel(Guid id, string point, string country, string city, string address, string index)
 	{
 		Id = id;
+		Point = point;
+		Country = country;
+		City = city;
+		Address = address;
+		Index = index;
 	}
 }

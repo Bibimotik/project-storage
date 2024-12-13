@@ -20,20 +20,21 @@ public class EntityStorageRepository : IEntityStorageRepository
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
 			string query = $@"INSERT INTO ENTITY_STORAGE
-                        (storage_id, Entity_ID, Point, Country, City, Address, Index, Is_Deleted)
+                        (ID, Entity_ID, Point, Country, City, Address, Index, Is_Deleted)
                         VALUES (
                          @{nameof(EntityStorageModel.Id)},
-                         {entityId},
+                         @EntityId,
                          @{nameof(EntityStorageModel.Point)},
                          @{nameof(EntityStorageModel.Country)},
                          @{nameof(EntityStorageModel.City)},
                          @{nameof(EntityStorageModel.Address)},
                          @{nameof(EntityStorageModel.Index)},
                          FALSE)
-                        RETURNING Storage_ID";
+                        RETURNING ID";
 
 			Guid storageId = await dbConnection.QuerySingleAsync<Guid>(query, new
 			{
+				storageModel.Id,
 				EntityId = entityId,
 				storageModel.Point,
 				storageModel.Country,

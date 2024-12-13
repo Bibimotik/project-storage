@@ -4,7 +4,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:pages = "clr-namespace:application.MVVM.ViewModel.Pages"
+	xmlns:pages="clr-namespace:application.MVVM.ViewModel.Pages"
 	mc:Ignorable="d">
 
 	<StackPanel
@@ -16,36 +16,22 @@
 		<Label
 			FontSize="45"
 			Content="Add storage" />
-		<TextBlock
-			Margin="0 0 0 8"
-			Text="Point" />
-		<TextBox
-			Width="300"
-			Style="{StaticResource AuthInput}" />
-		<TextBlock
-			Margin="0 0 0 8"
-			Text="Country" />
-		<TextBox
-			Width="300"
-			Style="{StaticResource AuthInput}" />
-		<TextBlock
-			Margin="0 0 0 8"
-			Text="City" />
-		<TextBox
-			Width="300"
-			Style="{StaticResource AuthInput}" />
-		<TextBlock
-			Margin="0 0 0 8"
-			Text="Address" />
-		<TextBox
-			Width="300"
-			Style="{StaticResource AuthInput}" />
-		<TextBlock
-			Margin="0 0 0 8"
-			Text="Index" />
-		<TextBox
-			Width="300"
-			Style="{StaticResource AuthInput}" />
+		
+		<TextBlock Margin="0 0 0 8" Text="Point" />
+		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding Point, UpdateSourceTrigger=PropertyChanged}" />
+
+		<TextBlock Margin="0 0 0 8" Text="Country" />
+		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding Country, UpdateSourceTrigger=PropertyChanged}" />
+
+		<TextBlock Margin="0 0 0 8" Text="City" />
+		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding City, UpdateSourceTrigger=PropertyChanged}" />
+
+		<TextBlock Margin="0 0 0 8" Text="Address" />
+		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
+
+		<TextBlock Margin="0 0 0 8" Text="Index" />
+		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding Index, UpdateSourceTrigger=PropertyChanged}" />
+
 		<Button
 			Content="Add Storage"
 			Foreground="#ffffff"
@@ -53,8 +39,8 @@
 			Margin="0,20"
 			Style="{StaticResource SendButton}"
 			Command="{Binding AddEntityCommand}" />
+
 		<Button 
-			Grid.Column="1"
 			Content="Back" 
 			Foreground="#ffffff"
 			VerticalAlignment="Center" 
