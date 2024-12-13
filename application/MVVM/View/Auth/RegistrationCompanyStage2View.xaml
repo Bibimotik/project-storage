@@ -1,0 +1,198 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:application.MVVM.View.Auth"
+	xmlns:conventer="clr-namespace:application.Utilities.Converter"
+	xmlns:Auth="clr-namespace:application.MVVM.ViewModel.Auth"
+	x:Class="application.MVVM.View.Auth.RegistrationCompanyStage2View"
+	mc:Ignorable="d"
+	d:DesignHeight="450"
+	d:DesignWidth="800">
+
+	<UserControl.DataContext>
+		<Auth:RegistrationCompanyStage2ViewModel />
+	</UserControl.DataContext>
+
+	<UserControl.Resources>
+		<conventer:BoolToVisibilityConverter
+			x:Key="BoolToVisibilityConverter" />
+	</UserControl.Resources>
+
+	<StackPanel
+		Orientation="Vertical"
+		VerticalAlignment="Center">
+
+		<StackPanel
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Director" />
+			<TextBox
+				Text="{Binding Director, UpdateSourceTrigger=PropertyChanged}"
+				Style="{StaticResource AuthInput}"
+				MaxLength="300" />
+			<TextBlock
+				Visibility="{Binding IsInvalidDirector, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Fill Director..." />
+		</StackPanel>
+
+		<StackPanel
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Email" />
+			<TextBox
+				Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
+				PreviewTextInput="Password_OnPreviewTextInput"
+				Style="{StaticResource AuthInput}"
+				MaxLength="100" />
+			<TextBlock
+				Visibility="{Binding IsInvalidEmail, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Invalid Email..." />
+		</StackPanel>
+
+		<StackPanel
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Password" />
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="*" />
+					<ColumnDefinition
+						Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<TextBox
+					Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+					x:Name="passwordTextBox"
+					PreviewTextInput="Password_OnPreviewTextInput"
+					PreviewKeyDown="Password_OnPreviewKeyDown"
+					Visibility="Hidden"
+					Style="{StaticResource AuthInput}" />
+				<PasswordBox
+					x:Name="passwordPasswordBox"
+					Grid.Column="0"
+					PreviewTextInput="Password_OnPreviewTextInput"
+					PreviewKeyDown="Password_OnPreviewKeyDown"
+					PasswordChanged="PasswordPasswordBox_PasswordChanged"
+					Style="{StaticResource AuthPassword}"
+					MaxLength="100" />
+
+				<Border
+					Grid.Column="1">
+					<CheckBox
+						x:Name="passwordCheckBox"
+						Margin="3 0 0 0"
+						Style="{StaticResource AuthEye}"
+						Click="CheckBox_Click1">
+						<Image
+							Source="../../../Assets/Icons/Eye.png"
+							Width="20"
+							Height="20" />
+					</CheckBox>
+				</Border>
+			</Grid>
+			<TextBlock
+				Visibility="{Binding IsInvalidPassword, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Password Error! Enter 8 symbols, a-z, A-Z and number..." />
+		</StackPanel>
+
+		<StackPanel
+			Margin="0 0 0 10"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Confirm Password" />
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="*" />
+					<ColumnDefinition
+						Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<TextBox
+					Text="{Binding ConfirmPassword, UpdateSourceTrigger=PropertyChanged}"
+					x:Name="confirmPasswordTextBox"
+					PreviewTextInput="Password_OnPreviewTextInput"
+					PreviewKeyDown="Password_OnPreviewKeyDown"
+					Visibility="Hidden"
+					Style="{StaticResource AuthInput}" />
+				<PasswordBox
+					x:Name="confirmPasswordPasswordBox"
+					Grid.Column="0"
+					PreviewTextInput="Password_OnPreviewTextInput"
+					PreviewKeyDown="Password_OnPreviewKeyDown"
+					PasswordChanged="ConfirmPasswordPasswordBox_PasswordChanged"
+					Style="{StaticResource AuthPassword}"
+					MaxLength="100" />
+
+				<Border
+					Grid.Column="1">
+					<CheckBox
+						x:Name="confirmPasswordCheckBox"
+						Margin="3 0 0 0"
+						Style="{StaticResource AuthEye}"
+						Click="CheckBox_Click2">
+						<Image
+							Source="../../../Assets/Icons/Eye.png"
+							Width="20"
+							Height="20" />
+					</CheckBox>
+				</Border>
+			</Grid>
+			<TextBlock
+				Visibility="{Binding IsPasswordFormatInvalid, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Password Error! Enter 8 symbols, a-z, A-Z and number..." />
+			<TextBlock
+				Visibility="{Binding ArePasswordsMismatch, Converter={StaticResource BoolToVisibilityConverter}}"
+				Foreground="red"
+				Text="Passwords don't match..." />
+		</StackPanel>
+
+		<!-- те что ниже я убрал прозрачность чтобы сделать обе регистрации компании одной высоты, 
+		чтобы не подбирать высоту всего блока через height. но все равно пришолось немного подгонять 
+		пиксели чтобы высота не прыгала из за того что во втором блоке есть кнопка назад -->
+
+		<StackPanel
+			Opacity="0"
+			Margin="0 0 0 3"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Email" />
+			<TextBox
+				Style="{StaticResource AuthInput}" />
+		</StackPanel>
+
+		<StackPanel
+			Opacity="0"
+			Margin="0 0 0 3"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 8"
+				Text="Password" />
+			<TextBox
+				Style="{StaticResource AuthInput}" />
+		</StackPanel>
+
+		<StackPanel
+			Opacity="0"
+			Orientation="Vertical">
+			<TextBlock
+				Margin="0 0 0 5"
+				Text="Confirm Password" />
+		</StackPanel>
+
+	</StackPanel>
+
+</UserControl>
