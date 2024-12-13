@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Media.Animation;
 
 using application.MVVM.View.Pages;
@@ -23,7 +24,7 @@ public partial class MainViewModel : ObservableObject
 		_serviceProvider = serviceProvider;
 
 		Account();
-		
+
 		StorageViewModel.OpenAddStorage += OnOpenAddStorage;
 		AddStorageViewModel.OpenStorage += OnOpenStorage;
 	}
@@ -34,8 +35,14 @@ public partial class MainViewModel : ObservableObject
 	private void OpenMenu()
 	{
 		var window = Application.Current.MainWindow;
-		var storyboard = (Storyboard)window.FindResource(isMenuExpanded ? "CollapseStoryboard" : "ExpandStoryboard");
+		var storyboard = window.TryFindResource(isMenuExpanded ? "CollapseStoryboard" : "ExpandStoryboard") as Storyboard;
+		if (storyboard == null)
+		{
+			Debug.WriteLine("Storyboard not found");
+			return;
+		}
 		storyboard.Begin();
+
 		isMenuExpanded = !isMenuExpanded;
 	}
 	[RelayCommand]

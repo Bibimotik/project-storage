@@ -8,6 +8,8 @@ using CSharpFunctionalExtensions;
 
 using Dapper;
 
+using StackExchange.Redis;
+
 using static application.Abstraction.EntityAbstraction;
 
 namespace application.Repository;
@@ -23,7 +25,7 @@ public class EntityRepository : IEntityRepository
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
 			string userQuery = $@"SELECT 
-                user_id as {nameof(EntityModel.Id)},
+                id as {nameof(EntityModel.Id)},
                 firstname as {nameof(EntityModel.FirstName)},
                 secondname as {nameof(EntityModel.SecondName)},
                 thirdname as {nameof(EntityModel.ThirdName)},
@@ -40,7 +42,7 @@ public class EntityRepository : IEntityRepository
 				return user;
 
 			string companyQuery = $@"SELECT 
-                company_id as {nameof(EntityModel.Id)}, 
+                id as {nameof(EntityModel.Id)}, 
                 inn as {nameof(EntityModel.INN)}, 
                 kpp as {nameof(EntityModel.KPP)}, 
                 ogrn as {nameof(EntityModel.OGRN)}, 
@@ -70,7 +72,7 @@ public class EntityRepository : IEntityRepository
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
 			string userQuery = $@"SELECT 
-                user_id as {nameof(EntityModel.Id)},
+                id as {nameof(EntityModel.Id)},
                 firstname as {nameof(EntityModel.FirstName)},
                 secondname as {nameof(EntityModel.SecondName)},
                 thirdname as {nameof(EntityModel.ThirdName)},
@@ -87,7 +89,7 @@ public class EntityRepository : IEntityRepository
 				return user;
 
 			string companyQuery = $@"SELECT 
-                company_id as {nameof(EntityModel.Id)},
+                id as {nameof(EntityModel.Id)},
                 inn as {nameof(EntityModel.INN)}, 
                 kpp as {nameof(EntityModel.KPP)}, 
                 ogrn as {nameof(EntityModel.OGRN)}, 
@@ -112,15 +114,15 @@ public class EntityRepository : IEntityRepository
 		}, _databaseService);
 	}
 
-	public async Task<Guid> Create(EntityModel entity)
+	public async Task<Guid> Create(EntityModel entityModel)
 	{
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
 			string query = string.Empty;
 
-			if (entity.EntityType == EntityType.User)
+			if (entityModel.EntityType == EntityType.User)
 				query = $@"INSERT into ""user"" 
-                    (user_id, firstname, secondname, thirdname, phone, email, password, logo, is_deleted)
+                    (id, firstname, secondname, thirdname, phone, email, password, logo, is_deleted)
                     values (
                     @{nameof(EntityModel.Id)},
                     @{nameof(EntityModel.FirstName)},
@@ -131,10 +133,10 @@ public class EntityRepository : IEntityRepository
                     @{nameof(EntityModel.Password)},
                     NULL,
                     FALSE)
-                    returning user_id";
-			else if (entity.EntityType == EntityType.Company)
+                    returning id";
+			else if (entityModel.EntityType == EntityType.Company)
 				query = $@"INSERT into company
-                    (company_id, inn, kpp, ogrn, fullname, shortname, email, password, legal_address, postal_address, director, logo, is_deleted)
+                    (id, inn, kpp, ogrn, fullname, shortname, email, password, legal_address, postal_address, director, logo, is_deleted)
                     values (
                     @{nameof(EntityModel.Id)},
                     @{nameof(EntityModel.INN)},
@@ -149,25 +151,28 @@ public class EntityRepository : IEntityRepository
                     @{nameof(EntityModel.Director)},
                     NULL,
                     FALSE)
-                    returning company_id";
+                    returning id";
 
-			//@{ (entity.EntityType == EntityType.User ? "User" : "Company")}, 
-
+			EntityTableModel entity = new(
+				Guid.NewGuid(),
+				entityModel.EntityType == EntityType.User ? EntityType.User.GetDescription() : EntityType.Company.GetDescription(),
+				entityModel.Id);
 
 			string queryEntity = $@"INSERT INTO entity 
-				(entity_id, type, type_id) 
+				(id, type, type_id) 
 				values (
-				{Guid.NewGuid()}
-				{(entity.EntityType == EntityType.User ? $@"'User'" : $@"'Company'")}, 
-				@{nameof(EntityModel.Id)}
+				@{nameof(EntityTableModel.Id)}, 
+				@{nameof(EntityTableModel.Type)}, 
+				@{nameof(EntityTableModel.Type_ID)}
 				)";
 
+			Debug.WriteLine(query);
 			Debug.WriteLine(queryEntity);
 
 			using var transaction = dbConnection.BeginTransaction();
 			try
 			{
-				var insertedId = await dbConnection.QuerySingleAsync<Guid>(new CommandDefinition(query, entity));
+				var insertedId = await dbConnection.QuerySingleAsync<Guid>(new CommandDefinition(query, entityModel));
 
 				await dbConnection.ExecuteAsync(new CommandDefinition(queryEntity, entity));
 

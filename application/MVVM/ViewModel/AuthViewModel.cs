@@ -388,7 +388,7 @@ public partial class AuthViewModel : ObservableObject
 		}
 
 		string code = GenerateRandomCode();
-		Console.WriteLine(code);
+		Debug.WriteLine(code);
 		string encryptedCode = _securityService.Encrypt(code);
 		await _mailService.SendMail(code, model.Email);
 

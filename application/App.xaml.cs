@@ -42,7 +42,7 @@ public partial class App : Application
 		services.AddScoped<IDatabaseService>(provider =>
 			new DatabaseService(Environment.GetEnvironmentVariable("POSTGRESQL"))
 			);
-		services.AddScoped<IEntityRepository, EntityRepository>();
+		services.AddTransient<IEntityRepository, EntityRepository>();
 		services.AddScoped<IAuthService, AuthService>();
 		services.AddScoped<IMailService>(mail =>
 			new MailService(

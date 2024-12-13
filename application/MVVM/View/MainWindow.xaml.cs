@@ -19,4 +19,11 @@ public partial class MainWindow : Window
 	{
 		//сюда что-нибудь с внешним видом можно дописать
 	}
+	private void Window_Loaded(object sender, RoutedEventArgs e)
+	{
+		// Перенос вызова команды после полной загрузки окна
+		var viewModel = DataContext as MainViewModel;
+		viewModel?.OpenMenuCommand.Execute(null);
+	}
+
 }

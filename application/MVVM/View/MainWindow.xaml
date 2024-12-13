@@ -10,7 +10,8 @@
 	MinWidth="1000"
 	MinHeight="600"
 	Title="MainWindow"
-	WindowStartupLocation="CenterScreen">
+	WindowStartupLocation="CenterScreen"
+	Loaded="Window_Loaded">
 
 	<Window.Resources>
 		<Storyboard
