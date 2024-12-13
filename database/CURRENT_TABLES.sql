@@ -4,7 +4,6 @@ CREATE TABLE ENTITY
 	Type      varchar(20) UNIQUE NOT NULL,
 	Type_ID   uuid               NOT NULL
 );
-
 CREATE TABLE COMPANY
 (
 	ID     uuid            NOT NULL PRIMARY KEY,
@@ -21,7 +20,6 @@ CREATE TABLE COMPANY
 	Logo           bytea,
 	Is_Deleted     bool            NOT NULL
 );
-
 CREATE TABLE "user"
 (
 	ID    uuid         NOT NULL PRIMARY KEY,
@@ -34,15 +32,13 @@ CREATE TABLE "user"
 	Logo       bytea,
 	Is_Deleted bool         NOT NULL
 );
-
 CREATE TABLE ENTITY_MANAGERS
 (
 	ID uuid NOT NULL UNIQUE PRIMARY KEY,
-	Entity_ID          uuid    NOT NULL REFERENCES ENTITY (Entity_ID),
-	User_ID            uuid   NOT NULL REFERENCES "user" (User_ID),
+	Entity_ID          uuid    NOT NULL REFERENCES ENTITY (ID),
+	User_ID            uuid   NOT NULL REFERENCES "user" (ID),
 	Access		       varchar(100) NOT NULL
 );
-
 CREATE TABLE ENTITY_STORAGE
 (
 	ID uuid       NOT NULL PRIMARY KEY,
@@ -54,11 +50,10 @@ CREATE TABLE ENTITY_STORAGE
 	Index      varchar(100) NOT NULL,
 	Is_Deleted bool         NOT NULL
 );
-
 CREATE TABLE PRODUCT
 (
 	ID uuid           NOT NULL PRIMARY KEY,
-	Entity_ID  uuid              NOT NULL REFERENCES ENTITY (Entity_ID),
+	Entity_ID  uuid              NOT NULL REFERENCES ENTITY (ID),
 	Code       varchar(100)     NOT NULL,
 	Title      varchar(100)     NOT NULL,
 	Unit       varchar(20)      NOT NULL,
@@ -66,12 +61,11 @@ CREATE TABLE PRODUCT
 	Image      bytea,
 	Is_Deleted bool             NOT NULL
 );
-
 CREATE TABLE ENTITY_PRODUCT
 (
 	ID      uuid       NOT NULL PRIMARY KEY,
-	Product_ID             uuid          NOT NULL REFERENCES PRODUCT (Product_ID),
-	Entity_Storage_ID      uuid          NOT NULL REFERENCES ENTITY_STORAGE (Storage_ID),
+	Product_ID             uuid          NOT NULL REFERENCES PRODUCT (ID),
+	Entity_Storage_ID      uuid          NOT NULL REFERENCES ENTITY_STORAGE (ID),
 	Available_For_Shipment double precision NOT NULL,
 	In_Shipping_Area       int          NOT NULL,
 	In_Reserve             int          NOT NULL,
@@ -80,11 +74,10 @@ CREATE TABLE ENTITY_PRODUCT
 	Expiration_Date        date         NOT NULL,
 	Is_Deleted             bool         NOT NULL
 );
-
 CREATE TABLE "order"
 (
 	ID               	uuid       NOT NULL PRIMARY KEY,
-	Entity_Managers_ID     	uuid          NOT NULL REFERENCES ENTITY_MANAGERS (Entity_Managers_ID),
+	Entity_Managers_ID     	uuid          NOT NULL REFERENCES ENTITY_MANAGERS (ID),
 	INN             char(12) 		 NOT NULL,
 	KPP             char(12) 		 NOT NULL,
 	OGRN            char(13) 		 NOT NULL,
@@ -97,7 +90,7 @@ CREATE TABLE "order"
 	fromCor_Account     char(20)        NOT NULL,
 	fromBIK             varchar(11)     NOT NULL,
 	fromBank            varchar(100)    NOT NULL,
-	Entity_Storage_ID      	uuid          NOT NULL REFERENCES ENTITY_STORAGE (Storage_ID),
+	Entity_Storage_ID      	uuid          NOT NULL REFERENCES ENTITY_STORAGE (ID),
 	Plan_Date_Shipment     	date         NOT NULL,
 	Shipping_Address       	varchar(100) NOT NULL,
 	Application_Date       	date         NOT NULL,
@@ -110,19 +103,17 @@ CREATE TABLE "order"
 	VAT			    double precision,
 	Is_Deleted		bool         NOT NULL
 );
-
 CREATE TABLE ENTITY_PRODUCT_ORDER
 (
 	ID uuid NOT NULL PRIMARY KEY,
-	Entity_Product_ID    uuid NOT NULL REFERENCES ENTITY_PRODUCT (Entity_Product_ID),
-	Order_ID	         uuid NOT NULL REFERENCES "order" (Order_ID),
+	Entity_Product_ID    uuid NOT NULL REFERENCES ENTITY_PRODUCT (ID),
+	Order_ID	         uuid NOT NULL REFERENCES "order" (ID),
 	Count 				 int NOT NULL
 );
-
 CREATE TABLE SUPPORT
 (
 	ID uuid NOT NULL PRIMARY KEY,
-	Entity_ID uuid NOT NULL REFERENCES ENTITY (Entity_ID),
+	Entity_ID uuid NOT NULL REFERENCES ENTITY (ID),
 	MESSAGE   TEXT   NOT NULL,
 	Image	  bytea
 );
