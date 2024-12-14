@@ -55,6 +55,7 @@ public partial class MainViewModel : ObservableObject
 	private void Storage() => CurrentView = _serviceProvider.GetRequiredService<StorageView>();
 	[RelayCommand]
 	private void Staff() => CurrentView = _serviceProvider.GetRequiredService<StaffView>();
+
 	[RelayCommand]
 	private void Support() => CurrentView = _serviceProvider.GetRequiredService<SupportMainView>();
 	[RelayCommand]

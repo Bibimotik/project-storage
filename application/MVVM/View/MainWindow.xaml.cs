@@ -4,9 +4,6 @@ using application.MVVM.ViewModel;
 
 namespace application;
 
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
 public partial class MainWindow : Window
 {
 	public MainWindow(MainViewModel mainViewModel)
@@ -25,5 +22,4 @@ public partial class MainWindow : Window
 		var viewModel = DataContext as MainViewModel;
 		viewModel?.OpenMenuCommand.Execute(null);
 	}
-
 }

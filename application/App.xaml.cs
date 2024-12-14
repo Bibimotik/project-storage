@@ -4,11 +4,14 @@ using application.Abstraction;
 using application.Abstraction.Interfaces;
 using application.MVVM.Model;
 using application.MVVM.View;
+using application.MVVM.View.AdminPages;
 using application.MVVM.View.Auth;
 using application.MVVM.View.Pages;
 using application.MVVM.ViewModel;
+using application.MVVM.ViewModel.AdminPages;
 using application.MVVM.ViewModel.Auth;
 using application.MVVM.ViewModel.Pages;
+using application.Repositories;
 using application.Repository;
 using application.Services;
 using application.Services.Repository;
@@ -58,6 +61,7 @@ public partial class App : Application
 		services.AddScoped<IEntityService, EntityService>();
 		services.AddTransient<IEntityStorageRepository, EntityStorageRepository>();
 		services.AddTransient<ISupportRepository, SupportRepository>();
+		services.AddTransient<TablesRepository>();
 
 		services.AddSingleton<App>();
 
@@ -70,7 +74,7 @@ public partial class App : Application
 
 		services.AddScoped<RegistrationCompanyStage1ViewModel>();
 		services.AddScoped<RegistrationCompanyStage1View>();
-		
+
 		services.AddTransient<AddStorageViewModel>();
 		services.AddScoped<AddStorageView>();
 		services.AddTransient<StorageViewModel>();
@@ -81,11 +85,23 @@ public partial class App : Application
 		services.AddScoped<StatisticsView>();
 		services.AddScoped<SalesView>();
 		services.AddScoped<StaffView>();
-		
-		services.AddTransient<SupportViewModel>();
+
+		services.AddTransient<CompanyView>();
+		services.AddTransient<CompanyViewModel>();
+		services.AddTransient<EntityManagersView>();
+		services.AddTransient<EntityProductView>();
+		services.AddTransient<EntityProductOrderView>();
+		services.AddTransient<EntityStorageView>();
+		services.AddTransient<EntityView>();
+		services.AddTransient<OrderView>();
+		services.AddTransient<ProductView>();
+		services.AddTransient<MVVM.View.AdminPages.SupportView>();
+		services.AddTransient<UserView>();
+
+		services.AddTransient<MVVM.ViewModel.Pages.SupportViewModel>();
 		services.AddScoped<SupportMainView>();
-		services.AddScoped<SupportView>();
-		
+		services.AddScoped<MVVM.View.Pages.SupportView>();
+
 		services.AddScoped<InfoView>();
 		services.AddScoped<InfoMainView>();
 
@@ -105,7 +121,7 @@ public partial class App : Application
 			case true:
 				var (email, password) = authService.LoadAuthData();
 
-				if (email == "admin" && password == "admin")
+				if (email == "admin" && password == "Admin123")
 					navigationService.ShowAdmin();
 				else
 					navigationService.ShowMain();
@@ -118,10 +134,8 @@ public partial class App : Application
 
 	private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
 	{
-		// Показать сообщение об ошибке
 		MessageBox.Show($"Произошла ошибка: {e.Exception.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
 
-		// Указать, что исключение обработано
 		e.Handled = true;
 	}
 
@@ -135,10 +149,8 @@ public partial class App : Application
 
 	private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
 	{
-		// Показать сообщение об ошибке
 		MessageBox.Show($"Ошибка в задаче: {e.Exception.Message}", "Ошибка задачи", MessageBoxButton.OK, MessageBoxImage.Error);
 
-		// Указать, что исключение обработано
 		e.SetObserved();
 	}
 }

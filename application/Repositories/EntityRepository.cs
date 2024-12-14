@@ -4,11 +4,7 @@ using application.Abstraction;
 using application.MVVM.Model;
 using application.Utilities;
 
-using CSharpFunctionalExtensions;
-
 using Dapper;
-
-using StackExchange.Redis;
 
 using static application.Abstraction.EntityAbstraction;
 
@@ -185,40 +181,6 @@ public class EntityRepository : IEntityRepository
 				transaction.Rollback();
 				throw;
 			}
-		}, _databaseService);
-	}
-
-	public async Task SendToSupport(EntityModel entity)
-	{
-		await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
-		{
-			string insertSupportQuery = $@"INSERT INTO support
-                                        (email, message)
-                                        VALUES 
-                                        (@Email, @Message) 
-                                        RETURNING Support_ID";
-
-			int supportId = await dbConnection.QuerySingleAsync<int>(insertSupportQuery, new
-			{
-				Email = entity.Email,
-				Message = entity.Message
-			});
-
-			if (entity.Images != null)
-			{
-				string insertImageQuery = $@"INSERT INTO support_images
-                                          (support_id, image)
-                                          VALUES 
-                                          (@SupportId, @Image)";
-
-				await dbConnection.ExecuteAsync(insertImageQuery, new
-				{
-					SupportId = supportId,
-					Image = entity.Images
-				});
-			}
-
-			return Task.CompletedTask;
 		}, _databaseService);
 	}
 }

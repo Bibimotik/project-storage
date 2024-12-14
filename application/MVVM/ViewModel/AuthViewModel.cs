@@ -275,7 +275,7 @@ public partial class AuthViewModel : ObservableObject
 		//if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password))
 		//	return;
 
-		if (model.Email == "admin" && model.Password == "admin")
+		if (model.Email == "admin" && model.Password == "Admin123")
 		{
 			MessageBox.Show("qweqweqwe");
 

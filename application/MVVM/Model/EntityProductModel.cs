@@ -1,5 +1,3 @@
-using System.Windows.Media.Imaging;
-
 namespace application.MVVM.Model;
 
 public class EntityProductModel
