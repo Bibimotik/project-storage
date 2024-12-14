@@ -89,7 +89,11 @@ public partial class App : Application
 
 		services.AddScoped<AccountViewModel>();
 		services.AddScoped<AccountView>();
+		
+		services.AddTransient<StatisticsViewModel>();
 		services.AddScoped<StatisticsView>();
+		
+		services.AddTransient<SalesViewModel>();
 		services.AddScoped<SalesView>();
 		
 		services.AddTransient<StaffViewModel>();

@@ -33,5 +33,10 @@ public partial class StorageViewModel : ObservableObject
 	[RelayCommand]
 	public void TriggerAddStorage() => OpenAddStorage?.Invoke();
 	[RelayCommand]
-	public void TriggerShowStorage() => OpenStorageProducts?.Invoke();
+	public void TriggerShowStorage(Guid storageId)
+	{
+		OpenStorageProducts?.Invoke();
+		SelectedStorageId = storageId;
+	}
+	public Guid SelectedStorageId { get; private set; }
 }

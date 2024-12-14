@@ -20,11 +20,9 @@ public partial class StorageView : UserControl
 
     private async void LoadStorageData()
     {
-        // Используйте ID сущности для загрузки данных
         Guid entityId = Guid.Parse("52d6177b-bac0-447d-9ff3-fdf10e344b6e");
         await _viewModel.LoadStorageAsync(entityId);
 
-        // Обновляем StackPanel с карточками
         foreach (var storage in _viewModel.Storage)
         {
             var storageCard = CreateStorageCard(storage);
@@ -32,7 +30,6 @@ public partial class StorageView : UserControl
         }
     }
 
-    // Метод для создания карточки данных хранилища
     private StackPanel CreateStorageCard(StorageDataResult storage)
     {
         var storageCard = new StackPanel
@@ -57,7 +54,7 @@ public partial class StorageView : UserControl
         
         storageCard.MouseLeftButtonUp += (sender, e) =>
         {
-	        _viewModel.TriggerShowStorage();
+	        _viewModel.TriggerShowStorage(storage.Id);
         };
 
         return storageCard;

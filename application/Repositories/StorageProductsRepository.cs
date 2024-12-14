@@ -13,7 +13,7 @@ public class StorageProductsRepository : IStorageProductsRepository
 	
 	public StorageProductsRepository(IDatabaseService databaseService) => _databaseService = databaseService;
 
-	public async Task<IEnumerable<StorageDataResult>> GetProductsDataAsync(Guid storageId)
+	public async Task<IEnumerable<ProductDataResult>> GetProductsDataAsync(Guid storageId)
 	{
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
@@ -22,7 +22,7 @@ public class StorageProductsRepository : IStorageProductsRepository
 				FROM PRODUCT
 				WHERE entity_storage_id = @StorageId";
 			
-			var result = await dbConnection.QueryAsync<StorageDataResult>(query, new { StorageId = storageId });
+			var result = await dbConnection.QueryAsync<ProductDataResult>(query, new { StorageId = storageId });
 
 			return result;
 		}, _databaseService);

@@ -4,5 +4,5 @@ namespace application.Abstraction.Interfaces;
 
 public interface IStorageProductsRepository
 {
-	public Task<IEnumerable<StorageDataResult>> GetProductsDataAsync(Guid storageId);
+	public Task<IEnumerable<ProductDataResult>> GetProductsDataAsync(Guid storageId);
 }

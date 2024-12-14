@@ -139,9 +139,10 @@
 				</Grid.RowDefinitions>
 
 				<Button
-					Margin="0 0 10 0"
 					Grid.Row="0"
 					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					Width="410"
 					Content="Save"
 					Command="{Binding }"
 					Style="{StaticResource SendButton}" />
@@ -150,20 +151,15 @@
 					Margin="0 0 10 0"
 					Grid.Row="1"
 					Grid.Column="0"
+					Width="200"
 					Content="Exit"
 					Command="{Binding ExitCommand}"
 					Style="{StaticResource SendButton}" />
 
 				<Button
-					Grid.Row="0"
-					Grid.Column="1"
-					Content="Change Password"
-					Command="{Binding }"
-					Style="{StaticResource SendButton}" />
-
-				<Button
 					Grid.Row="1"
 					Grid.Column="1"
+					Width="200"
 					Content="Delete Account"
 					Command="{Binding }"
 					Style="{StaticResource SendButtonRed}" />
