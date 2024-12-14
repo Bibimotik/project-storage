@@ -57,6 +57,7 @@ public partial class App : Application
 		services.AddTransient<IParserINNService, ParserINNService>();
 		services.AddScoped<IEntityService, EntityService>();
 		services.AddTransient<IEntityStorageRepository, EntityStorageRepository>();
+		services.AddTransient<ISupportRepository, SupportRepository>();
 
 		services.AddSingleton<App>();
 
@@ -72,7 +73,7 @@ public partial class App : Application
 		
 		services.AddTransient<AddStorageViewModel>();
 		services.AddScoped<AddStorageView>();
-		services.AddScoped<StorageViewModel>();
+		services.AddTransient<StorageViewModel>();
 		services.AddScoped<StorageView>();
 
 		services.AddScoped<AccountViewModel>();
@@ -80,7 +81,11 @@ public partial class App : Application
 		services.AddScoped<StatisticsView>();
 		services.AddScoped<SalesView>();
 		services.AddScoped<StaffView>();
+		
+		services.AddTransient<SupportViewModel>();
+		services.AddScoped<SupportMainView>();
 		services.AddScoped<SupportView>();
+		
 		services.AddScoped<InfoView>();
 		services.AddScoped<InfoMainView>();
 

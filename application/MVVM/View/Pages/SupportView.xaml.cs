@@ -2,12 +2,15 @@ using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Input;
 
+using application.MVVM.ViewModel.Pages;
+
 namespace application.MVVM.View.Pages;
 
 public partial class SupportView : UserControl
 {
-    public SupportView()
+    public SupportView(SupportViewModel viewModel)
     {
+	    DataContext = viewModel;
         InitializeComponent();
     }
     

@@ -228,7 +228,7 @@
 										Height="30"
 										Visibility="{Binding AuthSendProblem, Converter={StaticResource BoolToVisibilityConverter}}"
 										Content="← Back3"
-										Command="{Binding RegistrationUserCommand}"
+										Command="{Binding LoginCommand}"
 										HorizontalAlignment="Center"
 										Style="{StaticResource SendButtonWhite}" />
 
@@ -241,7 +241,7 @@
 										Height="30"
 										Visibility="{Binding AuthApplicationInfo, Converter={StaticResource BoolToVisibilityConverter}}"
 										Content="← Back4"
-										Command="{Binding RegistrationUserCommand}"
+										Command="{Binding LoginCommand}"
 										HorizontalAlignment="Center"
 										Style="{StaticResource SendButtonWhite}" />
 

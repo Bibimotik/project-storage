@@ -247,6 +247,7 @@ public partial class AuthViewModel : ObservableObject
 		}
 		else if (model.EntityType == EntityType.Support)
 		{
+			//TODO - доделать support
 			//await _entityApi.SendToSupport(model);
 			RegistrationUser();
 		}
