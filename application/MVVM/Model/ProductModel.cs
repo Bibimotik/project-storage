@@ -11,25 +11,9 @@ public class ProductModel
 	public string Unit { get; set; } = null!;
 	public double Price { get; set; }
 	public byte[] Image { get; set; }
-
-	public ProductModel(Guid id, Guid entityId, string code, string title, string unit, double price)
-	{
-		Id = id;
-		EntityId = entityId;
-		Code = code;
-		Title = title;
-		Unit = unit;
-		Price = price;
-	}
-	
-	public ProductModel(Guid id, Guid entityId, string code, string title, string unit, double price, byte[] image)
-	{
-		Id = id;
-		EntityId = entityId;
-		Code = code;
-		Title = title;
-		Unit = unit;
-		Price = price;
-		Image = image;
-	}
+	public Guid Entity_Storage_ID { get; set; }
+	public double Available_For_Shipment { get; set; }
+	public string Party { get; set; } = null!;
+	public DateTime Implementation_Period { get; set; }
+	public DateTime Expiration_Date { get; set; }
 }

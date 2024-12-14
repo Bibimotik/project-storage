@@ -59,20 +59,12 @@ CREATE TABLE PRODUCT
 	Unit       varchar(20)      NOT NULL,
 	Price      double precision NOT NULL,
 	Image      bytea,
-	Is_Deleted bool             NOT NULL
-);
-CREATE TABLE ENTITY_PRODUCT
-(
-	ID      uuid       NOT NULL PRIMARY KEY,
-	Product_ID             uuid          NOT NULL REFERENCES PRODUCT (ID),
 	Entity_Storage_ID      uuid          NOT NULL REFERENCES ENTITY_STORAGE (ID),
 	Available_For_Shipment double precision NOT NULL,
-	In_Shipping_Area       int          NOT NULL,
-	In_Reserve             int          NOT NULL,
 	Party                  varchar(100) NOT NULL,
 	Implementation_Period  date         NOT NULL,
 	Expiration_Date        date         NOT NULL,
-	Is_Deleted             bool         NOT NULL
+	Is_Deleted bool             NOT NULL
 );
 CREATE TABLE "order"
 (
@@ -90,7 +82,6 @@ CREATE TABLE "order"
 	fromCor_Account     char(20)        NOT NULL,
 	fromBIK             varchar(11)     NOT NULL,
 	fromBank            varchar(100)    NOT NULL,
-	Entity_Storage_ID      	uuid          NOT NULL REFERENCES ENTITY_STORAGE (ID),
 	Plan_Date_Shipment     	date         NOT NULL,
 	Shipping_Address       	varchar(100) NOT NULL,
 	Application_Date       	date         NOT NULL,
@@ -106,7 +97,7 @@ CREATE TABLE "order"
 CREATE TABLE ENTITY_PRODUCT_ORDER
 (
 	ID uuid NOT NULL PRIMARY KEY,
-	Entity_Product_ID    uuid NOT NULL REFERENCES ENTITY_PRODUCT (ID),
+	Product_ID    uuid NOT NULL REFERENCES PRODUCT (ID),
 	Order_ID	         uuid NOT NULL REFERENCES "order" (ID),
 	Count 				 int NOT NULL
 );

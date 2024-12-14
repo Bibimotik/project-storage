@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 using application.MVVM.Model;
@@ -16,14 +17,12 @@ namespace application.MVVM.View.Pages
             DataContext = viewModel;
             InitializeComponent();
 
-            // Вызов метода загрузки ролей
             LoadRoles();
         }
 
         private async void LoadRoles()
         {
-            // Здесь мы предполагаем, что userId уже доступен
-            string userId = "c60a90e1-da0a-4f02-bbf0-388052e0abdb"; // Или получаем его каким-то другим способом
+            string userId = "c60a90e1-da0a-4f02-bbf0-388052e0abdb";
             await _viewModel.LoadRolesAsync(Guid.Parse(userId));
 
             // После получения данных обновляем UI
@@ -44,6 +43,7 @@ namespace application.MVVM.View.Pages
                 Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightGray)
             };
 
+            var id = new TextBlock { Text = role.Id.ToString(), FontSize = 20, Visibility = Visibility.Hidden};
             var firstText = new TextBlock { Text = role.First, FontSize = 20 };
             var secondText = new TextBlock { Text = role.Second, FontSize = 16 };
             var thirdText = new TextBlock { Text = role.Third, FontSize = 14 };

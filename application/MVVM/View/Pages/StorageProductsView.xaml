@@ -1,5 +1,5 @@
 <UserControl
-	x:Class="application.MVVM.View.Pages.StorageView"
+	x:Class="application.MVVM.View.Pages.StorageProductsView"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -11,7 +11,7 @@
 	<StackPanel Margin="50 0 50 0">
 		<Label
 			FontSize="45"
-			Content="My storage"/>
+			Content="My storage products"/>
 		
 		<Grid>
 			<Grid.RowDefinitions>
@@ -35,7 +35,7 @@
 					Style="{StaticResource AuthInput}" />
 				<Button 
 					Grid.Column="1"
-					Content="Add storage" 
+					Content="Add product" 
 					Foreground="#ffffff"
 					VerticalAlignment="Center" 
 					Command="{Binding TriggerAddStorageCommand}"
@@ -50,7 +50,7 @@
 			</Grid>
 
 			<ScrollViewer Grid.Row="1">
-				<StackPanel x:Name="StoragePanel">
+				<StackPanel x:Name="StorageProductsPanel">
 					
 				</StackPanel>
 			</ScrollViewer>

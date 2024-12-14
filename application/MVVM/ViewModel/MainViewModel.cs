@@ -28,6 +28,7 @@ public partial class MainViewModel : ObservableObject
 		Account();
 
 		StorageViewModel.OpenAddStorage += OnOpenAddStorage;
+		StorageViewModel.OpenStorageProducts += OnOpenStorageProducts;
 		AddStorageViewModel.OpenStorage += OnOpenStorage;
 		StaffViewModel.OpenAddStaff += OnOpenAddStaff;
 		AddStaffViewModel.OpenStaff += OnOpenStaff;
@@ -70,4 +71,5 @@ public partial class MainViewModel : ObservableObject
 	private void OnOpenStorage() => CurrentView = _serviceProvider.GetRequiredService<StorageView>();
 	private void OnOpenAddStaff() => CurrentView = _serviceProvider.GetRequiredService<AddStaffView>();
 	private void OnOpenStaff() => CurrentView = _serviceProvider.GetRequiredService<StaffView>();
+	private void OnOpenStorageProducts() => CurrentView = _serviceProvider.GetRequiredService<StorageProductsView>();
 }
