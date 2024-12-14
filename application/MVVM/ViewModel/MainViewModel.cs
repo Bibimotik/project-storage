@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Media.Animation;
 
+using application.MVVM.Model;
+using application.MVVM.View.AdminPages;
 using application.MVVM.View.Pages;
 using application.MVVM.ViewModel.Pages;
 
@@ -27,6 +29,8 @@ public partial class MainViewModel : ObservableObject
 
 		StorageViewModel.OpenAddStorage += OnOpenAddStorage;
 		AddStorageViewModel.OpenStorage += OnOpenStorage;
+		StaffViewModel.OpenAddStaff += OnOpenAddStaff;
+		AddStaffViewModel.OpenStaff += OnOpenStaff;
 	}
 
 	private bool isMenuExpanded = false;
@@ -55,7 +59,8 @@ public partial class MainViewModel : ObservableObject
 	private void Storage() => CurrentView = _serviceProvider.GetRequiredService<StorageView>();
 	[RelayCommand]
 	private void Staff() => CurrentView = _serviceProvider.GetRequiredService<StaffView>();
-
+	[RelayCommand]
+	private void Roles() => CurrentView = _serviceProvider.GetRequiredService<RolesView>();
 	[RelayCommand]
 	private void Support() => CurrentView = _serviceProvider.GetRequiredService<SupportMainView>();
 	[RelayCommand]
@@ -63,4 +68,6 @@ public partial class MainViewModel : ObservableObject
 
 	private void OnOpenAddStorage() => CurrentView = _serviceProvider.GetRequiredService<AddStorageView>();
 	private void OnOpenStorage() => CurrentView = _serviceProvider.GetRequiredService<StorageView>();
+	private void OnOpenAddStaff() => CurrentView = _serviceProvider.GetRequiredService<AddStaffView>();
+	private void OnOpenStaff() => CurrentView = _serviceProvider.GetRequiredService<StaffView>();
 }

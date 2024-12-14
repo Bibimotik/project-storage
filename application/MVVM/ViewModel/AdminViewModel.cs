@@ -11,6 +11,8 @@ using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.Extensions.DependencyInjection;
 
+using EntityProductView = application.MVVM.View.AdminPages.EntityProductView;
+
 namespace application.MVVM.ViewModel;
 
 public partial class AdminViewModel : ObservableObject

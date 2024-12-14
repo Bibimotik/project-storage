@@ -21,6 +21,8 @@ using DotNetEnv;
 
 using Microsoft.Extensions.DependencyInjection;
 
+using EntityProductView = application.MVVM.View.AdminPages.EntityProductView;
+
 namespace application;
 
 public partial class App : Application
@@ -61,6 +63,8 @@ public partial class App : Application
 		services.AddScoped<IEntityService, EntityService>();
 		services.AddTransient<IEntityStorageRepository, EntityStorageRepository>();
 		services.AddTransient<ISupportRepository, SupportRepository>();
+		services.AddTransient<IAddStaffRepository, AddStaffRepository>();
+		services.AddTransient<IRolesRepository, RolesRepository>();
 		services.AddTransient<TablesRepository>();
 
 		services.AddSingleton<App>();
@@ -84,7 +88,15 @@ public partial class App : Application
 		services.AddScoped<AccountView>();
 		services.AddScoped<StatisticsView>();
 		services.AddScoped<SalesView>();
+		
+		services.AddTransient<StaffViewModel>();
 		services.AddScoped<StaffView>();
+		
+		services.AddTransient<AddStaffViewModel>();
+		services.AddScoped<AddStaffView>();
+		
+		services.AddTransient<RolesViewModel>();
+		services.AddScoped<RolesView>();
 
 		services.AddTransient<CompanyView>();
 		services.AddTransient<CompanyViewModel>();

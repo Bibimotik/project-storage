@@ -1,5 +1,5 @@
 <UserControl
-	x:Class="application.MVVM.View.Pages.StaffView"
+	x:Class="application.MVVM.View.Pages.RolesView"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -11,32 +11,10 @@
 	<StackPanel Margin="50 0 50 0">
 		<Label
 			FontSize="45"
-			Content="Your staff"/>
-		
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition
-					Width="*" />
-				<ColumnDefinition
-					Width="150"/>
-			</Grid.ColumnDefinitions>
-			
-			<TextBox
-				x:Name="Search"
-				Style="{StaticResource AuthInput}" 
-				MaxLength="12" />
-
-			<Button
-				Grid.Column="1"
-				Margin="5 0 0 0"
-				Content="Add new staff"
-				Foreground="#ffffff"
-				Command="{Binding TriggerAddStaffCommand}"
-				Style="{StaticResource SendButton}" />
-		</Grid>
+			Content="Your roles"/>
 		
 		<ScrollViewer>
-			<StackPanel>
+			<StackPanel x:Name="RolesPanel">
 				
 			</StackPanel>
 		</ScrollViewer>

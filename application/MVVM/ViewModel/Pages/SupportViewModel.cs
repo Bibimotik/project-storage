@@ -82,31 +82,40 @@ public partial class SupportViewModel : ObservableObject
 
     partial void OnMessageChanged(string value) => IsInvalidMessage = ValidateAndUpdateModel(value);
 
+    [ObservableProperty]
+    private string selectedFilePath = "Select File";
+
     private void SelectFile()
     {
-        var openFileDialog = new OpenFileDialog
-        {
-            Filter = "Image Files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg|All Files (*.*)|*.*",
-            Multiselect = true
-        };
+	    var openFileDialog = new OpenFileDialog
+	    {
+		    Filter = "Image Files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg|All Files (*.*)|*.*",
+		    Multiselect = true
+	    };
 
-        if (openFileDialog.ShowDialog() == true)
-        {
-            SelectedFileNames.Clear();
-            SelectedFileNames.AddRange(openFileDialog.FileNames);
+	    if (openFileDialog.ShowDialog() == true)
+	    {
+		    SelectedFileNames.Clear();
+		    SelectedFileNames.AddRange(openFileDialog.FileNames);
 
-            if (SelectedFileNames.Any())
-            {
-                try
-                {
-                    Image = ImageHelper.ConvertImageToByteArray(SelectedFileNames.First());
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error loading image: {ex.Message}");
-                }
-            }
-        }
+		    if (SelectedFileNames.Any())
+		    {
+			    try
+			    {
+				    Image = ImageHelper.ConvertImageToByteArray(SelectedFileNames.First());
+				    SelectedFilePath = SelectedFileNames.First();
+			    }
+			    catch (Exception ex)
+			    {
+				    MessageBox.Show($"Error loading image: {ex.Message}");
+				    SelectedFilePath = "Error loading file";
+			    }
+		    }
+	    }
+	    else
+	    {
+		    SelectedFilePath = "Select File";
+	    }
     }
 
     private bool ValidateAndUpdateModel(string? value)

@@ -49,7 +49,7 @@
 				Text="Attach Screenshot" />
 			<Button
 				Height="25"
-				Content="Select File"
+				Content="{Binding SelectedFilePath}"
 				Command="{Binding SelectFileCommand}" 
 				Style="{StaticResource SendButtonWhite}" />
 			<TextBlock

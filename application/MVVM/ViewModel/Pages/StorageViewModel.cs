@@ -12,5 +12,5 @@ public partial class StorageViewModel : ObservableObject
 	}
 	
 	[RelayCommand]
-	public void TriggerAddStorage() => OpenAddStorage?.Invoke();
+	public void TriggerAddStaff() => OpenAddStorage?.Invoke();
 }

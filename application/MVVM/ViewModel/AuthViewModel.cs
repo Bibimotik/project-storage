@@ -32,6 +32,7 @@ public partial class AuthViewModel : ObservableObject
 	private readonly IMailService _mailService;
 	private readonly RegistrationUserViewModel _registrationUserViewModel;
 	private readonly IParserINNService _parserInnService;
+	private readonly ISupportRepository _supportRepository;
 	private readonly IServiceProvider _serviceProvider;
 
 	public static event Action<string>? Invalided;
@@ -62,6 +63,7 @@ public partial class AuthViewModel : ObservableObject
 		IMailService mailService,
 		RegistrationUserViewModel registrationUserViewModel,
 		IParserINNService parserInnService,
+		ISupportRepository supportRepository,
 		IServiceProvider serviceProvider)
 	{
 		_entityRepository = entityRepository;
@@ -73,6 +75,7 @@ public partial class AuthViewModel : ObservableObject
 		_mailService = mailService;
 		_registrationUserViewModel = registrationUserViewModel;
 		_parserInnService = parserInnService;
+		_supportRepository = supportRepository;
 		_serviceProvider = serviceProvider;
 
 		Login();
@@ -245,12 +248,6 @@ public partial class AuthViewModel : ObservableObject
 			}
 			id = reg.Value.Id;
 		}
-		else if (model.EntityType == EntityType.Support)
-		{
-			//TODO - доделать support
-			//await _entityApi.SendToSupport(model);
-			RegistrationUser();
-		}
 		else
 		{
 			return;
@@ -262,7 +259,6 @@ public partial class AuthViewModel : ObservableObject
 			return;
 		}
 
-		MessageBox.Show("УРА");
 		_navigationService.ShowMain();
 
 		Console.WriteLine("ID: " + id.Value.ToString());
@@ -304,8 +300,6 @@ public partial class AuthViewModel : ObservableObject
 			EntityModel.Reset();
 			return;
 		}
-
-		MessageBox.Show("qweqweqwe");
 
 		Debug.WriteLine($"email: {model.Email}");
 		Debug.WriteLine($"password: {model.Password}");
@@ -511,6 +505,38 @@ public partial class AuthViewModel : ObservableObject
 		}
 
 		return true;
+	}
+	
+	[RelayCommand]
+	private async Task SendSupport()
+	{
+		EntityModel model = EntityModel.Model;
+
+		Console.WriteLine("input code: " + model.InputCode);
+		Console.WriteLine("storage code: " + model.Code);
+		Console.WriteLine("storage code decrypy: " + _securityService.Decrypt(model.Code));
+
+		if (model.InputCode != _securityService.Decrypt(model.Code))
+			return;
+
+		Result<Guid> id = new();
+
+		/*SupportModel supportModel = new(
+			Guid.NewGuid(),
+			null,
+			null,
+			"edjedji",
+			null
+		);
+		*/
+
+		if (id.IsFailure)
+		{
+			Debug.WriteLine(id.Error);
+			return;
+		}
+
+		MessageBox.Show("УРА SUPPORT");
 	}
 
 	private string GenerateRandomCode()

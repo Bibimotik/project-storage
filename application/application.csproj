@@ -110,6 +110,8 @@
       <Resource Include="Assets\Icons\Trending up.png" />
       <None Remove="Assets\Icons\Eye.png" />
       <Resource Include="Assets\Icons\Eye.png" />
+      <None Remove="Assets\Icons\Account.png" />
+      <Resource Include="Assets\Icons\Account.png" />
     </ItemGroup>
 
     <ItemGroup>

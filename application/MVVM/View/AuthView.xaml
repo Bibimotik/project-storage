@@ -219,9 +219,9 @@
 									<Button
 										Margin="0 0 0 7"
 										Visibility="{Binding AuthSendProblem, Converter={StaticResource BoolToVisibilityConverter}}"
-										Content="Send"
+										Content="Send to support"
 										Style="{StaticResource SendButton}"
-										Command="{Binding ConfirmEmailCommand}"
+										Command="{Binding SendSupportCommand}"
 										HorizontalAlignment="Center" />
 
 									<Button
