@@ -273,13 +273,11 @@ public partial class AuthViewModel : ObservableObject
 
 		if (model.Email == "admin" && model.Password == "Admin123")
 		{
-			MessageBox.Show("qweqweqwe");
-
 			Debug.WriteLine($"email: {model.Email}");
 			Debug.WriteLine($"password: {model.Password}");
 
-			_authService.SaveAuthData(EntityModel.Model.Email, EntityModel.Model.Password);
-			_authService.LoadAuthData();
+			await _authService.SaveAuthData(EntityModel.Model.Email, EntityModel.Model.Password);
+			//await _authService.LoadAuthData();
 
 			_navigationService.ShowAdmin();
 			return;
@@ -304,8 +302,8 @@ public partial class AuthViewModel : ObservableObject
 		Debug.WriteLine($"email: {model.Email}");
 		Debug.WriteLine($"password: {model.Password}");
 
-		_authService.SaveAuthData(EntityModel.Model.Email, EntityModel.Model.Password);
-		_authService.LoadAuthData();
+		await _authService.SaveAuthData(EntityModel.Model.Email, EntityModel.Model.Password);
+		//await _authService.LoadAuthData();
 
 		_navigationService.ShowMain();
 	}

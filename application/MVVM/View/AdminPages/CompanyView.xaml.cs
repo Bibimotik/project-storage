@@ -1,31 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows.Controls;
 
+using application.MVVM.Model;
 using application.MVVM.ViewModel.AdminPages;
+using application.Utilities;
 
-namespace application.MVVM.View.AdminPages
+namespace application.MVVM.View.AdminPages;
+
+/// <summary>
+/// Логика взаимодействия для CompanyView.xaml
+/// </summary>
+public partial class CompanyView : UserControl
 {
-    /// <summary>
-    /// Логика взаимодействия для CompanyView.xaml
-    /// </summary>
-    public partial class CompanyView : UserControl
-    {
-        public CompanyView(CompanyViewModel company)
-        {
-            InitializeComponent();
-			DataContext = company;
-        }
-    }
+	public CompanyView(CompanyViewModel company)
+	{
+		InitializeComponent();
+		DataContext = company;
+
+		GenerateColumns();
+	}
+
+	private void GenerateColumns()
+	{
+		var columns = GetColumnsForAttributeHelper.GetColumnsForAttribute<EntityModel>(typeof(RequiredForCompanyTableAttribute));
+		foreach (var column in columns)
+		{
+			MyDataGrid.Columns.Add(column);
+		}
+	}
 }

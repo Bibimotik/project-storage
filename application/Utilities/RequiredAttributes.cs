@@ -9,3 +9,6 @@ public class RequiredForLoginAttribute : Attribute { }
 public class RequiredForCompany1Attribute : Attribute { }
 public class RequiredForCompany2Attribute : Attribute { }
 public class RequiredForSupportAttribute : Attribute { }
+
+public class RequiredForUserTableAttribute : Attribute { }
+public class RequiredForCompanyTableAttribute : Attribute { }

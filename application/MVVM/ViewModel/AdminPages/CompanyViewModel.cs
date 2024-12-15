@@ -1,18 +1,23 @@
-﻿using application.MVVM.Model;
-using application.Repositories;
+﻿using System.Windows.Controls;
+using System.Windows.Data;
+
+using application.Abstraction.Interfaces;
+using application.MVVM.Model;
 
 using CommunityToolkit.Mvvm.ComponentModel;
+
+using static application.Abstraction.EntityAbstraction;
 
 namespace application.MVVM.ViewModel.AdminPages;
 
 public partial class CompanyViewModel : ObservableObject
 {
-	private readonly TablesRepository _tablesRepository;
+	private readonly ITablesRepository _tablesRepository;
 
 	[ObservableProperty]
 	private IList<EntityModel> data = [];
 
-	public CompanyViewModel(TablesRepository tablesRepository)
+	public CompanyViewModel(ITablesRepository tablesRepository)
 	{
 		_tablesRepository = tablesRepository;
 
@@ -21,6 +26,6 @@ public partial class CompanyViewModel : ObservableObject
 
 	private async Task LoadData()
 	{
-		Data = await _tablesRepository.GetCompanies();
+		Data = await _tablesRepository.GetData<EntityModel>(TableNames.Company);
 	}
 }

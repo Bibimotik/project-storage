@@ -2,7 +2,6 @@
 
 using application.Abstraction;
 using application.Abstraction.Interfaces;
-using application.MVVM.Model;
 using application.MVVM.View;
 using application.MVVM.View.AdminPages;
 using application.MVVM.View.Auth;
@@ -29,7 +28,7 @@ public partial class App : Application
 {
 	private static IServiceProvider? _serviceProvider;
 
-	protected override void OnStartup(StartupEventArgs e)
+	protected override async void OnStartup(StartupEventArgs e)
 	{
 		base.OnStartup(e);
 
@@ -68,7 +67,7 @@ public partial class App : Application
 		services.AddTransient<IStorageRepository, StorageRepository>();
 		services.AddTransient<IStorageProductsRepository, StorageProductsRepository>();
 		services.AddTransient<IAddProductRepository, AddProductRepository>();
-		services.AddTransient<TablesRepository>();
+		services.AddTransient<ITablesRepository, TablesRepository>();
 
 		services.AddSingleton<App>();
 
@@ -89,39 +88,48 @@ public partial class App : Application
 
 		services.AddScoped<AccountViewModel>();
 		services.AddScoped<AccountView>();
-		
+
 		services.AddTransient<StatisticsViewModel>();
 		services.AddScoped<StatisticsView>();
-		
+
 		services.AddTransient<SalesViewModel>();
 		services.AddScoped<SalesView>();
-		
+
 		services.AddTransient<StaffViewModel>();
 		services.AddScoped<StaffView>();
-		
+
 		services.AddTransient<AddStaffViewModel>();
 		services.AddScoped<AddStaffView>();
-		
+
 		services.AddTransient<RolesViewModel>();
 		services.AddScoped<RolesView>();
-		
+
 		services.AddTransient<StorageProductsViewModel>();
 		services.AddScoped<StorageProductsView>();
-		
+
 		services.AddTransient<AddProductViewModel>();
 		services.AddScoped<AddProductView>();
 
 		services.AddTransient<CompanyView>();
 		services.AddTransient<CompanyViewModel>();
 		services.AddTransient<EntityManagersView>();
+		services.AddTransient<EntityManagersViewModel>();
 		services.AddTransient<EntityProductView>();
+		services.AddTransient<EntityProductViewModel>();
 		services.AddTransient<EntityProductOrderView>();
+		services.AddTransient<EntityProductOrderViewModel>();
 		services.AddTransient<EntityStorageView>();
+		services.AddTransient<EntityStorageViewModel>();
 		services.AddTransient<EntityView>();
+		services.AddTransient<EntityViewModel>();
 		services.AddTransient<OrderView>();
+		services.AddTransient<OrderViewModel>();
 		services.AddTransient<ProductView>();
+		services.AddTransient<ProductViewModel>();
 		services.AddTransient<MVVM.View.AdminPages.SupportView>();
+		services.AddTransient<MVVM.ViewModel.AdminPages.SupportViewModel>();
 		services.AddTransient<UserView>();
+		services.AddTransient<UserViewModel>();
 
 		services.AddTransient<MVVM.ViewModel.Pages.SupportViewModel>();
 		services.AddScoped<SupportMainView>();
@@ -144,7 +152,7 @@ public partial class App : Application
 		switch (authService.IsUserAuthenticated())
 		{
 			case true:
-				var (email, password) = authService.LoadAuthData();
+				var (email, password) = await authService.LoadAuthData();
 
 				if (email == "admin" && password == "Admin123")
 					navigationService.ShowAdmin();

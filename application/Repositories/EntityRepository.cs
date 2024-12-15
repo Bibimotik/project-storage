@@ -183,4 +183,22 @@ public class EntityRepository : IEntityRepository
 			}
 		}, _databaseService);
 	}
+
+	public async Task<EntityTableModel?> GetEntity(Guid id)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			string userQuery = $@"SELECT 
+                id as {nameof(EntityTableModel.Id)},
+                type as {nameof(EntityTableModel.Type)},
+                type_id as {nameof(EntityTableModel.Type_ID)}
+                FROM entity
+                WHERE type_id = @{nameof(EntityTableModel.Type_ID)}";
+
+			var entity = await dbConnection.QuerySingleOrDefaultAsync<EntityTableModel>(new CommandDefinition(userQuery, new { Type_ID = id }));
+
+			return entity;
+
+		}, _databaseService);
+	}
 }
