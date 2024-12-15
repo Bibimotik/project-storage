@@ -56,12 +56,10 @@ public class EntityAbstraction
 	{
 		[Description("company")]
 		Company,
-		[Description("company")]
+		[Description("entity")]
 		Entity,
 		[Description("entity_managers")]
 		Entity_managers,
-		[Description("entity_product")]
-		Entity_product,
 		[Description("entity_product_order")]
 		Entity_product_order,
 		[Description("entity_storage")]

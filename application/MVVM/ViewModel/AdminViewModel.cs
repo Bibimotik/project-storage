@@ -10,8 +10,6 @@ using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.Extensions.DependencyInjection;
 
-using EntityProductView = application.MVVM.View.AdminPages.EntityProductView;
-
 namespace application.MVVM.ViewModel;
 
 public partial class AdminViewModel : ObservableObject
@@ -50,8 +48,6 @@ public partial class AdminViewModel : ObservableObject
 	private void Company() => CurrentView = _serviceProvider.GetRequiredService<CompanyView>();
 	[RelayCommand]
 	private void EntityManagers() => CurrentView = _serviceProvider.GetRequiredService<EntityManagersView>();
-	[RelayCommand]
-	private void EntityProduct() => CurrentView = _serviceProvider.GetRequiredService<EntityProductView>();
 	[RelayCommand]
 	private void EntityProductOrder() => CurrentView = _serviceProvider.GetRequiredService<EntityProductOrderView>();
 	[RelayCommand]

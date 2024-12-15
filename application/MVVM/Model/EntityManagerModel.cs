@@ -6,6 +6,11 @@ public class EntityManagerModel
 	public Guid User_ID { get; set; }
 	public string Access { get; set; } = string.Empty;
 
+	public EntityManagerModel()
+	{
+
+	}
+
 	public EntityManagerModel(Guid id, Guid user_ID, string access)
 	{
 		Id = id;

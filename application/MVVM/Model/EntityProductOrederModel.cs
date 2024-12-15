@@ -7,6 +7,11 @@ public class EntityProductOrederModel
 	public Guid Order_ID { get; set; }
 	public int Count { get; set; }
 
+	public EntityProductOrederModel()
+	{
+
+	}
+
 	public EntityProductOrederModel(Guid id, Guid entityProductId, Guid orderId, int count)
 	{
 		ID = id;

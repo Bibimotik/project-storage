@@ -22,7 +22,36 @@
 			AutoGenerateColumns="False"
 			HorizontalAlignment="Stretch"
 			VerticalAlignment="Stretch"
-			Margin="10,40,10,10" />
+			CanUserAddRows="False"
+			CanUserDeleteRows="False"
+			IsReadOnly="False"
+			Margin="10,40,10,10">
+
+			<DataGrid.Columns>
+				<DataGridTemplateColumn
+					Header="Actions">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<StackPanel
+								Orientation="Horizontal">
+								<Button
+									Style="{StaticResource SendButton}"
+									Content="Edit"
+									Margin="0 0 10 0"
+									Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+
+								<Button
+									Style="{StaticResource SendButtonRed}"
+									Content="Delete"
+									Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+									CommandParameter="{Binding Id}" />
+							</StackPanel>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+			</DataGrid.Columns>
+		</DataGrid>
+
 	</StackPanel>
 
 </UserControl>

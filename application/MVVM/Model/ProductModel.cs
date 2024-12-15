@@ -1,22 +1,22 @@
-using System.CodeDom;
-
 namespace application.MVVM.Model;
 
 public class ProductModel
 {
 	public Guid Id { get; set; }
 	public Guid EntityId { get; set; }
-	public string Code { get; set; } = null!;
-	public string Title { get; set; } = null!;
-	public string Unit { get; set; } = null!;
+	public string Code { get; set; } = string.Empty;
+	public string Title { get; set; } = string.Empty;
+	public string Unit { get; set; } = string.Empty;
 	public double Price { get; set; }
-	public byte[] Image { get; set; }
+	public byte[] Image { get; set; } = [];
 	public Guid Entity_Storage_ID { get; set; }
 	public double Available_For_Shipment { get; set; }
-	public string Party { get; set; } = null!;
+	public string Party { get; set; } = string.Empty;
 	public DateTime Implementation_Period { get; set; }
 	public DateTime Expiration_Date { get; set; }
-	
+
+	public ProductModel() { }
+
 	public ProductModel(
 		Guid id,
 		Guid entityId,
@@ -44,6 +44,4 @@ public class ProductModel
 		Implementation_Period = implementationPeriod;
 		Expiration_Date = expirationDate;
 	}
-
-	public ProductModel() { }
 }

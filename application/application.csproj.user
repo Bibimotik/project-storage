@@ -17,9 +17,6 @@
     <Compile Update="MVVM\View\AdminPages\EntityProductOrderView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="MVVM\View\AdminPages\EntityProductView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="MVVM\View\AdminPages\OrderView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -68,9 +65,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MVVM\View\AdminPages\EntityProductOrderView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="MVVM\View\AdminPages\EntityProductView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MVVM\View\AdminPages\OrderView.xaml">

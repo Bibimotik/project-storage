@@ -1,31 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows.Controls;
 
+using application.MVVM.Model;
 using application.MVVM.ViewModel.AdminPages;
+using application.Utilities;
 
-namespace application.MVVM.View.AdminPages
+namespace application.MVVM.View.AdminPages;
+
+/// <summary>
+/// Логика взаимодействия для EntityStorageView.xaml
+/// </summary>
+public partial class EntityStorageView : UserControl
 {
-    /// <summary>
-    /// Логика взаимодействия для EntityStorageView.xaml
-    /// </summary>
-    public partial class EntityStorageView : UserControl
-    {
-        public EntityStorageView(EntityStorageViewModel vm)
-        {
-			DataContext = vm;
-            InitializeComponent();
-        }
-    }
+	public EntityStorageView(EntityStorageViewModel vm)
+	{
+		DataContext = vm;
+		InitializeComponent();
+	}
 }

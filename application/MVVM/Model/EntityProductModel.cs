@@ -8,9 +8,14 @@ public class EntityProductModel
 	public double Available_For_Shipment { get; set; }
 	public int In_Shipping_Area { get; set; }
 	public int In_Reserve { get; set; }
-	public string Party { get; set; } = null!;
+	public string Party { get; set; } = string.Empty;
 	public DateTime Implementation_Period { get; set; }
 	public DateTime Expiration_Date { get; set; }
+
+	public EntityProductModel()
+	{
+
+	}
 
 	public EntityProductModel(
 		Guid id,

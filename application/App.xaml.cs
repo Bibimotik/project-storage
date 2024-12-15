@@ -20,8 +20,6 @@ using DotNetEnv;
 
 using Microsoft.Extensions.DependencyInjection;
 
-using EntityProductView = application.MVVM.View.AdminPages.EntityProductView;
-
 namespace application;
 
 public partial class App : Application
@@ -59,7 +57,7 @@ public partial class App : Application
 		services.AddSingleton<ISecurityService, SecurityService>();
 		services.AddTransient<RegistrationUserViewModel>();
 		services.AddTransient<IParserINNService, ParserINNService>();
-		services.AddScoped<IEntityService, EntityService>();
+		services.AddTransient<IEntityService, EntityService>();
 		services.AddTransient<IEntityStorageRepository, EntityStorageRepository>();
 		services.AddTransient<ISupportRepository, SupportRepository>();
 		services.AddTransient<IAddStaffRepository, AddStaffRepository>();
@@ -114,8 +112,6 @@ public partial class App : Application
 		services.AddTransient<CompanyViewModel>();
 		services.AddTransient<EntityManagersView>();
 		services.AddTransient<EntityManagersViewModel>();
-		services.AddTransient<EntityProductView>();
-		services.AddTransient<EntityProductViewModel>();
 		services.AddTransient<EntityProductOrderView>();
 		services.AddTransient<EntityProductOrderViewModel>();
 		services.AddTransient<EntityStorageView>();
@@ -147,8 +143,6 @@ public partial class App : Application
 		ISecurityService securityService = _serviceProvider.GetRequiredService<ISecurityService>();
 		securityService.GenerateKeys();
 
-		//authService.ClearAuthData();
-
 		switch (authService.IsUserAuthenticated())
 		{
 			case true:
@@ -175,9 +169,7 @@ public partial class App : Application
 	private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
 	{
 		if (e.ExceptionObject is Exception ex)
-		{
 			MessageBox.Show($"Непредвиденная ошибка: {ex.Message}", "Критическая ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-		}
 	}
 
 	private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)

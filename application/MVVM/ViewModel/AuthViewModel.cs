@@ -259,11 +259,12 @@ public partial class AuthViewModel : ObservableObject
 			return;
 		}
 
+		await _authService.SaveAuthData(EntityModel.Model.Email, EntityModel.Model.Password);
+
 		_navigationService.ShowMain();
 
 		Console.WriteLine("ID: " + id.Value.ToString());
 	}
-	// TODO - почему название ...Button
 	[RelayCommand]
 	private async Task LoginButton()
 	{

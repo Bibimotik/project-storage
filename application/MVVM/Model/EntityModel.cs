@@ -113,7 +113,11 @@ public class EntityModel
 	public static EntityModel Model { get; set; } = new();
 	public static EntityModel OurUserModel { get; set; } = new();
 
-	public EntityModel() { }
+	public EntityModel()
+	{
+
+	}
+
 	public EntityModel(
 		Guid id,
 		string firstName,

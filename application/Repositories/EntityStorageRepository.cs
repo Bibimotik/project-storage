@@ -12,7 +12,7 @@ namespace application.Repository;
 public class EntityStorageRepository : IEntityStorageRepository
 {
 	private readonly IDatabaseService _databaseService;
-	
+
 	public EntityStorageRepository(IDatabaseService databaseService) => _databaseService = databaseService;
 
 	public async Task<Guid> InsertEntityStorage(Guid entityId, EntityStorageModel storageModel)
@@ -22,13 +22,13 @@ public class EntityStorageRepository : IEntityStorageRepository
 			string query = $@"INSERT INTO ENTITY_STORAGE
                         (ID, Entity_ID, Point, Country, City, Address, Index, Is_Deleted)
                         VALUES (
-                         @{nameof(EntityStorageModel.Id)},
-                         @EntityId,
-                         @{nameof(EntityStorageModel.Point)},
-                         @{nameof(EntityStorageModel.Country)},
-                         @{nameof(EntityStorageModel.City)},
-                         @{nameof(EntityStorageModel.Address)},
-                         @{nameof(EntityStorageModel.Index)},
+                        @{nameof(EntityStorageModel.Id)},
+                        @EntityId,
+                        @{nameof(EntityStorageModel.Point)},
+                        @{nameof(EntityStorageModel.Country)},
+                        @{nameof(EntityStorageModel.City)},
+                        @{nameof(EntityStorageModel.Address)},
+                        @{nameof(EntityStorageModel.Index)},
                          FALSE)
                         RETURNING ID";
 

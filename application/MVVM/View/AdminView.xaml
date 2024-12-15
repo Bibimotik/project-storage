@@ -140,18 +140,6 @@
 						Style="{StaticResource MenuBorder}">
 						<RadioButton
 							Margin="10 5 0 5"
-							Command="{Binding EntityProductCommand}"
-							x:Name="EntityProduct"
-							Style="{StaticResource MenuRadioButton}"
-							Checked="RadioButton_Checked"
-							Content="EntityProduct"
-							Tag="../../Assets/Icons/Box.png" />
-					</Border>
-
-					<Border
-						Style="{StaticResource MenuBorder}">
-						<RadioButton
-							Margin="10 5 0 5"
 							Command="{Binding EntityProductOrderCommand}"
 							x:Name="EntityProductOrder"
 							Style="{StaticResource MenuRadioButton}"
