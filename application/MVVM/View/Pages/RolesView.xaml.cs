@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-
 using application.MVVM.Model;
 using application.MVVM.ViewModel.Pages;
 
@@ -25,7 +24,6 @@ namespace application.MVVM.View.Pages
             string userId = "c60a90e1-da0a-4f02-bbf0-388052e0abdb";
             await _viewModel.LoadRolesAsync(Guid.Parse(userId));
 
-            // После получения данных обновляем UI
             foreach (var role in _viewModel.Roles)
             {
                 var roleCard = CreateRoleCard(role);
@@ -33,17 +31,20 @@ namespace application.MVVM.View.Pages
             }
         }
 
-        // Метод для создания карточки роли
-        private StackPanel CreateRoleCard(RoleDataResult role)
+        private Border CreateRoleCard(RoleDataResult role)
         {
-            var roleCard = new StackPanel
+            var border = new Border
             {
-                Orientation = Orientation.Vertical,
+                Style = (Style)FindResource("CardBorderStyle"),
                 Margin = new System.Windows.Thickness(0, 10, 0, 10),
-                Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightGray)
+                Padding = new System.Windows.Thickness(10)
             };
 
-            var id = new TextBlock { Text = role.Id.ToString(), FontSize = 20, Visibility = Visibility.Hidden};
+            var roleCard = new StackPanel
+            {
+                Orientation = Orientation.Vertical
+            };
+
             var firstText = new TextBlock { Text = role.First, FontSize = 20 };
             var secondText = new TextBlock { Text = role.Second, FontSize = 16 };
             var thirdText = new TextBlock { Text = role.Third, FontSize = 14 };
@@ -54,7 +55,15 @@ namespace application.MVVM.View.Pages
             roleCard.Children.Add(thirdText);
             roleCard.Children.Add(accessText);
 
-            return roleCard;
+            roleCard.MouseLeftButtonUp += (sender, e) =>
+            {
+	            //_viewModel.TriggerShowRole(role.Id);
+            };
+
+            // Устанавливаем StackPanel как дочерний элемент Border
+            border.Child = roleCard;
+
+            return border;
         }
     }
 }

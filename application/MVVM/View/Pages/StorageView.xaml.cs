@@ -1,62 +1,126 @@
+using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using application.MVVM.Model;
 using application.MVVM.ViewModel.Pages;
 
-namespace application.MVVM.View.Pages;
-
-public partial class StorageView : UserControl
+namespace application.MVVM.View.Pages
 {
-    private readonly StorageViewModel _viewModel;
-
-    public StorageView(StorageViewModel viewModel)
+    public partial class StorageView : UserControl
     {
-        _viewModel = viewModel;
-        DataContext = viewModel;
-        InitializeComponent();
+        private readonly StorageViewModel _viewModel;
+        private DispatcherTimer _searchTimer;
 
-        LoadStorageData();
-    }
-
-    private async void LoadStorageData()
-    {
-        Guid entityId = Guid.Parse("52d6177b-bac0-447d-9ff3-fdf10e344b6e");
-        await _viewModel.LoadStorageAsync(entityId);
-
-        foreach (var storage in _viewModel.Storage)
+        public StorageView(StorageViewModel viewModel)
         {
-            var storageCard = CreateStorageCard(storage);
-            StoragePanel.Children.Add(storageCard);
+            _viewModel = viewModel;
+            DataContext = viewModel;
+            InitializeComponent();
+
+            LoadStorageData();
+
+            _searchTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(0.5)
+            };
+            _searchTimer.Tick += OnSearchTimerTick;
         }
-    }
 
-    private StackPanel CreateStorageCard(StorageDataResult storage)
-    {
-        var storageCard = new StackPanel
+        private async void LoadStorageData()
         {
-            Orientation = Orientation.Vertical,
-            Margin = new System.Windows.Thickness(0, 10, 0, 10),
-            Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightGray)
-        };
+            Guid entityId = Guid.Parse("52d6177b-bac0-447d-9ff3-fdf10e344b6e");
+            await _viewModel.LoadStorageAsync(entityId);
 
-        var id = new TextBlock { Text = $"{storage.Id}", Visibility = Visibility.Hidden};
-        var pointText = new TextBlock { Text = $"Point: {storage.Point}", FontSize = 20 };
-        var countryText = new TextBlock { Text = $"Country: {storage.Country}", FontSize = 16 };
-        var cityText = new TextBlock { Text = $"City: {storage.City}", FontSize = 16 };
-        var addressText = new TextBlock { Text = $"Address: {storage.Address}", FontSize = 14 };
-        var indexText = new TextBlock { Text = $"Index: {storage.Index}", FontSize = 14 };
+            foreach (var storage in _viewModel.Storage)
+            {
+                var storageCard = CreateStorageCard(storage);
+                StoragePanel.Children.Add(storageCard);
+            }
+        }
 
-        storageCard.Children.Add(pointText);
-        storageCard.Children.Add(countryText);
-        storageCard.Children.Add(cityText);
-        storageCard.Children.Add(addressText);
-        storageCard.Children.Add(indexText);
+        private Border CreateStorageCard(StorageDataResult storage)
+        {
+            var border = new Border
+            {
+                Style = (Style)FindResource("CardBorderStyle"),
+                Margin = new Thickness(0, 10, 0, 10),
+                Padding = new Thickness(10)
+            };
+
+            var storageCard = new StackPanel
+            {
+                Orientation = Orientation.Vertical
+            };
+
+            var id = new TextBlock { Text = $"{storage.Id}", Visibility = Visibility.Hidden };
+            var pointText = new TextBlock { Text = $"Point: {storage.Point}", FontSize = 20 };
+            var countryText = new TextBlock { Text = $"Country: {storage.Country}", FontSize = 16 };
+            var cityText = new TextBlock { Text = $"City: {storage.City}", FontSize = 16 };
+            var addressText = new TextBlock { Text = $"Address: {storage.Address}", FontSize = 14 };
+            var indexText = new TextBlock { Text = $"Index: {storage.Index}", FontSize = 14 };
+
+            storageCard.Children.Add(pointText);
+            storageCard.Children.Add(countryText);
+            storageCard.Children.Add(cityText);
+            storageCard.Children.Add(addressText);
+            storageCard.Children.Add(indexText);
+            
+            storageCard.MouseLeftButtonUp += (sender, e) =>
+            {
+                _viewModel.TriggerShowStorage(storage.Id);
+            };
+
+            border.Child = storageCard;
+
+            return border;
+        }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _searchTimer.Stop();
+            _searchTimer.Start();
+        }
+
+        private async void OnSearchTimerTick(object sender, EventArgs e)
+        {
+            _searchTimer.Stop();
+
+            var searchQuery = SearchTextBox.Text;
+
+            Guid entityId = Guid.Parse("52d6177b-bac0-447d-9ff3-fdf10e344b6e");
+            await _viewModel.LoadStorageAsync(entityId, searchQuery);
+
+            StoragePanel.Children.Clear();
+            foreach (var storage in _viewModel.Storage)
+            {
+                var storageCard = CreateStorageCard(storage);
+                StoragePanel.Children.Add(storageCard);
+            }
+        }
         
-        storageCard.MouseLeftButtonUp += (sender, e) =>
+        private async void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-	        _viewModel.TriggerShowStorage(storage.Id);
-        };
+	        if (e.AddedItems.Count > 0)
+	        {
+		        var selectedOption = ((ComboBoxItem)e.AddedItems[0]).Content.ToString();
+		        await _viewModel.OnSortChanged(selectedOption);
+        
+		        await ReloadStorageData();
+	        }
+        }
 
-        return storageCard;
+        private async Task ReloadStorageData()
+        {
+	        Guid entityId = Guid.Parse("52d6177b-bac0-447d-9ff3-fdf10e344b6e");
+	        await _viewModel.LoadStorageAsync(entityId);
+	        
+	        StoragePanel.Children.Clear();
+	        foreach (var storage in _viewModel.Storage)
+	        {
+		        var storageCard = CreateStorageCard(storage);
+		        StoragePanel.Children.Add(storageCard);
+	        }
+        }
     }
 }

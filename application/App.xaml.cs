@@ -67,7 +67,7 @@ public partial class App : Application
 		services.AddTransient<IRolesRepository, RolesRepository>();
 		services.AddTransient<IStorageRepository, StorageRepository>();
 		services.AddTransient<IStorageProductsRepository, StorageProductsRepository>();
-		services.AddTransient<IAddEntityProductRepository, AddEntityProductRepository>();
+		services.AddTransient<IAddProductRepository, AddProductRepository>();
 		services.AddTransient<TablesRepository>();
 
 		services.AddSingleton<App>();
@@ -108,8 +108,8 @@ public partial class App : Application
 		services.AddTransient<StorageProductsViewModel>();
 		services.AddScoped<StorageProductsView>();
 		
-		services.AddTransient<AddEntityProductViewModel>();
-		services.AddScoped<AddEntityProductView>();
+		services.AddTransient<AddProductViewModel>();
+		services.AddScoped<AddProductView>();
 
 		services.AddTransient<CompanyView>();
 		services.AddTransient<CompanyViewModel>();

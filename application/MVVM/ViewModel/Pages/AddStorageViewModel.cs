@@ -73,5 +73,8 @@ public partial class AddStorageViewModel : ObservableObject
 	}
 
 	[RelayCommand]
-	public void TriggerBackStorage() => OpenStorage?.Invoke();
+	public void TriggerBackStorage()
+	{
+		OpenStorage?.Invoke();
+	}
 }

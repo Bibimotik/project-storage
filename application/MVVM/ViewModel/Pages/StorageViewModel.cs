@@ -8,35 +8,57 @@ namespace application.MVVM.ViewModel.Pages;
 
 public partial class StorageViewModel : ObservableObject
 {
-	private readonly IStorageRepository _storageRepository;
-	public ObservableCollection<StorageDataResult> Storage { get; } = new();
+    private readonly IStorageRepository _storageRepository;
+    public ObservableCollection<StorageDataResult> Storage { get; } = new();
+    private string _orderBy = "";
 
-	public static event Action? OpenAddStorage;
-	public static event Action? OpenStorageProducts;
+    public static event Action? OpenAddStorage;
+    public static event Action<Guid>? OpenStorageProducts;
 
-	public StorageViewModel(IStorageRepository storageRepository)
-	{
-		_storageRepository = storageRepository;
-	}
+    public StorageViewModel(IStorageRepository storageRepository)
+    {
+        _storageRepository = storageRepository;
+    }
 
-	public async Task LoadStorageAsync(Guid entityId)
-	{
-		var storageData = await _storageRepository.GetStorageDataAsync(entityId);
-		Storage.Clear();
+    public async Task LoadStorageAsync(Guid entityId, string searchQuery = "")
+    {
+        var storageData = await _storageRepository.GetStorageDataAsync(entityId, searchQuery, _orderBy);
+        Storage.Clear();
 
-		foreach (var storage in storageData)
-		{
-			Storage.Add(storage);
-		}
-	}
+        foreach (var storage in storageData)
+        {
+            Storage.Add(storage);
+        }
+    }
 
-	[RelayCommand]
-	public void TriggerAddStorage() => OpenAddStorage?.Invoke();
-	[RelayCommand]
-	public void TriggerShowStorage(Guid storageId)
-	{
-		OpenStorageProducts?.Invoke();
-		SelectedStorageId = storageId;
-	}
-	public Guid SelectedStorageId { get; private set; }
+    [RelayCommand]
+    public void TriggerAddStorage() => OpenAddStorage?.Invoke();
+
+    [RelayCommand]
+    public void TriggerShowStorage(Guid storageId)
+    {
+        OpenStorageProducts?.Invoke(storageId);
+    }
+
+    [RelayCommand]
+    public async Task OnSortChanged(string sortOption)
+    {
+        if (sortOption == "По алфавиту от А до Я")
+        {
+            _orderBy = "ASC";
+        }
+        else if (sortOption == "По алфавиту от Я до А")
+        {
+            _orderBy = "DESC";
+        }
+        else
+        {
+            _orderBy = "";
+        }
+
+        Guid entityId = Guid.Parse("52d6177b-bac0-447d-9ff3-fdf10e344b6e");
+        await LoadStorageAsync(entityId);
+    }
+
+    public Guid SelectedStorageId { get; private set; }
 }
