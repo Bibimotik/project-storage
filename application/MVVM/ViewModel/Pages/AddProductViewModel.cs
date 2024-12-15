@@ -109,6 +109,7 @@ public partial class AddProductViewModel : ObservableObject
     [RelayCommand]
     public async Task AddProductAsync()
     {
+	    MessageBox.Show(EntityModel.OurUserModel.EntityId.ToString());
 	    try
 	    {
 		    if (_storageId == Guid.Empty)
@@ -119,20 +120,20 @@ public partial class AddProductViewModel : ObservableObject
 
 		    ProductModel product = new (
 			    Guid.NewGuid(),
-			    _storageId,
+			    EntityModel.OurUserModel.EntityId,
 			    Code,
 			    Title,
 			    Unit,
 			    Price,
 			    Image,
-			    EntityModel.OurUserModel.EntityId,
+			    _storageId,
 			    AvailableForShipment,
 			    Party,
 			    ImplementationPeriod,
 			    ExpirationDate
 		    );
 
-		    Guid productId = await _productRepository.InsertProduct(_storageId, product);
+		    Guid productId = await _productRepository.InsertProduct(EntityModel.OurUserModel.EntityId, product);
 
 		    MessageBox.Show($"Product successfully added! ID: {productId}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
