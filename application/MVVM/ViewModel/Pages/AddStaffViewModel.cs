@@ -33,7 +33,6 @@ public partial class AddStaffViewModel : ObservableObject
 	[RelayCommand]
 	public async Task AddStaffAsync()
 	{
-		MessageBox.Show("edledlpedlp");
 		if (string.IsNullOrWhiteSpace(User_id))
 		{
 			//TODO - можно дописать красивую валидацию

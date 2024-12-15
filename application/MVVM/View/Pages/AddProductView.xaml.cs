@@ -15,7 +15,5 @@ public partial class AddProductView : UserControl
 		InitializeComponent();
 
 		_viewModel.SetStorageId(storageId);
-
-		MessageBox.Show(storageId.ToString());
 	}
 }

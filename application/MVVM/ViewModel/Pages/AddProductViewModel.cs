@@ -109,7 +109,18 @@ public partial class AddProductViewModel : ObservableObject
     [RelayCommand]
     public async Task AddProductAsync()
     {
-	    MessageBox.Show(EntityModel.OurUserModel.EntityId.ToString());
+	    if (string.IsNullOrWhiteSpace(Code) ||
+	        string.IsNullOrWhiteSpace(Title) ||
+	        string.IsNullOrWhiteSpace(Unit) ||
+	        Price <= 0 ||
+	        AvailableForShipment <= 0 ||
+	        string.IsNullOrWhiteSpace(Party) ||
+	        ImplementationPeriod == default ||
+	        ExpirationDate == default)
+	    {
+		    MessageBox.Show("Please fill in all required fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+		    return;
+	    }
 	    try
 	    {
 		    if (_storageId == Guid.Empty)

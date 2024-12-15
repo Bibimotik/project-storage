@@ -14,7 +14,7 @@
 			Content="Your roles"/>
 		
 		<ScrollViewer>
-			<StackPanel x:Name="RolesPanel">
+			<StackPanel x:Name="RolesPanel" Height="550">
 				
 			</StackPanel>
 		</ScrollViewer>
