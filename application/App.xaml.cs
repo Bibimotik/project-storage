@@ -65,6 +65,7 @@ public partial class App : Application
 		services.AddTransient<IStorageRepository, StorageRepository>();
 		services.AddTransient<IStorageProductsRepository, StorageProductsRepository>();
 		services.AddTransient<IAddProductRepository, AddProductRepository>();
+		services.AddTransient<IAddSaleRepository, AddSaleRepository>();
 		services.AddTransient<ITablesRepository, TablesRepository>();
 
 		services.AddSingleton<App>();
@@ -107,6 +108,9 @@ public partial class App : Application
 
 		services.AddTransient<AddProductViewModel>();
 		services.AddScoped<AddProductView>();
+		
+		services.AddTransient<AddSaleViewModel>();
+		services.AddScoped<AddSaleView>();
 
 		services.AddTransient<CompanyView>();
 		services.AddTransient<CompanyViewModel>();

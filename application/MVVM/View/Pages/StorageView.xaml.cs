@@ -32,7 +32,6 @@ namespace application.MVVM.View.Pages
 			await ReloadStorageData();
 		}
 
-
 		private async void LoadStorageData()
 		{
 			await _viewModel.LoadStorageAsync(EntityModel.OurUserModel.EntityId);

@@ -41,10 +41,11 @@
 			Command="{Binding AddEntityCommand}" />
 
 		<Button 
-			Content="Back" 
-			Foreground="#ffffff"
+			Content="Back"
+			Width="80"
+			Height="25"
 			VerticalAlignment="Center" 
 			Command="{Binding TriggerBackStorageCommand}"
-			Style="{StaticResource SendButton}" />
+			Style="{StaticResource SendButtonWhite}" />
 	</StackPanel>
 </UserControl>

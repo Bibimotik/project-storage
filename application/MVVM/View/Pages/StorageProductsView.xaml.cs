@@ -21,7 +21,6 @@ namespace application.MVVM.View.Pages
 
 		private async void LoadProductData(Guid storageId)
 		{
-			StorageProductsPanel.Children.Clear(); // Очистка списка перед обновлением
 			await _viewModel.LoadProductsAsync(storageId);
 
 			foreach (var product in _viewModel.Products)

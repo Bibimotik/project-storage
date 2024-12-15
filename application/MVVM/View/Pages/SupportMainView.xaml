@@ -31,10 +31,12 @@
 			<TextBlock
 				Margin="0 0 0 8"
 				Text="Message" />
-			<TextBox
-				Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
-				Style="{StaticResource AuthInput}" 
-				MaxLength="100" />
+			<TextBox Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
+			         MaxLength="600"
+			         TextWrapping="Wrap" 
+			         AcceptsReturn="True" 
+			         Height="65" 
+			         Style="{StaticResource AuthInput}"/>
 			<TextBlock
 				Visibility="{Binding IsInvalidMessage, Converter={StaticResource BoolToVisibilityConverter}}"
 				Foreground="red"

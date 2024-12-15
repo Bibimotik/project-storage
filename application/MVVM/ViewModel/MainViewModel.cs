@@ -34,6 +34,8 @@ public partial class MainViewModel : ObservableObject
 		StaffViewModel.OpenAddStaff += OnOpenAddStaff;
 		AddStaffViewModel.OpenStaff += OnOpenStaff;
 		StorageProductsViewModel.OpenAddProduct += OnOpenAddProduct;
+		SalesViewModel.OpenAddSale += OnOpenAddSale;
+		AddSaleViewModel.OpenSales += OnOpenSales;
 	}
 
 	private bool isMenuExpanded = false;
@@ -73,6 +75,8 @@ public partial class MainViewModel : ObservableObject
 	private void OnOpenStorage() => CurrentView = _serviceProvider.GetRequiredService<StorageView>();
 	private void OnOpenAddStaff() => CurrentView = _serviceProvider.GetRequiredService<AddStaffView>();
 	private void OnOpenStaff() => CurrentView = _serviceProvider.GetRequiredService<StaffView>();
+	private void OnOpenAddSale() => CurrentView = _serviceProvider.GetRequiredService<AddSaleView>();
+	private void OnOpenSales() => CurrentView = _serviceProvider.GetRequiredService<SalesView>();
 	private void OnOpenStorageProducts(Guid storageId)
 	{
 		var viewModel = _serviceProvider.GetRequiredService<StorageProductsViewModel>();

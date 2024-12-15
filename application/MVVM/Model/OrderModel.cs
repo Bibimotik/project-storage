@@ -3,6 +3,7 @@ namespace application.MVVM.Model;
 public class OrderModel
 {
 	public Guid ID { get; set; }
+	public Guid Entity_ID { get; set; }
 	public Guid Entity_Managers_ID { get; set; }
 	public string INN { get; set; } = string.Empty;
 	public string KPP { get; set; } = string.Empty;
@@ -12,6 +13,7 @@ public class OrderModel
 	public string Payment_Account { get; set; } = string.Empty;
 	public string ToBIK { get; set; } = string.Empty;
 	public string ToBank { get; set; } = string.Empty;
+	public string ToCor_Account { get; set; } = string.Empty;
 	public string FromCor_Account { get; set; } = string.Empty;
 	public string FromBIK { get; set; } = string.Empty;
 	public string FromBank { get; set; } = string.Empty;
@@ -26,6 +28,7 @@ public class OrderModel
 	public string TransporterShortName { get; set; } = string.Empty;
 	public string Comment { get; set; } = string.Empty;
 	public double VAT { get; set; }
+	public string FullStorageName { get; set; }
 
 	public OrderModel()
 	{
@@ -43,6 +46,7 @@ public class OrderModel
 	    string paymentAccount,
 	    string toBik,
 	    string toBank,
+	    string toCorAccount,
 	    string fromCorAccount,
 	    string fromBik,
 	    string fromBank,
@@ -68,6 +72,7 @@ public class OrderModel
 	    Payment_Account = paymentAccount;
 	    ToBIK = toBik;
 	    ToBank = toBank;
+	    ToCor_Account = toCorAccount;
 	    FromCor_Account = fromCorAccount;
 	    FromBIK = fromBik;
 	    FromBank = fromBank;
