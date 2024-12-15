@@ -1,4 +1,7 @@
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Windows;
+
 using application.Abstraction.Interfaces;
 using application.MVVM.Model;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -9,7 +12,9 @@ namespace application.MVVM.ViewModel.Pages;
 public partial class StorageProductsViewModel : ObservableObject
 {
 	private readonly IStorageProductsRepository _productsRepository;
-	public static event Action? OpenAddProduct;
+	public Guid StorageId { get; private set; }
+
+	public static event Action<Guid>? OpenAddProduct;
 
 	public ObservableCollection<ProductDataResult> Products { get; } = new();
 
@@ -20,6 +25,7 @@ public partial class StorageProductsViewModel : ObservableObject
 
 	public async Task LoadProductsAsync(Guid storageId)
 	{
+		StorageId = storageId;
 		var products = await _productsRepository.GetProductsDataAsync(storageId);
 		Products.Clear();
 
@@ -30,9 +36,8 @@ public partial class StorageProductsViewModel : ObservableObject
 	}
 	
 	[RelayCommand]
-	public void TriggerAddProduct()
+	public void TriggerAddProduct(Guid storageId)
 	{
-		OpenAddProduct?.Invoke();
+		OpenAddProduct?.Invoke(StorageId);
 	}
-
 }

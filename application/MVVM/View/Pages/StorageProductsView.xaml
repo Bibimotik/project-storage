@@ -39,6 +39,7 @@
 					Foreground="#ffffff"
 					VerticalAlignment="Center" 
 					Command="{Binding TriggerAddProductCommand}"
+					CommandParameter="{Binding StorageId}"
 					Style="{StaticResource SendButton}" />
 				<!--TODO - добавить стили-->
 				<ComboBox Grid.Column="2" Margin="10,0,0,0" VerticalAlignment="Center">

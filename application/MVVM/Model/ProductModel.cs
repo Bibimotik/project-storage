@@ -16,4 +16,34 @@ public class ProductModel
 	public string Party { get; set; } = null!;
 	public DateTime Implementation_Period { get; set; }
 	public DateTime Expiration_Date { get; set; }
+	
+	public ProductModel(
+		Guid id,
+		Guid entityId,
+		string code,
+		string title,
+		string unit,
+		double price,
+		byte[] image,
+		Guid entityStorageId,
+		double availableForShipment,
+		string party,
+		DateTime implementationPeriod,
+		DateTime expirationDate)
+	{
+		Id = id;
+		EntityId = entityId;
+		Code = code;
+		Title = title;
+		Unit = unit;
+		Price = price;
+		Image = image;
+		Entity_Storage_ID = entityStorageId;
+		Available_For_Shipment = availableForShipment;
+		Party = party;
+		Implementation_Period = implementationPeriod;
+		Expiration_Date = expirationDate;
+	}
+
+	public ProductModel() { }
 }

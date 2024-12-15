@@ -29,6 +29,9 @@
 		<TextBlock Margin="0 0 0 8" Text="Price" />
 		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" />
 		
+		<TextBlock Margin="0 0 0 8" Text="Party" />
+		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding Party, UpdateSourceTrigger=PropertyChanged}" />
+
 		<TextBlock Margin="0 0 0 8" Text="Available for shipment" />
 		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding AvailableForShipment, UpdateSourceTrigger=PropertyChanged}" />
 
@@ -39,6 +42,11 @@
 		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding ExpirationDate, UpdateSourceTrigger=PropertyChanged}" />
 
 		<TextBlock Margin="0 0 0 8" Text="Image" />
+		<Button
+			Height="25"
+			Content="{Binding SelectedFilePath}"
+			Command="{Binding SelectFileCommand}" 
+			Style="{StaticResource SendButtonWhite}" />
 		
 
 		<Button
