@@ -2,122 +2,128 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+
 using application.MVVM.Model;
 using application.MVVM.ViewModel.Pages;
 
 namespace application.MVVM.View.Pages
 {
-    public partial class StorageView : UserControl
-    {
-        private readonly StorageViewModel _viewModel;
-        private DispatcherTimer _searchTimer;
+	public partial class StorageView : UserControl
+	{
+		private readonly StorageViewModel _viewModel;
+		private DispatcherTimer _searchTimer;
 
-        public StorageView(StorageViewModel viewModel)
-        {
-            _viewModel = viewModel;
-            DataContext = viewModel;
-            InitializeComponent();
+		public StorageView(StorageViewModel viewModel)
+		{
+			_viewModel = viewModel;
+			DataContext = viewModel;
+			InitializeComponent();
 
-            LoadStorageData();
+			Loaded += StorageView_Loaded;
 
-            _searchTimer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromSeconds(0.5)
-            };
-            _searchTimer.Tick += OnSearchTimerTick;
-        }
+			_searchTimer = new DispatcherTimer
+			{
+				Interval = TimeSpan.FromSeconds(0.5)
+			};
+			_searchTimer.Tick += OnSearchTimerTick;
+		}
+		private async void StorageView_Loaded(object sender, RoutedEventArgs e)
+		{
+			await ReloadStorageData();
+		}
 
-        private async void LoadStorageData()
-        {
-            await _viewModel.LoadStorageAsync(EntityModel.OurUserModel.EntityId);
 
-            foreach (var storage in _viewModel.Storage)
-            {
-                var storageCard = CreateStorageCard(storage);
-                StoragePanel.Children.Add(storageCard);
-            }
-        }
+		private async void LoadStorageData()
+		{
+			await _viewModel.LoadStorageAsync(EntityModel.OurUserModel.EntityId);
 
-        private Border CreateStorageCard(StorageDataResult storage)
-        {
-            var border = new Border
-            {
-                Style = (Style)FindResource("CardBorderStyle"),
-                Margin = new Thickness(0, 10, 0, 10),
-                Padding = new Thickness(10)
-            };
+			foreach (var storage in _viewModel.Storage)
+			{
+				var storageCard = CreateStorageCard(storage);
+				StoragePanel.Children.Add(storageCard);
+			}
+		}
 
-            var storageCard = new StackPanel
-            {
-                Orientation = Orientation.Vertical
-            };
+		private Border CreateStorageCard(StorageDataResult storage)
+		{
+			var border = new Border
+			{
+				Style = (Style)FindResource("CardBorderStyle"),
+				Margin = new Thickness(0, 10, 0, 10),
+				Padding = new Thickness(10)
+			};
 
-            var id = new TextBlock { Text = $"{storage.Id}", Visibility = Visibility.Hidden };
-            var pointText = new TextBlock { Text = $"Point: {storage.Point}", FontSize = 20 };
-            var countryText = new TextBlock { Text = $"Country: {storage.Country}", FontSize = 16 };
-            var cityText = new TextBlock { Text = $"City: {storage.City}", FontSize = 16 };
-            var addressText = new TextBlock { Text = $"Address: {storage.Address}", FontSize = 14 };
-            var indexText = new TextBlock { Text = $"Index: {storage.Index}", FontSize = 14 };
+			var storageCard = new StackPanel
+			{
+				Orientation = Orientation.Vertical
+			};
 
-            storageCard.Children.Add(pointText);
-            storageCard.Children.Add(countryText);
-            storageCard.Children.Add(cityText);
-            storageCard.Children.Add(addressText);
-            storageCard.Children.Add(indexText);
-            
-            storageCard.MouseLeftButtonUp += (sender, e) =>
-            {
-                _viewModel.TriggerShowStorage(storage.Id);
-            };
+			var id = new TextBlock { Text = $"{storage.Id}", Visibility = Visibility.Hidden };
+			var pointText = new TextBlock { Text = $"Point: {storage.Point}", FontSize = 20 };
+			var countryText = new TextBlock { Text = $"Country: {storage.Country}", FontSize = 16 };
+			var cityText = new TextBlock { Text = $"City: {storage.City}", FontSize = 16 };
+			var addressText = new TextBlock { Text = $"Address: {storage.Address}", FontSize = 14 };
+			var indexText = new TextBlock { Text = $"Index: {storage.Index}", FontSize = 14 };
 
-            border.Child = storageCard;
+			storageCard.Children.Add(pointText);
+			storageCard.Children.Add(countryText);
+			storageCard.Children.Add(cityText);
+			storageCard.Children.Add(addressText);
+			storageCard.Children.Add(indexText);
 
-            return border;
-        }
+			storageCard.MouseLeftButtonUp += (sender, e) =>
+			{
+				_viewModel.TriggerShowStorage(storage.Id);
+			};
 
-        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            _searchTimer.Stop();
-            _searchTimer.Start();
-        }
+			border.Child = storageCard;
 
-        private async void OnSearchTimerTick(object sender, EventArgs e)
-        {
-            _searchTimer.Stop();
+			return border;
+		}
 
-            var searchQuery = SearchTextBox.Text;
+		private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			_searchTimer.Stop();
+			_searchTimer.Start();
+		}
 
-            await _viewModel.LoadStorageAsync(EntityModel.OurUserModel.EntityId, searchQuery);
+		private async void OnSearchTimerTick(object sender, EventArgs e)
+		{
+			_searchTimer.Stop();
 
-            StoragePanel.Children.Clear();
-            foreach (var storage in _viewModel.Storage)
-            {
-                var storageCard = CreateStorageCard(storage);
-                StoragePanel.Children.Add(storageCard);
-            }
-        }
-        
-        private async void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-	        /*if (e.AddedItems.Count > 0)
+			var searchQuery = SearchTextBox.Text;
+
+			await _viewModel.LoadStorageAsync(EntityModel.OurUserModel.EntityId, searchQuery);
+
+			StoragePanel.Children.Clear();
+			foreach (var storage in _viewModel.Storage)
+			{
+				var storageCard = CreateStorageCard(storage);
+				StoragePanel.Children.Add(storageCard);
+			}
+		}
+
+		private async void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			/*if (e.AddedItems.Count > 0)
 	        {
 		        var selectedOption = ((ComboBoxItem)e.AddedItems[0]).Content.ToString();
 		        await _viewModel.OnSortChanged(selectedOption);
         
 		        await ReloadStorageData();
 	        }*/
-        }
+		}
 
-        private async Task ReloadStorageData()
-        {
-	        await _viewModel.LoadStorageAsync(EntityModel.OurUserModel.EntityId);
-	        
-	        StoragePanel.Children.Clear();
-	        foreach (var storage in _viewModel.Storage)
-	        {
-		        var storageCard = CreateStorageCard(storage);
-		        StoragePanel.Children.Add(storageCard);
-	        }
-        }
-    }
+		private async Task ReloadStorageData()
+		{
+			await _viewModel.LoadStorageAsync(EntityModel.OurUserModel.EntityId);
+
+			StoragePanel.Children.Clear();
+			foreach (var storage in _viewModel.Storage)
+			{
+				var storageCard = CreateStorageCard(storage);
+				StoragePanel.Children.Add(storageCard);
+			}
+		}
+	}
 }
