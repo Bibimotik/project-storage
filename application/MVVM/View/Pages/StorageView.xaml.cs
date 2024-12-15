@@ -99,13 +99,13 @@ namespace application.MVVM.View.Pages
         
         private async void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-	        //if (e.AddedItems.Count > 0)
-	        //{
-		       // var selectedOption = ((ComboBoxItem)e.AddedItems[0]).Content.ToString();
-		       // await _viewModel.OnSortChanged(selectedOption);
+	        /*if (e.AddedItems.Count > 0)
+	        {
+		        var selectedOption = ((ComboBoxItem)e.AddedItems[0]).Content.ToString();
+		        await _viewModel.OnSortChanged(selectedOption);
         
-		       // await ReloadStorageData();
-	        //}
+		        await ReloadStorageData();
+	        }*/
         }
 
         private async Task ReloadStorageData()
