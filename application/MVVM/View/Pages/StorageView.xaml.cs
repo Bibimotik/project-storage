@@ -29,8 +29,7 @@ namespace application.MVVM.View.Pages
 
         private async void LoadStorageData()
         {
-            Guid entityId = Guid.Parse("52d6177b-bac0-447d-9ff3-fdf10e344b6e");
-            await _viewModel.LoadStorageAsync(entityId);
+            await _viewModel.LoadStorageAsync(EntityModel.OurUserModel.EntityId);
 
             foreach (var storage in _viewModel.Storage)
             {
@@ -88,8 +87,7 @@ namespace application.MVVM.View.Pages
 
             var searchQuery = SearchTextBox.Text;
 
-            Guid entityId = Guid.Parse("52d6177b-bac0-447d-9ff3-fdf10e344b6e");
-            await _viewModel.LoadStorageAsync(entityId, searchQuery);
+            await _viewModel.LoadStorageAsync(EntityModel.OurUserModel.EntityId, searchQuery);
 
             StoragePanel.Children.Clear();
             foreach (var storage in _viewModel.Storage)
@@ -101,19 +99,18 @@ namespace application.MVVM.View.Pages
         
         private async void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-	        if (e.AddedItems.Count > 0)
-	        {
-		        var selectedOption = ((ComboBoxItem)e.AddedItems[0]).Content.ToString();
-		        await _viewModel.OnSortChanged(selectedOption);
+	        //if (e.AddedItems.Count > 0)
+	        //{
+		       // var selectedOption = ((ComboBoxItem)e.AddedItems[0]).Content.ToString();
+		       // await _viewModel.OnSortChanged(selectedOption);
         
-		        await ReloadStorageData();
-	        }
+		       // await ReloadStorageData();
+	        //}
         }
 
         private async Task ReloadStorageData()
         {
-	        Guid entityId = Guid.Parse("52d6177b-bac0-447d-9ff3-fdf10e344b6e");
-	        await _viewModel.LoadStorageAsync(entityId);
+	        await _viewModel.LoadStorageAsync(EntityModel.OurUserModel.EntityId);
 	        
 	        StoragePanel.Children.Clear();
 	        foreach (var storage in _viewModel.Storage)

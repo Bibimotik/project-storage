@@ -45,10 +45,35 @@ public class EntityAbstraction
 		First,
 		Second
 	}
-	
+
 	public enum SupportProperties
 	{
 		Email,
 		Message
 	}
+
+	public enum TableNames
+	{
+		[Description("company")]
+		Company,
+		[Description("company")]
+		Entity,
+		[Description("entity_managers")]
+		Entity_managers,
+		[Description("entity_product")]
+		Entity_product,
+		[Description("entity_product_order")]
+		Entity_product_order,
+		[Description("entity_storage")]
+		Entity_storage,
+		[Description("order")]
+		Order,
+		[Description("product")]
+		Product,
+		[Description("support")]
+		Support,
+		[Description("user")]
+		User,
+	}
+
 }

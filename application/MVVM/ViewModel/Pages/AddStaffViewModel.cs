@@ -48,8 +48,8 @@ public partial class AddStaffViewModel : ObservableObject
 		);
 
 		//TODO - передавать uuid нашего entity
-		Guid entityId = Guid.Parse("cde4838c-5b14-4eb7-8eb9-24ee52db62b3");
-		await _addStaffRepository.InsertStaff(entityId, managerModel);
+		//TODO - вроде так
+		await _addStaffRepository.InsertStaff(EntityModel.OurUserModel.EntityId, managerModel);
 	}
 
 	[RelayCommand]

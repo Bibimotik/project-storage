@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Media.Animation;
 
-using application.MVVM.Model;
 using application.MVVM.View.AdminPages;
 using application.MVVM.View.Pages;
 

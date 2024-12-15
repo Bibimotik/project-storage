@@ -56,8 +56,7 @@ public partial class StorageViewModel : ObservableObject
             _orderBy = "";
         }
 
-        Guid entityId = Guid.Parse("52d6177b-bac0-447d-9ff3-fdf10e344b6e");
-        await LoadStorageAsync(entityId);
+        await LoadStorageAsync(EntityModel.OurUserModel.EntityId);
     }
 
     public Guid SelectedStorageId { get; private set; }

@@ -9,56 +9,72 @@ namespace application.MVVM.Model;
 // TODO - возможно можно убрать атрибут RequiredForValidation и его класса, но может пригодитмся для какой то странной логику в будущем
 public class EntityModel
 {
+	[RequiredForUserTable]
+	[RequiredForCompanyTable]
 	public Guid Id { get; set; }
 
+	[RequiredForUserTable]
 	[RequiredForValidation]
 	[RequiredForUser]
 	public string FirstName { get; set; } = string.Empty;
 
+	[RequiredForUserTable]
 	[RequiredForValidation]
 	[RequiredForUser]
 	public string SecondName { get; set; } = string.Empty;
 
+	[RequiredForUserTable]
 	[RequiredForValidation]
 	[RequiredForUser]
 	public string ThirdName { get; set; } = string.Empty;
 
+	[RequiredForUserTable]
 	[RequiredForValidation]
 	[RequiredForUser]
 	public string Phone { get; set; } = string.Empty;
 
+	[RequiredForCompanyTable]
 	[RequiredForValidation]
 	[RequiredForCompany1]
 	public string INN { get; set; } = string.Empty;
 
+	[RequiredForCompanyTable]
 	[RequiredForValidation]
 	[RequiredForCompany1]
 	public string KPP { get; set; } = string.Empty;
 
+	[RequiredForCompanyTable]
 	[RequiredForValidation]
 	[RequiredForCompany1]
 	public string FullName { get; set; } = string.Empty;
 
+	[RequiredForCompanyTable]
 	[RequiredForValidation]
 	[RequiredForCompany1]
 	public string ShortName { get; set; } = string.Empty;
 
+	[RequiredForCompanyTable]
 	[RequiredForValidation]
 	[RequiredForCompany1]
 	public string LegalAddress { get; set; } = string.Empty;
 
+	[RequiredForCompanyTable]
 	[RequiredForValidation]
 	[RequiredForCompany1]
 	public string PostalAddress { get; set; } = string.Empty;
 
+	[RequiredForCompanyTable]
 	[RequiredForValidation]
 	[RequiredForCompany1]
 	public string OGRN { get; set; } = string.Empty;
 
+	[RequiredForCompanyTable]
 	[RequiredForValidation]
 	[RequiredForCompany2]
 	public string Director { get; set; } = string.Empty;
 
+	[RequiredForCompanyTable]
+	[RequiredForUserTable]
 	[RequiredForValidation]
 	[RequiredForUser]
 	[RequiredForCompany2]
@@ -66,6 +82,8 @@ public class EntityModel
 	[RequiredForLogin]
 	public string Email { get; set; } = string.Empty;
 
+	[RequiredForCompanyTable]
+	[RequiredForUserTable]
 	[RequiredForValidation]
 	[RequiredForUser]
 	[RequiredForCompany2]
@@ -80,14 +98,20 @@ public class EntityModel
 	// TODO - Что это вообще за поле такое, я не помню
 	[RequiredForSupport]
 	public string Message { get; set; } = string.Empty;
+	[RequiredForUserTable]
+	[RequiredForCompanyTable]
 	public byte[]? Logo { get; set; } = [];
 	public byte[]? Images { get; set; } = [];
 
 	public string Code { get; set; } = string.Empty;
 	public string InputCode { get; set; } = string.Empty;
 
+	// от EntityTable
+	public Guid EntityId { get; set; }
+
 	public EntityType EntityType { get; set; }
 	public static EntityModel Model { get; set; } = new();
+	public static EntityModel OurUserModel { get; set; } = new();
 
 	public EntityModel() { }
 	public EntityModel(
@@ -146,7 +170,7 @@ public class EntityModel
 		Password = string.Empty;
 		ConfirmPassword = string.Empty;
 		Message = string.Empty;
-		Images = Array.Empty<byte>();
+		Images = [];
 		Code = string.Empty;
 		InputCode = string.Empty;
 		EntityType = default;
@@ -157,4 +181,8 @@ public class EntityModel
 		Model.Clear();
 	}
 
+	public static void ResetOurUser()
+	{
+		OurUserModel.Clear();
+	}
 }
