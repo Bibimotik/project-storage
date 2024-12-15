@@ -36,7 +36,7 @@ public partial class UserView : UserControl
 
 	private void GenerateColumns()
 	{
-		var columns = GetColumnsForAttributeHelper.GetColumnsForAttribute<EntityModel>(typeof(RequiredForUserTableAttribute));
+		var columns = TableHelper.GetColumnsForAttribute<EntityModel>(typeof(RequiredForUserTableAttribute));
 		foreach (var column in columns)
 		{
 			MyDataGrid.Columns.Add(column);

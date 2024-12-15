@@ -18,10 +18,10 @@ public partial class CompanyView : UserControl
 
 		GenerateColumns();
 	}
-
+	
 	private void GenerateColumns()
 	{
-		var columns = GetColumnsForAttributeHelper.GetColumnsForAttribute<EntityModel>(typeof(RequiredForCompanyTableAttribute));
+		var columns = TableHelper.GetColumnsForAttribute<EntityModel>(typeof(RequiredForCompanyTableAttribute));
 		foreach (var column in columns)
 		{
 			MyDataGrid.Columns.Add(column);
