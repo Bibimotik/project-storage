@@ -18,7 +18,7 @@ public partial class CompanyView : UserControl
 
 		GenerateColumns();
 	}
-	
+
 	private void GenerateColumns()
 	{
 		var columns = TableHelper.GetColumnsForAttribute<EntityModel>(typeof(RequiredForCompanyTableAttribute));
