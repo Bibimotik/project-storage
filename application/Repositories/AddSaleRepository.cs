@@ -17,7 +17,7 @@ public class AddSaleRepository : IAddSaleRepository
 	{
 	    return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 	    {
-	        string query = $@"INSERT INTO orders (
+	        string query = $@"INSERT INTO ""order"" (
 	                                ID,
 	                                Entity_ID,
 	                                Entity_Managers_ID,
@@ -142,6 +142,28 @@ public class AddSaleRepository : IAddSaleRepository
 			var result = await dbConnection.QueryAsync<ProductDataResult>(query, new { StorageId = storageId });
 
 			return result;
+		}, _databaseService);
+	}
+	
+	public async Task InsertProductOrder(ProductOrderModel productOrderModel)
+	{
+		await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			string query = @"
+            INSERT INTO ENTITY_PRODUCT_ORDER (ID, Product_ID, Order_ID, Count)
+            VALUES (@ID, @Product_ID, @Order_ID, @Count)";
+
+			var parameters = new
+			{
+				ID = productOrderModel.ID,
+				Product_ID = productOrderModel.Product_ID,
+				Order_ID = productOrderModel.Order_ID,
+				Count = productOrderModel.Count
+			};
+			
+			Guid productOrderId = await dbConnection.QuerySingleAsync<Guid>(query, parameters);
+
+			return productOrderId;
 		}, _databaseService);
 	}
 }

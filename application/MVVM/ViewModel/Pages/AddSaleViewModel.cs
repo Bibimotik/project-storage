@@ -183,4 +183,68 @@ public partial class AddSaleViewModel : ObservableObject
 		else
 			_products.Add(productId);
 	}
+	
+	[RelayCommand]
+	public async Task InsertOrderAsync()
+	{
+	    if (_products.Count == 0)
+	    {
+	        MessageBox.Show("Выберите хотя бы один продукт.");
+	        return;
+	    }
+
+	    try
+	    {
+	        // Создаем объект заказа на основе текущих данных
+	        var orderModel = new OrderModel
+	        {
+	            ID = Guid.NewGuid(),
+	            Entity_ID = EntityModel.OurUserModel.EntityId, // Предполагается, что у вас есть EntityId
+	            Entity_Managers_ID = Guid.Parse("c561fe15-c1a6-48b2-bd74-72355bbac4cf"), // Предполагается, что у вас есть EntityManagerId
+	            INN = Inn,
+	            KPP = Kpp,
+	            OGRN = Ogrn,
+	            FullName = FullName,
+	            Address = Address,
+	            Payment_Account = PaymentAccount,
+	            ToCor_Account = ToCorAccount,
+	            ToBIK = ToBIK,
+	            ToBank = ToBank,
+	            FromCor_Account = FromCorAccount,
+	            FromBIK = FromBIK,
+	            FromBank = FromBank,
+	            Plan_Date_Shipment = PlanDateShipment,
+	            Shipping_Address = ShippingAddress,
+	            Application_Date = ApplicationDate,
+	            Delivery_Point = DeliveryPoint,
+	            Delivery_Address = DeliveryAddress,
+	            Plan_Date_Receipt = PlanDateReceipt,
+	            TransporterFullName = TransporterFullName,
+	            TransporterShortName = TransporterShortName,
+	            Comment = Comment,
+	            VAT = Vat
+	        };
+
+	        var orderId = await _saleRepository.InsertOrder(orderModel);
+
+	        foreach (var productId in _products)
+	        {
+	            var productOrderModel = new ProductOrderModel
+	            {
+	                ID = Guid.NewGuid(),
+	                Product_ID = productId,
+	                Order_ID = orderId,
+	                Count = 1
+	            };
+
+	            await _saleRepository.InsertProductOrder(productOrderModel);
+	        }
+
+	        MessageBox.Show("Заказ успешно добавлен!");
+	    }
+	    catch (Exception ex)
+	    {
+	        MessageBox.Show($"Произошла ошибка при добавлении заказа: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+	    }
+	}
 }

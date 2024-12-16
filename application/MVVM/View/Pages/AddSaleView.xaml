@@ -139,6 +139,7 @@
                         Foreground="#ffffff"
                         Margin="0,10,0,0"
                         Width="300"
+                        Command="{Binding InsertOrderCommand}"
                         Style="{StaticResource SendButton}" />
 					
                     <Button
