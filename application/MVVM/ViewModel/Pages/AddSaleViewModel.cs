@@ -1,14 +1,20 @@
+using System.Collections.ObjectModel;
 using System.Windows;
 
 using application.Abstraction;
+using application.Abstraction.Interfaces;
+using application.MVVM.Model;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+
+using CSharpFunctionalExtensions;
 
 namespace application.MVVM.ViewModel.Pages;
 
 public partial class AddSaleViewModel : ObservableObject
 {
+	private readonly IAddSaleRepository _saleRepository;
 	private readonly IParserINNService _parserInnService;
 	public static event Action? OpenSales;
 	[ObservableProperty]
@@ -80,8 +86,9 @@ public partial class AddSaleViewModel : ObservableObject
 	[ObservableProperty]
 	private double vat;
 
-	public AddSaleViewModel()
+	public AddSaleViewModel(IAddSaleRepository addSaleRepository)
 	{
+		_saleRepository = addSaleRepository;
 		PlanDateShipment = DateTime.Now;
 		ApplicationDate = DateTime.Now;
 		PlanDateReceipt = DateTime.Now;
@@ -105,6 +112,71 @@ public partial class AddSaleViewModel : ObservableObject
 			Kpp = parserData.Kpp;
 			FullName = parserData.FullName;
 			Ogrn = parserData.Ogrn;
+		}
+	}
+	
+	[RelayCommand]
+	public async Task GetProduct(string fullStorageName)
+	{
+		if (string.IsNullOrWhiteSpace(fullStorageName))
+		{
+			MessageBox.Show("Введите полное имя склада.");
+			return;
+		}
+
+		try
+		{
+			var storageId = await _saleRepository.GetStorage(EntityModel.OurUserModel.EntityId, fullStorageName);
+
+			EntityStorageId = storageId;
+		}
+		catch (InvalidOperationException ex)
+		{
+			MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+		}
+		catch (Exception ex)
+		{
+			MessageBox.Show($"Произошла ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+		}
+	}
+	public ObservableCollection<ProductDataResult> Products { get; } = new();
+	
+	public async Task LoadProductsAsync(Guid storageId)
+	{
+		Products.Clear();
+
+		var products = await _saleRepository.GetProductsDataAsync(storageId);
+
+		foreach (var product in products)
+		{
+			Products.Add(product);
+		}
+	}
+	
+	[RelayCommand]
+	private async Task LoadProducts()
+	{
+		if (EntityStorageId == Guid.Empty)
+		{
+			MessageBox.Show("Склад не найден. Проверьте введенные данные.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+			return;
+		}
+
+		try
+		{
+			await LoadProductsAsync(EntityStorageId);
+		}
+		catch (Exception ex)
+		{
+			MessageBox.Show($"Ошибка при загрузке продуктов: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+		}
+	}
+	
+	partial void OnEntityStorageIdChanged(Guid value)
+	{
+		if (value != Guid.Empty)
+		{
+			LoadProductsCommand.Execute(entityStorageId);
 		}
 	}
 }

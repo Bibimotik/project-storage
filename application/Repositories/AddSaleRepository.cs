@@ -110,20 +110,36 @@ public class AddSaleRepository : IAddSaleRepository
 	    }, _databaseService);
 	}
 	
-	public async Task<Guid> GetStorage(string storage)
+	public async Task<Guid> GetStorage(Guid entityId, string storage)
 	{
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
 			const string query = @"SELECT id
-                               FROM STORAGE
-                               WHERE point = @Storage";
+                               FROM ENTITY_STORAGE
+                               WHERE point = @Storage
+                               AND entity_id = @EntityId";
 
-			var result = await dbConnection.QuerySingleOrDefaultAsync<Guid>(query, new { Storage = storage });
+			var result = await dbConnection.QuerySingleOrDefaultAsync<Guid>(query, new { EntityId = entityId, Storage = storage });
 
 			if (result == Guid.Empty)
 			{
 				throw new InvalidOperationException($"Storage with point '{storage}' not found.");
 			}
+
+			return result;
+		}, _databaseService);
+	}
+	
+	public async Task<IEnumerable<ProductDataResult>> GetProductsDataAsync(Guid storageId)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			const string query = @"
+				SELECT id, code, title, unit, price, image, available_for_shipment, party, implementation_period, expiration_date
+				FROM PRODUCT
+				WHERE entity_storage_id = @StorageId";
+			
+			var result = await dbConnection.QueryAsync<ProductDataResult>(query, new { StorageId = storageId });
 
 			return result;
 		}, _databaseService);

@@ -44,6 +44,7 @@ namespace application.MVVM.View.Pages
 				Orientation = Orientation.Vertical
 			};
 
+			var id = new TextBlock { Text = $"{product.Id}", Visibility = Visibility.Hidden };
 			var titleText = new TextBlock { Text = $"Title: {product.Title}", FontSize = 20 };
 			var priceText = new TextBlock { Text = $"Price: {product.Price:C}", FontSize = 16 };
 			var codeText = new TextBlock { Text = $"Code: {product.Code}", FontSize = 14 };

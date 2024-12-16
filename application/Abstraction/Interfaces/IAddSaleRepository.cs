@@ -5,5 +5,6 @@ namespace application.Abstraction.Interfaces;
 public interface IAddSaleRepository
 {
 	public Task<Guid> InsertOrder(OrderModel orderModel);
-	public Task<Guid> GetStorage(string storage);
+	public Task<Guid> GetStorage(Guid entityId, string storage);
+	public Task<IEnumerable<ProductDataResult>> GetProductsDataAsync(Guid storageId);
 }
