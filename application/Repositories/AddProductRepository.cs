@@ -21,7 +21,7 @@ public class AddProductRepository : IAddProductRepository
                         (ID, Entity_ID, Code, Title, Unit, Price, Image, Entity_Storage_Id, Available_For_Shipment, Party, Implementation_Period, Expiration_Date, Is_Deleted)
                         VALUES (
                          @{nameof(ProductModel.Id)},
-                         @{nameof(ProductModel.EntityId)},
+                         @{nameof(ProductModel.Entity_Id)},
                          @{nameof(ProductModel.Code)},
                          @{nameof(ProductModel.Title)},
                          @{nameof(ProductModel.Unit)},
@@ -38,7 +38,7 @@ public class AddProductRepository : IAddProductRepository
 			Guid productId = await dbConnection.QuerySingleAsync<Guid>(query, new
 			{
 				productModel.Id,
-				productModel.EntityId,
+				productModel.Entity_Id,
 				productModel.Code,
 				productModel.Title,
 				productModel.Unit,

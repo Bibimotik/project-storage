@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace application.Utilities;
@@ -25,5 +26,17 @@ public static class TableHelper
 		}
 
 		return columns;
+	}
+
+	public static bool ShowConfirmationMessage(string first, string second)
+	{
+		var result = MessageBox.Show(
+			first,
+			second,
+			MessageBoxButton.YesNo,
+			MessageBoxImage.Warning
+		);
+
+		return result == MessageBoxResult.Yes;
 	}
 }

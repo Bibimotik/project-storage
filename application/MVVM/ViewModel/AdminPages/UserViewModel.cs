@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 
 using application.Abstraction.Interfaces;
-using application.MVVM.Model;
+using application.Utilities;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -18,6 +18,7 @@ public partial class UserViewModel : ObservableObject
 
 	[ObservableProperty]
 	private ObservableCollection<T> data = [];
+
 	public UserViewModel(ITablesRepository tablesRepository)
 	{
 		_tablesRepository = tablesRepository;
@@ -35,11 +36,27 @@ public partial class UserViewModel : ObservableObject
 	[RelayCommand]
 	private async Task Delete(Guid id)
 	{
+		if (!TableHelper.ShowConfirmationMessage(
+			"Вы действительно хотите удалить выбранный элемент?",
+			"Подтверждение удаления"
+			))
+			return;
+
 		await _tablesRepository.DeleteData<T>(TableNames.User, id);
 		await _tablesRepository.DeleteEntity(id);
 
 		var entityToRemove = Data.FirstOrDefault(e => e.Id == id);
 		if (entityToRemove != null)
 			Data.Remove(entityToRemove);
+	}
+
+	[RelayCommand]
+	private async Task Save()
+	{
+		if (!TableHelper.ShowConfirmationMessage(
+			"Вы действительно хотите сохранить изменения?",
+			"Подтверждение изменения"
+			))
+			return;
 	}
 }

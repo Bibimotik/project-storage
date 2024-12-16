@@ -1,0 +1,95 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!-- DataGrid Style -->
+	<Style
+		TargetType="DataGrid"
+		x:Key="RoundedDataGridStyle">
+		<Setter
+			Property="Background"
+			Value="White" />
+		<Setter
+			Property="BorderBrush"
+			Value="Black" />
+		<Setter
+			Property="BorderThickness"
+			Value="1" />
+		<Setter
+			Property="RowBackground"
+			Value="White" />
+		<Setter
+			Property="AlternatingRowBackground"
+			Value="#F5F5F5" />
+		<Setter
+			Property="Foreground"
+			Value="Black" />
+		<Setter
+			Property="HorizontalGridLinesBrush"
+			Value="Gray" />
+		<Setter
+			Property="VerticalGridLinesBrush"
+			Value="Gray" />
+		<Setter
+			Property="CellStyle">
+			<Setter.Value>
+				<Style
+					TargetType="DataGridCell">
+					<Setter
+						Property="BorderBrush"
+						Value="Gray" />
+					<Setter
+						Property="BorderThickness"
+						Value="0,0,1,1" />
+					<Setter
+						Property="Padding"
+						Value="8" />
+					<Setter
+						Property="FontSize"
+						Value="14" />
+				</Style>
+			</Setter.Value>
+		</Setter>
+
+		<!-- Custom Template -->
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="DataGrid">
+					<Border
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						BorderThickness="{TemplateBinding BorderThickness}"
+						CornerRadius="10">
+						<Grid>
+							<!-- Grid Definition -->
+							<Grid.RowDefinitions>
+								<RowDefinition
+									Height="Auto" />
+								<!-- Заголовки -->
+								<RowDefinition
+									Height="*" />
+								<!-- Данные -->
+							</Grid.RowDefinitions>
+
+							<!-- Заголовки колонок -->
+							<DataGridColumnHeadersPresenter
+								Grid.Row="0" />
+
+							<!-- ScrollViewer для прокрутки -->
+							<ScrollViewer
+								x:Name="DG_ScrollViewer"
+								Grid.Row="1"
+								Focusable="false"
+								CanContentScroll="True">
+								<ItemsPresenter
+									SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+							</ScrollViewer>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+</ResourceDictionary>

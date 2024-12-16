@@ -42,7 +42,7 @@ public class AddStaffRepository : IAddStaffRepository
                         (ID, Entity_ID, User_ID, Access)
                         VALUES (
                          @{nameof(EntityManagerModel.Id)},
-                         @EntityId,
+                         @Entity_Id,
                          @{nameof(EntityManagerModel.User_ID)},
                          @{nameof(EntityManagerModel.Access)}
                         )

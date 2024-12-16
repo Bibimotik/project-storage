@@ -23,7 +23,7 @@ public class EntityStorageRepository : IEntityStorageRepository
                         (ID, Entity_ID, Point, Country, City, Address, Index, Is_Deleted)
                         VALUES (
                         @{nameof(EntityStorageModel.Id)},
-                        @EntityId,
+                        @Entity_Id,
                         @{nameof(EntityStorageModel.Point)},
                         @{nameof(EntityStorageModel.Country)},
                         @{nameof(EntityStorageModel.City)},

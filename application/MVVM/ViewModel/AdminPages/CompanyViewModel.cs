@@ -1,4 +1,6 @@
-﻿using application.Abstraction.Interfaces;
+﻿using System.Collections.ObjectModel;
+
+using application.Abstraction.Interfaces;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -13,7 +15,7 @@ public partial class CompanyViewModel : ObservableObject
 	private readonly ITablesRepository _tablesRepository;
 
 	[ObservableProperty]
-	private IList<T> data = [];
+	private ObservableCollection<T> data = [];
 
 	public CompanyViewModel(ITablesRepository tablesRepository)
 	{
@@ -24,6 +26,8 @@ public partial class CompanyViewModel : ObservableObject
 
 	private async Task LoadData()
 	{
-		Data = await _tablesRepository.GetData<T>(TableNames.Company);
+		var entities = await _tablesRepository.GetData<T>(TableNames.Company);
+
+		Data = new ObservableCollection<T>(entities);
 	}
 }

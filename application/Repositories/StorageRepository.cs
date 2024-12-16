@@ -20,7 +20,7 @@ public class StorageRepository : IStorageRepository
 			string query = @"
             SELECT id, point, country, city, address, index
             FROM entity_storage
-            WHERE entity_id = @EntityId
+            WHERE entity_id = @Entity_Id
             AND point LIKE @Substring
             AND is_deleted = false";
 

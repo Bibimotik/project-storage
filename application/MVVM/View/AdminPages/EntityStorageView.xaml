@@ -38,8 +38,7 @@
 									Style="{StaticResource SendButton}"
 									Content="Edit"
 									Margin="0 0 10 0"
-									Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-									CommandParameter="{Binding}" />
+									Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" />
 
 								<Button
 									Style="{StaticResource SendButtonRed}"

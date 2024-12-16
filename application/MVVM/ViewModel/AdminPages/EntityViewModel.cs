@@ -1,11 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 
 using application.Abstraction.Interfaces;
-using application.MVVM.Model;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 
 using static application.Abstraction.EntityAbstraction;
+
+using T = application.MVVM.Model.EntityTableModel;
 
 namespace application.MVVM.ViewModel.AdminPages;
 
@@ -14,7 +15,8 @@ public partial class EntityViewModel : ObservableObject
 	private readonly ITablesRepository _tablesRepository;
 
 	[ObservableProperty]
-	private ObservableCollection<EntityTableModel> data = [];
+	private ObservableCollection<T> data = [];
+
 	public EntityViewModel(ITablesRepository tablesRepository)
 	{
 		_tablesRepository = tablesRepository;
@@ -24,8 +26,8 @@ public partial class EntityViewModel : ObservableObject
 
 	private async Task LoadData()
 	{
-		var entities = await _tablesRepository.GetData<EntityTableModel>(TableNames.Entity);
+		var entities = await _tablesRepository.GetData<T>(TableNames.Entity);
 
-		Data = new ObservableCollection<EntityTableModel>(entities);
+		Data = new ObservableCollection<T>(entities);
 	}
 }

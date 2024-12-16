@@ -10,12 +10,14 @@ using static application.Abstraction.EntityAbstraction;
 using T = application.MVVM.Model.EntityStorageModel;
 
 namespace application.MVVM.ViewModel.AdminPages;
+
 public partial class EntityStorageViewModel : ObservableObject
 {
 	private readonly ITablesRepository _tablesRepository;
 
 	[ObservableProperty]
 	private ObservableCollection<T> data = [];
+
 	public EntityStorageViewModel(ITablesRepository tablesRepository)
 	{
 		_tablesRepository = tablesRepository;

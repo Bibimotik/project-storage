@@ -117,7 +117,7 @@ public class AddSaleRepository : IAddSaleRepository
 			const string query = @"SELECT id
                                FROM ENTITY_STORAGE
                                WHERE point = @Storage
-                               AND entity_id = @EntityId";
+                               AND entity_id = @Entity_Id";
 
 			var result = await dbConnection.QuerySingleOrDefaultAsync<Guid>(query, new { EntityId = entityId, Storage = storage });
 

@@ -3,7 +3,7 @@ namespace application.MVVM.Model;
 public class ProductModel
 {
 	public Guid Id { get; set; }
-	public Guid EntityId { get; set; }
+	public Guid Entity_Id { get; set; }
 	public string Code { get; set; } = string.Empty;
 	public string Title { get; set; } = string.Empty;
 	public string Unit { get; set; } = string.Empty;
@@ -32,7 +32,7 @@ public class ProductModel
 		DateTime expirationDate)
 	{
 		Id = id;
-		EntityId = entityId;
+		Entity_Id = entityId;
 		Code = code;
 		Title = title;
 		Unit = unit;
