@@ -69,9 +69,10 @@ public partial class AddSaleViewModel : ObservableObject
 	[ObservableProperty]
 	private double vat;
 
-	public AddSaleViewModel(IAddSaleRepository addSaleRepository)
+	public AddSaleViewModel(IAddSaleRepository addSaleRepository, IParserINNService parserInnService)
 	{
 		_saleRepository = addSaleRepository;
+		_parserInnService = parserInnService;
 		PlanDateShipment = DateTime.Now;
 		ApplicationDate = DateTime.Now;
 		PlanDateReceipt = DateTime.Now;
