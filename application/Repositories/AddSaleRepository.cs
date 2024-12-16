@@ -149,9 +149,11 @@ public class AddSaleRepository : IAddSaleRepository
 	{
 		await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
-			string query = @"
-            INSERT INTO ENTITY_PRODUCT_ORDER (ID, Product_ID, Order_ID, Count)
-            VALUES (@ID, @Product_ID, @Order_ID, @Count)";
+			string query = @"INSERT 
+			INTO ENTITY_PRODUCT_ORDER 
+			(ID, Product_ID, Order_ID, Count)
+            VALUES 
+			(@ID, @Product_ID, @Order_ID, @Count)";
 
 			var parameters = new
 			{
@@ -160,10 +162,10 @@ public class AddSaleRepository : IAddSaleRepository
 				Order_ID = productOrderModel.Order_ID,
 				Count = productOrderModel.Count
 			};
-			
-			Guid productOrderId = await dbConnection.QuerySingleAsync<Guid>(query, parameters);
 
-			return productOrderId;
+			await dbConnection.ExecuteAsync(query, parameters);
+
+			return Task.CompletedTask;
 		}, _databaseService);
 	}
 }

@@ -51,7 +51,7 @@ public class AddStaffRepository : IAddStaffRepository
 			Guid staffId = await dbConnection.QuerySingleAsync<Guid>(query, new
 			{
 				managerModel.Id,
-				EntityId = entityId,
+				Entity_Id = entityId,
 				managerModel.User_ID,
 				managerModel.Access
 			});
