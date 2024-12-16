@@ -16,17 +16,18 @@ public partial class StorageProductsViewModel : ObservableObject
 	public static event Action<Guid>? OpenAddProduct;
 
 	public ObservableCollection<ProductDataResult> Products { get; } = new();
+	private string _orderBy = "";
 
 	public StorageProductsViewModel(IStorageProductsRepository productsRepository)
 	{
 		_productsRepository = productsRepository;
 	}
 
-	public async Task LoadProductsAsync(Guid storageId)
+	public async Task LoadProductsAsync(Guid storageId, string searchQuery = "")
 	{
 		StorageId = storageId;
-		var products = await _productsRepository.GetProductsDataAsync(storageId);
 		Products.Clear();
+		var products = await _productsRepository.GetProductsDataAsync(storageId, searchQuery, _orderBy);
 
 		foreach (var product in products)
 		{

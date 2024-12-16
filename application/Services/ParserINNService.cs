@@ -11,7 +11,6 @@ namespace application.Services;
 
 public class ParserINNService : IParserINNService
 {
-	//TODO - если больше не будет в параматерах получения других пунктов, то совместить два метода в один
 	public async Task<ParserModel> GetParserDataAsync(string inn)
 	{
 		using var httpClient = new HttpClient();
@@ -51,7 +50,6 @@ public class ParserINNService : IParserINNService
 		}
 	}
 
-	// TODO -  Заменить на Result<ParserData>
 	public async Task<(ParserModel?, string)> GetParserDataINN(string inputINN)
 	{
 		try

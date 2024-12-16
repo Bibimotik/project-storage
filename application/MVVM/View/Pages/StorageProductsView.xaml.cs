@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 using application.MVVM.Model;
 using application.MVVM.ViewModel.Pages;
@@ -9,14 +10,23 @@ namespace application.MVVM.View.Pages
 	public partial class StorageProductsView : UserControl
 	{
 		private readonly StorageProductsViewModel _viewModel;
+		private DispatcherTimer _searchTimer;
+		public Guid _storageId;
 
 		public StorageProductsView(StorageProductsViewModel viewModel, Guid storageId)
 		{
 			_viewModel = viewModel;
 			DataContext = viewModel;
+			_storageId = storageId;
 			InitializeComponent();
 
 			LoadProductData(storageId);
+			
+			_searchTimer = new DispatcherTimer
+			{
+				Interval = TimeSpan.FromSeconds(0.5)
+			};
+			_searchTimer.Tick += OnSearchTimerTick;
 		}
 
 		private async void LoadProductData(Guid storageId)
@@ -61,6 +71,28 @@ namespace application.MVVM.View.Pages
 			border.Child = productCard;
 
 			return border;
+		}
+		
+		private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			_searchTimer.Stop();
+			_searchTimer.Start();
+		}
+
+		private async void OnSearchTimerTick(object sender, EventArgs e)
+		{
+			_searchTimer.Stop();
+
+			var searchQuery = SearchTextBox.Text;
+
+			await _viewModel.LoadProductsAsync(_storageId, searchQuery);
+
+			StorageProductsPanel.Children.Clear();
+			foreach (var storage in _viewModel.Products)
+			{
+				var storageCard = CreateProductCard(storage);
+				StorageProductsPanel.Children.Add(storageCard);
+			}
 		}
 	}
 }

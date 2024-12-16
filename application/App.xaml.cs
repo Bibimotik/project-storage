@@ -66,6 +66,7 @@ public partial class App : Application
 		services.AddTransient<IStorageProductsRepository, StorageProductsRepository>();
 		services.AddTransient<IAddProductRepository, AddProductRepository>();
 		services.AddTransient<IAddSaleRepository, AddSaleRepository>();
+		services.AddTransient<ISaleRepository, SaleRepository>();
 		services.AddTransient<ITablesRepository, TablesRepository>();
 
 		services.AddSingleton<App>();

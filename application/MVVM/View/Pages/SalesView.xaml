@@ -31,9 +31,11 @@
 				</Grid.ColumnDefinitions>
 			
 				<TextBox 
+					x:Name="SearchTextBox"
 					Margin="0,0,10,0" 
 					VerticalAlignment="Center" 
-					Style="{StaticResource AuthInput}" />
+					Style="{StaticResource AuthInput}"
+					TextChanged="SearchTextBox_TextChanged"/>
 				<Button 
 					Grid.Column="1"
 					Content="Add sale" 

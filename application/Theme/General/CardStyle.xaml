@@ -17,7 +17,7 @@
 		<Setter Property="Padding" Value="10" />
 		<Setter Property="Effect">
 			<Setter.Value>
-				<DropShadowEffect Color="Gray" BlurRadius="5" ShadowDepth="2" />
+				<DropShadowEffect Color="Gray" BlurRadius="2" ShadowDepth="1" />
 			</Setter.Value>
 		</Setter>
 	</Style>
