@@ -1,4 +1,6 @@
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Text;
 using System.Windows;
 
 using application.Abstraction;
@@ -8,81 +10,62 @@ using application.MVVM.Model;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-using CSharpFunctionalExtensions;
-
 namespace application.MVVM.ViewModel.Pages;
 
 public partial class AddSaleViewModel : ObservableObject
 {
 	private readonly IAddSaleRepository _saleRepository;
 	private readonly IParserINNService _parserInnService;
+
 	public static event Action? OpenSales;
+
+	public ObservableCollection<ProductDataResult> Products { get; } = [];
+	private ObservableCollection<Guid> _products = [];
+
 	[ObservableProperty]
 	private string inn;
-
 	[ObservableProperty]
 	private string kpp;
-
 	[ObservableProperty]
 	private string ogrn;
-
 	[ObservableProperty]
 	private string fullName;
-
 	[ObservableProperty]
 	private string address;
-
 	[ObservableProperty]
 	private string paymentAccount;
-
 	[ObservableProperty]
 	private string toBIK;
-
 	[ObservableProperty]
 	private string toBank;
-
 	[ObservableProperty]
 	private string toCorAccount;
-
 	[ObservableProperty]
 	private string fromCorAccount;
-
 	[ObservableProperty]
 	private string fromBIK;
-
 	[ObservableProperty]
 	private string fromBank;
-
 	[ObservableProperty]
 	private DateTime planDateShipment;
-
 	[ObservableProperty]
 	private string shippingAddress;
-
 	[ObservableProperty]
 	private DateTime applicationDate;
-	
 	[ObservableProperty]
 	private Guid entityStorageId;
-
 	[ObservableProperty]
 	private string deliveryPoint;
-
 	[ObservableProperty]
 	private string deliveryAddress;
-
 	[ObservableProperty]
 	private DateTime planDateReceipt;
-
 	[ObservableProperty]
 	private string transporterFullName;
-
 	[ObservableProperty]
 	private string transporterShortName;
-
 	[ObservableProperty]
 	private string comment;
-
 	[ObservableProperty]
 	private double vat;
 
@@ -93,10 +76,10 @@ public partial class AddSaleViewModel : ObservableObject
 		ApplicationDate = DateTime.Now;
 		PlanDateReceipt = DateTime.Now;
 	}
-	
+
 	[RelayCommand]
 	public void TriggerSales() => OpenSales?.Invoke();
-	
+
 	[RelayCommand]
 	public async Task GetParserDataINN(string inputINN)
 	{
@@ -114,7 +97,7 @@ public partial class AddSaleViewModel : ObservableObject
 			Ogrn = parserData.Ogrn;
 		}
 	}
-	
+
 	[RelayCommand]
 	public async Task GetProduct(string fullStorageName)
 	{
@@ -139,8 +122,19 @@ public partial class AddSaleViewModel : ObservableObject
 			MessageBox.Show($"Произошла ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
 		}
 	}
-	public ObservableCollection<ProductDataResult> Products { get; } = new();
-	
+
+	[RelayCommand]
+	private void ViewData()
+	{
+		StringBuilder str = new();
+		foreach (Guid id in _products)
+		{
+			Debug.WriteLine(id.ToString());
+			str.AppendFormat(id.ToString());
+		}
+		MessageBox.Show(str.ToString());
+	}
+
 	public async Task LoadProductsAsync(Guid storageId)
 	{
 		Products.Clear();
@@ -152,7 +146,7 @@ public partial class AddSaleViewModel : ObservableObject
 			Products.Add(product);
 		}
 	}
-	
+
 	[RelayCommand]
 	private async Task LoadProducts()
 	{
@@ -171,12 +165,22 @@ public partial class AddSaleViewModel : ObservableObject
 			MessageBox.Show($"Ошибка при загрузке продуктов: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
 		}
 	}
-	
+
 	partial void OnEntityStorageIdChanged(Guid value)
 	{
 		if (value != Guid.Empty)
 		{
 			LoadProductsCommand.Execute(entityStorageId);
 		}
+	}
+
+	public void ToggleSelection(Guid productId)
+	{
+		Debug.WriteLine("select " + productId.ToString());
+
+		if (_products.Contains(productId))
+			_products.Remove(productId);
+		else
+			_products.Add(productId);
 	}
 }

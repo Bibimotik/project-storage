@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 
-using application.Abstraction;
 using application.Abstraction.Interfaces;
 using application.MVVM.Model;
 

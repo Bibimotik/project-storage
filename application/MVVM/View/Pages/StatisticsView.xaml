@@ -7,8 +7,9 @@
 	xmlns:local = "clr-namespace:application.MVVM.View.Pages"
 	xmlns:Pages = "clr-namespace:application.MVVM.ViewModel.Pages"
 	mc:Ignorable = "d">
-	
-	<StackPanel Margin="50 0 50 0">
+
+	<StackPanel
+		Margin="20 0 10 0">
 		<Label
 			FontSize="45"
 			Content="My statistics"/>

@@ -108,7 +108,7 @@ public partial class App : Application
 
 		services.AddTransient<AddProductViewModel>();
 		services.AddScoped<AddProductView>();
-		
+
 		services.AddTransient<AddSaleViewModel>();
 		services.AddScoped<AddSaleView>();
 

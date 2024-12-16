@@ -6,6 +6,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
+        <ApplicationIcon>Assets\Icons\storage_icon.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
@@ -22,10 +23,6 @@
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="Npgsql" Version="9.0.1" />
       <PackageReference Include="StackExchange.Redis" Version="2.8.22" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Assets\Icons\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -116,6 +113,10 @@
 
     <ItemGroup>
       <EditorConfigFiles Remove="C:\my\projects\big_projects\project-storage\application\.editorconfig" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="Assets\Icons\storage_icon.ico" />
     </ItemGroup>
 
     <ItemGroup>

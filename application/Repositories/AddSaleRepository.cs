@@ -119,7 +119,7 @@ public class AddSaleRepository : IAddSaleRepository
                                WHERE point = @Storage
                                AND entity_id = @Entity_Id";
 
-			var result = await dbConnection.QuerySingleOrDefaultAsync<Guid>(query, new { EntityId = entityId, Storage = storage });
+			var result = await dbConnection.QuerySingleOrDefaultAsync<Guid>(query, new { Entity_Id = entityId, Storage = storage });
 
 			if (result == Guid.Empty)
 			{

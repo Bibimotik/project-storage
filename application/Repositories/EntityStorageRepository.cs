@@ -29,13 +29,13 @@ public class EntityStorageRepository : IEntityStorageRepository
                         @{nameof(EntityStorageModel.City)},
                         @{nameof(EntityStorageModel.Address)},
                         @{nameof(EntityStorageModel.Index)},
-                         FALSE)
+                        FALSE)
                         RETURNING ID";
 
 			Guid storageId = await dbConnection.QuerySingleAsync<Guid>(query, new
 			{
 				storageModel.Id,
-				EntityId = entityId,
+				Entity_Id = entityId,
 				storageModel.Point,
 				storageModel.Country,
 				storageModel.City,
