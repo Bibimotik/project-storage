@@ -70,7 +70,18 @@ public partial class AddSaleViewModel : ObservableObject
 	private string comment;
 	[ObservableProperty]
 	private double vat;
-
+	
+	[ObservableProperty]
+	private string fromInn;
+	[ObservableProperty]
+	private string fromKpp;
+	[ObservableProperty]
+	private string fromOgrn;
+	[ObservableProperty]
+	private string fromName;
+	[ObservableProperty]
+	private string genDir;
+	
 	public AddSaleViewModel(IAddSaleRepository addSaleRepository, IParserINNService parserInnService)
 	{
 		_saleRepository = addSaleRepository;
@@ -190,7 +201,7 @@ public partial class AddSaleViewModel : ObservableObject
 	[RelayCommand]
 	public async Task InsertOrderAsync()
     {
-        /*if (_products.Count == 0)
+        if (_products.Count == 0)
         {
             MessageBox.Show("Выберите хотя бы один продукт.");
             return;
@@ -247,74 +258,112 @@ public partial class AddSaleViewModel : ObservableObject
             var result = MessageBox.Show("Печатать отчет?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
-            {*/
-                await RunPythonScript();
-            /*}
+            {
+	            var openFileDialog = new OpenFileDialog
+	            {
+		            Title = "Выберите шаблон документа",
+		            Filter = "Документы Word (*.docx)|*.docx|Все файлы (*.*)|*.*",
+		            CheckFileExists = true,
+		            CheckPathExists = true
+	            };
+
+	            if (openFileDialog.ShowDialog() == true)
+	            {
+		            try
+		            {
+			            var companyData = await _saleRepository.GetCompanyDataByEntityId(EntityModel.OurUserModel.EntityId);
+			            FromInn = companyData.INN;
+			            FromKpp = companyData.KPP;
+			            FromOgrn = companyData.OGRN;
+			            FromName = companyData.FullName;
+			            GenDir = companyData.Director;
+		            }
+		            catch (Exception ex)
+		            {
+			            MessageBox.Show($"Ошибка при получении данных компании: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+			            return;
+		            }
+		            string selectedFilePath = openFileDialog.FileName;
+		            await RunPythonScript(selectedFilePath);
+	            }
+            }
             else
             {
-                Debug.WriteLine("Отчет не выбран для печати.");
+	            Debug.WriteLine("Отчет не выбран для печати.");
             }
         }
         catch (Exception ex)
         {
             MessageBox.Show($"Произошла ошибка при добавлении заказа: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-        }*/
+        }
     }
 
-	private async Task RunPythonScript()
+	private async Task RunPythonScript(string templateDocxPath)
 	{
-		try
-		{
-			string pythonScriptPath = @"D:\\Учеба\\project-storage\\parser\\docxFile\\main.py";
+	    try
+	    {
+	        string pythonExecutable = "python";
+	        string pythonScriptPath = @"..\..\..\..\parser\docxFile\main.py";
 
-			string arguments = $"\"{pythonScriptPath}\"";
-	        // Создаем объект заказа на основе текущих данных
-	        var orderModel = new OrderModel
+	        string arguments = string.Join(" ", new[]
 	        {
-	            ID = Guid.NewGuid(),
-	            Entity_ID = EntityModel.OurUserModel.EntityId, // Предполагается, что у вас есть EntityId
-	            Entity_Managers_ID = Guid.Parse("097cc446-ab57-4bfd-a73c-3ccb3c836249"), // Предполагается, что у вас есть EntityManagerId
-	            INN = Inn,
-	            KPP = Kpp,
-	            OGRN = Ogrn,
-	            FullName = FullName,
-	            Address = Address,
-	            Payment_Account = PaymentAccount,
-	            ToCor_Account = ToCorAccount,
-	            ToBIK = ToBIK,
-	            ToBank = ToBank,
-	            FromCor_Account = FromCorAccount,
-	            FromBIK = FromBIK,
-	            FromBank = FromBank,
-	            Plan_Date_Shipment = PlanDateShipment,
-	            Shipping_Address = ShippingAddress,
-	            Application_Date = ApplicationDate,
-	            Delivery_Point = DeliveryPoint,
-	            Delivery_Address = DeliveryAddress,
-	            Plan_Date_Receipt = PlanDateReceipt,
-	            TransporterFullName = TransporterFullName,
-	            TransporterShortName = TransporterShortName,
-	            Comment = Comment,
-	            VAT = Vat
+		        $"\"{templateDocxPath}\"",
+		        $"\"{PlanDateShipment.ToString("dd MMMM yyyy")}\"",
+		        $"\"{FromName}\"",
+		        $"\"{GenDir}\"",
+		        $"\"{FullName}\"",
+		        $"\"{ShippingAddress}\"",
+		        $"\"{FromInn}\"",
+		        $"\"{FromOgrn}\"",
+		        $"\"{FromCorAccount}\"",
+		        $"\"{FromCorAccount}\"",
+		        $"\"{FromBIK}\"",
+		        $"\"{FromBank}\"",
+		        $"\"{DeliveryPoint}\"",
+		        $"\"{Inn}\"",
+		        $"\"{Ogrn}\"",
+		        $"\"{ToCorAccount}\"",
+		        $"\"{ToCorAccount}\"",
+		        $"\"{ToBIK}\"",
+		        $"\"{ToBank}\"",
+		        $"\"{FromKpp}\"",
+		        $"\"{Kpp}\"",
+		        $"\"{DeliveryAddress}\""
+	        });
+
+	        var processStartInfo = new ProcessStartInfo
+	        {
+	            FileName = pythonExecutable,
+	            Arguments = $"\"{pythonScriptPath}\" {arguments}",
+	            RedirectStandardOutput = true,
+	            RedirectStandardError = true,
+	            UseShellExecute = false,
+	            CreateNoWindow = true
 	        };
 
-			var processStartInfo = new ProcessStartInfo
-			{
-				FileName = "python",
-				Arguments = $"..\\..\\..\\..\\parser\\docxFile\\main.py",
-				RedirectStandardOutput = true,
-				UseShellExecute = false,
-				CreateNoWindow = true
-			};
-			
-			var process = Process.Start(processStartInfo);
+	        using var process = Process.Start(processStartInfo);
+	        if (process == null)
+	        {
+	            throw new InvalidOperationException("Не удалось запустить Python-скрипт.");
+	        }
 
-			string output = await process.StandardOutput.ReadToEndAsync();
-			process.WaitForExit();
-		}
-		catch (Exception ex)
-		{
-			MessageBox.Show($"Ошибка при запуске скрипта: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-		}
+	        string output = await process.StandardOutput.ReadToEndAsync();
+	        string errors = await process.StandardError.ReadToEndAsync();
+
+	        process.WaitForExit();
+
+	        if (!string.IsNullOrEmpty(errors))
+	        {
+	            MessageBox.Show($"Ошибка при выполнении скрипта:\n{errors}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+	        }
+	        else
+	        {
+	            MessageBox.Show("Документ успешно сгенерирован и сохранён в папке Загрузки.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+	        }
+	    }
+	    catch (Exception ex)
+	    {
+	        MessageBox.Show($"Ошибка при запуске скрипта: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+	    }
 	}
 }

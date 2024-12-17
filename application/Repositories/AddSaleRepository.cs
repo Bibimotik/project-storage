@@ -168,4 +168,38 @@ public class AddSaleRepository : IAddSaleRepository
 			return Task.CompletedTask;
 		}, _databaseService);
 	}
+	
+	public async Task<CompanyDataResult> GetCompanyDataByEntityId(Guid entityId)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			const string query = @"
+                SELECT 
+                    c.inn, 
+                    c.kpp, 
+                    c.ogrn, 
+                    c.fullname, 
+                    c.director
+                FROM (
+                    SELECT 
+                        e.type_id
+                    FROM 
+                        entity e
+                    WHERE 
+                        e.id = @EntityId
+                ) entity_data
+                JOIN company c ON entity_data.type_id = c.id";
+
+			var parameters = new { EntityId = entityId };
+
+			var result = await dbConnection.QuerySingleOrDefaultAsync<CompanyDataResult>(query, parameters);
+
+			if (result == null)
+			{
+				throw new InvalidOperationException($"No company data found, or now this function is not available for Users. Some data in file aren't replace.");
+			}
+
+			return result;
+		}, _databaseService);
+	}
 }

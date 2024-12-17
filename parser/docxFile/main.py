@@ -1,41 +1,40 @@
 import os
+import sys
 from docxtpl import DocxTemplate
 from datetime import datetime
 
-doc = DocxTemplate("D:/Учеба/Договор.docx")
-
+docx_path = sys.argv[1]
 context = {
-    'date': '16 декабря 2024 года',
-    'fromname': 'ООО "Поставщик"',
-    'gendir': 'Иванов Иван Иванович',
-    'toname': 'ООО "Покупатель"',
-    'fromaddress': 'г. Москва, ул. Ленина, д. 10',
-    'frominn': '1234567890',
-    'fromogrn': '1027700000000',
-    'fromrasch': '40702810123456789012',
-    'fromkor': '30101810400000000001',
-    'frombik': '044525225',
-    'frombank': 'Сбербанк России',
-    'toaddress': 'г. Ногинск, ул. Бетонная, д. 1',
-    'toinn': '9876543210',
-    'toogrn': '112774688',
-    'torasch': '40702810234567890123',
-    'tokor': '30101810500000000001',
-    'tobik': '044525225',
-    'tobank': 'ВТБ',
-    'kppfrom': '772301001',
-    'tokpp': '502301001',
-    'tostorageaddress': 'М.О., г. Ногинск, ул. Бетонная, д. 1'
+    'date': sys.argv[2],
+    'fromname': sys.argv[3],
+    'gendir': sys.argv[4],
+    'toname': sys.argv[5],
+    'fromaddress': sys.argv[6],
+    'frominn': sys.argv[7],
+    'fromogrn': sys.argv[8],
+    'fromrasch': sys.argv[9],
+    'fromkor': sys.argv[10],
+    'frombik': sys.argv[11],
+    'frombank': sys.argv[12],
+    'toaddress': sys.argv[13],
+    'toinn': sys.argv[14],
+    'toogrn': sys.argv[15],
+    'torasch': sys.argv[16],
+    'tokor': sys.argv[17],
+    'tobik': sys.argv[18],
+    'tobank': sys.argv[19],
+    'kppfrom': sys.argv[20],
+    'tokpp': sys.argv[21],
+    'tostorageaddress': sys.argv[22],
 }
+
+doc = DocxTemplate(docx_path)
 
 doc.render(context)
 
 downloads_path = os.path.join(os.path.expanduser('~'), 'Downloads')
 
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-
-# Создание уникального имени для файла
 file_name = f"generated_doc_{timestamp}.docx"
 
-# Сохранение файла
 doc.save(os.path.join(downloads_path, file_name))

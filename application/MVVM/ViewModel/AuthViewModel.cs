@@ -269,16 +269,13 @@ public partial class AuthViewModel : ObservableObject
 	private async Task LoginButton()
 	{
 		EntityModel model = EntityModel.Model;
-		//if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password))
-		//	return;
-
+		
 		if (model.Email == "admin" && model.Password == "Admin123")
 		{
 			Debug.WriteLine($"email: {model.Email}");
 			Debug.WriteLine($"password: {model.Password}");
 
 			await _authService.SaveAuthData(EntityModel.Model.Email, EntityModel.Model.Password);
-			//await _authService.LoadAuthData();
 
 			_navigationService.ShowAdmin();
 			return;
@@ -288,7 +285,6 @@ public partial class AuthViewModel : ObservableObject
 			return;
 
 		var user = await _entityService.Login(model.Email, model.Password);
-		// TODO - переделать
 		if (user.IsFailure)
 		{
 			if (user.Error == "email")
@@ -304,7 +300,6 @@ public partial class AuthViewModel : ObservableObject
 		Debug.WriteLine($"password: {model.Password}");
 
 		await _authService.SaveAuthData(EntityModel.Model.Email, EntityModel.Model.Password);
-		//await _authService.LoadAuthData();
 
 		_navigationService.ShowMain();
 	}
@@ -363,8 +358,6 @@ public partial class AuthViewModel : ObservableObject
 				return false;
 		}
 
-		// TODO - как минимум при разном пароле переходит к блоке кода ниже, хотя должен возвращать return;
-
 		if (model.EntityType == EntityType.User || model.EntityType == EntityType.Company)
 		{
 			var email = await _entityRepository.Get(model.Email);
@@ -383,6 +376,7 @@ public partial class AuthViewModel : ObservableObject
 
 		string code = GenerateRandomCode();
 		Debug.WriteLine(code);
+		Console.WriteLine(code);
 		string encryptedCode = _securityService.Encrypt(code);
 		await _mailService.SendMail(code, model.Email);
 
@@ -393,7 +387,6 @@ public partial class AuthViewModel : ObservableObject
 
 	private bool IsValidModel(EntityModel model, bool isLogin = false, CompanyRegistrationStages stage = CompanyRegistrationStages.First)
 	{
-		// TODO - а зачем оно ваще?
 		_registrationUserViewModel.ClearValidationErrors();
 
 		switch (model.EntityType)

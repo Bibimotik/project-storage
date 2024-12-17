@@ -22,12 +22,16 @@ public partial class RolesView : UserControl
 		DataContext = viewModel;
 		InitializeComponent();
 
-		LoadRoles();
+		Loaded += RolesView_Loaded;
 	}
 
+	private async void RolesView_Loaded(object sender, RoutedEventArgs e)
+	{
+		await ReloadRolesData();
+	}
+	
 	private void Window_Loaded(object sender, RoutedEventArgs e)
 	{
-		// Перенос вызова команды после полной загрузки окна
 		var viewModel = DataContext as RolesViewModel;
 		viewModel?.LoadRoleCommand.Execute(null);
 	}
@@ -77,12 +81,22 @@ public partial class RolesView : UserControl
 				_navigationService.ShowWorkerRole();
 			else if(role.Access == UserRole.Analyst.GetDescription())
 				_navigationService.ShowAnalystRole();
-			//_viewModel.TriggerShowRole(role.Id);
 		};
 
-		// Устанавливаем StackPanel как дочерний элемент Border
 		border.Child = roleCard;
 
 		return border;
+	}
+	
+	private async Task ReloadRolesData()
+	{
+		await _viewModel.LoadRolesAsync(EntityModel.OurUserModel.EntityId);
+
+		RolesPanel.Children.Clear();
+		foreach (var storage in _viewModel.Roles)
+		{
+			var storageCard = CreateRoleCard(storage);
+			RolesPanel.Children.Add(storageCard);
+		}
 	}
 }
