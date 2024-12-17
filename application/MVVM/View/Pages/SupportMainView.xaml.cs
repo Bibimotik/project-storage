@@ -8,9 +8,9 @@ namespace application.MVVM.View.Pages;
 
 public partial class SupportMainView : UserControl
 {
-	public SupportMainView(SupportViewModel viewModel)
+	public SupportMainView(SupportMainViewModel mainViewModel)
 	{
-		DataContext = viewModel;
+		DataContext = mainViewModel;
 		InitializeComponent();
 	}
     

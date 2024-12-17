@@ -22,6 +22,8 @@ using DotNetEnv;
 
 using Microsoft.Extensions.DependencyInjection;
 
+using SupportView = application.MVVM.View.Pages.SupportView;
+
 namespace application;
 
 public partial class App : Application
@@ -70,7 +72,9 @@ public partial class App : Application
 		services.AddTransient<IAddSaleRepository, AddSaleRepository>();
 		services.AddTransient<ISaleRepository, SaleRepository>();
 		services.AddTransient<IStaffRepository, StaffRepository>();
+		services.AddTransient<IStatisticsRepository, StatisticsRepository>();
 		services.AddTransient<ITablesRepository, TablesRepository>();
+		services.AddTransient<IAccountRepository, AccountRepository>();
 
 		services.AddSingleton<App>();
 
@@ -90,6 +94,7 @@ public partial class App : Application
 
 		services.AddTransient<AddStorageViewModel>();
 		services.AddScoped<AddStorageView>();
+		
 		services.AddTransient<StorageViewModel>();
 		services.AddScoped<StorageView>();
 
@@ -139,8 +144,9 @@ public partial class App : Application
 		services.AddTransient<UserView>();
 		services.AddTransient<UserViewModel>();
 
-		services.AddTransient<MVVM.ViewModel.Pages.SupportViewModel>();
+		services.AddTransient<MVVM.ViewModel.Pages.SupportMainViewModel>();
 		services.AddScoped<SupportMainView>();
+		services.AddTransient<MVVM.ViewModel.Pages.SupportViewModel>();
 		services.AddScoped<MVVM.View.Pages.SupportView>();
 
 		services.AddScoped<InfoView>();

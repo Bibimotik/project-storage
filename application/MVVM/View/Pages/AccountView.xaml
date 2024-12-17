@@ -161,7 +161,7 @@
 					Grid.Column="1"
 					Width="200"
 					Content="Delete Account"
-					Command="{Binding }"
+					Command="{Binding DeleteAccountCommand}"
 					Style="{StaticResource SendButtonRed}" />
 
 			</Grid>

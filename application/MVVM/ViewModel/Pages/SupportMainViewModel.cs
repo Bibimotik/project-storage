@@ -17,7 +17,7 @@ using static application.Abstraction.EntityAbstraction;
 
 namespace application.MVVM.ViewModel.Pages;
 
-public partial class SupportViewModel : ObservableObject
+public partial class SupportMainViewModel : ObservableObject
 {
     private readonly ISupportRepository _supportRepository;
     private readonly Dictionary<string, Action<string?>> _validationActions;
@@ -46,7 +46,7 @@ public partial class SupportViewModel : ObservableObject
 
     public ICommand SelectFileCommand { get; }
 
-    public SupportViewModel(ISupportRepository supportRepository)
+    public SupportMainViewModel(ISupportRepository supportRepository)
     {
         _supportRepository = supportRepository;
         SelectFileCommand = new RelayCommand(SelectFile);
@@ -140,26 +140,25 @@ public partial class SupportViewModel : ObservableObject
     [RelayCommand]
     public async Task SendToSupportAsync()
     {
-	    MessageBox.Show(email);
-	    /*try
-	    {
-		    SupportModel supportModel = new(
-			    Guid.NewGuid(),
-			    EntityModel.OurUserModel.EntityId!,
-			    null,
-			    message,
-			    image
-		    );
+        try
+        {
+	        SupportModel supportModel = new(
+		        Guid.NewGuid(),
+		        EntityModel.OurUserModel.EntityId!,
+		        null,
+		        message,
+		        image
+	        );
+	        
+	        await _supportRepository.SentToSupport(supportModel);
 
-		    await _supportRepository.SentToSupport(supportModel);
-
-	        MessageBox.Show($"Запрос отправлен успешно. ID: {supportModel.Id}");
-	        ClearFields();
-	    }
-	    catch (Exception ex)
-	    {
-	        MessageBox.Show($"Ошибка: {ex.Message}");
-	    }*/
+            MessageBox.Show($"Р—Р°РїСЂРѕСЃ РѕС‚РїСЂР°РІР»РµРЅ СѓСЃРїРµС€РЅРѕ. ID: {supportModel.Id}");
+            ClearFields();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"РћС€РёР±РєР°: {ex.Message}");
+        }
     }
 
     private void ClearFields()

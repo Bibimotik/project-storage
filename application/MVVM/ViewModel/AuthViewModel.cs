@@ -7,7 +7,9 @@ using application.Abstraction.Interfaces;
 using application.MVVM.Model;
 using application.MVVM.View.Auth;
 using application.MVVM.View.Pages;
+using application.MVVM.ViewModel.AdminPages;
 using application.MVVM.ViewModel.Auth;
+using application.MVVM.ViewModel.Pages;
 using application.Utilities;
 
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -34,6 +36,7 @@ public partial class AuthViewModel : ObservableObject
 	private readonly IParserINNService _parserInnService;
 	private readonly ISupportRepository _supportRepository;
 	private readonly IServiceProvider _serviceProvider;
+	private readonly MVVM.ViewModel.Pages.SupportViewModel _supportViewModel;
 
 	public static event Action<string>? Invalided;
 
@@ -64,7 +67,8 @@ public partial class AuthViewModel : ObservableObject
 		RegistrationUserViewModel registrationUserViewModel,
 		IParserINNService parserInnService,
 		ISupportRepository supportRepository,
-		IServiceProvider serviceProvider)
+		IServiceProvider serviceProvider,
+		MVVM.ViewModel.Pages.SupportViewModel supportViewModel)
 	{
 		_entityRepository = entityRepository;
 		//_entityApi = entityApi;
@@ -77,6 +81,7 @@ public partial class AuthViewModel : ObservableObject
 		_parserInnService = parserInnService;
 		_supportRepository = supportRepository;
 		_serviceProvider = serviceProvider;
+		_supportViewModel = supportViewModel;
 
 		Login();
 	}
@@ -502,33 +507,7 @@ public partial class AuthViewModel : ObservableObject
 	[RelayCommand]
 	private async Task SendSupport()
 	{
-		EntityModel model = EntityModel.Model;
-
-		Console.WriteLine("input code: " + model.InputCode);
-		Console.WriteLine("storage code: " + model.Code);
-		Console.WriteLine("storage code decrypy: " + _securityService.Decrypt(model.Code));
-
-		if (model.InputCode != _securityService.Decrypt(model.Code))
-			return;
-
-		Result<Guid> id = new();
-
-		/*SupportModel supportModel = new(
-			Guid.NewGuid(),
-			null,
-			null,
-			"edjedji",
-			null
-		);
-		*/
-
-		if (id.IsFailure)
-		{
-			Debug.WriteLine(id.Error);
-			return;
-		}
-
-		MessageBox.Show("УРА SUPPORT");
+		await _supportViewModel.SendToSupportAsync();
 	}
 
 	private string GenerateRandomCode()
