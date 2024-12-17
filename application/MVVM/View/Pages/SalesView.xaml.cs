@@ -51,6 +51,11 @@ public partial class SalesView : UserControl
 			Margin = new Thickness(0, 10, 0, 10),
 			Padding = new Thickness(10)
 		};
+		
+		var grid = new Grid();
+		grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }); // Для текста
+		grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) }); // Для кнопки
+		
 		var orderCard = new StackPanel
 		{
 			Orientation = Orientation.Vertical
@@ -70,12 +75,33 @@ public partial class SalesView : UserControl
 		orderCard.Children.Add(fullNameText);
 		orderCard.Children.Add(addressText);
 		
+		Grid.SetColumn(orderCard, 0);
+		grid.Children.Add(orderCard);
+		
 		orderCard.MouseLeftButtonUp += (sender, e) =>
 		{
 			//_viewModel.TriggerShowProduct(product.Code);
 		};
 		
-		border.Child = orderCard;
+		var deleteButton = new Button
+		{
+			Content = "Delete",
+			HorizontalAlignment = HorizontalAlignment.Center,
+			Margin = new Thickness(10),
+			Width = 75,
+			Height = 30,
+			Style = (Style)FindResource("SendButtonRed")
+		};
+
+		deleteButton.Click += (sender, e) =>
+		{
+			MessageBox.Show($"Deleting storage: {order.ID}");
+		};
+
+		Grid.SetColumn(deleteButton, 1);
+		grid.Children.Add(deleteButton);
+
+		border.Child = grid;
 
 		return border;
 	}

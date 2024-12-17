@@ -44,41 +44,66 @@ namespace application.MVVM.View.Pages
 		}
 
 		private Border CreateStorageCard(StorageDataResult storage)
-		{
-			var border = new Border
-			{
-				Style = (Style)FindResource("CardBorderStyle"),
-				Margin = new Thickness(0, 10, 0, 10),
-				Padding = new Thickness(10)
-			};
+        {
+            var border = new Border
+            {
+                Style = (Style)FindResource("CardBorderStyle"),
+                Margin = new Thickness(0, 10, 0, 10),
+                Padding = new Thickness(10)
+            };
 
-			var storageCard = new StackPanel
-			{
-				Orientation = Orientation.Vertical
-			};
+            var grid = new Grid();
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }); // Для текста
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) }); // Для кнопки
 
-			var id = new TextBlock { Text = $"{storage.Id}", Visibility = Visibility.Hidden };
-			var pointText = new TextBlock { Text = $"Point: {storage.Point}", FontSize = 20 };
-			var countryText = new TextBlock { Text = $"Country: {storage.Country}", FontSize = 16 };
-			var cityText = new TextBlock { Text = $"City: {storage.City}", FontSize = 16 };
-			var addressText = new TextBlock { Text = $"Address: {storage.Address}", FontSize = 14 };
-			var indexText = new TextBlock { Text = $"Index: {storage.Index}", FontSize = 14 };
+            var storageCard = new StackPanel
+            {
+                Orientation = Orientation.Vertical
+            };
 
-			storageCard.Children.Add(pointText);
-			storageCard.Children.Add(countryText);
-			storageCard.Children.Add(cityText);
-			storageCard.Children.Add(addressText);
-			storageCard.Children.Add(indexText);
+            var id = new TextBlock { Text = $"{storage.Id}", Visibility = Visibility.Hidden };
+            var pointText = new TextBlock { Text = $"Point: {storage.Point}", FontSize = 20 };
+            var countryText = new TextBlock { Text = $"Country: {storage.Country}", FontSize = 16 };
+            var cityText = new TextBlock { Text = $"City: {storage.City}", FontSize = 16 };
+            var addressText = new TextBlock { Text = $"Address: {storage.Address}", FontSize = 14 };
+            var indexText = new TextBlock { Text = $"Index: {storage.Index}", FontSize = 14 };
 
-			storageCard.MouseLeftButtonUp += (sender, e) =>
-			{
-				_viewModel.TriggerShowStorage(storage.Id);
-			};
+            storageCard.Children.Add(pointText);
+            storageCard.Children.Add(countryText);
+            storageCard.Children.Add(cityText);
+            storageCard.Children.Add(addressText);
+            storageCard.Children.Add(indexText);
 
-			border.Child = storageCard;
+            Grid.SetColumn(storageCard, 0);
+            grid.Children.Add(storageCard);
 
-			return border;
-		}
+            storageCard.MouseLeftButtonUp += (sender, e) =>
+            {
+                _viewModel.TriggerShowStorage(storage.Id);
+            };
+
+            var deleteButton = new Button
+            {
+                Content = "Delete",
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Margin = new Thickness(10),
+                Width = 75,
+                Height = 30,
+                Style = (Style)FindResource("SendButtonRed")
+            };
+
+            deleteButton.Click += (sender, e) =>
+            {
+                MessageBox.Show($"Deleting storage: {storage.Id}");
+            };
+
+            Grid.SetColumn(deleteButton, 1);
+            grid.Children.Add(deleteButton);
+
+            border.Child = grid;
+
+            return border;
+        }
 
 		private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{

@@ -42,5 +42,18 @@ public class StorageRepository : IStorageRepository
 			return result;
 		}, _databaseService);
 	}
+	
+	public async Task<bool> MarkStorageAsDeletedAsync(Guid storageId)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			string query = @"UPDATE entity_storage
+                             SET is_deleted = true
+                             WHERE id = @StorageId";
 
+			var result = await dbConnection.ExecuteAsync(query, new { StorageId = storageId });
+
+			return result > 0;
+		}, _databaseService);
+	}
 }

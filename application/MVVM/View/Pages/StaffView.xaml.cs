@@ -83,6 +83,24 @@ public partial class StaffView : UserControl
 
 		Grid.SetColumn(stackPanel, 1);
 		grid.Children.Add(stackPanel);
+		
+		var deleteButton = new Button
+		{
+			Content = "Delete",
+			HorizontalAlignment = HorizontalAlignment.Right,
+			Margin = new Thickness(0, 10, 0, 0),
+			Width = 75,
+			Height = 30,
+			Style = (Style)FindResource("SendButtonRed")
+		};
+
+		deleteButton.Click += (sender, e) =>
+		{
+			MessageBox.Show($"Deleting product: {staffMember.Id}");
+		};
+
+		Grid.SetColumn(deleteButton, 1);
+		grid.Children.Add(deleteButton);
 
 		border.Child = grid;
 
