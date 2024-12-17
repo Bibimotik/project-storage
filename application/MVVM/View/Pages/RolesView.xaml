@@ -32,17 +32,18 @@
 
 		<StackPanel
 			Visibility="{Binding IsWorkerVisible, Converter={StaticResource BoolToVisibilityConverter}}"
-			Orientation="Vertical">
+			Orientation="Horizontal"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left">
 
 			<Label
-				FontSize="45"
-				Content="Your roles" />
+				FontSize="18"
+				Margin="0 0 10 0"
+				Content="Now you login as Storage Worker Role" />
 
 			<Button
-				Grid.Column="1"
 				Content="Exit from role"
 				Foreground="#ffffff"
-				VerticalAlignment="Center"
 				Command="{Binding ExitFromRoleCommand}"
 				Style="{StaticResource SendButton}" />
 			

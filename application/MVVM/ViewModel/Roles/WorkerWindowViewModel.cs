@@ -23,7 +23,8 @@ public partial class WorkerWindowViewModel : ObservableObject
 	{
 		_serviceProvider = serviceProvider;
 
-		Account();
+		//Account();
+		Sales();
 
 		StorageViewModel.OpenAddStorage += OnOpenAddStorage;
 		StorageViewModel.OpenStorageProducts += OnOpenStorageProducts;
@@ -53,8 +54,8 @@ public partial class WorkerWindowViewModel : ObservableObject
 
 		isMenuExpanded = !isMenuExpanded;
 	}
-	[RelayCommand]
-	private void Account() => CurrentView = _serviceProvider.GetRequiredService<AccountView>();
+	//[RelayCommand]
+	//private void Account() => CurrentView = _serviceProvider.GetRequiredService<AccountView>();
 	[RelayCommand]
 	private void Sales() => CurrentView = _serviceProvider.GetRequiredService<SalesView>();
 	[RelayCommand]

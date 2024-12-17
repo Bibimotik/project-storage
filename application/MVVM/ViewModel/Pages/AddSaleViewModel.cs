@@ -267,11 +267,7 @@ public partial class AddSaleViewModel : ObservableObject
 		{
 			string pythonScriptPath = @"D:\\Учеба\\project-storage\\parser\\docxFile\\main.py";
 
-<<<<<<< HEAD
 			string arguments = $"\"{pythonScriptPath}\"";
-=======
-	    try
-	    {
 	        // Создаем объект заказа на основе текущих данных
 	        var orderModel = new OrderModel
 	        {
@@ -301,7 +297,6 @@ public partial class AddSaleViewModel : ObservableObject
 	            Comment = Comment,
 	            VAT = Vat
 	        };
->>>>>>> aaedfd5 (feat: role windows)
 
 			var processStartInfo = new ProcessStartInfo
 			{

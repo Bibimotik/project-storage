@@ -55,8 +55,8 @@ public partial class MainViewModel : ObservableObject
 
 		isMenuExpanded = !isMenuExpanded;
 	}
-	//[RelayCommand]
-	//private void Account() => CurrentView = _serviceProvider.GetRequiredService<AccountView>();
+	[RelayCommand]
+	private void Account() => CurrentView = _serviceProvider.GetRequiredService<AccountView>();
 	[RelayCommand]
 	private void Statistics() => CurrentView = _serviceProvider.GetRequiredService<StatisticsView>();
 	[RelayCommand]

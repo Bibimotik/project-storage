@@ -74,7 +74,7 @@
 							Tag="../../Assets/Icons/List.png" />
 					</Border>
 
-					<Border
+					<!--<Border
 						Style="{StaticResource MenuBorder}">
 						<StackPanel
 							Margin="10 5 0 5"
@@ -104,8 +104,8 @@
 									FontSize="16"
 									Style="{StaticResource MenuText}" />
 
-								<!-- TODO - большой email может не влезть, мб изменять размер шрифта в зависимости от кол-ва символов
-						TODO или искуственно его укарачивать типо: testte...andex.com-->
+								--><!-- TODO - большой email может не влезть, мб изменять размер шрифта в зависимости от кол-ва символов
+						TODO или искуственно его укарачивать типо: testte...andex.com--><!--
 
 								<Label
 									Margin="20 -10 0 0"
@@ -116,7 +116,7 @@
 							</StackPanel>
 
 						</StackPanel>
-					</Border>
+					</Border>-->
 
 					<Border
 						Style="{StaticResource MenuBorder}">

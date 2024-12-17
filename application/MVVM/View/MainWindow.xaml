@@ -82,7 +82,7 @@
 							HorizontalAlignment="Stretch"
 							Orientation="Horizontal">
 
-							<!--<RadioButton
+							<RadioButton
 								Command="{Binding AccountCommand}"
 								x:Name="Account"
 								Height="40"
@@ -93,7 +93,7 @@
 									Source="../../Assets/Icons/Ava.png"
 									Width="40"
 									Height="40" />
-							</RadioButton>-->
+							</RadioButton>
 
 							<StackPanel
 								Orientation="Vertical">

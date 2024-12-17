@@ -27,7 +27,7 @@ public partial class StorageProductsViewModel : ObservableObject
 	{
 		StorageId = storageId;
 		Products.Clear();
-		var products = await _productsRepository.GetProductsDataAsync(storageId, searchQuery, _orderBy);
+		var products = await _productsRepository.GetProductsDataAsync(storageId, searchQuery);
 
 		foreach (var product in products)
 		{
