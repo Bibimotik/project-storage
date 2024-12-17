@@ -8,4 +8,5 @@ public class StaffMember
 	public string SecondName { get; set; }
 	public string ThirdName { get; set; }
 	public string Email { get; set; }
+	public byte[]? Image { get; set; }
 }

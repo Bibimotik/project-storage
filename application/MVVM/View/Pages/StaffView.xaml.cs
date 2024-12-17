@@ -1,5 +1,8 @@
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+
 using application.MVVM.Model;
 using application.MVVM.ViewModel.Pages;
 
@@ -8,6 +11,7 @@ namespace application.MVVM.View.Pages;
 public partial class StaffView : UserControl
 {
 	private readonly StaffViewModel _viewModel;
+	private readonly ByteArrayToImageConverter _byteArrayToImageConverter = new ByteArrayToImageConverter();
 
 	public StaffView(StaffViewModel viewModel)
 	{
@@ -44,28 +48,43 @@ public partial class StaffView : UserControl
 			Padding = new Thickness(10)
 		};
 
-		var staffCard = new StackPanel
+		var grid = new Grid();
+		grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) });
+		grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+		var image = new Image
+		{
+			Width = 50,
+			Height = 50,
+			Margin = new Thickness(0, 0, 10, 0),
+			VerticalAlignment = VerticalAlignment.Center
+		};
+		
+		image.Source = _byteArrayToImageConverter.Convert(staffMember.Image, typeof(BitmapImage), null, CultureInfo.InvariantCulture) as BitmapImage;
+		
+		Grid.SetColumn(image, 0);
+		grid.Children.Add(image);
+
+		var stackPanel = new StackPanel
 		{
 			Orientation = Orientation.Vertical
 		};
 
 		var fullName = $"{staffMember.FirstName} {staffMember.SecondName} {staffMember.ThirdName}";
 
-		var idText = new TextBlock { Text = staffMember.Id.ToString(), FontSize = 18 };
+		var idText = new TextBlock { Text = staffMember.Id.ToString(), Visibility = Visibility.Hidden };
 		var nameText = new TextBlock { Text = $"Name: {fullName}", FontSize = 18 };
 		var emailText = new TextBlock { Text = $"Email: {staffMember.Email}", FontSize = 16 };
 		var accessText = new TextBlock { Text = $"Access: {staffMember.Access}", FontSize = 14 };
 
-		staffCard.Children.Add(nameText);
-		staffCard.Children.Add(emailText);
-		staffCard.Children.Add(accessText);
-		
-		staffCard.MouseLeftButtonUp += (sender, e) =>
-		{
-			//_viewModel.TriggerShowStorage(storage.Id);
-		};
+		stackPanel.Children.Add(nameText);
+		stackPanel.Children.Add(emailText);
+		stackPanel.Children.Add(accessText);
 
-		border.Child = staffCard;
+		Grid.SetColumn(stackPanel, 1);
+		grid.Children.Add(stackPanel);
+
+		border.Child = grid;
 
 		return border;
 	}

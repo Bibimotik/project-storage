@@ -21,7 +21,8 @@ public class StaffRepository : IStaffRepository
                 u.firstname, 
                 u.secondname, 
                 u.thirdname, 
-                u.email
+                u.email,
+                u.logo
             FROM (
                 SELECT *
                 FROM entity_managers

@@ -1,5 +1,7 @@
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 using application.MVVM.Model;
@@ -12,6 +14,7 @@ namespace application.MVVM.View.Pages
 		private readonly StorageProductsViewModel _viewModel;
 		private DispatcherTimer _searchTimer;
 		public Guid _storageId;
+		private readonly ByteArrayToImageConverter _byteArrayToImageConverter = new ByteArrayToImageConverter();
 
 		public StorageProductsView(StorageProductsViewModel viewModel, Guid storageId)
 		{
@@ -49,26 +52,41 @@ namespace application.MVVM.View.Pages
 				Padding = new Thickness(10)
 			};
 
-			var productCard = new StackPanel
+			var grid = new Grid();
+			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) }); // Для изображения
+			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }); // Для текста
+
+			var image = new Image
+			{
+				Width = 50,
+				Height = 50,
+				Margin = new Thickness(0, 0, 10, 0),
+				VerticalAlignment = VerticalAlignment.Center
+			};
+			
+			image.Source = _byteArrayToImageConverter.Convert(product.Image, typeof(BitmapImage), null, CultureInfo.InvariantCulture) as BitmapImage;
+
+			Grid.SetColumn(image, 0);
+			grid.Children.Add(image);
+
+			var stackPanel = new StackPanel
 			{
 				Orientation = Orientation.Vertical
 			};
 
 			var id = new TextBlock { Text = $"{product.Id}", Visibility = Visibility.Hidden };
 			var titleText = new TextBlock { Text = $"Title: {product.Title}", FontSize = 20 };
-			var priceText = new TextBlock { Text = $"Price: {product.Price:C}", FontSize = 16 };
+			var priceText = new TextBlock { Text = $"Price: {product.Price:C} BYN", FontSize = 16 };
 			var codeText = new TextBlock { Text = $"Code: {product.Code}", FontSize = 14 };
 
-			productCard.Children.Add(titleText);
-			productCard.Children.Add(priceText);
-			productCard.Children.Add(codeText);
+			stackPanel.Children.Add(titleText);
+			stackPanel.Children.Add(priceText);
+			stackPanel.Children.Add(codeText);
 
-			productCard.MouseLeftButtonUp += (sender, e) =>
-			{
-				//_viewModel.TriggerShowProduct(product.Code);
-			};
+			Grid.SetColumn(stackPanel, 1);
+			grid.Children.Add(stackPanel);
 
-			border.Child = productCard;
+			border.Child = grid;
 
 			return border;
 		}

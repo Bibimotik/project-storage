@@ -60,16 +60,4 @@ public class RolesRepository : IRolesRepository
 			return result;
 		}, _databaseService);
 	}
-
-	//public async Task<Guid> GetCompanyId(Guid entityId)
-	//{
-	//	return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
-	//	{
-	//		const string query = @"йцу";
-
-	//		var result = await dbConnection.QueryAsync<RoleDataResult>(query, new { UserId = entityId });
-
-	//		return result;
-	//	}, _databaseService);
-	//}
 }

@@ -137,7 +137,8 @@ public class AddSaleRepository : IAddSaleRepository
 			const string query = @"
 				SELECT id, code, title, unit, price, image, available_for_shipment, party, implementation_period, expiration_date
 				FROM PRODUCT
-				WHERE entity_storage_id = @StorageId";
+				WHERE entity_storage_id = @StorageId
+				AND is_deleted = false";
 			
 			var result = await dbConnection.QueryAsync<ProductDataResult>(query, new { StorageId = storageId });
 

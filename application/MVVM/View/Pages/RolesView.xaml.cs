@@ -1,5 +1,7 @@
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 using application.Abstraction;
 using application.MVVM.Model;
@@ -14,6 +16,7 @@ public partial class RolesView : UserControl
 {
 	private readonly RolesViewModel _viewModel;
 	private readonly INavigationService _navigationService;
+	private readonly ByteArrayToImageConverter _byteArrayToImageConverter = new ByteArrayToImageConverter();
 
 	public RolesView(RolesViewModel viewModel, INavigationService navigationService)
 	{
@@ -56,6 +59,23 @@ public partial class RolesView : UserControl
 			Padding = new Thickness(10)
 		};
 
+		var grid = new Grid();
+		grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) });
+		grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+		var image = new Image
+		{
+			Width = 50,
+			Height = 50,
+			Margin = new Thickness(0, 0, 10, 0),
+			VerticalAlignment = VerticalAlignment.Center
+		};
+
+		image.Source = _byteArrayToImageConverter.Convert(role.Image, typeof(BitmapImage), null, CultureInfo.InvariantCulture) as BitmapImage;
+		
+		Grid.SetColumn(image, 0);
+		grid.Children.Add(image);
+
 		var roleCard = new StackPanel
 		{
 			Orientation = Orientation.Vertical
@@ -83,10 +103,14 @@ public partial class RolesView : UserControl
 				_navigationService.ShowAnalystRole();
 		};
 
-		border.Child = roleCard;
+		Grid.SetColumn(roleCard, 1);
+		grid.Children.Add(roleCard);
+
+		border.Child = grid;
 
 		return border;
 	}
+
 	
 	private async Task ReloadRolesData()
 	{

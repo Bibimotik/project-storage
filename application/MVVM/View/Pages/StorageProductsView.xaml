@@ -6,6 +6,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:application.MVVM.View.Pages"
 	xmlns:Pages="clr-namespace:application.MVVM.ViewModel.Pages"
+	xmlns:global = "clr-namespace:"
 	mc:Ignorable="d">
 
 	<StackPanel
