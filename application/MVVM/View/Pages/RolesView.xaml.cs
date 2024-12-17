@@ -57,11 +57,13 @@ public partial class RolesView : UserControl
 			Orientation = Orientation.Vertical
 		};
 
+		var idText = new TextBlock { Text = role.Id.ToString(), FontSize = 1, Visibility = Visibility.Hidden};
 		var firstText = new TextBlock { Text = role.First, FontSize = 20 };
 		var secondText = new TextBlock { Text = role.Second, FontSize = 16 };
 		var thirdText = new TextBlock { Text = role.Third, FontSize = 14 };
 		var accessText = new TextBlock { Text = role.Access, FontSize = 14 };
 
+		roleCard.Children.Add(idText);
 		roleCard.Children.Add(firstText);
 		roleCard.Children.Add(secondText);
 		roleCard.Children.Add(thirdText);

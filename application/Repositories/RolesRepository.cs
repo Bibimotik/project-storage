@@ -29,7 +29,7 @@ public class RolesRepository : IRolesRepository
                 ),
                 user_query AS (
                     SELECT 
-						u.id AS id,
+						entitydata.id AS id,
                         u.firstname AS first,
                         u.secondname AS second,
                         u.email AS third,
@@ -41,7 +41,7 @@ public class RolesRepository : IRolesRepository
                 ),
                 company_query AS (
                     SELECT 
-						c.id AS id,
+						entitydata.id AS id,
                         c.shortname AS first,
                         c.inn AS second,
                         c.kpp AS third,
