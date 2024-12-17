@@ -37,7 +37,7 @@
 		</Grid>
 		
 		<ScrollViewer Height="550">
-			<StackPanel>
+			<StackPanel x:Name="StaffPanel">
 				
 			</StackPanel>
 		</ScrollViewer>
