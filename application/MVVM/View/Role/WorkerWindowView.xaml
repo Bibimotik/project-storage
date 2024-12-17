@@ -1,16 +1,16 @@
-﻿<Window
-	x:Class="application.MainWindow"
+﻿<Window 
+	x:Class="application.MVVM.View.Role.WorkerWindowView"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:local="clr-namespace:application"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:application.MVVM.View.Role"
 	xmlns:viewmodel="clr-namespace:application.MVVM.ViewModel"
 	xmlns:c="clr-namespace:application.Utilities.Converter"
 	mc:Ignorable="d"
 	MinWidth="1000"
 	MinHeight="600"
-	Title="MainWindow"
+	Title="WorkerWindow"
 	WindowStartupLocation="CenterScreen"
 	Loaded="Window_Loaded">
 
@@ -82,7 +82,7 @@
 							HorizontalAlignment="Stretch"
 							Orientation="Horizontal">
 
-							<!--<RadioButton
+							<RadioButton
 								Command="{Binding AccountCommand}"
 								x:Name="Account"
 								Height="40"
@@ -90,10 +90,10 @@
 								Style="{StaticResource MenuAvatar}"
 								Checked="RadioButton_Checked">
 								<Image
-									Source="../../Assets/Icons/Ava.png"
+									Source="../../../Assets/Icons/Ava.png"
 									Width="40"
 									Height="40" />
-							</RadioButton>-->
+							</RadioButton>
 
 							<StackPanel
 								Orientation="Vertical">
@@ -105,7 +105,7 @@
 									Style="{StaticResource MenuText}" />
 
 								<!-- TODO - большой email может не влезть, мб изменять размер шрифта в зависимости от кол-ва символов
-							TODO или искуственно его укарачивать типо: testte...andex.com-->
+						TODO или искуственно его укарачивать типо: testte...andex.com-->
 
 								<Label
 									Margin="20 -10 0 0"
@@ -116,18 +116,6 @@
 							</StackPanel>
 
 						</StackPanel>
-					</Border>
-
-					<Border
-						Style="{StaticResource MenuBorder}">
-						<RadioButton
-							Margin="10 5 0 5"
-							Command="{Binding StatisticsCommand}"
-							x:Name="Statistics"
-							Style="{StaticResource MenuRadioButton}"
-							Checked="RadioButton_Checked"
-							Content="Statistics"
-							Tag="../../Assets/Icons/Trending up.png" />
 					</Border>
 
 					<Border
@@ -152,18 +140,6 @@
 							Checked="RadioButton_Checked"
 							Content="Storage"
 							Tag="../../Assets/Icons/Box.png" />
-					</Border>
-
-					<Border
-						Style="{StaticResource MenuBorder}">
-						<RadioButton
-							Margin="10 5 0 5"
-							Command="{Binding StaffCommand}"
-							x:Name="Staff"
-							Style="{StaticResource MenuRadioButton}"
-							Checked="RadioButton_Checked"
-							Content="Staff"
-							Tag="../../Assets/Icons/Person.png" />
 					</Border>
 					
 					<Border
@@ -215,12 +191,12 @@
 
 			</Grid>
 		</Border>
-		
+
 		<ContentControl
 			Grid.Column="1"
 			x:Name="Pages"
 			Content="{Binding CurrentView}" />
 
 	</Grid>
-
+	
 </Window>

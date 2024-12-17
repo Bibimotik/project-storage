@@ -1,32 +1,60 @@
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+
+using application.Abstraction;
 using application.Abstraction.Interfaces;
 using application.MVVM.Model;
 
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
-namespace application.MVVM.ViewModel.Pages
+using static application.Abstraction.EntityAbstraction;
+
+namespace application.MVVM.ViewModel.Pages;
+
+public partial class RolesViewModel : ObservableObject
 {
-	public class RolesViewModel : ObservableObject
+	private readonly IRolesRepository _rolesRepository;
+	private readonly INavigationService _navigationService;
+
+	public ObservableCollection<RoleDataResult> Roles { get; } = [];
+
+	[ObservableProperty]
+	private UserRole currentRole;
+
+	public RolesViewModel(IRolesRepository rolesRepository, INavigationService navigationService)
 	{
-		private readonly IRolesRepository _rolesRepository;
-        
-		public ObservableCollection<RoleDataResult> Roles { get; } = new ObservableCollection<RoleDataResult>();
+		_rolesRepository = rolesRepository;
+		_navigationService = navigationService;
+	}
 
-		public RolesViewModel(IRolesRepository rolesRepository)
+	[RelayCommand]
+	private void LoadRole()
+	{
+		CurrentRole = EntityModel.OurUserModel.Role;
+	}
+	[RelayCommand]
+	private void ExitFromRole()
+	{
+		_navigationService.ShowMain();	
+	}
+
+	public async Task LoadRolesAsync(Guid userId)
+	{
+		var rolesData = await _rolesRepository.GetEntityDataAsync(userId);
+		Roles.Clear();
+
+		foreach (var role in rolesData)
 		{
-			_rolesRepository = rolesRepository;
+			Roles.Add(role);
 		}
+	}
 
-		public async Task LoadRolesAsync(Guid userId)
-		{
-			var rolesData = await _rolesRepository.GetEntityDataAsync(userId);
-			Roles.Clear();
+	public bool IsNoRoleVisible => CurrentRole == UserRole.NoRole;
+	public bool IsWorkerVisible => CurrentRole != UserRole.NoRole;
 
-			foreach (var role in rolesData)
-			{
-				Roles.Add(role);
-			}
-		}
+	partial void OnCurrentRoleChanged(UserRole value)
+	{
+		OnPropertyChanged(nameof(IsNoRoleVisible));
+		OnPropertyChanged(nameof(IsWorkerVisible));
 	}
 }

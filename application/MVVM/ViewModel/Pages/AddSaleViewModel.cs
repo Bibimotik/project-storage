@@ -267,7 +267,41 @@ public partial class AddSaleViewModel : ObservableObject
 		{
 			string pythonScriptPath = @"D:\\Учеба\\project-storage\\parser\\docxFile\\main.py";
 
+<<<<<<< HEAD
 			string arguments = $"\"{pythonScriptPath}\"";
+=======
+	    try
+	    {
+	        // Создаем объект заказа на основе текущих данных
+	        var orderModel = new OrderModel
+	        {
+	            ID = Guid.NewGuid(),
+	            Entity_ID = EntityModel.OurUserModel.EntityId, // Предполагается, что у вас есть EntityId
+	            Entity_Managers_ID = Guid.Parse("097cc446-ab57-4bfd-a73c-3ccb3c836249"), // Предполагается, что у вас есть EntityManagerId
+	            INN = Inn,
+	            KPP = Kpp,
+	            OGRN = Ogrn,
+	            FullName = FullName,
+	            Address = Address,
+	            Payment_Account = PaymentAccount,
+	            ToCor_Account = ToCorAccount,
+	            ToBIK = ToBIK,
+	            ToBank = ToBank,
+	            FromCor_Account = FromCorAccount,
+	            FromBIK = FromBIK,
+	            FromBank = FromBank,
+	            Plan_Date_Shipment = PlanDateShipment,
+	            Shipping_Address = ShippingAddress,
+	            Application_Date = ApplicationDate,
+	            Delivery_Point = DeliveryPoint,
+	            Delivery_Address = DeliveryAddress,
+	            Plan_Date_Receipt = PlanDateReceipt,
+	            TransporterFullName = TransporterFullName,
+	            TransporterShortName = TransporterShortName,
+	            Comment = Comment,
+	            VAT = Vat
+	        };
+>>>>>>> aaedfd5 (feat: role windows)
 
 			var processStartInfo = new ProcessStartInfo
 			{

@@ -2,8 +2,6 @@
 using System.Windows;
 using System.Windows.Media.Animation;
 
-using application.MVVM.Model;
-using application.MVVM.View.AdminPages;
 using application.MVVM.View.Pages;
 using application.MVVM.ViewModel.Pages;
 
@@ -12,16 +10,16 @@ using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.Extensions.DependencyInjection;
 
-namespace application.MVVM.ViewModel;
+namespace application.MVVM.ViewModel.Roles;
 
-public partial class MainViewModel : ObservableObject
+public partial class AnalystWindowViewModel : ObservableObject
 {
 	private readonly IServiceProvider _serviceProvider;
 
 	[ObservableProperty]
 	private object? currentView;
 
-	public MainViewModel(IServiceProvider serviceProvider)
+	public AnalystWindowViewModel(IServiceProvider serviceProvider)
 	{
 		_serviceProvider = serviceProvider;
 
@@ -55,8 +53,8 @@ public partial class MainViewModel : ObservableObject
 
 		isMenuExpanded = !isMenuExpanded;
 	}
-	//[RelayCommand]
-	//private void Account() => CurrentView = _serviceProvider.GetRequiredService<AccountView>();
+	[RelayCommand]
+	private void Account() => CurrentView = _serviceProvider.GetRequiredService<AccountView>();
 	[RelayCommand]
 	private void Statistics() => CurrentView = _serviceProvider.GetRequiredService<StatisticsView>();
 	[RelayCommand]

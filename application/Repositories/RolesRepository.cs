@@ -1,26 +1,23 @@
-using Dapper;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
-
 using application.Abstraction;
 using application.Abstraction.Interfaces;
 using application.MVVM.Model;
 using application.Utilities;
 
-namespace application.Repositories
+using Dapper;
+
+namespace application.Repositories;
+
+public class RolesRepository : IRolesRepository
 {
-    public class RolesRepository : IRolesRepository
-    {
-	    private readonly IDatabaseService _databaseService;
+	private readonly IDatabaseService _databaseService;
 
-        public RolesRepository(IDatabaseService databaseService) => _databaseService = databaseService;
+	public RolesRepository(IDatabaseService databaseService) => _databaseService = databaseService;
 
-        public async Task<IEnumerable<RoleDataResult>> GetEntityDataAsync(Guid userId)
-        {
-	        return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
-	        {
-		        const string query = @"
+	public async Task<IEnumerable<RoleDataResult>> GetEntityDataAsync(Guid userId)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			const string query = @"
                 WITH entitydata AS (
                     SELECT *
                     FROM (
@@ -58,10 +55,21 @@ namespace application.Repositories
                 UNION ALL
                 SELECT * FROM company_query";
 
-		        var result = await dbConnection.QueryAsync<RoleDataResult>(query, new { UserId = userId });
+			var result = await dbConnection.QueryAsync<RoleDataResult>(query, new { UserId = userId });
 
-		        return result;
-	        }, _databaseService);
-        }
-    }
+			return result;
+		}, _databaseService);
+	}
+
+	//public async Task<Guid> GetCompanyId(Guid entityId)
+	//{
+	//	return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+	//	{
+	//		const string query = @"éöó";
+
+	//		var result = await dbConnection.QueryAsync<RoleDataResult>(query, new { UserId = entityId });
+
+	//		return result;
+	//	}, _databaseService);
+	//}
 }

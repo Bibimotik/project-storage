@@ -14,14 +14,14 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace application.MVVM.ViewModel;
 
-public partial class MainViewModel : ObservableObject
+public partial class ManagerWindowViewModel : ObservableObject
 {
 	private readonly IServiceProvider _serviceProvider;
 
 	[ObservableProperty]
 	private object? currentView;
 
-	public MainViewModel(IServiceProvider serviceProvider)
+	public ManagerWindowViewModel(IServiceProvider serviceProvider)
 	{
 		_serviceProvider = serviceProvider;
 
@@ -55,8 +55,8 @@ public partial class MainViewModel : ObservableObject
 
 		isMenuExpanded = !isMenuExpanded;
 	}
-	//[RelayCommand]
-	//private void Account() => CurrentView = _serviceProvider.GetRequiredService<AccountView>();
+	[RelayCommand]
+	private void Account() => CurrentView = _serviceProvider.GetRequiredService<AccountView>();
 	[RelayCommand]
 	private void Statistics() => CurrentView = _serviceProvider.GetRequiredService<StatisticsView>();
 	[RelayCommand]

@@ -1,3 +1,0 @@
-CREATE USER developer WITH PASSWORD 'bibi';
-
-GRANT ALL PRIVILEGES ON DATABASE storage TO developer;

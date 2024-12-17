@@ -6,10 +6,12 @@ using application.MVVM.View;
 using application.MVVM.View.AdminPages;
 using application.MVVM.View.Auth;
 using application.MVVM.View.Pages;
+using application.MVVM.View.Role;
 using application.MVVM.ViewModel;
 using application.MVVM.ViewModel.AdminPages;
 using application.MVVM.ViewModel.Auth;
 using application.MVVM.ViewModel.Pages;
+using application.MVVM.ViewModel.Roles;
 using application.Repositories;
 using application.Repository;
 using application.Services;
@@ -77,6 +79,10 @@ public partial class App : Application
 		services.AddTransient<MainWindow>();
 		services.AddTransient<AdminViewModel>();
 		services.AddTransient<AdminView>();
+		services.AddTransient<ManagerWindowViewModel>();
+		services.AddTransient<ManagerWindowView>();
+		services.AddTransient<WorkerWindowViewModel>();
+		services.AddTransient<WorkerWindowView>();
 
 		services.AddScoped<RegistrationCompanyStage1ViewModel>();
 		services.AddScoped<RegistrationCompanyStage1View>();

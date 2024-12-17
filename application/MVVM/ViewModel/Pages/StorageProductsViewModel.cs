@@ -14,9 +14,9 @@ public partial class StorageProductsViewModel : ObservableObject
 	public Guid StorageId { get; private set; }
 
 	public static event Action<Guid>? OpenAddProduct;
+	public static event Action? CloseAddProduct;
 
-	public ObservableCollection<ProductDataResult> Products { get; } = new();
-	private string _orderBy = "";
+	public ObservableCollection<ProductDataResult> Products { get; } = [];
 
 	public StorageProductsViewModel(IStorageProductsRepository productsRepository)
 	{
@@ -39,5 +39,10 @@ public partial class StorageProductsViewModel : ObservableObject
 	public void TriggerAddProduct(Guid storageId)
 	{
 		OpenAddProduct?.Invoke(StorageId);
+	}
+	[RelayCommand]
+	private void Back()
+	{
+		CloseAddProduct?.Invoke();
 	}
 }

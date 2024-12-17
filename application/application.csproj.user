@@ -50,6 +50,15 @@
     <Compile Update="MVVM\View\Pages\AddStorageView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="MVVM\View\Role\AnalystWindowView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="MVVM\View\Role\ManagerWindowView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="MVVM\View\Role\WorkerWindowView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="MVVM\View\AdminPages\CompanyView.xaml">
@@ -98,6 +107,15 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MVVM\View\Pages\AddStorageView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MVVM\View\Role\AnalystWindowView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MVVM\View\Role\ManagerWindowView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MVVM\View\Role\WorkerWindowView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Theme\General\DataGridStyles.xaml">

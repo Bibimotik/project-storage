@@ -108,10 +108,17 @@ public class EntityModel
 
 	// от EntityTable
 	public Guid EntityId { get; set; }
+	public UserRole Role { get; set; } = UserRole.NoRole;
 
 	public EntityType EntityType { get; set; }
 	public static EntityModel Model { get; set; } = new();
 	public static EntityModel OurUserModel { get; set; } = new();
+
+	public object this[string propertyName]
+	{
+		get => GetType().GetProperty(propertyName)?.GetValue(this);
+		set => GetType().GetProperty(propertyName)?.SetValue(this, value);
+	}
 
 	public EntityModel()
 	{

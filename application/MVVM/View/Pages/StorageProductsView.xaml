@@ -10,9 +10,27 @@
 
 	<StackPanel
 		Margin="20 0 10 0">
-		<Label
-			FontSize="45"
-			Content="My storage products"/>
+		<Grid
+			VerticalAlignment="Bottom">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="*" />
+				<ColumnDefinition
+					Width="auto" />
+			</Grid.ColumnDefinitions>
+			
+			<Label
+				FontSize="45"
+				Content="My storage products"/>
+
+			<Button
+				Grid.Column="1"
+				Style="{StaticResource SendButton}"
+				Content="Back"
+				Margin="0 0 10 10"
+				VerticalAlignment="Bottom"
+				Command="{Binding BackCommand}" />
+		</Grid>
 		
 		<Grid>
 			<Grid.RowDefinitions>

@@ -4,5 +4,6 @@ namespace application.Abstraction.Interfaces;
 
 public interface IRolesRepository
 {
-	public Task<IEnumerable<RoleDataResult>> GetEntityDataAsync(Guid userId);
+	Task<IEnumerable<RoleDataResult>> GetCompanyId(Guid entityId);
+	public Task<Guid> GetEntityDataAsync(Guid userId);
 }

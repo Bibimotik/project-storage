@@ -5,8 +5,17 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:application.MVVM.View.Pages"
+	xmlns:c="clr-namespace:application.Utilities.Converter"
 	xmlns:Pages="clr-namespace:application.MVVM.ViewModel.Pages"
-	mc:Ignorable="d">
+	mc:Ignorable="d"
+	Loaded="Window_Loaded">
+
+
+	<UserControl.Resources>
+		<c:BoolToVisibilityConverter
+			x:Key="BoolToVisibilityConverter" />
+	</UserControl.Resources>
+
 
 	<StackPanel
 		Margin="20 0 10 0">
@@ -14,11 +23,31 @@
 			FontSize="45"
 			Content="Your roles"/>
 		
-		<ScrollViewer>
+		<ScrollViewer
+			Visibility="{Binding IsNoRoleVisible, Converter={StaticResource BoolToVisibilityConverter}}">
 			<StackPanel x:Name="RolesPanel" Height="550">
 				
 			</StackPanel>
 		</ScrollViewer>
+
+		<StackPanel
+			Visibility="{Binding IsWorkerVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+			Orientation="Vertical">
+
+			<Label
+				FontSize="45"
+				Content="Your roles" />
+
+			<Button
+				Grid.Column="1"
+				Content="Exit from role"
+				Foreground="#ffffff"
+				VerticalAlignment="Center"
+				Command="{Binding ExitFromRoleCommand}"
+				Style="{StaticResource SendButton}" />
+			
+		</StackPanel>
+
 	</StackPanel>
 	
 </UserControl>

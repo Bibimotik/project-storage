@@ -12,7 +12,7 @@
 	Title="AdminWindow"
 	WindowStartupLocation="CenterScreen"
 	Loaded="Window_Loaded">
-
+	
 	<Window.Resources>
 		<Storyboard
 			x:Key="ExpandStoryboard">

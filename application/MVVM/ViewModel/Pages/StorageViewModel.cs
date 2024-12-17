@@ -9,13 +9,15 @@ namespace application.MVVM.ViewModel.Pages;
 public partial class StorageViewModel : ObservableObject
 {
     private readonly IStorageRepository _storageRepository;
-    public ObservableCollection<StorageDataResult> Storage { get; } = new();
+	public ObservableCollection<StorageDataResult> Storage { get; } = [];
     private string _orderBy = "";
 
     public static event Action? OpenAddStorage;
     public static event Action<Guid>? OpenStorageProducts;
 
-    public StorageViewModel(IStorageRepository storageRepository)
+	public Guid SelectedStorageId { get; private set; }
+
+	public StorageViewModel(IStorageRepository storageRepository)
     {
         _storageRepository = storageRepository;
     }
@@ -31,10 +33,13 @@ public partial class StorageViewModel : ObservableObject
         }
     }
 
-    [RelayCommand]
-    public void TriggerAddStorage() => OpenAddStorage?.Invoke();
+	[RelayCommand]
+	public void TriggerAddStorage()
+	{
+		OpenAddStorage?.Invoke();
+	}
 
-    [RelayCommand]
+	[RelayCommand]
     public void TriggerShowStorage(Guid storageId)
     {
         OpenStorageProducts?.Invoke(storageId);
@@ -58,6 +63,4 @@ public partial class StorageViewModel : ObservableObject
 
         await LoadStorageAsync(EntityModel.OurUserModel.EntityId);
     }
-
-    public Guid SelectedStorageId { get; private set; }
 }

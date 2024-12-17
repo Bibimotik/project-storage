@@ -73,5 +73,16 @@ public class EntityAbstraction
 		[Description("user")]
 		User,
 	}
-
+	
+	public enum UserRole
+	{
+		[Description("Менеджер")]
+		Manager,
+		[Description("Работник склада")]
+		Worker,
+		[Description("Аналитик")]
+		Analyst,
+		[Description("Отсутствует")]
+		NoRole
+	}
 }
