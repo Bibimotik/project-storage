@@ -46,8 +46,6 @@ public partial class AddStaffViewModel : ObservableObject
 			Access
 		);
 
-		//TODO - передавать uuid нашего entity
-		//TODO - вроде так
 		await _addStaffRepository.InsertStaff(EntityModel.OurUserModel.EntityId, managerModel);
 	}
 

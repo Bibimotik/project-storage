@@ -63,4 +63,14 @@ public partial class StorageViewModel : ObservableObject
 
         await LoadStorageAsync(EntityModel.OurUserModel.EntityId);
     }
+    
+    [RelayCommand]
+    public async Task DeleteStorage(Guid storageId)
+    {
+	    var isDeleted = await _storageRepository.MarkStorageAsDeletedAsync(storageId);
+	    if (isDeleted)
+	    {
+		    await LoadStorageAsync(EntityModel.OurUserModel.EntityId);
+	    }
+    }
 }

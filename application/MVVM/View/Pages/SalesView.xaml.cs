@@ -93,9 +93,14 @@ public partial class SalesView : UserControl
 			Style = (Style)FindResource("SendButtonRed")
 		};
 
-		deleteButton.Click += (sender, e) =>
+		deleteButton.Click += async (sender, e) =>
 		{
-			MessageBox.Show($"Deleting storage: {order.ID}");
+			var result = MessageBox.Show($"Are you sure you want to delete this sale: {order.Application_Date}?", "Delete Sale", MessageBoxButton.YesNo);
+			if (result == MessageBoxResult.Yes)
+			{
+				await _viewModel.DeleteStorage(order.ID);
+				ReloadSalesData();
+			}
 		};
 
 		Grid.SetColumn(deleteButton, 1);
@@ -119,6 +124,18 @@ public partial class SalesView : UserControl
 		var searchQuery = SearchTextBox.Text;
 
 		await _viewModel.LoadOrdersAsync(EntityModel.OurUserModel.EntityId, searchQuery);
+
+		SalePanel.Children.Clear();
+		foreach (var storage in _viewModel.Orders)
+		{
+			var storageCard = CreateOrderCard(storage);
+			SalePanel.Children.Add(storageCard);
+		}
+	}
+	
+	private async Task ReloadSalesData()
+	{
+		await _viewModel.LoadOrdersAsync(EntityModel.OurUserModel.EntityId);
 
 		SalePanel.Children.Clear();
 		foreach (var storage in _viewModel.Orders)

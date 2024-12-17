@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Windows;
 
 using application.Abstraction.Interfaces;
 using application.MVVM.Model;
@@ -26,8 +27,8 @@ public partial class StorageProductsViewModel : ObservableObject
 	public async Task LoadProductsAsync(Guid storageId, string searchQuery = "")
 	{
 		StorageId = storageId;
-		Products.Clear();
 		var products = await _productsRepository.GetProductsDataAsync(storageId, searchQuery);
+		Products.Clear();
 
 		foreach (var product in products)
 		{
@@ -40,9 +41,20 @@ public partial class StorageProductsViewModel : ObservableObject
 	{
 		OpenAddProduct?.Invoke(StorageId);
 	}
+	
 	[RelayCommand]
 	private void Back()
 	{
 		CloseAddProduct?.Invoke();
+	}
+	
+	[RelayCommand]
+	public async Task DeleteProduct(Guid productId)
+	{
+		var isDeleted = await _productsRepository.MarkProductAsDeletedAsync(productId);
+		if (isDeleted)
+		{
+			await LoadProductsAsync(StorageId);
+		}
 	}
 }

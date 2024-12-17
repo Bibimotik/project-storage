@@ -37,4 +37,14 @@ public partial class SalesViewModel : ObservableObject
 			Orders.Add(order);
 		}
 	}
+	
+	[RelayCommand]
+	public async Task DeleteStorage(Guid orderId)
+	{
+		var isDeleted = await _saleRepository.MarkSaleAsDeletedAsync(orderId);
+		if (isDeleted)
+		{
+			await LoadOrdersAsync(EntityModel.OurUserModel.EntityId);
+		}
+	}
 }

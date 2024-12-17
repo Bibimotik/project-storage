@@ -96,9 +96,14 @@ namespace application.MVVM.View.Pages
 		        Style = (Style)FindResource("SendButtonRed")
 		    };
 
-		    deleteButton.Click += (sender, e) =>
+		    deleteButton.Click += async (sender, e) =>
 		    {
-		        MessageBox.Show($"Deleting product: {product.Id}");
+			    var result = MessageBox.Show($"Are you sure you want to delete this product: {product.Title}?", "Delete Product", MessageBoxButton.YesNo);
+			    if (result == MessageBoxResult.Yes)
+			    {
+				    await _viewModel.DeleteProduct(product.Id);
+				    ReloadProductData();
+			    }
 		    };
 
 		    Grid.SetColumn(deleteButton, 1);
@@ -122,6 +127,18 @@ namespace application.MVVM.View.Pages
 			var searchQuery = SearchTextBox.Text;
 
 			await _viewModel.LoadProductsAsync(_storageId, searchQuery);
+
+			StorageProductsPanel.Children.Clear();
+			foreach (var storage in _viewModel.Products)
+			{
+				var storageCard = CreateProductCard(storage);
+				StorageProductsPanel.Children.Add(storageCard);
+			}
+		}
+		
+		private async Task ReloadProductData()
+		{
+			await _viewModel.LoadProductsAsync(_storageId);
 
 			StorageProductsPanel.Children.Clear();
 			foreach (var storage in _viewModel.Products)

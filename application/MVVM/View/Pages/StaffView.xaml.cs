@@ -72,11 +72,12 @@ public partial class StaffView : UserControl
 
 		var fullName = $"{staffMember.FirstName} {staffMember.SecondName} {staffMember.ThirdName}";
 
-		var idText = new TextBlock { Text = staffMember.Id.ToString(), Visibility = Visibility.Hidden };
+		var idText = new TextBlock { Text = staffMember.Id.ToString(), FontSize = 1, Visibility = Visibility.Hidden };
 		var nameText = new TextBlock { Text = $"Name: {fullName}", FontSize = 18 };
 		var emailText = new TextBlock { Text = $"Email: {staffMember.Email}", FontSize = 16 };
 		var accessText = new TextBlock { Text = $"Access: {staffMember.Access}", FontSize = 14 };
 
+		stackPanel.Children.Add(idText);
 		stackPanel.Children.Add(nameText);
 		stackPanel.Children.Add(emailText);
 		stackPanel.Children.Add(accessText);
@@ -94,9 +95,14 @@ public partial class StaffView : UserControl
 			Style = (Style)FindResource("SendButtonRed")
 		};
 
-		deleteButton.Click += (sender, e) =>
+		deleteButton.Click += async (sender, e) =>
 		{
-			MessageBox.Show($"Deleting product: {staffMember.Id}");
+			var result = MessageBox.Show($"Are you sure you want to delete this staff member: {fullName}?", "Delete Staff", MessageBoxButton.YesNo);
+			if (result == MessageBoxResult.Yes)
+			{
+				await _viewModel.DeleteStaffMemberAsync(staffMember.Id);
+				ReloadStaffData();
+			}
 		};
 
 		Grid.SetColumn(deleteButton, 1);

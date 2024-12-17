@@ -36,4 +36,19 @@ public class StaffRepository : IStaffRepository
 			return await dbConnection.QueryAsync<StaffMember>(query, new { EntityId = entityId });
 		}, _databaseService);
 	}
+	
+	public async Task<bool> DeleteStaffMemberAsync(Guid staffId)
+	{
+		const string query = @"
+        DELETE FROM entity_managers
+        WHERE id = @StaffId";
+
+		var result = await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			var affectedRows = await dbConnection.ExecuteAsync(query, new { StaffId = staffId });
+			return affectedRows > 0;
+		}, _databaseService);
+
+		return result;
+	}
 }

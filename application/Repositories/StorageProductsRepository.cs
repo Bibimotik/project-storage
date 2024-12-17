@@ -31,7 +31,8 @@ public class StorageProductsRepository : IStorageProductsRepository
 					expiration_date
 				FROM PRODUCT
 				WHERE entity_storage_id = @StorageId
-				AND title LIKE @Substring";
+				AND title LIKE @Substring
+				AND is_deleted = false";
 
 			if (orderBy == "ASC")
 			{
@@ -49,6 +50,20 @@ public class StorageProductsRepository : IStorageProductsRepository
 			});
 
 			return result;
+		}, _databaseService);
+	}
+	
+	public async Task<bool> MarkProductAsDeletedAsync(Guid productId)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			string query = @"UPDATE product
+                             SET is_deleted = true
+                             WHERE id = @ProductId";
+
+			var result = await dbConnection.ExecuteAsync(query, new { ProductId = productId });
+
+			return result > 0;
 		}, _databaseService);
 	}
 }

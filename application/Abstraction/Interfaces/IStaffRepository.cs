@@ -5,4 +5,5 @@ namespace application.Abstraction.Interfaces;
 public interface IStaffRepository
 {
 	public Task<IEnumerable<StaffMember>> GetStaffByEntityIdAsync(Guid entityId);
+	public Task<bool> DeleteStaffMemberAsync(Guid staffId);
 }

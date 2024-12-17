@@ -76,7 +76,7 @@ CREATE TABLE "order"
 (
 	ID                   uuid         NOT NULL PRIMARY KEY,
 	Entity_ID     	uuid          NOT NULL REFERENCES ENTITY (ID) ON DELETE CASCADE,
-	Entity_Managers_ID   uuid         NOT NULL REFERENCES ENTITY_MANAGERS (ID) ON DELETE CASCADE,
+	Entity_Managers_ID   uuid,
 	INN                  char(12)     NOT NULL,
 	KPP                  char(12)     NOT NULL,
 	OGRN                 char(13)     NOT NULL,

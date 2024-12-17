@@ -92,9 +92,14 @@ namespace application.MVVM.View.Pages
                 Style = (Style)FindResource("SendButtonRed")
             };
 
-            deleteButton.Click += (sender, e) =>
+            deleteButton.Click += async (sender, e) =>
             {
-                MessageBox.Show($"Deleting storage: {storage.Id}");
+	            var result = MessageBox.Show($"Are you sure you want to delete this storage: {storage.Point}?", "Delete Storage", MessageBoxButton.YesNo);
+	            if (result == MessageBoxResult.Yes)
+	            {
+		            await _viewModel.DeleteStorage(storage.Id);
+		            ReloadStorageData();
+	            }
             };
 
             Grid.SetColumn(deleteButton, 1);

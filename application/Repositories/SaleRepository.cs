@@ -29,7 +29,6 @@ public class SaleRepository : ISaleRepository
 	            WHERE entity_id = @EntityId
 	            AND fullname LIKE @Substring";
 
-			// Добавление сортировки
 			if (orderBy == "ASC")
 			{
 				query += " ORDER BY fullname ASC";
@@ -46,6 +45,20 @@ public class SaleRepository : ISaleRepository
 			});
 
 			return result;
+		}, _databaseService);
+	}
+	
+	public async Task<bool> MarkSaleAsDeletedAsync(Guid saleId)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			string query = @"UPDATE ""order""
+                             SET is_deleted = true
+                             WHERE id = @OrderId";
+
+			var result = await dbConnection.ExecuteAsync(query, new { OrderId = saleId });
+
+			return result > 0;
 		}, _databaseService);
 	}
 }

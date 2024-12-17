@@ -31,4 +31,14 @@ public partial class StaffViewModel : ObservableObject
     
 	[RelayCommand]
 	public void TriggerAddStaff() => OpenAddStaff?.Invoke();
+	
+	[RelayCommand]
+	public async Task DeleteStaffMemberAsync(Guid staffId)
+	{
+		var isDeleted = await _staffRepository.DeleteStaffMemberAsync(staffId);
+		if (isDeleted)
+		{
+			await LoadStaffAsync(EntityModel.OurUserModel.EntityId);
+		}
+	}
 }
