@@ -17,7 +17,7 @@ namespace application.MVVM.ViewModel.Pages;
 public partial class AddProductViewModel : ObservableObject
 {
     private readonly IAddProductRepository _productRepository;
-    public static event Action? OpenStorage;
+    public static event Action? CloseAddProduct;
 
     private Guid _storageId;
 
@@ -36,7 +36,7 @@ public partial class AddProductViewModel : ObservableObject
     [RelayCommand]
     public void TriggerBackProduct()
     {
-        OpenStorage?.Invoke();
+		CloseAddProduct?.Invoke();
     }
 
     public ICommand SelectFileCommand { get; }

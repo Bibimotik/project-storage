@@ -3,8 +3,6 @@ using application.Abstraction.Interfaces;
 using application.MVVM.Model;
 using application.Utilities;
 
-using CommunityToolkit.Mvvm.Input;
-
 using Dapper;
 
 namespace application.Repositories;
@@ -12,20 +10,21 @@ namespace application.Repositories;
 public class AddStaffRepository : IAddStaffRepository
 {
 	private readonly IDatabaseService _databaseService;
-	
+
 	public AddStaffRepository(IDatabaseService databaseService) => _databaseService = databaseService;
 
-	public async Task<(Guid Id, string Name)> GetUser(string email)
+	public async Task<(Guid Id, string Name)> GetUser(Guid userId, string email)
 	{
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
 			const string query = @"SELECT id, CONCAT(firstname, ' ', secondname, ' ', thirdname) AS name 
-                               FROM ""user"" 
-                               WHERE email = @Email";
+                  FROM ""user""
+                  WHERE email = @Email
+                  AND id <> @UserId";
 
-			var result = await dbConnection.QuerySingleOrDefaultAsync<(Guid Id, string Name)>(query, new { Email = email });
+			var result = await dbConnection.QuerySingleOrDefaultAsync<(Guid Id, string Name)>(query, new { UserId = userId, Email = email });
 
-			if (result.Id == Guid.Empty)
+			if (result.Id == null || result.Name == null || result.Id == userId)
 			{
 				throw new InvalidOperationException($"User with email '{email}' not found.");
 			}
@@ -33,6 +32,7 @@ public class AddStaffRepository : IAddStaffRepository
 			return result;
 		}, _databaseService);
 	}
+
 
 	public async Task<Guid> InsertStaff(Guid entityId, EntityManagerModel managerModel)
 	{

@@ -47,7 +47,6 @@
 			Content="{Binding SelectedFilePath}"
 			Command="{Binding SelectFileCommand}" 
 			Style="{StaticResource SendButtonWhite}" />
-		
 
 		<Button
 			Content="Add product"

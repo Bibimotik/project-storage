@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Windows;
 
 using application.Abstraction;
 using application.Abstraction.Interfaces;
@@ -43,8 +44,11 @@ public partial class RolesViewModel : ObservableObject
 		var rolesData = await _rolesRepository.GetEntityDataAsync(userId);
 		Roles.Clear();
 
+		MessageBox.Show(rolesData.Count().ToString());
+
 		foreach (var role in rolesData)
 		{
+			MessageBox.Show("qwe " + role);
 			Roles.Add(role);
 		}
 	}

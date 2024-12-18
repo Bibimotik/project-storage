@@ -61,8 +61,8 @@ public partial class AddStaffViewModel : ObservableObject
 
 		try
 		{
-			var (userId, userName) = await _addStaffRepository.GetUser(email);
-        
+			var (userId, userName) = await _addStaffRepository.GetUser(EntityModel.OurUserModel.Id, email);
+
 			User_id = $"{userId}";
 			Name = userName;
 		}

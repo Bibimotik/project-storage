@@ -21,7 +21,7 @@ public partial class MainViewModel : ObservableObject
 	[ObservableProperty]
 	private object? currentView;
 
-	public MainViewModel(IServiceProvider serviceProvider)
+	public MainViewModel(IServiceProvider serviceProvider)	
 	{
 		_serviceProvider = serviceProvider;
 
@@ -30,7 +30,7 @@ public partial class MainViewModel : ObservableObject
 		StorageViewModel.OpenAddStorage += OnOpenAddStorage;
 		StorageViewModel.OpenStorageProducts += OnOpenStorageProducts;
 		AddStorageViewModel.OpenStorage += OnOpenStorage;
-		AddProductViewModel.OpenStorage += OnOpenStorage;
+		AddProductViewModel.CloseAddProduct += OnOpenAddStorage;
 		StaffViewModel.OpenAddStaff += OnOpenAddStaff;
 		AddStaffViewModel.OpenStaff += OnOpenStaff;
 		StorageProductsViewModel.OpenAddProduct += OnOpenAddProduct;

@@ -6,7 +6,12 @@ public class EntityTableModel
 	public string Type { get; set; } = string.Empty;
 	public Guid Type_ID { get; set; }
 
-	public EntityTableModel()
+	public void Method()
+	{
+        throw new System.NotImplementedException();
+    }
+
+    public EntityTableModel()
 	{
 
 	}

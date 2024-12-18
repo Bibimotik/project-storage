@@ -22,8 +22,6 @@ using DotNetEnv;
 
 using Microsoft.Extensions.DependencyInjection;
 
-using SupportView = application.MVVM.View.Pages.SupportView;
-
 namespace application;
 
 public partial class App : Application
@@ -35,7 +33,7 @@ public partial class App : Application
 		base.OnStartup(e);
 
 		// Глобальная обработка исключений в потоке UI WPF
-		this.DispatcherUnhandledException += App_DispatcherUnhandledException;
+		DispatcherUnhandledException += App_DispatcherUnhandledException;
 		// Обработка необработанных исключений в других потоках
 		AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 		// Обработка необработанных исключений в задачах
@@ -94,7 +92,7 @@ public partial class App : Application
 
 		services.AddTransient<AddStorageViewModel>();
 		services.AddScoped<AddStorageView>();
-		
+
 		services.AddTransient<StorageViewModel>();
 		services.AddScoped<StorageView>();
 

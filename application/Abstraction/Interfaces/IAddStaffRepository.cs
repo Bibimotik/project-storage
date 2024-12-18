@@ -4,6 +4,6 @@ namespace application.Abstraction.Interfaces;
 
 public interface IAddStaffRepository
 {
-	public Task<(Guid Id, string Name)> GetUser(string email);
+	Task<(Guid Id, string Name)> GetUser(Guid userId, string email);
 	public Task<Guid> InsertStaff(Guid entityId, EntityManagerModel managerModel);
 }

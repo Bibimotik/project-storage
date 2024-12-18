@@ -45,75 +45,101 @@ namespace application.MVVM.View.Pages
 
 		private Border CreateProductCard(ProductDataResult product)
 		{
-		    var border = new Border
-		    {
-		        Style = (Style)FindResource("CardBorderStyle"),
-		        Margin = new Thickness(0, 10, 0, 10),
-		        Padding = new Thickness(10)
-		    };
+			var border = new Border
+			{
+				Style = (Style)FindResource("CardBorderStyle"),
+				Margin = new Thickness(0, 10, 10, 10),
+				Padding = new Thickness(10)
+			};
 
-		    var grid = new Grid();
-		    grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) });
-		    grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+			var grid = new Grid();
+			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) });
+			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 
-		    var image = new Image
-		    {
-		        Width = 50,
-		        Height = 50,
-		        Margin = new Thickness(0, 0, 10, 0),
-		        VerticalAlignment = VerticalAlignment.Center
-		    };
-		    
-		    image.Source = _byteArrayToImageConverter.Convert(product.Image, typeof(BitmapImage), null, CultureInfo.InvariantCulture) as BitmapImage;
+			var image = new Image
+			{
+				Width = 50,
+				Height = 50,
+				Margin = new Thickness(0, 0, 10, 0),
+				VerticalAlignment = VerticalAlignment.Center
+			};
 
-		    Grid.SetColumn(image, 0);
-		    grid.Children.Add(image);
+			image.Source = _byteArrayToImageConverter.Convert(product.Image, typeof(BitmapImage), null, CultureInfo.InvariantCulture) as BitmapImage;
 
-		    var stackPanel = new StackPanel
-		    {
-		        Orientation = Orientation.Vertical
-		    };
+			Grid.SetColumn(image, 0);
+			grid.Children.Add(image);
 
-		    var id = new TextBlock { Text = $"{product.Id}", Visibility = Visibility.Hidden };
-		    var titleText = new TextBlock { Text = $"Title: {product.Title}", FontSize = 20 };
-		    var priceText = new TextBlock { Text = $"Price: {product.Price:C} BYN", FontSize = 16 };
-		    var codeText = new TextBlock { Text = $"Code: {product.Code}", FontSize = 14 };
+			var stackPanel = new StackPanel
+			{
+				Orientation = Orientation.Vertical
+			};
 
-		    stackPanel.Children.Add(titleText);
-		    stackPanel.Children.Add(priceText);
-		    stackPanel.Children.Add(codeText);
+			var id = new TextBlock { Text = $"{product.Id}", Visibility = Visibility.Hidden };
+			var titleText = new TextBlock { Text = $"Title: {product.Title}", FontSize = 20 };
+			var priceText = new TextBlock { Text = $"Price: {product.Price:C} BYN", FontSize = 16 };
+			var codeText = new TextBlock { Text = $"Code: {product.Code}", FontSize = 14 };
 
-		    Grid.SetColumn(stackPanel, 1);
-		    grid.Children.Add(stackPanel);
+			stackPanel.Children.Add(titleText);
+			stackPanel.Children.Add(priceText);
+			stackPanel.Children.Add(codeText);
 
-		    var deleteButton = new Button
-		    {
-		        Content = "Delete",
-		        HorizontalAlignment = HorizontalAlignment.Right,
-		        Margin = new Thickness(0, 10, 0, 0),
-		        Width = 75,
-		        Height = 30,
-		        Style = (Style)FindResource("SendButtonRed")
-		    };
+			Grid.SetColumn(stackPanel, 1);
+			grid.Children.Add(stackPanel);
 
-		    deleteButton.Click += async (sender, e) =>
-		    {
-			    var result = MessageBox.Show($"Are you sure you want to delete this product: {product.Title}?", "Delete Product", MessageBoxButton.YesNo);
-			    if (result == MessageBoxResult.Yes)
-			    {
-				    await _viewModel.DeleteProduct(product.Id);
-				    ReloadProductData();
-			    }
-		    };
+			var buttonPanel = new StackPanel
+			{
+				Orientation = Orientation.Vertical,
+				VerticalAlignment = VerticalAlignment.Top // Прижимает кнопки к верхней части карточки
+			};
 
-		    Grid.SetColumn(deleteButton, 1);
-		    grid.Children.Add(deleteButton);
+			var deleteButton = new Button
+			{
+				Content = "Delete",
+				HorizontalAlignment = HorizontalAlignment.Center,
+				Margin = new Thickness(10),
+				Width = 75,
+				Height = 30,
+				Style = (Style)FindResource("SendButtonRed")
+			};
 
-		    border.Child = grid;
+			deleteButton.Click += async (sender, e) =>
+			{
+				var result = MessageBox.Show($"Are you sure you want to delete this product: {product.Title}?", "Delete Product", MessageBoxButton.YesNo);
+				if (result == MessageBoxResult.Yes)
+				{
+					await _viewModel.DeleteProduct(product.Id);
+					ReloadProductData();
+				}
+			};
 
-		    return border;
+			var anotherButton = new Button
+			{
+				Content = "Edit",
+				HorizontalAlignment = HorizontalAlignment.Center,
+				Margin = new Thickness(10),
+				Width = 75,
+				Height = 30,
+				Style = (Style)FindResource("SendButton") // Или стиль для другой кнопки
+			};
+
+			anotherButton.Click += async (sender, e) =>
+			{
+				// Логика для другой кнопки
+				MessageBox.Show("Another button clicked.");
+			};
+
+			buttonPanel.Children.Add(deleteButton);
+			buttonPanel.Children.Add(anotherButton);
+
+			Grid.SetColumn(buttonPanel, 1);
+			grid.Children.Add(buttonPanel);
+
+			border.Child = grid;
+
+			return border;
 		}
-		
+
+
 		private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			_searchTimer.Stop();

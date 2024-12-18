@@ -72,7 +72,7 @@
 				</ComboBox>
 			</Grid>
 
-			<ScrollViewer Grid.Row="1" Height="550">
+			<ScrollViewer Grid.Row="1" Height="550" Padding="0 0 10 0">
 				<StackPanel x:Name="StorageProductsPanel">
 					
 				</StackPanel>
