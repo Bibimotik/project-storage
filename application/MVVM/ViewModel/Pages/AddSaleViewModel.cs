@@ -69,7 +69,7 @@ public partial class AddSaleViewModel : ObservableObject
 	[ObservableProperty]
 	private string comment;
 	[ObservableProperty]
-	private double vat;
+	private int vat;
 	
 	[ObservableProperty]
 	private string fromInn;
@@ -209,6 +209,31 @@ public partial class AddSaleViewModel : ObservableObject
 
         try
         {
+	        if (string.IsNullOrWhiteSpace(Inn) || 
+	            string.IsNullOrWhiteSpace(Kpp) ||
+	            string.IsNullOrWhiteSpace(Ogrn) ||
+	            string.IsNullOrWhiteSpace(FullName) ||
+	            string.IsNullOrWhiteSpace(Address) ||
+	            string.IsNullOrWhiteSpace(PaymentAccount) ||
+	            string.IsNullOrWhiteSpace(ToCorAccount) ||
+	            string.IsNullOrWhiteSpace(ToBIK) ||
+	            string.IsNullOrWhiteSpace(ToBank) ||
+	            string.IsNullOrWhiteSpace(FromCorAccount) ||
+	            string.IsNullOrWhiteSpace(FromBIK) ||
+	            string.IsNullOrWhiteSpace(FromBank) ||
+	            PlanDateShipment == null ||
+	            string.IsNullOrWhiteSpace(ShippingAddress) ||
+	            ApplicationDate == null ||
+	            string.IsNullOrWhiteSpace(DeliveryPoint) ||
+	            string.IsNullOrWhiteSpace(DeliveryAddress) ||
+	            PlanDateReceipt == null ||
+	            string.IsNullOrWhiteSpace(Comment) ||
+	            Vat == null)
+	        {
+		        MessageBox.Show("Заполните все поля");
+		        return;
+	        }
+	        
             var orderModel = new OrderModel
             {
                 ID = Guid.NewGuid(),
@@ -247,7 +272,7 @@ public partial class AddSaleViewModel : ObservableObject
                     ID = Guid.NewGuid(),
                     Product_ID = productId,
                     Order_ID = orderId,
-                    Count = 1
+                    Count = Vat
                 };
 
                 await _saleRepository.InsertProductOrder(productOrderModel);

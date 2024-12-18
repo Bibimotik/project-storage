@@ -38,7 +38,7 @@
                             <ColumnDefinition
                                 Width="100"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox Name="INNTextBox" Style="{StaticResource AuthInput}" Text="{Binding Inn, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox Name="INNTextBox" Style="{StaticResource AuthInput}" Text="{Binding Inn, UpdateSourceTrigger=PropertyChanged}" MaxLength="12"/>
                         <Button
                             Grid.Column="1"
                             Margin="5 0 0 0"
@@ -49,37 +49,37 @@
                     </Grid>
 
                     <Label Content="KPP"/>
-                    <TextBox Name="KPPTextBox" Style="{StaticResource AuthInput}" Text="{Binding Kpp, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Name="KPPTextBox" Style="{StaticResource AuthInput}" Text="{Binding Kpp, UpdateSourceTrigger=PropertyChanged}"  MaxLength="12"/>
 
                     <Label Content="OGRN"/>
-                    <TextBox Name="OGRNTextBox" Style="{StaticResource AuthInput}" Text="{Binding Ogrn, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Name="OGRNTextBox" Style="{StaticResource AuthInput}" Text="{Binding Ogrn, UpdateSourceTrigger=PropertyChanged}"  MaxLength="13"/>
 
                     <Label Content="Full name"/>
-                    <TextBox Name="FullNameTextBox" Style="{StaticResource AuthInput}" Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Name="FullNameTextBox" Style="{StaticResource AuthInput}" Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"  MaxLength="100"/>
 
                     <Label Content="Address"/>
-                    <TextBox Name="AddressTextBox" Style="{StaticResource AuthInput}" Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Name="AddressTextBox" Style="{StaticResource AuthInput}" Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"  MaxLength="100"/>
 
                     <Label Content="Payment account"/>
-                    <TextBox Name="PaymentAccountTextBox" Style="{StaticResource AuthInput}" Text="{Binding PaymentAccount, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Name="PaymentAccountTextBox" Style="{StaticResource AuthInput}" Text="{Binding PaymentAccount, UpdateSourceTrigger=PropertyChanged}"  MaxLength="20"/>
 
                     <Label Content="For BIK"/>
-                    <TextBox Name="ToBIKTextBox" Style="{StaticResource AuthInput}" Text="{Binding ToBIK, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Name="ToBIKTextBox" Style="{StaticResource AuthInput}" Text="{Binding ToBIK, UpdateSourceTrigger=PropertyChanged}"  MaxLength="11"/>
 
                     <Label Content="For bank"/>
-                    <TextBox Name="ToBankTextBox" Style="{StaticResource AuthInput}" Text="{Binding ToBank, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Name="ToBankTextBox" Style="{StaticResource AuthInput}" Text="{Binding ToBank, UpdateSourceTrigger=PropertyChanged}"  MaxLength="100"/>
 
                     <Label Content="For cor account"/>
-                    <TextBox Name="ToCorAccountTextBox" Style="{StaticResource AuthInput}" Text="{Binding ToCorAccount, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Name="ToCorAccountTextBox" Style="{StaticResource AuthInput}" Text="{Binding ToCorAccount, UpdateSourceTrigger=PropertyChanged}"  MaxLength="20"/>
 
                     <Label Content="From cor account"/>
-                    <TextBox Name="FromCorAccountTextBox" Style="{StaticResource AuthInput}" Text="{Binding FromCorAccount, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Name="FromCorAccountTextBox" Style="{StaticResource AuthInput}" Text="{Binding FromCorAccount, UpdateSourceTrigger=PropertyChanged}"  MaxLength="20"/>
 
                     <Label Content="From BIK"/>
-                    <TextBox Name="FromBIKTextBox" Style="{StaticResource AuthInput}" Text="{Binding FromBIK, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Name="FromBIKTextBox" Style="{StaticResource AuthInput}" Text="{Binding FromBIK, UpdateSourceTrigger=PropertyChanged}"  MaxLength="11"/>
                     
                     <Label Content="From bank"/>
-                    <TextBox Name="FromBankTextBox" Style="{StaticResource AuthInput}" Text="{Binding FromBank, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Name="FromBankTextBox" Style="{StaticResource AuthInput}" Text="{Binding FromBank, UpdateSourceTrigger=PropertyChanged}"  MaxLength="100"/>
                     
                     <Button
                         Content="Back"
@@ -113,30 +113,30 @@
                     <DatePicker Name="PlanDateShipmentPicker" SelectedDate="{Binding PlanDateShipment, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label Content="Shipping address"/>
-                    <TextBox Name="ShippingAddressTextBox" Style="{StaticResource AuthInput}" Text="{Binding ShippingAddress, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Name="ShippingAddressTextBox" Style="{StaticResource AuthInput}" Text="{Binding ShippingAddress, UpdateSourceTrigger=PropertyChanged}"  MaxLength="100"/>
 
                     <Label Content="Application date"/>
                     <DatePicker Name="ApplicationDatePicker" SelectedDate="{Binding ApplicationDate, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label Content="Delivery point"/>
-                    <TextBox Name="DeliveryPointTextBox" Style="{StaticResource AuthInput}" Text="{Binding DeliveryPoint, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Name="DeliveryPointTextBox" Style="{StaticResource AuthInput}" Text="{Binding DeliveryPoint, UpdateSourceTrigger=PropertyChanged}"  MaxLength="100"/>
 
                     <Label Content="Delivery address"/>
-                    <TextBox Name="DeliveryAddressTextBox" Style="{StaticResource AuthInput}" Text="{Binding DeliveryAddress, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Name="DeliveryAddressTextBox" Style="{StaticResource AuthInput}" Text="{Binding DeliveryAddress, UpdateSourceTrigger=PropertyChanged}"  MaxLength="100"/>
 
                     <Label Content="Plan date receipt"/>
                     <DatePicker Name="PlanDateReceiptPicker" SelectedDate="{Binding PlanDateReceipt, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label Content="Full name transporter"/>
-                    <TextBox Name="TransporterFullNameTextBox" Style="{StaticResource AuthInput}" Text="{Binding TransporterFullName, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Name="TransporterFullNameTextBox" Style="{StaticResource AuthInput}" Text="{Binding TransporterFullName, UpdateSourceTrigger=PropertyChanged}"  MaxLength="100"/>
 
                     <Label Content="Short name transporter"/>
-                    <TextBox Name="TransporterShortNameTextBox" Style="{StaticResource AuthInput}" Text="{Binding TransporterShortName, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Name="TransporterShortNameTextBox" Style="{StaticResource AuthInput}" Text="{Binding TransporterShortName, UpdateSourceTrigger=PropertyChanged}"  MaxLength="100"/>
 
                     <Label Content="Comment"/>
-                    <TextBox Name="CommentTextBox" TextWrapping="Wrap" AcceptsReturn="True" Height="64" Style="{StaticResource AuthInput}" Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Name="CommentTextBox" TextWrapping="Wrap" AcceptsReturn="True" Height="64" Style="{StaticResource AuthInput}" Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"  MaxLength="1000"/>
 
-                    <Label Content="VAT"/>
+                    <Label Content="Count"/>
                     <TextBox Name="VATTextBox" Style="{StaticResource AuthInput}" Text="{Binding Vat, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Button
