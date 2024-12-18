@@ -139,11 +139,19 @@
 				</Grid.RowDefinitions>
 
 				<Button
+					Margin="0 0 10 0"
 					Grid.Row="0"
 					Grid.Column="0"
-					Grid.ColumnSpan="2"
-					Width="410"
 					Content="Save"
+					Width="200"
+					Command="{Binding }"
+					Style="{StaticResource SendButton}" />
+				
+				<Button
+					Grid.Row="0"
+					Grid.Column="1"
+					Content="Change password"
+					Width="200"
 					Command="{Binding }"
 					Style="{StaticResource SendButton}" />
 
