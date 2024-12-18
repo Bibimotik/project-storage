@@ -145,9 +145,6 @@ public partial class SalesView : UserControl
 		{
 			deleteButton.IsEnabled = false;
 		}
-
-		Grid.SetColumn(deleteButton, 1);
-		grid.Children.Add(deleteButton);
 		
 		buttonPanel.Children.Add(editButton);
 		buttonPanel.Children.Add(printButton);
