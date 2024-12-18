@@ -19,7 +19,7 @@ public class AccountRepository : IAccountRepository
 			string query = @"
                 SELECT type, type_id
                 FROM entity
-                WHERE id = @EntityId";
+                WHERE type_id = @EntityId";
 
 			var result = await dbConnection.QueryFirstOrDefaultAsync<DeleteModel>(
 				query,

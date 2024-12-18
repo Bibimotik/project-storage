@@ -35,6 +35,12 @@ public partial class AccountViewModel : ObservableObject
 	{
 		var entity = await _accountRepository.GetEntityIdAsync(EntityModel.OurUserModel.Id);
 
+		if (entity == null)
+		{
+			MessageBox.Show("Entity not found.");
+			return;
+		}
+		
 		MessageBox.Show($"Type: {entity.Type}, TypeId: {entity.Type_Id}");
 	}
 }
