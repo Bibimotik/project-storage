@@ -12,7 +12,7 @@ public class StaffRepository : IStaffRepository
 	private readonly IDatabaseService _databaseService;
 	public StaffRepository(IDatabaseService databaseService) => _databaseService = databaseService;
 	
-	public async Task<IEnumerable<StaffMember>> GetStaffByEntityIdAsync(Guid entityId)
+	public async Task<IEnumerable<StaffMember>> GetStaffByEntityIdAsync(Guid entityId, string searchQuery = "")
 	{
 		const string query = @"
             SELECT 
@@ -29,11 +29,12 @@ public class StaffRepository : IStaffRepository
                 WHERE entity_id = @EntityId
             ) staff
             INNER JOIN ""user"" u
-            ON staff.user_id = u.id";
+            ON staff.user_id = u.id
+            AND u.email LIKE @Substring";
 
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
-			return await dbConnection.QueryAsync<StaffMember>(query, new { EntityId = entityId });
+			return await dbConnection.QueryAsync<StaffMember>(query, new { EntityId = entityId, Substring = $"%{searchQuery}%" });
 		}, _databaseService);
 	}
 	

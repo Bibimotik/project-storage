@@ -19,10 +19,11 @@ public partial class StaffViewModel : ObservableObject
 		_staffRepository = staffRepository;
 	}
 
-	public async Task LoadStaffAsync(Guid entityId)
+	public async Task LoadStaffAsync(Guid entityId, string searchQuery = "")
 	{
+		var staff = await _staffRepository.GetStaffByEntityIdAsync(entityId, searchQuery);
 		StaffMembers.Clear();
-		var staff = await _staffRepository.GetStaffByEntityIdAsync(entityId);
+		
 		foreach (var member in staff)
 		{
 			StaffMembers.Add(member);

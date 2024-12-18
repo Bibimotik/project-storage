@@ -43,7 +43,6 @@
 					VerticalAlignment="Center" 
 					Command="{Binding TriggerAddStorageCommand}"
 					Style="{StaticResource SendButton}" />
-				<!--TODO - добавить стили-->
 				<ComboBox x:Name="SortComboBox" Grid.Column="2" Margin="10,0,0,0" VerticalAlignment="Center" 
 				          SelectionChanged="SortComboBox_SelectionChanged">
 					<ComboBoxItem IsSelected="True" Content="Нет"/>

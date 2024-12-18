@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 using application.MVVM.Model;
 using application.MVVM.ViewModel.Pages;
@@ -11,6 +12,7 @@ namespace application.MVVM.View.Pages;
 public partial class StaffView : UserControl
 {
 	private readonly StaffViewModel _viewModel;
+	private readonly DispatcherTimer _searchTimer;
 	private readonly ByteArrayToImageConverter _byteArrayToImageConverter = new ByteArrayToImageConverter();
 
 	public StaffView(StaffViewModel viewModel)
@@ -20,6 +22,12 @@ public partial class StaffView : UserControl
 		InitializeComponent();
 
 		Loaded += StaffView_Loaded;
+		
+		_searchTimer = new DispatcherTimer
+		{
+			Interval = TimeSpan.FromSeconds(0.5)
+		};
+		_searchTimer.Tick += OnSearchTimerTick;
 	}
 	
 	private async void StaffView_Loaded(object sender, RoutedEventArgs e)
@@ -111,6 +119,28 @@ public partial class StaffView : UserControl
 		border.Child = grid;
 
 		return border;
+	}
+	
+	private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+	{
+		_searchTimer.Stop();
+		_searchTimer.Start();
+	}
+
+	private async void OnSearchTimerTick(object sender, EventArgs e)
+	{
+		_searchTimer.Stop();
+
+		var searchQuery = SearchTextBox.Text;
+
+		await _viewModel.LoadStaffAsync(EntityModel.OurUserModel.EntityId, searchQuery);
+
+		StaffPanel.Children.Clear();
+		foreach (var storage in _viewModel.StaffMembers)
+		{
+			var storageCard = CreateStaffCard(storage);
+			StaffPanel.Children.Add(storageCard);
+		}
 	}
 	
 	private async Task ReloadStaffData()
