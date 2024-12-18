@@ -103,6 +103,7 @@ public partial class RolesView : UserControl
 	{
 		await _viewModel.LoadRolesAsync(EntityModel.OurUserModel.Id);
 
+		RolesPanel.Children.Clear();
 		foreach (var role in _viewModel.Roles)
 		{
 			var roleCard = CreateRoleCard(role);
