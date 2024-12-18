@@ -51,11 +51,19 @@ public partial class RolesViewModel : ObservableObject
 	}
 
 	public bool IsNoRoleVisible => CurrentRole == UserRole.NoRole;
-	public bool IsWorkerVisible => CurrentRole != UserRole.NoRole;
+	public bool IsRoleVisible => CurrentRole == UserRole.Worker ||
+		CurrentRole == UserRole.Manager ||
+		CurrentRole == UserRole.Analyst;
+	public bool IsWorkerVisible => CurrentRole == UserRole.Worker;
+	public bool IsManagerVisible => CurrentRole == UserRole.Manager;
+	public bool IsAnalystVisible => CurrentRole == UserRole.Analyst;
 
 	partial void OnCurrentRoleChanged(UserRole value)
 	{
 		OnPropertyChanged(nameof(IsNoRoleVisible));
+		OnPropertyChanged(nameof(IsRoleVisible));
 		OnPropertyChanged(nameof(IsWorkerVisible));
+		OnPropertyChanged(nameof(IsManagerVisible));
+		OnPropertyChanged(nameof(IsAnalystVisible));
 	}
 }

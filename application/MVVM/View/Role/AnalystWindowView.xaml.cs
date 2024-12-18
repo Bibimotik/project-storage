@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
+
+using application.MVVM.ViewModel.Roles;
 
 namespace application.MVVM.View.Role;
 /// <summary>
@@ -18,8 +8,20 @@ namespace application.MVVM.View.Role;
 /// </summary>
 public partial class AnalystWindowView : Window
 {
-	public AnalystWindowView()
+	public AnalystWindowView(AnalystWindowViewModel vm)
 	{
+		DataContext = vm;
 		InitializeComponent();
+	}
+
+	private void RadioButton_Checked(object sender, RoutedEventArgs e)
+	{
+		//сюда что-нибудь с внешним видом можно дописать
+	}
+	private void Window_Loaded(object sender, RoutedEventArgs e)
+	{
+		// Перенос вызова команды после полной загрузки окна
+		var viewModel = DataContext as AnalystWindowViewModel;
+		viewModel?.OpenMenuCommand.Execute(null);
 	}
 }

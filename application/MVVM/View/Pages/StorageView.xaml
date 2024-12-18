@@ -37,6 +37,7 @@
 					Style="{StaticResource AuthInput}"
 					TextChanged="SearchTextBox_TextChanged" />
 				<Button 
+					x:Name="AddButton"
 					Grid.Column="1"
 					Content="Add storage" 
 					Foreground="#ffffff"

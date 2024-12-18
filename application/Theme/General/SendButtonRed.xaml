@@ -56,6 +56,20 @@
 								Property="Background"
 								Value="Maroon" />
 						</Trigger>
+
+						<Trigger
+							Property="IsEnabled"
+							Value="False">
+							<Setter
+								Property="Background"
+								Value="#7F2E2E" />
+							<Setter
+								Property="Foreground"
+								Value="#D3D3D3" />
+							<Setter
+								Property="Opacity"
+								Value="0.6" />
+						</Trigger>
 					</ControlTemplate.Triggers>
 
 				</ControlTemplate>

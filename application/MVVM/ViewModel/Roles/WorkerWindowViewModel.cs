@@ -23,7 +23,6 @@ public partial class WorkerWindowViewModel : ObservableObject
 	{
 		_serviceProvider = serviceProvider;
 
-		//Account();
 		Sales();
 
 		StorageViewModel.OpenAddStorage += OnOpenAddStorage;
@@ -43,19 +42,26 @@ public partial class WorkerWindowViewModel : ObservableObject
 	[RelayCommand]
 	private void OpenMenu()
 	{
-		var window = Application.Current.MainWindow;
-		var storyboard = window.TryFindResource(isMenuExpanded ? "CollapseStoryboard" : "ExpandStoryboard") as Storyboard;
-		if (storyboard == null)
+		try
 		{
-			Debug.WriteLine("Storyboard not found");
-			return;
-		}
-		storyboard.Begin();
+			var window = Application.Current.MainWindow;
+			var storyboard = window.TryFindResource(isMenuExpanded ? "CollapseStoryboard" : "ExpandStoryboard") as Storyboard;
+			if (storyboard == null)
+			{
+				Debug.WriteLine("Storyboard not found");
+				return;
+			}
+			storyboard.Begin();
 
-		isMenuExpanded = !isMenuExpanded;
+			isMenuExpanded = !isMenuExpanded;
+
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex);
+			Debug.WriteLine(ex);
+		}
 	}
-	//[RelayCommand]
-	//private void Account() => CurrentView = _serviceProvider.GetRequiredService<AccountView>();
 	[RelayCommand]
 	private void Sales() => CurrentView = _serviceProvider.GetRequiredService<SalesView>();
 	[RelayCommand]

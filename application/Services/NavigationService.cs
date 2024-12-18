@@ -68,7 +68,7 @@ public class NavigationService : INavigationService
 
 	public void ShowAnalystRole()
 	{
-		var adminWindow = _serviceProvider.GetRequiredService<AdminView>();
+		var adminWindow = _serviceProvider.GetRequiredService<AnalystWindowView>();
 		adminWindow.ContentRendered += NewWindowContentRendered;
 		adminWindow.Show();
 		EntityModel.OurUserModel.Role = UserRole.Analyst;

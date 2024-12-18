@@ -31,15 +31,26 @@
 		</ScrollViewer>
 
 		<StackPanel
-			Visibility="{Binding IsWorkerVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+			Visibility="{Binding IsRoleVisible, Converter={StaticResource BoolToVisibilityConverter}}"
 			Orientation="Horizontal"
 			VerticalAlignment="Top"
 			HorizontalAlignment="Left">
 
 			<Label
+				Visibility="{Binding IsWorkerVisible, Converter={StaticResource BoolToVisibilityConverter}}"
 				FontSize="18"
 				Margin="0 0 10 0"
 				Content="Now you login as Storage Worker Role" />
+			<Label
+				Visibility="{Binding IsManagerVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+				FontSize="18"
+				Margin="0 0 10 0"
+				Content="Now you login as Manager Role" />
+			<Label
+				Visibility="{Binding IsAnalystVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+				FontSize="18"
+				Margin="0 0 10 0"
+				Content="Now you login as Analyst Role" />
 
 			<Button
 				Content="Exit from role"

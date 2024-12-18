@@ -5,6 +5,8 @@ using System.Windows.Threading;
 using application.MVVM.Model;
 using application.MVVM.ViewModel.Pages;
 
+using static application.Abstraction.EntityAbstraction;
+
 namespace application.MVVM.View.Pages;
 
 public partial class SalesView : UserControl
@@ -28,6 +30,11 @@ public partial class SalesView : UserControl
 
 	private async void SalesView_Loaded(object sender, RoutedEventArgs e)
 	{
+		if (EntityModel.OurUserModel.Role is UserRole.Analyst)
+			AddButton.IsEnabled = false;
+		else
+			AddButton.IsEnabled = true;
+
 		await _viewModel.LoadOrdersAsync(EntityModel.OurUserModel.EntityId);
 		PopulateSalesPanel();
 	}
@@ -133,6 +140,14 @@ public partial class SalesView : UserControl
 				ReloadSalesData();
 			}
 		};
+
+		if (EntityModel.OurUserModel.Role is UserRole.Analyst)
+		{
+			deleteButton.IsEnabled = false;
+		}
+
+		Grid.SetColumn(deleteButton, 1);
+		grid.Children.Add(deleteButton);
 		
 		buttonPanel.Children.Add(editButton);
 		buttonPanel.Children.Add(printButton);

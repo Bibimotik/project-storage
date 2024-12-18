@@ -31,16 +31,25 @@ public partial class AdminViewModel : ObservableObject
 	[RelayCommand]
 	private void OpenMenu()
 	{
-		var window = Application.Current.MainWindow;
-		var storyboard = window.TryFindResource(isMenuExpanded ? "CollapseStoryboard" : "ExpandStoryboard") as Storyboard;
-		if (storyboard == null)
+		try
 		{
-			Debug.WriteLine("Storyboard not found");
-			return;
-		}
-		storyboard.Begin();
+			var window = Application.Current.MainWindow;
+			var storyboard = window.TryFindResource(isMenuExpanded ? "CollapseStoryboard" : "ExpandStoryboard") as Storyboard;
+			if (storyboard == null)
+			{
+				Debug.WriteLine("Storyboard not found");
+				return;
+			}
+			storyboard.Begin();
 
-		isMenuExpanded = !isMenuExpanded;
+			isMenuExpanded = !isMenuExpanded;
+
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex);
+			Debug.WriteLine(ex);
+		}
 	}
 	[RelayCommand]
 	private void Account() => CurrentView = _serviceProvider.GetRequiredService<AccountView>();

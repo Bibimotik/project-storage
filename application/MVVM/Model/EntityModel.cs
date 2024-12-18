@@ -147,16 +147,31 @@ public class EntityModel
 		Logo = logo;
 	}
 
+	//public static bool IsValidEmail(string email)
+	//{
+	//	if (string.IsNullOrWhiteSpace(email))
+	//		return false;
+	//	try
+	//	{
+	//		var regex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+	//		return regex.IsMatch(email);
+	//	}
+	//	catch (RegexMatchTimeoutException)
+	//	{
+	//		return false;
+	//	}
+	//}
+
 	public static bool IsValidEmail(string email)
 	{
 		if (string.IsNullOrWhiteSpace(email))
 			return false;
 		try
 		{
-			var regex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-			return regex.IsMatch(email);
+			var address = new System.Net.Mail.MailAddress(email);
+			return address.Address == email;
 		}
-		catch (RegexMatchTimeoutException)
+		catch
 		{
 			return false;
 		}
