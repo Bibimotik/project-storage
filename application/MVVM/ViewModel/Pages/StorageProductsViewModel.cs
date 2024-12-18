@@ -73,6 +73,7 @@ public partial class StorageProductsViewModel : ObservableObject
 	public void EditProduct(Guid productId)
 	{
 		OpenEditProduct?.Invoke(StorageId, productId);
+		//OpenAddProduct?.Invoke(StorageId);
 	}
 
 	[RelayCommand]

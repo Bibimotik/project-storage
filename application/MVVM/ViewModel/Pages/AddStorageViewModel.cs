@@ -63,14 +63,12 @@ public partial class AddStorageViewModel : ObservableObject
 
 		if (Equals(isAddOrEdit, true.ToString()))
 		{
-			MessageBox.Show("isAdd");
 			await _entityStorageRepository.InsertEntityStorage(EntityModel.OurUserModel.EntityId, storageModel);
 
 			ClearFields();
 		}
 		if (Equals(isAddOrEdit, false.ToString()))
 		{
-			MessageBox.Show("isEdit");
 			await _entityStorageRepository.UpdateEntityStorage(EntityModel.OurUserModel.EntityId, storageModel);
 
 			TriggerBackStorage();

@@ -128,7 +128,7 @@ public partial class AddProductViewModel : ObservableObject
 	[RelayCommand]
 	public async Task SaveProduct(string isAddOrEdit)
 	{
-
+		MessageBox.Show("SaveProduct " + isAddOrEdit);
 		if (string.IsNullOrWhiteSpace(Code) ||
 			string.IsNullOrWhiteSpace(Title) ||
 			string.IsNullOrWhiteSpace(Unit) ||
@@ -168,7 +168,6 @@ public partial class AddProductViewModel : ObservableObject
 
 			if (Equals(isAddOrEdit, true.ToString()))
 			{
-				MessageBox.Show("isAdd");
 				Guid productId = await _productRepository.InsertProduct(EntityModel.OurUserModel.EntityId, product);
 
 				MessageBox.Show($"Product successfully added! ID: {productId}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -177,7 +176,6 @@ public partial class AddProductViewModel : ObservableObject
 			}
 			if (Equals(isAddOrEdit, false.ToString()))
 			{
-				MessageBox.Show("isEdit");
 				await _productRepository.UpdateProduct(EntityModel.OurUserModel.EntityId, product);
 
 				MessageBox.Show($"Product successfully updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);

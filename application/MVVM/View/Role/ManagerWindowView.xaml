@@ -115,18 +115,6 @@
 						Style="{StaticResource MenuBorder}">
 						<RadioButton
 							Margin="10 5 0 5"
-							Command="{Binding StaffCommand}"
-							x:Name="Staff"
-							Style="{StaticResource MenuRadioButton}"
-							Checked="RadioButton_Checked"
-							Content="Staff"
-							Tag="../../Assets/Icons/Person.png" />
-					</Border>
-
-					<Border
-						Style="{StaticResource MenuBorder}">
-						<RadioButton
-							Margin="10 5 0 5"
 							Command="{Binding RolesCommand}"
 							x:Name="Roles"
 							Style="{StaticResource MenuRadioButton}"

@@ -27,12 +27,14 @@ public partial class ManagerWindowViewModel : ObservableObject
 
 		StorageViewModel.OpenAddStorage += OnOpenAddStorage;
 		StorageViewModel.OpenStorageProducts += OnOpenStorageProducts;
+		StorageViewModel.OpenEditStorage += OnOpenAddStorage;
 		AddStorageViewModel.OpenStorage += OnOpenStorage;
 		AddProductViewModel.CloseAddProduct += OnOpenStorage;
 		StaffViewModel.OpenAddStaff += OnOpenAddStaff;
 		AddStaffViewModel.OpenStaff += OnOpenStaff;
 		StorageProductsViewModel.OpenAddProduct += OnOpenAddProduct;
 		StorageProductsViewModel.CloseAddProduct += OnOpenStorage;
+		StorageProductsViewModel.OpenEditProduct += OnOpenEditProduct;
 		SalesViewModel.OpenAddSale += OnOpenAddSale;
 		AddSaleViewModel.OpenSales += OnOpenSales;
 	}
@@ -69,8 +71,6 @@ public partial class ManagerWindowViewModel : ObservableObject
 	[RelayCommand]
 	private void Storage() => CurrentView = _serviceProvider.GetRequiredService<StorageView>();
 	[RelayCommand]
-	private void Staff() => CurrentView = _serviceProvider.GetRequiredService<StaffView>();
-	[RelayCommand]
 	private void Roles() => CurrentView = _serviceProvider.GetRequiredService<RolesView>();
 	[RelayCommand]
 	private void Support() => CurrentView = _serviceProvider.GetRequiredService<SupportMainView>();
@@ -78,6 +78,12 @@ public partial class ManagerWindowViewModel : ObservableObject
 	private void Info() => CurrentView = _serviceProvider.GetRequiredService<InfoMainView>();
 
 	private void OnOpenAddStorage() => CurrentView = _serviceProvider.GetRequiredService<AddStorageView>();
+	private void OnOpenAddStorage(Guid storageId)
+	{
+		var viewModel = _serviceProvider.GetRequiredService<AddStorageViewModel>();
+		CurrentView = new AddStorageView(viewModel, storageId);
+	}
+
 	private void OnOpenStorage() => CurrentView = _serviceProvider.GetRequiredService<StorageView>();
 	private void OnOpenAddStaff() => CurrentView = _serviceProvider.GetRequiredService<AddStaffView>();
 	private void OnOpenStaff() => CurrentView = _serviceProvider.GetRequiredService<StaffView>();
@@ -92,5 +98,10 @@ public partial class ManagerWindowViewModel : ObservableObject
 	{
 		var viewModel = _serviceProvider.GetRequiredService<AddProductViewModel>();
 		CurrentView = new AddProductView(viewModel, storageId);
+	}
+	private void OnOpenEditProduct(Guid storageId, Guid productId)
+	{
+		var viewModel = _serviceProvider.GetRequiredService<AddProductViewModel>();
+		CurrentView = new AddProductView(viewModel, storageId, productId);
 	}
 }
