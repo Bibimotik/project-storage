@@ -18,17 +18,38 @@ public class SaleRepository : ISaleRepository
 		{
 			string query = @"
 	            SELECT 
-	                id, 
-	                entity_managers_id AS EntityManagersId, 
-	                inn, 
-	                kpp, 
-	                fullname, 
-	                address, 
-	                application_date 
-	            FROM ""order""
-	            WHERE entity_id = @EntityId
-	            AND fullname LIKE @Substring
-	            AND is_deleted = false";
+			    id, 
+			    entity_id AS EntityId, 
+			    entity_managers_id AS EntityManagersId, 
+			    inn, 
+			    kpp, 
+			    ogrn, 
+			    fullname, 
+			    address, 
+			    payment_account AS PaymentAccount, 
+			    tocor_account AS ToCorAccount, 
+			    tobik AS ToBIK, 
+			    tobank AS ToBank, 
+			    fromcor_account AS FromCorAccount, 
+			    frombik AS FromBIK, 
+			    frombank AS FromBank, 
+			    plan_date_shipment AS PlanDateShipment, 
+			    shipping_address AS ShippingAddress, 
+			    application_date AS ApplicationDate, 
+			    delivery_point AS DeliveryPoint, 
+			    delivery_address AS DeliveryAddress, 
+			    plan_date_receipt AS PlanDateReceipt, 
+			    transporterfullname AS TransporterFullName, 
+			    transportershortname AS TransporterShortName, 
+			    comment, 
+			    vat, 
+			    is_deleted AS IsDeleted
+			FROM 
+			    ""order""
+			WHERE 
+			    entity_id = @EntityId
+			    AND fullname LIKE @Substring
+			    AND is_deleted = false";
 
 			if (orderBy == "ASC")
 			{
@@ -60,6 +81,53 @@ public class SaleRepository : ISaleRepository
 			var result = await dbConnection.ExecuteAsync(query, new { OrderId = saleId });
 
 			return result > 0;
+		}, _databaseService);
+	}
+	
+	public async Task<IEnumerable<OrderModel>> GetOrdersByOrderIdAsync(Guid orderId)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			string query = @"
+	            SELECT 
+			    id, 
+			    entity_id AS EntityId, 
+			    entity_managers_id AS EntityManagersId, 
+			    inn, 
+			    kpp, 
+			    ogrn, 
+			    fullname, 
+			    address, 
+			    payment_account AS PaymentAccount, 
+			    tocor_account AS ToCorAccount, 
+			    tobik AS ToBIK, 
+			    tobank AS ToBank, 
+			    fromcor_account AS FromCorAccount, 
+			    frombik AS FromBIK, 
+			    frombank AS FromBank, 
+			    plan_date_shipment AS PlanDateShipment, 
+			    shipping_address AS ShippingAddress, 
+			    application_date AS ApplicationDate, 
+			    delivery_point AS DeliveryPoint, 
+			    delivery_address AS DeliveryAddress, 
+			    plan_date_receipt AS PlanDateReceipt, 
+			    transporterfullname AS TransporterFullName, 
+			    transportershortname AS TransporterShortName, 
+			    comment, 
+			    vat, 
+			    is_deleted AS IsDeleted
+			FROM 
+			    ""order""
+			WHERE 
+			    id = @OrderId
+			    AND is_deleted = false";
+
+			var result = await dbConnection.QueryAsync<OrderModel>(query, new
+			{
+				OrderId = orderId
+			});
+
+			return result;
 		}, _databaseService);
 	}
 }

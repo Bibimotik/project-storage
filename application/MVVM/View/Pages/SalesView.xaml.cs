@@ -62,7 +62,7 @@ public partial class SalesView : UserControl
 		};
 		
 		var id = new TextBlock { Text = $"ID: {order.ID}", FontSize = 1, Visibility = Visibility.Hidden };
-		var applicationDateText = new TextBlock { Text = $"ID: {order.Application_Date}" };
+		var applicationDateText = new TextBlock { Text = $"Date: {order.Application_Date}" };
 		var innText = new TextBlock { Text = $"INN: {order.INN}" };
 		var kppText = new TextBlock { Text = $"KPP: {order.KPP}" };
 		var fullNameText = new TextBlock { Text = $"Full name: {order.FullName}" };
@@ -83,16 +83,47 @@ public partial class SalesView : UserControl
 			//_viewModel.TriggerShowProduct(product.Code);
 		};
 		
+		var buttonPanel = new StackPanel
+		{
+			Orientation = Orientation.Vertical,
+			VerticalAlignment = VerticalAlignment.Center,
+			HorizontalAlignment = HorizontalAlignment.Right,
+			Margin = new Thickness(10, 0, 0, 0)
+		};
+		
+		var editButton = new Button
+		{
+			Content = "Edit",
+			Width = 75,
+			Height = 30,
+			Style = (Style)FindResource("SendButton")
+		};
+		editButton.Click += (sender, e) =>
+		{
+			
+		};
+		
+		var printButton = new Button
+		{
+			Content = "Print",
+			HorizontalAlignment = HorizontalAlignment.Center,
+			Width = 75,
+			Height = 30,
+			Style = (Style)FindResource("SendButton")
+		};
+		printButton.Click += async (sender, e) =>
+		{
+			await _viewModel.SelectAndProcessDocx(order.ID);
+		};
+		
 		var deleteButton = new Button
 		{
 			Content = "Delete",
 			HorizontalAlignment = HorizontalAlignment.Center,
-			Margin = new Thickness(10),
 			Width = 75,
 			Height = 30,
 			Style = (Style)FindResource("SendButtonRed")
 		};
-
 		deleteButton.Click += async (sender, e) =>
 		{
 			var result = MessageBox.Show($"Are you sure you want to delete this sale: {order.Application_Date}?", "Delete Sale", MessageBoxButton.YesNo);
@@ -102,9 +133,13 @@ public partial class SalesView : UserControl
 				ReloadSalesData();
 			}
 		};
+		
+		buttonPanel.Children.Add(editButton);
+		buttonPanel.Children.Add(printButton);
+		buttonPanel.Children.Add(deleteButton);
 
-		Grid.SetColumn(deleteButton, 1);
-		grid.Children.Add(deleteButton);
+		Grid.SetColumn(buttonPanel, 1);
+		grid.Children.Add(buttonPanel);
 
 		border.Child = grid;
 

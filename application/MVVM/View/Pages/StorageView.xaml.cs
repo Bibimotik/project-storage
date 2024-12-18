@@ -81,20 +81,19 @@ public partial class StorageView : UserControl
 			_viewModel.TriggerShowStorage(storage.Id);
 		};
 
-		// --- Панель для кнопок ---
 		var buttonPanel = new StackPanel
 		{
 			Orientation = Orientation.Vertical,
 			VerticalAlignment = VerticalAlignment.Center,
-			HorizontalAlignment = HorizontalAlignment.Right, // Выравнивание кнопок по правому краю
-			Margin = new Thickness(10, 0, 0, 0) // Отступ слева от кнопок
+			HorizontalAlignment = HorizontalAlignment.Right,
+			Margin = new Thickness(10, 0, 0, 0)
 		};
 
 		var deleteButton = new Button
 		{
 			Content = "Delete",
 			HorizontalAlignment = HorizontalAlignment.Center,
-			Margin = new Thickness(0, 0, 0, 0), // Отступ вверх для кнопки
+			Margin = new Thickness(0, 0, 0, 0),
 			Width = 75,
 			Height = 30,
 			Style = (Style)FindResource("SendButtonRed")
@@ -109,11 +108,10 @@ public partial class StorageView : UserControl
 			}
 		};
 
-		// --- Кнопка Edit ---
 		var editButton = new Button
 		{
 			Content = "Edit",
-			Margin = new Thickness(0, -36, 0, 10), // Отступ вверх для кнопки
+			Margin = new Thickness(0, -36, 0, 10),
 			Width = 75,
 			Height = 30,
 			Style = (Style)FindResource("SendButton")
