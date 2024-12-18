@@ -205,7 +205,6 @@ public partial class RegistrationUserViewModel : ObservableObject
 		EntityModel.Model ??= new EntityModel();
 
 		EntityModel model = EntityModel.Model;
-		model.Id = Guid.NewGuid();
 		model.EntityType = EntityType.User;
 		model.FirstName = FirstName;
 		model.SecondName = SecondName;

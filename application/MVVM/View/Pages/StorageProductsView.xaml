@@ -54,7 +54,8 @@
 					VerticalAlignment="Center" 
 					Style="{StaticResource AuthInput}" 
 					TextChanged="SearchTextBox_TextChanged"/>
-				<Button 
+				<Button
+					x:Name="AddButton"
 					Grid.Column="1"
 					Content="Add product" 
 					Foreground="#ffffff"

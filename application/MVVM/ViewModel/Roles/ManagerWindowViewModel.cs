@@ -2,8 +2,6 @@
 using System.Windows;
 using System.Windows.Media.Animation;
 
-using application.MVVM.Model;
-using application.MVVM.View.AdminPages;
 using application.MVVM.View.Pages;
 using application.MVVM.ViewModel.Pages;
 
@@ -25,7 +23,7 @@ public partial class ManagerWindowViewModel : ObservableObject
 	{
 		_serviceProvider = serviceProvider;
 
-		Account();
+		Sales();
 
 		StorageViewModel.OpenAddStorage += OnOpenAddStorage;
 		StorageViewModel.OpenStorageProducts += OnOpenStorageProducts;
@@ -44,19 +42,26 @@ public partial class ManagerWindowViewModel : ObservableObject
 	[RelayCommand]
 	private void OpenMenu()
 	{
-		var window = Application.Current.MainWindow;
-		var storyboard = window.TryFindResource(isMenuExpanded ? "CollapseStoryboard" : "ExpandStoryboard") as Storyboard;
-		if (storyboard == null)
+		try
 		{
-			Debug.WriteLine("Storyboard not found");
-			return;
-		}
-		storyboard.Begin();
+			var window = Application.Current.MainWindow;
+			var storyboard = window.TryFindResource(isMenuExpanded ? "CollapseStoryboard" : "ExpandStoryboard") as Storyboard;
+			if (storyboard == null)
+			{
+				Debug.WriteLine("Storyboard not found");
+				return;
+			}
+			storyboard.Begin();
 
-		isMenuExpanded = !isMenuExpanded;
+			isMenuExpanded = !isMenuExpanded;
+
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex);
+			Debug.WriteLine(ex);
+		}
 	}
-	[RelayCommand]
-	private void Account() => CurrentView = _serviceProvider.GetRequiredService<AccountView>();
 	[RelayCommand]
 	private void Statistics() => CurrentView = _serviceProvider.GetRequiredService<StatisticsView>();
 	[RelayCommand]

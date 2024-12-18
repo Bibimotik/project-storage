@@ -86,6 +86,8 @@ public partial class App : Application
 		services.AddTransient<ManagerWindowView>();
 		services.AddTransient<WorkerWindowViewModel>();
 		services.AddTransient<WorkerWindowView>();
+		services.AddTransient<AnalystWindowViewModel>();
+		services.AddTransient<AnalystWindowView>();
 
 		services.AddScoped<RegistrationCompanyStage1ViewModel>();
 		services.AddScoped<RegistrationCompanyStage1View>();

@@ -69,6 +69,7 @@ partial class LoginViewModel : ObservableObject
 	//}
 	partial void OnEmailChanged(string value)
 	{
+		Debug.WriteLine("email: " + value);
 		if (!EntityModel.IsValidEmail(value))
 		{
 			IsInvalidEmail = ValidateAndCreateModel(value);

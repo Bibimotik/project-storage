@@ -23,7 +23,7 @@ public partial class AnalystWindowViewModel : ObservableObject
 	{
 		_serviceProvider = serviceProvider;
 
-		Account();
+		Statistics();
 
 		StorageViewModel.OpenAddStorage += OnOpenAddStorage;
 		StorageViewModel.OpenStorageProducts += OnOpenStorageProducts;
@@ -42,27 +42,32 @@ public partial class AnalystWindowViewModel : ObservableObject
 	[RelayCommand]
 	private void OpenMenu()
 	{
-		var window = Application.Current.MainWindow;
-		var storyboard = window.TryFindResource(isMenuExpanded ? "CollapseStoryboard" : "ExpandStoryboard") as Storyboard;
-		if (storyboard == null)
+		try
 		{
-			Debug.WriteLine("Storyboard not found");
-			return;
-		}
-		storyboard.Begin();
+			var window = Application.Current.MainWindow;
+			var storyboard = window.TryFindResource(isMenuExpanded ? "CollapseStoryboard" : "ExpandStoryboard") as Storyboard;
+			if (storyboard == null)
+			{
+				Debug.WriteLine("Storyboard not found");
+				return;
+			}
+			storyboard.Begin();
 
-		isMenuExpanded = !isMenuExpanded;
+			isMenuExpanded = !isMenuExpanded;
+
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex);
+			Debug.WriteLine(ex);
+		}
 	}
-	[RelayCommand]
-	private void Account() => CurrentView = _serviceProvider.GetRequiredService<AccountView>();
 	[RelayCommand]
 	private void Statistics() => CurrentView = _serviceProvider.GetRequiredService<StatisticsView>();
 	[RelayCommand]
 	private void Sales() => CurrentView = _serviceProvider.GetRequiredService<SalesView>();
 	[RelayCommand]
 	private void Storage() => CurrentView = _serviceProvider.GetRequiredService<StorageView>();
-	[RelayCommand]
-	private void Staff() => CurrentView = _serviceProvider.GetRequiredService<StaffView>();
 	[RelayCommand]
 	private void Roles() => CurrentView = _serviceProvider.GetRequiredService<RolesView>();
 	[RelayCommand]

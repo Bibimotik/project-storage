@@ -7,6 +7,8 @@ using System.Windows.Threading;
 using application.MVVM.Model;
 using application.MVVM.ViewModel.Pages;
 
+using static application.Abstraction.EntityAbstraction;
+
 namespace application.MVVM.View.Pages;
 
 public partial class StorageProductsView : UserControl
@@ -23,6 +25,8 @@ public partial class StorageProductsView : UserControl
 		_storageId = storageId;
 		InitializeComponent();
 
+		Loaded += StorageView_Loaded;
+
 		LoadProductData(storageId);
 
 		_searchTimer = new DispatcherTimer
@@ -30,6 +34,14 @@ public partial class StorageProductsView : UserControl
 			Interval = TimeSpan.FromSeconds(0.5)
 		};
 		_searchTimer.Tick += OnSearchTimerTick;
+	}
+
+	private async void StorageView_Loaded(object sender, RoutedEventArgs e)
+	{
+		if (EntityModel.OurUserModel.Role is UserRole.Worker or UserRole.Analyst)
+			AddButton.IsEnabled = false;
+		else
+			AddButton.IsEnabled = true;
 	}
 
 	private async void LoadProductData(Guid storageId)
@@ -122,6 +134,12 @@ public partial class StorageProductsView : UserControl
 		{
 			_viewModel.EditProduct(product.Id);
 		};
+
+		if (EntityModel.OurUserModel.Role is UserRole.Worker or UserRole.Analyst)
+		{
+			deleteButton.IsEnabled = false;
+			editButton.IsEnabled = false;
+		}
 
 		buttonPanel.Children.Add(editButton);
 		buttonPanel.Children.Add(deleteButton);

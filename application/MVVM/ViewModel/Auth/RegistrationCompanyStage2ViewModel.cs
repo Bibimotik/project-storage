@@ -55,9 +55,9 @@ partial class RegistrationCompanyStage2ViewModel : ObservableObject
 
 		EntityModel model = EntityModel.Model;
 		Director = model.Director;
-		/*Email = model.Email;
+		Email = model.Email;
 		Password = model.Password;
-		ConfirmPassword = model.ConfirmPassword;*/
+		//ConfirmPassword = model.ConfirmPassword;
 
 		_isInitializing = false;
 	}
