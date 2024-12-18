@@ -74,62 +74,6 @@
 							Tag="../../Assets/Icons/List.png" />
 					</Border>
 
-					<!--<Border
-						Style="{StaticResource MenuBorder}">
-						<StackPanel
-							Margin="10 5 0 5"
-							VerticalAlignment="Center"
-							HorizontalAlignment="Stretch"
-							Orientation="Horizontal">
-
-							<RadioButton
-								Command="{Binding AccountCommand}"
-								x:Name="Account"
-								Height="40"
-								Width="40"
-								Style="{StaticResource MenuAvatar}"
-								Checked="RadioButton_Checked">
-								<Image
-									Source="../../../Assets/Icons/Ava.png"
-									Width="40"
-									Height="40" />
-							</RadioButton>
-
-							<StackPanel
-								Orientation="Vertical">
-
-								<Label
-									Margin="20 0 0 0"
-									Content="Фамилия И. О."
-									FontSize="16"
-									Style="{StaticResource MenuText}" />
-
-								--><!-- TODO - большой email может не влезть, мб изменять размер шрифта в зависимости от кол-ва символов
-						TODO или искуственно его укарачивать типо: testte...andex.com--><!--
-
-								<Label
-									Margin="20 -10 0 0"
-									Content="test_email@yandex.com"
-									FontSize="12"
-									Style="{StaticResource MenuText}" />
-
-							</StackPanel>
-
-						</StackPanel>
-					</Border>-->
-
-					<Border
-						Style="{StaticResource MenuBorder}">
-						<RadioButton
-							Margin="10 5 0 5"
-							Command="{Binding SalesCommand}"
-							x:Name="Sales"
-							Style="{StaticResource MenuRadioButton}"
-							Checked="RadioButton_Checked"
-							Content="Sales"
-							Tag="../../Assets/Icons/Dollar.png" />
-					</Border>
-
 					<Border
 						Style="{StaticResource MenuBorder}">
 						<RadioButton

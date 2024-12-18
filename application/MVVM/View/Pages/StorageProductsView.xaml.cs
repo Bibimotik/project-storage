@@ -38,7 +38,7 @@ public partial class StorageProductsView : UserControl
 
 	private async void StorageView_Loaded(object sender, RoutedEventArgs e)
 	{
-		if (EntityModel.OurUserModel.Role is UserRole.Analyst)
+		if (EntityModel.OurUserModel.Role is UserRole.Analyst or UserRole.Manager)
 			AddButton.IsEnabled = false;
 		else
 			AddButton.IsEnabled = true;
@@ -135,7 +135,7 @@ public partial class StorageProductsView : UserControl
 			_viewModel.EditProduct(product.Id);
 		};
 
-		if (EntityModel.OurUserModel.Role is UserRole.Analyst)
+		if (EntityModel.OurUserModel.Role is UserRole.Analyst or UserRole.Manager)
 		{
 			deleteButton.IsEnabled = false;
 			editButton.IsEnabled = false;

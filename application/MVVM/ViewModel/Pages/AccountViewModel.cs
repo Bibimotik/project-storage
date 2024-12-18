@@ -6,7 +6,6 @@ using application.MVVM.Model;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using application.Repositories;
 
 namespace application.MVVM.ViewModel.Pages;
 
@@ -40,7 +39,7 @@ public partial class AccountViewModel : ObservableObject
 			MessageBox.Show("Entity not found.");
 			return;
 		}
-		
+
 		MessageBox.Show($"Type: {entity.Type}, TypeId: {entity.Type_Id}");
 	}
 }
