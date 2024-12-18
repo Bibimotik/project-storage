@@ -14,6 +14,7 @@ public partial class StorageViewModel : ObservableObject
 
     public static event Action? OpenAddStorage;
     public static event Action<Guid>? OpenStorageProducts;
+    public static event Action<Guid>? OpenEditStorage;
 
 	public Guid SelectedStorageId { get; private set; }
 
@@ -72,5 +73,11 @@ public partial class StorageViewModel : ObservableObject
 	    {
 		    await LoadStorageAsync(EntityModel.OurUserModel.EntityId);
 	    }
-    }
+	}
+
+	[RelayCommand]
+	public void EditStorage(Guid storageId)
+	{
+		OpenEditStorage?.Invoke(storageId);
+	}
 }

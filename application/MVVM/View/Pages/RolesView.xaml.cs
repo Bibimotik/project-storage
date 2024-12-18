@@ -5,7 +5,6 @@ using System.Windows.Media.Imaging;
 
 using application.Abstraction;
 using application.MVVM.Model;
-using application.MVVM.ViewModel;
 using application.MVVM.ViewModel.Pages;
 
 using static application.Abstraction.EntityAbstraction;
@@ -16,7 +15,7 @@ public partial class RolesView : UserControl
 {
 	private readonly RolesViewModel _viewModel;
 	private readonly INavigationService _navigationService;
-	private readonly ByteArrayToImageConverter _byteArrayToImageConverter = new ByteArrayToImageConverter();
+	private readonly ByteArrayToImageConverter _byteArrayToImageConverter = new();
 
 	public RolesView(RolesViewModel viewModel, INavigationService navigationService)
 	{
@@ -32,22 +31,11 @@ public partial class RolesView : UserControl
 	{
 		await ReloadRolesData();
 	}
-	
+
 	private void Window_Loaded(object sender, RoutedEventArgs e)
 	{
 		var viewModel = DataContext as RolesViewModel;
 		viewModel?.LoadRoleCommand.Execute(null);
-	}
-
-	private async void LoadRoles()
-	{
-		await _viewModel.LoadRolesAsync(EntityModel.OurUserModel.Id);
-
-		foreach (var role in _viewModel.Roles)
-		{
-			var roleCard = CreateRoleCard(role);
-			RolesPanel.Children.Add(roleCard);
-		}
 	}
 
 	private Border CreateRoleCard(RoleDataResult role)
@@ -55,7 +43,7 @@ public partial class RolesView : UserControl
 		var border = new Border
 		{
 			Style = (Style)FindResource("CardBorderStyle"),
-			Margin = new Thickness(0, 10, 0, 10),
+			Margin = new Thickness(0, 10, 10, 10),
 			Padding = new Thickness(10)
 		};
 
@@ -72,7 +60,7 @@ public partial class RolesView : UserControl
 		};
 
 		image.Source = _byteArrayToImageConverter.Convert(role.Image, typeof(BitmapImage), null, CultureInfo.InvariantCulture) as BitmapImage;
-		
+
 		Grid.SetColumn(image, 0);
 		grid.Children.Add(image);
 
@@ -92,14 +80,14 @@ public partial class RolesView : UserControl
 		roleCard.Children.Add(secondText);
 		roleCard.Children.Add(thirdText);
 		roleCard.Children.Add(accessText);
-		
+
 		roleCard.MouseLeftButtonUp += (sender, e) =>
 		{
-			if(role.Access == UserRole.Manager.GetDescription())
+			if (role.Access == UserRole.Manager.GetDescription())
 				_navigationService.ShowManagerRole();
-			else if(role.Access == UserRole.Worker.GetDescription())
+			else if (role.Access == UserRole.Worker.GetDescription())
 				_navigationService.ShowWorkerRole();
-			else if(role.Access == UserRole.Analyst.GetDescription())
+			else if (role.Access == UserRole.Analyst.GetDescription())
 				_navigationService.ShowAnalystRole();
 		};
 
@@ -111,16 +99,14 @@ public partial class RolesView : UserControl
 		return border;
 	}
 
-	
 	private async Task ReloadRolesData()
 	{
-		await _viewModel.LoadRolesAsync(EntityModel.OurUserModel.EntityId);
+		await _viewModel.LoadRolesAsync(EntityModel.OurUserModel.Id);
 
-		RolesPanel.Children.Clear();
-		foreach (var storage in _viewModel.Roles)
+		foreach (var role in _viewModel.Roles)
 		{
-			var storageCard = CreateRoleCard(storage);
-			RolesPanel.Children.Add(storageCard);
+			var roleCard = CreateRoleCard(role);
+			RolesPanel.Children.Add(roleCard);
 		}
 	}
 }

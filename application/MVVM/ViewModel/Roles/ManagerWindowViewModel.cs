@@ -30,7 +30,7 @@ public partial class ManagerWindowViewModel : ObservableObject
 		StorageViewModel.OpenAddStorage += OnOpenAddStorage;
 		StorageViewModel.OpenStorageProducts += OnOpenStorageProducts;
 		AddStorageViewModel.OpenStorage += OnOpenStorage;
-		AddProductViewModel.OpenStorage += OnOpenStorage;
+		AddProductViewModel.CloseAddProduct += OnOpenStorage;
 		StaffViewModel.OpenAddStaff += OnOpenAddStaff;
 		AddStaffViewModel.OpenStaff += OnOpenStaff;
 		StorageProductsViewModel.OpenAddProduct += OnOpenAddProduct;

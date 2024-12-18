@@ -115,9 +115,10 @@ public class AddSaleRepository : IAddSaleRepository
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
 			const string query = @"SELECT id
-                               FROM ENTITY_STORAGE
-                               WHERE point = @Storage
-                               AND entity_id = @Entity_Id";
+                FROM ENTITY_STORAGE
+                WHERE point = @Storage
+                AND entity_id = @Entity_Id
+				AND is_deleted = FALSE";
 
 			var result = await dbConnection.QuerySingleOrDefaultAsync<Guid>(query, new { Entity_Id = entityId, Storage = storage });
 

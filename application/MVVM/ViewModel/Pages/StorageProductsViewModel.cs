@@ -15,6 +15,7 @@ public partial class StorageProductsViewModel : ObservableObject
 	public Guid StorageId { get; private set; }
 
 	public static event Action<Guid>? OpenAddProduct;
+	public static event Action<Guid, Guid>? OpenEditProduct;
 	public static event Action? CloseAddProduct;
 
 	public ObservableCollection<ProductDataResult> Products { get; } = [];
@@ -37,7 +38,7 @@ public partial class StorageProductsViewModel : ObservableObject
 	}
 
 	[RelayCommand]
-	public void TriggerAddProduct(Guid storageId)
+	public void TriggerAddProduct()
 	{
 		OpenAddProduct?.Invoke(StorageId);
 	}
@@ -47,7 +48,13 @@ public partial class StorageProductsViewModel : ObservableObject
 	{
 		CloseAddProduct?.Invoke();
 	}
-	
+
+	[RelayCommand]
+	public void EditProduct(Guid productId)
+	{
+		OpenEditProduct?.Invoke(StorageId, productId);
+	}
+
 	[RelayCommand]
 	public async Task DeleteProduct(Guid productId)
 	{

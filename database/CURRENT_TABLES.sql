@@ -47,7 +47,7 @@ CREATE TABLE ENTITY_STORAGE
 (
 	ID         uuid         NOT NULL PRIMARY KEY,
 	Entity_ID  uuid         NOT NULL REFERENCES ENTITY (ID) ON DELETE CASCADE,
-	Point      varchar(100) NOT NULL,
+	Point      varchar(100) UNIQUE     NOT NULL,
 	Country    varchar(100) NOT NULL,
 	City       varchar(100) NOT NULL,
 	Address    varchar(100) NOT NULL,

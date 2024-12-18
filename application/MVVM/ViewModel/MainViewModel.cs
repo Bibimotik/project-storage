@@ -29,12 +29,14 @@ public partial class MainViewModel : ObservableObject
 
 		StorageViewModel.OpenAddStorage += OnOpenAddStorage;
 		StorageViewModel.OpenStorageProducts += OnOpenStorageProducts;
+		StorageViewModel.OpenEditStorage += OnOpenAddStorage;
 		AddStorageViewModel.OpenStorage += OnOpenStorage;
-		AddProductViewModel.CloseAddProduct += OnOpenAddStorage;
+		AddProductViewModel.CloseAddProduct += OnOpenStorage;
 		StaffViewModel.OpenAddStaff += OnOpenAddStaff;
 		AddStaffViewModel.OpenStaff += OnOpenStaff;
 		StorageProductsViewModel.OpenAddProduct += OnOpenAddProduct;
 		StorageProductsViewModel.CloseAddProduct += OnOpenStorage;
+		StorageProductsViewModel.OpenEditProduct += OnOpenEditProduct;
 		SalesViewModel.OpenAddSale += OnOpenAddSale;
 		AddSaleViewModel.OpenSales += OnOpenSales;
 	}
@@ -73,6 +75,12 @@ public partial class MainViewModel : ObservableObject
 	private void Info() => CurrentView = _serviceProvider.GetRequiredService<InfoMainView>();
 
 	private void OnOpenAddStorage() => CurrentView = _serviceProvider.GetRequiredService<AddStorageView>();
+	private void OnOpenAddStorage(Guid storageId)
+	{
+		var viewModel = _serviceProvider.GetRequiredService<AddStorageViewModel>();
+		CurrentView = new AddStorageView(viewModel, storageId);
+	}
+
 	private void OnOpenStorage() => CurrentView = _serviceProvider.GetRequiredService<StorageView>();
 	private void OnOpenAddStaff() => CurrentView = _serviceProvider.GetRequiredService<AddStaffView>();
 	private void OnOpenStaff() => CurrentView = _serviceProvider.GetRequiredService<StaffView>();
@@ -87,5 +95,10 @@ public partial class MainViewModel : ObservableObject
 	{
 		var viewModel = _serviceProvider.GetRequiredService<AddProductViewModel>();
 		CurrentView = new AddProductView(viewModel, storageId);
+	}
+	private void OnOpenEditProduct(Guid storageId, Guid productId)
+	{
+		var viewModel = _serviceProvider.GetRequiredService<AddProductViewModel>();
+		CurrentView = new AddProductView(viewModel, storageId, productId);
 	}
 }

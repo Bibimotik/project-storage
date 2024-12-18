@@ -6,7 +6,6 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:application.MVVM.View.Pages"
 	xmlns:Pages="clr-namespace:application.MVVM.ViewModel.Pages"
-	xmlns:global = "clr-namespace:"
 	mc:Ignorable="d">
 
 	<StackPanel
@@ -61,7 +60,6 @@
 					Foreground="#ffffff"
 					VerticalAlignment="Center" 
 					Command="{Binding TriggerAddProductCommand}"
-					CommandParameter="{Binding StorageId}"
 					Style="{StaticResource SendButton}" />
 				<!--TODO - добавить стили-->
 				<ComboBox Grid.Column="2" Height="30" Margin="10,0,0,0" VerticalAlignment="Center">

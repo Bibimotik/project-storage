@@ -4,5 +4,7 @@ namespace application.Abstraction.Interfaces;
 
 public interface IAddProductRepository
 {
-	public Task<Guid> InsertProduct(Guid entityId, ProductModel productModel);
+	Task<ProductModel> GetProduct(Guid productId);
+	Task<Guid> InsertProduct(Guid entityId, ProductModel productModel);
+	Task UpdateProduct(Guid entityId, ProductModel productModel);
 }

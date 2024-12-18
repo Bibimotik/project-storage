@@ -14,6 +14,7 @@
 		VerticalAlignment="Center">
 
 		<Label
+			x:Name="Label"
 			FontSize="45"
 			Content="Add storage" />
 		
@@ -33,12 +34,24 @@
 		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding Index, UpdateSourceTrigger=PropertyChanged}" />
 
 		<Button
+			x:Name="SaveButton"
 			Content="Add Storage"
 			Foreground="#ffffff"
 			Width="120"
 			Margin="0,20"
+			Command="{Binding SaveStorageCommand}"
 			Style="{StaticResource SendButton}"
-			Command="{Binding AddEntityCommand}" />
+			CommandParameter="True" />
+
+		<Button
+			x:Name="EditButton"
+			Content="Edit Storage"
+			Foreground="#ffffff"
+			Width="120"
+			Margin="0,20"
+			Command="{Binding SaveStorageCommand}"
+			CommandParameter="False"
+			Style="{StaticResource SendButton}" />
 
 		<Button 
 			Content="Back"

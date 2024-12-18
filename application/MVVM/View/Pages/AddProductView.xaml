@@ -14,14 +14,20 @@
 		VerticalAlignment="Center">
 
 		<Label
+			x:Name="Label"
 			FontSize="45"
 			Content="Add product" />
-		
+
+		<TextBlock
+			Margin="0 0 0 8"
+			Text="Title" />
+		<TextBox
+			Width="300"
+			Style="{StaticResource AuthInput}"
+			Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
+
 		<TextBlock Margin="0 0 0 8" Text="Code" />
 		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding Code, UpdateSourceTrigger=PropertyChanged}" />
-
-		<TextBlock Margin="0 0 0 8" Text="Title" />
-		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
 
 		<TextBlock Margin="0 0 0 8" Text="Unit" />
 		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding Unit, UpdateSourceTrigger=PropertyChanged}" />
@@ -49,12 +55,24 @@
 			Style="{StaticResource SendButtonWhite}" />
 
 		<Button
-			Content="Add product"
+			x:Name="SaveButton"
+			Content="Add Product"
 			Foreground="#ffffff"
 			Width="120"
 			Margin="0,20"
-			Style="{StaticResource SendButton}"
-			Command="{Binding AddProductCommand}" />
+			Command="{Binding SaveProductCommand}"
+			CommandParameter="True"
+			Style="{StaticResource SendButton}"/>
+
+		<Button
+			x:Name="EditButton"
+			Content="Edit Product"
+			Foreground="#ffffff"
+			Width="120"
+			Margin="0,20"
+			Command="{Binding SaveProductCommand}"
+			CommandParameter="False"
+			Style="{StaticResource SendButton}" />
 
 		<Button 
 			Content="Back"

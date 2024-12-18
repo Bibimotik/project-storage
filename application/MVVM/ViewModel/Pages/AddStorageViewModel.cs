@@ -12,10 +12,7 @@ public partial class AddStorageViewModel : ObservableObject
 	private readonly IEntityStorageRepository _entityStorageRepository;
 	public static event Action? OpenStorage;
 
-	public AddStorageViewModel(IEntityStorageRepository entityStorageRepository)
-	{
-		_entityStorageRepository = entityStorageRepository;
-	}
+	private Guid? _storageId = null;
 
 	[ObservableProperty]
 	private string? point;
@@ -32,8 +29,14 @@ public partial class AddStorageViewModel : ObservableObject
 	[ObservableProperty]
 	private string? index;
 
+	public AddStorageViewModel(IEntityStorageRepository entityStorageRepository)
+	{
+		_entityStorageRepository = entityStorageRepository;
+	}
+
+	//true if Add, false if Edit
 	[RelayCommand]
-	public async Task AddEntityAsync()
+	public async Task SaveStorage(string isAddOrEdit)
 	{
 		if (string.IsNullOrWhiteSpace(Point) ||
 			string.IsNullOrWhiteSpace(Country) ||
@@ -46,8 +49,11 @@ public partial class AddStorageViewModel : ObservableObject
 			return;
 		}
 
+		Guid id = _storageId is null ? Guid.NewGuid() : (Guid)_storageId;
+
 		EntityStorageModel storageModel = new(
-			Guid.NewGuid(),
+			id,
+			EntityModel.OurUserModel.EntityId,
 			Point!,
 			Country!,
 			City!,
@@ -55,10 +61,37 @@ public partial class AddStorageViewModel : ObservableObject
 			Index!
 		);
 
-		//TODO - передавать uuid нашего entity
-		await _entityStorageRepository.InsertEntityStorage(EntityModel.OurUserModel.EntityId, storageModel);
+		if (Equals(isAddOrEdit, true.ToString()))
+		{
+			MessageBox.Show("isAdd");
+			await _entityStorageRepository.InsertEntityStorage(EntityModel.OurUserModel.EntityId, storageModel);
 
-		ClearFields();
+			ClearFields();
+		}
+		if (Equals(isAddOrEdit, false.ToString()))
+		{
+			MessageBox.Show("isEdit");
+			await _entityStorageRepository.UpdateEntityStorage(EntityModel.OurUserModel.EntityId, storageModel);
+
+			TriggerBackStorage();
+		}
+	}
+
+	public async void LoadStorage()
+	{
+		_storageId = null;
+	}
+
+	public async void LoadStorage(Guid storageId)
+	{
+		var storage = await _entityStorageRepository.GetEntityStorage(storageId);
+		_storageId = storageId;
+
+		Point = storage.Point;
+		Country = storage.Country;
+		City = storage.City;
+		Address = storage.Address;
+		Index = storage.Index;
 	}
 
 	private void ClearFields()

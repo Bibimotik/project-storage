@@ -4,5 +4,7 @@ namespace application.Abstraction.Interfaces;
 
 public interface IEntityStorageRepository
 {
-	public Task<Guid> InsertEntityStorage(Guid entityId, EntityStorageModel storageModel);
+	Task<EntityStorageModel> GetEntityStorage(Guid storageId);
+	Task<Guid> InsertEntityStorage(Guid entityId, EntityStorageModel storageModel);
+	Task UpdateEntityStorage(Guid entityId, EntityStorageModel storageModel);
 }

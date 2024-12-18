@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 using application.MVVM.ViewModel.Pages;
 
@@ -12,5 +13,19 @@ public partial class AddStorageView : UserControl
 	{
 		DataContext = viewModel;
 		InitializeComponent();
+
+		viewModel.LoadStorage();
+		Label.Content = "Add storage";
+		EditButton.Visibility = Visibility.Collapsed;
+	}
+	public AddStorageView(AddStorageViewModel viewModel, Guid storageId)
+	{
+		DataContext = viewModel;
+		InitializeComponent();
+
+		viewModel.LoadStorage(storageId);
+
+		Label.Content = "Edit storage";
+		SaveButton.Visibility = Visibility.Collapsed;
 	}
 }

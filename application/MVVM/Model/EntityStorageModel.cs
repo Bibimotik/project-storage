@@ -15,9 +15,10 @@ public class EntityStorageModel
 
 	}
 
-	public EntityStorageModel(Guid id, string point, string country, string city, string address, string index)
+	public EntityStorageModel(Guid id, Guid entityId, string point, string country, string city, string address, string index)
 	{
 		Id = id;
+		Entity_ID = entityId;
 		Point = point;
 		Country = country;
 		City = city;
