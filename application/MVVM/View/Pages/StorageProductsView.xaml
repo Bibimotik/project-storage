@@ -62,11 +62,11 @@
 					Command="{Binding TriggerAddProductCommand}"
 					Style="{StaticResource SendButton}" />
 				<!--TODO - добавить стили-->
-				<ComboBox Grid.Column="2" Height="30" Margin="10,0,0,0" VerticalAlignment="Center">
+				<ComboBox x:Name="SortComboBox" Grid.Column="2" Height="30" Margin="10,0,0,0" VerticalAlignment="Center"
+				          SelectionChanged="SortComboBox_SelectionChanged">
 					<ComboBoxItem IsSelected="True" Content="Нет"/>
 					<ComboBoxItem Content="По алфавиту от А до Я"/>
 					<ComboBoxItem Content="По алфавиту от Я до А"/>
-					<ComboBoxItem Content="Удаленные"/>
 				</ComboBox>
 			</Grid>
 

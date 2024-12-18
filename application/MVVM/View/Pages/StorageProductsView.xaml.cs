@@ -53,23 +53,21 @@ public partial class StorageProductsView : UserControl
 		};
 
 		var grid = new Grid();
-		grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto }); // Столбец для изображения
-		grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }); // Столбец для текста
-		grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto }); // Столбец для кнопок
+		grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+		grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+		grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
-		// --- Изображение ---
 		var image = new Image
 		{
 			Width = 50,
 			Height = 50,
-			Margin = new Thickness(0, 0, 10, 0), // Отступ справа от изображения
+			Margin = new Thickness(0, 0, 10, 0),
 			VerticalAlignment = VerticalAlignment.Center
 		};
 		image.Source = _byteArrayToImageConverter.Convert(product.Image, typeof(BitmapImage), null, CultureInfo.InvariantCulture) as BitmapImage;
 		Grid.SetColumn(image, 0);
 		grid.Children.Add(image);
 
-		// --- Стек для текста ---
 		var stackPanel = new StackPanel
 		{
 			Orientation = Orientation.Vertical
@@ -86,20 +84,18 @@ public partial class StorageProductsView : UserControl
 		Grid.SetColumn(stackPanel, 1);
 		grid.Children.Add(stackPanel);
 
-		// --- Панель для кнопок ---
 		var buttonPanel = new StackPanel
 		{
 			Orientation = Orientation.Vertical,
 			VerticalAlignment = VerticalAlignment.Center,
-			HorizontalAlignment = HorizontalAlignment.Right, // Выравнивание кнопок по правому краю
-			Margin = new Thickness(10, 0, 0, 0) // Отступ слева от кнопок
+			HorizontalAlignment = HorizontalAlignment.Right,
+			Margin = new Thickness(10, 0, 0, 0)
 		};
 
-		// --- Кнопка Delete ---
 		var deleteButton = new Button
 		{
 			Content = "Delete",
-			Margin = new Thickness(0, 0, 0, 0), // Отступ вниз для кнопки
+			Margin = new Thickness(0, 0, 0, 0),
 			Width = 75,
 			Height = 30,
 			Style = (Style)FindResource("SendButtonRed")
@@ -114,11 +110,10 @@ public partial class StorageProductsView : UserControl
 			}
 		};
 
-		// --- Кнопка Edit ---
 		var editButton = new Button
 		{
 			Content = "Edit",
-			Margin = new Thickness(0, 0, 0, 10), // Отступ вверх для кнопки
+			Margin = new Thickness(0, 0, 0, 10),
 			Width = 75,
 			Height = 30,
 			Style = (Style)FindResource("SendButton")
@@ -131,7 +126,7 @@ public partial class StorageProductsView : UserControl
 		buttonPanel.Children.Add(editButton);
 		buttonPanel.Children.Add(deleteButton);
 
-		Grid.SetColumn(buttonPanel, 2); // Кнопки в третий столбец
+		Grid.SetColumn(buttonPanel, 2);
 		grid.Children.Add(buttonPanel);
 
 		border.Child = grid;
@@ -157,6 +152,20 @@ public partial class StorageProductsView : UserControl
 		{
 			var storageCard = CreateProductCard(storage);
 			StorageProductsPanel.Children.Add(storageCard);
+		}
+	}
+	
+	private async void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+	{
+		if (e.AddedItems.Count > 0)
+		{
+			var selectedItem = SortComboBox.SelectedItem as ComboBoxItem;
+
+			string selectedOption = selectedItem?.Content?.ToString() ?? "Нет";
+
+			await _viewModel.OnSortChanged(selectedOption);
+        
+			await ReloadProductData();
 		}
 	}
 

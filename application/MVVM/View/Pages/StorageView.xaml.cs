@@ -17,7 +17,7 @@ public partial class StorageView : UserControl
 		_viewModel = viewModel;
 		DataContext = viewModel;
 		InitializeComponent();
-
+		
 		Loaded += StorageView_Loaded;
 
 		_searchTimer = new DispatcherTimer
@@ -155,13 +155,16 @@ public partial class StorageView : UserControl
 
 	private async void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 	{
-		/*if (e.AddedItems.Count > 0)
+		if (e.AddedItems.Count > 0)
         {
-	        var selectedOption = ((ComboBoxItem)e.AddedItems[0]).Content.ToString();
+	        var selectedItem = SortComboBox.SelectedItem as ComboBoxItem;
+
+	        string selectedOption = selectedItem?.Content?.ToString() ?? "Нет";
+
 	        await _viewModel.OnSortChanged(selectedOption);
-        
+	        
 	        await ReloadStorageData();
-        }*/
+        }
 	}
 
 	private async Task ReloadStorageData()

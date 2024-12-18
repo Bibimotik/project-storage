@@ -13,9 +13,9 @@ public partial class SalesView : UserControl
 	private DispatcherTimer _searchTimer;
 	public SalesView(SalesViewModel viewModel)
 	{
-		InitializeComponent();
 		_viewModel = viewModel;
 		DataContext = _viewModel;
+		InitializeComponent();
 
 		Loaded += SalesView_Loaded;
 		
@@ -165,6 +165,20 @@ public partial class SalesView : UserControl
 		{
 			var storageCard = CreateOrderCard(storage);
 			SalePanel.Children.Add(storageCard);
+		}
+	}
+	
+	private async void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+	{
+		if (e.AddedItems.Count > 0)
+		{
+			var selectedItem = SortComboBox.SelectedItem as ComboBoxItem;
+
+			string selectedOption = selectedItem?.Content?.ToString() ?? "Нет";
+
+			await _viewModel.OnSortChanged(selectedOption);
+	        
+			await ReloadSalesData();
 		}
 	}
 	

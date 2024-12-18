@@ -13,6 +13,7 @@ public partial class StorageProductsViewModel : ObservableObject
 {
 	private readonly IStorageProductsRepository _productsRepository;
 	public Guid StorageId { get; private set; }
+	private string _orderBy = "";
 
 	public static event Action<Guid>? OpenAddProduct;
 	public static event Action<Guid, Guid>? OpenEditProduct;
@@ -28,13 +29,32 @@ public partial class StorageProductsViewModel : ObservableObject
 	public async Task LoadProductsAsync(Guid storageId, string searchQuery = "")
 	{
 		StorageId = storageId;
-		var products = await _productsRepository.GetProductsDataAsync(storageId, searchQuery);
+		var products = await _productsRepository.GetProductsDataAsync(storageId, searchQuery, _orderBy);
 		Products.Clear();
 
 		foreach (var product in products)
 		{
 			Products.Add(product);
 		}
+	}
+	
+	[RelayCommand]
+	public async Task OnSortChanged(string sortOption)
+	{
+		if (sortOption == "По алфавиту от А до Я")
+		{
+			_orderBy = "ASC";
+		}
+		else if (sortOption == "По алфавиту от Я до А")
+		{
+			_orderBy = "DESC";
+		}
+		else
+		{
+			_orderBy = "";
+		}
+
+		await LoadProductsAsync(StorageId);
 	}
 
 	[RelayCommand]

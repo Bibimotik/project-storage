@@ -32,9 +32,8 @@ public partial class SalesViewModel : ObservableObject
 
 	public async Task LoadOrdersAsync(Guid entityId, string searchQuery = "")
 	{
-		Orders.Clear();
-		
 		var orders = await _saleRepository.GetOrdersByEntityIdAsync(entityId, searchQuery, _orderBy);
+		Orders.Clear();
 
 		foreach (var order in orders)
 		{
@@ -50,6 +49,25 @@ public partial class SalesViewModel : ObservableObject
 		{
 			await LoadOrdersAsync(EntityModel.OurUserModel.EntityId);
 		}
+	}
+	
+	[RelayCommand]
+	public async Task OnSortChanged(string sortOption)
+	{
+		if (sortOption == "По дате от старой к новой")
+		{
+			_orderBy = "ASC";
+		}
+		else if (sortOption == "По дате от новой к старой")
+		{
+			_orderBy = "DESC";
+		}
+		else
+		{
+			_orderBy = "";
+		}
+
+		await LoadOrdersAsync(EntityModel.OurUserModel.EntityId);
 	}
 	
 	[RelayCommand]
