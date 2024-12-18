@@ -27,7 +27,8 @@ public class SaleRepository : ISaleRepository
 	                application_date 
 	            FROM ""order""
 	            WHERE entity_id = @EntityId
-	            AND fullname LIKE @Substring";
+	            AND fullname LIKE @Substring
+	            AND is_deleted = false";
 
 			if (orderBy == "ASC")
 			{
