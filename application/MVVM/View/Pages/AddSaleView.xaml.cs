@@ -1,6 +1,8 @@
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 using application.MVVM.ViewModel.Pages;
 
@@ -32,6 +34,25 @@ public partial class AddSaleView : UserControl
 		{
 			Debug.WriteLine("ewq " + productId);
 			_viewModel.ToggleSelection(productId);
+		}
+	}
+	
+	private void Phone_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+	{
+		Regex inputRegex = new Regex(@"^[0-9]+$");
+		
+		Match match = inputRegex.Match(e.Text);
+		if (!match.Success) 
+		{
+			e.Handled = true;
+		}
+	}
+        
+	private void Space_OnPreviewKeyDown(object sender, KeyEventArgs e)
+	{
+		if (e.Key == Key.Space)
+		{
+			e.Handled = true;
 		}
 	}
 }

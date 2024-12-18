@@ -33,7 +33,11 @@
 		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding Unit, UpdateSourceTrigger=PropertyChanged}" />
 
 		<TextBlock Margin="0 0 0 8" Text="Price" />
-		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" />
+		<TextBox 
+			Width="300" Style="{StaticResource AuthInput}" 
+			Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" 
+			PreviewTextInput="Phone_OnPreviewTextInput"
+			PreviewKeyDown="Space_OnPreviewKeyDown"/>
 		
 		<TextBlock Margin="0 0 0 8" Text="Party" />
 		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding Party, UpdateSourceTrigger=PropertyChanged}" />

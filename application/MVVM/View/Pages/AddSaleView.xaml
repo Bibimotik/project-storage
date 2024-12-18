@@ -137,7 +137,12 @@
                     <TextBox Name="CommentTextBox" TextWrapping="Wrap" AcceptsReturn="True" Height="64" Style="{StaticResource AuthInput}" Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"  MaxLength="1000"/>
 
                     <Label Content="Count"/>
-                    <TextBox Name="VATTextBox" Style="{StaticResource AuthInput}" Text="{Binding Vat, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox 
+                        Name="VATTextBox" 
+                        Style="{StaticResource AuthInput}" 
+                        Text="{Binding Vat, UpdateSourceTrigger=PropertyChanged}" 
+                        PreviewTextInput="Phone_OnPreviewTextInput"
+                        PreviewKeyDown="Space_OnPreviewKeyDown"/>
 
                     <Button
                         Content="Add sale"
