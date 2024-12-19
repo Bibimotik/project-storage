@@ -7,7 +7,9 @@ using application.Abstraction.Interfaces;
 using application.MVVM.Model;
 using application.MVVM.View.Auth;
 using application.MVVM.View.Pages;
+using application.MVVM.ViewModel.AdminPages;
 using application.MVVM.ViewModel.Auth;
+using application.MVVM.ViewModel.Pages;
 using application.Utilities;
 
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -32,7 +34,9 @@ public partial class AuthViewModel : ObservableObject
 	private readonly IMailService _mailService;
 	private readonly RegistrationUserViewModel _registrationUserViewModel;
 	private readonly IParserINNService _parserInnService;
+	private readonly ISupportRepository _supportRepository;
 	private readonly IServiceProvider _serviceProvider;
+	private readonly MVVM.ViewModel.Pages.SupportViewModel _supportViewModel;
 
 	public static event Action<string>? Invalided;
 
@@ -62,7 +66,9 @@ public partial class AuthViewModel : ObservableObject
 		IMailService mailService,
 		RegistrationUserViewModel registrationUserViewModel,
 		IParserINNService parserInnService,
-		IServiceProvider serviceProvider)
+		ISupportRepository supportRepository,
+		IServiceProvider serviceProvider,
+		MVVM.ViewModel.Pages.SupportViewModel supportViewModel)
 	{
 		_entityRepository = entityRepository;
 		//_entityApi = entityApi;
@@ -73,7 +79,9 @@ public partial class AuthViewModel : ObservableObject
 		_mailService = mailService;
 		_registrationUserViewModel = registrationUserViewModel;
 		_parserInnService = parserInnService;
+		_supportRepository = supportRepository;
 		_serviceProvider = serviceProvider;
+		_supportViewModel = supportViewModel;
 
 		Login();
 	}
@@ -245,11 +253,6 @@ public partial class AuthViewModel : ObservableObject
 			}
 			id = reg.Value.Id;
 		}
-		else if (model.EntityType == EntityType.Support)
-		{
-			//await _entityApi.SendToSupport(model);
-			RegistrationUser();
-		}
 		else
 		{
 			return;
@@ -261,28 +264,23 @@ public partial class AuthViewModel : ObservableObject
 			return;
 		}
 
-		MessageBox.Show("УРА");
+		await _authService.SaveAuthData(EntityModel.Model.Email, EntityModel.Model.Password);
+
 		_navigationService.ShowMain();
 
 		Console.WriteLine("ID: " + id.Value.ToString());
 	}
-	// TODO - почему название ...Button
 	[RelayCommand]
 	private async Task LoginButton()
 	{
 		EntityModel model = EntityModel.Model;
-		//if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password))
-		//	return;
-
-		if (model.Email == "admin" && model.Password == "admin")
+		
+		if (model.Email == "admin" && model.Password == "Admin123")
 		{
-			MessageBox.Show("qweqweqwe");
-
 			Debug.WriteLine($"email: {model.Email}");
 			Debug.WriteLine($"password: {model.Password}");
 
-			_authService.SaveAuthData(EntityModel.Model.Email, EntityModel.Model.Password);
-			_authService.LoadAuthData();
+			await _authService.SaveAuthData(EntityModel.Model.Email, EntityModel.Model.Password);
 
 			_navigationService.ShowAdmin();
 			return;
@@ -292,7 +290,6 @@ public partial class AuthViewModel : ObservableObject
 			return;
 
 		var user = await _entityService.Login(model.Email, model.Password);
-		// TODO - переделать
 		if (user.IsFailure)
 		{
 			if (user.Error == "email")
@@ -304,13 +301,10 @@ public partial class AuthViewModel : ObservableObject
 			return;
 		}
 
-		MessageBox.Show("qweqweqwe");
-
 		Debug.WriteLine($"email: {model.Email}");
 		Debug.WriteLine($"password: {model.Password}");
 
-		_authService.SaveAuthData(EntityModel.Model.Email, EntityModel.Model.Password);
-		_authService.LoadAuthData();
+		await _authService.SaveAuthData(EntityModel.Model.Email, EntityModel.Model.Password);
 
 		_navigationService.ShowMain();
 	}
@@ -369,8 +363,6 @@ public partial class AuthViewModel : ObservableObject
 				return false;
 		}
 
-		// TODO - как минимум при разном пароле переходит к блоке кода ниже, хотя должен возвращать return;
-
 		if (model.EntityType == EntityType.User || model.EntityType == EntityType.Company)
 		{
 			var email = await _entityRepository.Get(model.Email);
@@ -388,6 +380,7 @@ public partial class AuthViewModel : ObservableObject
 		}
 
 		string code = GenerateRandomCode();
+		Debug.WriteLine(code);
 		Console.WriteLine(code);
 		string encryptedCode = _securityService.Encrypt(code);
 		await _mailService.SendMail(code, model.Email);
@@ -399,7 +392,6 @@ public partial class AuthViewModel : ObservableObject
 
 	private bool IsValidModel(EntityModel model, bool isLogin = false, CompanyRegistrationStages stage = CompanyRegistrationStages.First)
 	{
-		// TODO - а зачем оно ваще?
 		_registrationUserViewModel.ClearValidationErrors();
 
 		switch (model.EntityType)
@@ -510,6 +502,12 @@ public partial class AuthViewModel : ObservableObject
 		}
 
 		return true;
+	}
+	
+	[RelayCommand]
+	private async Task SendSupport()
+	{
+		await _supportViewModel.SendToSupportAsync();
 	}
 
 	private string GenerateRandomCode()

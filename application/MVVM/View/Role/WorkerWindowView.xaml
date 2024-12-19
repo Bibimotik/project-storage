@@ -1,0 +1,147 @@
+﻿<Window 
+	x:Class="application.MVVM.View.Role.WorkerWindowView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:application.MVVM.View.Role"
+	xmlns:viewmodel="clr-namespace:application.MVVM.ViewModel"
+	xmlns:c="clr-namespace:application.Utilities.Converter"
+	mc:Ignorable="d"
+	MinWidth="1000"
+	MinHeight="600"
+	Title="WorkerWindow"
+	WindowState="Maximized"
+	WindowStartupLocation="CenterScreen"
+	Loaded="Window_Loaded">
+
+	<Window.Resources>
+		<c:BoolToRadioButtonStyleConverter
+			x:Key="BoolToRadioButtonStyleConverter" />
+		<Storyboard
+			x:Key="ExpandStoryboard">
+			<DoubleAnimation
+				Storyboard.TargetName="SideMenu"
+				Storyboard.TargetProperty="Width"
+				To="230"
+				Duration="0:0:0.3" />
+		</Storyboard>
+		<Storyboard
+			x:Key="CollapseStoryboard">
+			<DoubleAnimation
+				Storyboard.TargetName="SideMenu"
+				Storyboard.TargetProperty="Width"
+				To="63"
+				Duration="0:0:0.3" />
+		</Storyboard>
+	</Window.Resources>
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition
+				Width="auto" />
+			<ColumnDefinition
+				Width="*" />
+		</Grid.ColumnDefinitions>
+
+		<Border
+			Style="{StaticResource MenuBorder}"
+			CornerRadius="0,6,6,0"
+			Background="#f7f7f7"
+			Width="63"
+			x:Name="SideMenu">
+
+			<Grid>
+
+				<Grid.RowDefinitions>
+					<RowDefinition
+						Height="*" />
+					<RowDefinition
+						Height="auto" />
+				</Grid.RowDefinitions>
+
+				<StackPanel
+					Orientation="Vertical"
+					VerticalAlignment="Top">
+
+					<Border
+						Style="{StaticResource MenuBorder}"
+						CornerRadius="0 6 0 0">
+						<RadioButton
+							Margin="10 5 0 5"
+							Command="{Binding OpenMenuCommand}"
+							Style="{StaticResource MenuShowButton}"
+							Content="Hide"
+							Tag="../../Assets/Icons/List.png" />
+					</Border>
+
+					<Border
+						Style="{StaticResource MenuBorder}">
+						<RadioButton
+							Margin="10 5 0 5"
+							Command="{Binding StorageCommand}"
+							x:Name="Storage"
+							Style="{StaticResource MenuRadioButton}"
+							Checked="RadioButton_Checked"
+							Content="Storage"
+							Tag="../../Assets/Icons/Box.png" />
+					</Border>
+					
+					<Border
+						Style="{StaticResource MenuBorder}">
+						<RadioButton
+							Margin="10 5 0 5"
+							Command="{Binding RolesCommand}"
+							x:Name="Roles"
+							Style="{StaticResource MenuRadioButton}"
+							Checked="RadioButton_Checked"
+							Content="Roles"
+							Tag="../../Assets/Icons/Account.png" />
+					</Border>
+
+				</StackPanel>
+
+				<StackPanel
+					Orientation="Vertical"
+					VerticalAlignment="Bottom">
+
+					<Border
+						Style="{StaticResource MenuBorder}">
+						<RadioButton
+							Margin="10 5 0 5"
+							Command="{Binding SupportCommand}"
+							x:Name="Support"
+							IsChecked="{Binding IsSelected}"
+							Style="{StaticResource MenuRadioButton}"
+							Checked="RadioButton_Checked"
+							Content="Support"
+							Tag="../../Assets/Icons/Alert triangle.png" />
+					</Border>
+
+					<Border
+						Style="{StaticResource MenuBorder}"
+						CornerRadius="0 0 6 0">
+						<RadioButton
+							Margin="10 5 0 5"
+							Command="{Binding InfoCommand}"
+							x:Name="Info"
+							IsChecked="{Binding IsSelected}"
+							Style="{StaticResource MenuRadioButton}"
+							Checked="RadioButton_Checked"
+							Content="Info"
+							Tag="../../Assets/Icons/Info.png" />
+					</Border>
+
+				</StackPanel>
+
+			</Grid>
+		</Border>
+
+		<ContentControl
+			Grid.Column="1"
+			x:Name="Pages"
+			Content="{Binding CurrentView}" />
+
+	</Grid>
+	
+</Window>

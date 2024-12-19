@@ -1,8 +1,10 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Input;
 
+using application.Abstraction.Interfaces;
 using application.MVVM.Model;
 using application.Utilities;
 
@@ -17,123 +19,154 @@ namespace application.MVVM.ViewModel.Pages;
 
 public partial class SupportViewModel : ObservableObject
 {
-	public ICommand SelectFileCommand { get; }
-	private readonly bool _isInitializing = false;
-	private readonly Dictionary<string, Action<string?>> _validationActions;
-	
-	[ObservableProperty]
-	private string email = string.Empty;
-	[ObservableProperty]
-	private string message = string.Empty;
-	[ObservableProperty]
-	private List<string> selectedFileNames = new();
-	
-	[ObservableProperty]
-	private bool isInvalidEmail = false;
-	[ObservableProperty]
-	private bool isInvalidMessage = false;
-	[ObservableProperty]
-	private byte[] image;
-	
-	public SupportViewModel()
-	{
-		SelectFileCommand = new RelayCommand(SelectFile);
-		
-		_isInitializing = true;
+    private readonly ISupportRepository _supportRepository;
+    private readonly Dictionary<string, Action<string?>> _validationActions;
+    private readonly bool _isInitializing;
 
-		AuthViewModel.Invalided += OnInvalided;
+    [ObservableProperty]
+    private string email;
 
-		_validationActions = new Dictionary<string, Action<string?>>
-		{
-			{ nameof(EntityModel.Email), value => IsInvalidEmail = ValidateAndCreateModel(value) },
-			{ nameof(EntityModel.Message), value => IsInvalidMessage = ValidateAndCreateModel(value) }
-		};
-		
-		EntityModel.Model ??= new EntityModel();
+    [ObservableProperty]
+    private string message;
+    
+    [ObservableProperty]
+    private string guest;
 
-		EntityModel model = EntityModel.Model;
-		
-		Email = model.Email;
-		Message = model.Message;
-		
-		_isInitializing = false;
-	}
-	
-	partial void OnEmailChanged(string value)
-	{
-		try
-		{
-			var regex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    [ObservableProperty]
+    private List<string> selectedFileNames = new();
 
-			if (!regex.IsMatch(value))
-			{
-				IsInvalidEmail = true;
-				Debug.WriteLine("is invalid");
-				return;
-			}
+    [ObservableProperty]
+    private bool isInvalidEmail = false;
 
-			IsInvalidEmail = false;
-		}
-		catch (RegexMatchTimeoutException)
-		{
-			IsInvalidEmail = false;
-			return;
-		}
-		
-		IsInvalidEmail = ValidateAndCreateModel(value);
-	}
-	
-	partial void OnMessageChanged(string value) => IsInvalidMessage = ValidateAndCreateModel(value);
-	
-	private void SelectFile()
-	{
-		OpenFileDialog openFileDialog = new OpenFileDialog();
-		openFileDialog.Filter = "Image Files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg|All Files (*.*)|*.*";
-		openFileDialog.Multiselect = true;
+    [ObservableProperty]
+    private bool isInvalidMessage = false;
 
-		if (openFileDialog.ShowDialog() == true)
-		{
-			SelectedFileNames.Clear();
+    [ObservableProperty]
+    private byte[] image;
 
-			foreach (string fileName in openFileDialog.FileNames)
-			{
-				SelectedFileNames.Add(fileName);
-			}
+    public ICommand SelectFileCommand { get; }
 
-			if (SelectedFileNames.Count > 0)
-			{
-				Image = ImageHelper.ConvertImageToByteArray(SelectedFileNames[0]);
-			}
-		}
-		
-		CreateModel();
-	}
-	
-	private bool ValidateAndCreateModel(string? value)
-	{
-		if (_isInitializing)
-			return false;
+    public SupportViewModel(ISupportRepository supportRepository)
+    {
+        _supportRepository = supportRepository;
+        SelectFileCommand = new RelayCommand(SelectFile);
 
-		CreateModel();
-		return string.IsNullOrWhiteSpace(value);
-	}
-	
-	private void OnInvalided(string property)
-	{
-		if (_validationActions.TryGetValue(property, out var validate))
-		{
-			validate(string.Empty);
-		}
-	}
-	
-	private void CreateModel()
-	{
-		EntityModel.Model ??= new EntityModel();
+        _isInitializing = true;
 
-		EntityModel model = EntityModel.Model;
-		model.Email = Email;
-		model.Message = Message;
-		model.Images = Image;
-		model.EntityType = EntityType.Support;
-	}
+        AuthViewModel.Invalided += OnInvalided;
+
+        _validationActions = new Dictionary<string, Action<string?>>
+        {
+            { nameof(Email), value => IsInvalidEmail = ValidateAndUpdateModel(value) },
+            { nameof(Message), value => IsInvalidMessage = ValidateAndUpdateModel(value) }
+        };
+
+        EntityModel.Model ??= new EntityModel();
+
+        Email = EntityModel.Model.Email;
+        Message = EntityModel.Model.Message;
+
+        _isInitializing = false;
+    }
+
+    partial void OnEmailChanged(string value)
+    {
+        var regex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+        if (!regex.IsMatch(value))
+        {
+            IsInvalidEmail = true;
+            Debug.WriteLine("Invalid email format.");
+            return;
+        }
+
+        IsInvalidEmail = ValidateAndUpdateModel(value);
+    }
+
+    partial void OnMessageChanged(string value) => IsInvalidMessage = ValidateAndUpdateModel(value);
+
+    [ObservableProperty]
+    private string selectedFilePath = "Select File";
+
+    private void SelectFile()
+    {
+	    var openFileDialog = new OpenFileDialog
+	    {
+		    Filter = "Logo Files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg|All Files (*.*)|*.*",
+		    Multiselect = true
+	    };
+
+	    if (openFileDialog.ShowDialog() == true)
+	    {
+		    SelectedFileNames.Clear();
+		    SelectedFileNames.AddRange(openFileDialog.FileNames);
+
+		    if (SelectedFileNames.Any())
+		    {
+			    try
+			    {
+				    Image = ImageHelper.ConvertImageToByteArray(SelectedFileNames.First());
+				    SelectedFilePath = SelectedFileNames.First();
+			    }
+			    catch (Exception ex)
+			    {
+				    MessageBox.Show($"Error loading image: {ex.Message}");
+				    SelectedFilePath = "Error loading file";
+			    }
+		    }
+	    }
+	    else
+	    {
+		    SelectedFilePath = "Select File";
+	    }
+    }
+
+    private bool ValidateAndUpdateModel(string? value)
+    {
+        if (_isInitializing)
+            return false;
+
+        return string.IsNullOrWhiteSpace(value);
+    }
+
+    private void OnInvalided(string property)
+    {
+        if (_validationActions.TryGetValue(property, out var validate))
+        {
+            validate(string.Empty);
+        }
+    }
+
+    [RelayCommand]
+    public async Task SendToSupportAsync()
+    {
+	    MessageBox.Show(email);
+	    /*try
+	    {
+		    SupportModel supportModel = new(
+			    Guid.NewGuid(),
+			    EntityModel.OurUserModel.EntityId!,
+			    null,
+			    message,
+			    image
+		    );
+
+		    await _supportRepository.SentToSupport(supportModel);
+
+	        MessageBox.Show($"Запрос отправлен успешно. ID: {supportModel.Id}");
+	        ClearFields();
+	    }
+	    catch (Exception ex)
+	    {
+	        MessageBox.Show($"Ошибка: {ex.Message}");
+	    }*/
+    }
+
+    private void ClearFields()
+    {
+        Email = string.Empty;
+        Message = string.Empty;
+        SelectedFileNames.Clear();
+        Image = Array.Empty<byte>();
+    }
 }

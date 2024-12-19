@@ -2,12 +2,18 @@
 
 using application.Abstraction;
 using application.Abstraction.Interfaces;
+using application.MVVM.Model;
 using application.MVVM.View;
+using application.MVVM.View.AdminPages;
 using application.MVVM.View.Auth;
 using application.MVVM.View.Pages;
+using application.MVVM.View.Role;
 using application.MVVM.ViewModel;
+using application.MVVM.ViewModel.AdminPages;
 using application.MVVM.ViewModel.Auth;
 using application.MVVM.ViewModel.Pages;
+using application.MVVM.ViewModel.Roles;
+using application.Repositories;
 using application.Repository;
 using application.Services;
 using application.Services.Repository;
@@ -23,12 +29,12 @@ public partial class App : Application
 {
 	private static IServiceProvider? _serviceProvider;
 
-	protected override void OnStartup(StartupEventArgs e)
+	protected override async void OnStartup(StartupEventArgs e)
 	{
 		base.OnStartup(e);
 
 		// Глобальная обработка исключений в потоке UI WPF
-		this.DispatcherUnhandledException += App_DispatcherUnhandledException;
+		DispatcherUnhandledException += App_DispatcherUnhandledException;
 		// Обработка необработанных исключений в других потоках
 		AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 		// Обработка необработанных исключений в задачах
@@ -41,7 +47,7 @@ public partial class App : Application
 		services.AddScoped<IDatabaseService>(provider =>
 			new DatabaseService(Environment.GetEnvironmentVariable("POSTGRESQL"))
 			);
-		services.AddScoped<IEntityRepository, EntityRepository>();
+		services.AddTransient<IEntityRepository, EntityRepository>();
 		services.AddScoped<IAuthService, AuthService>();
 		services.AddScoped<IMailService>(mail =>
 			new MailService(
@@ -54,7 +60,19 @@ public partial class App : Application
 		services.AddSingleton<ISecurityService, SecurityService>();
 		services.AddTransient<RegistrationUserViewModel>();
 		services.AddTransient<IParserINNService, ParserINNService>();
-		services.AddScoped<IEntityService, EntityService>();
+		services.AddTransient<IEntityService, EntityService>();
+		services.AddTransient<IEntityStorageRepository, EntityStorageRepository>();
+		services.AddTransient<ISupportRepository, SupportRepository>();
+		services.AddTransient<IRolesRepository, RolesRepository>();
+		services.AddTransient<IStorageRepository, StorageRepository>();
+		services.AddTransient<IStorageProductsRepository, StorageProductsRepository>();
+		services.AddTransient<IAddProductRepository, ProductRepository>();
+		services.AddTransient<IAddSaleRepository, AddSaleRepository>();
+		services.AddTransient<ISaleRepository, SaleRepository>();
+		services.AddTransient<IStaffRepository, StaffRepository>();
+		services.AddTransient<IStatisticsRepository, StatisticsRepository>();
+		services.AddTransient<ITablesRepository, TablesRepository>();
+		services.AddTransient<IAccountRepository, AccountRepository>();
 
 		services.AddSingleton<App>();
 
@@ -64,22 +82,75 @@ public partial class App : Application
 		services.AddTransient<MainWindow>();
 		services.AddTransient<AdminViewModel>();
 		services.AddTransient<AdminView>();
+		services.AddTransient<ManagerWindowViewModel>();
+		services.AddTransient<ManagerWindowView>();
+		services.AddTransient<WorkerWindowViewModel>();
+		services.AddTransient<WorkerWindowView>();
+		services.AddTransient<AnalystWindowViewModel>();
+		services.AddTransient<AnalystWindowView>();
 
 		services.AddScoped<RegistrationCompanyStage1ViewModel>();
 		services.AddScoped<RegistrationCompanyStage1View>();
 
+		services.AddTransient<AddStorageViewModel>();
+		services.AddScoped<AddStorageView>();
+
+		services.AddTransient<StorageViewModel>();
+		services.AddScoped<StorageView>();
+
 		services.AddScoped<AccountViewModel>();
 		services.AddScoped<AccountView>();
+
+		services.AddTransient<StatisticsViewModel>();
 		services.AddScoped<StatisticsView>();
+
+		services.AddTransient<SalesViewModel>();
 		services.AddScoped<SalesView>();
+
+		services.AddTransient<StaffViewModel>();
 		services.AddScoped<StaffView>();
-		services.AddScoped<SupportView>();
-		services.AddScoped<StorageViewModel>();
-		services.AddScoped<StorageView>();
+
+		services.AddTransient<AddStaffViewModel>();
+		services.AddScoped<AddStaffView>();
+
+		services.AddTransient<RolesViewModel>();
+		services.AddScoped<RolesView>();
+
+		services.AddTransient<StorageProductsViewModel>();
+		services.AddScoped<StorageProductsView>();
+
+		services.AddTransient<AddProductViewModel>();
+		services.AddScoped<AddProductView>();
+
+		services.AddTransient<AddSaleViewModel>();
+		services.AddScoped<AddSaleView>();
+
+		services.AddTransient<CompanyView>();
+		services.AddTransient<CompanyViewModel>();
+		services.AddTransient<EntityManagersView>();
+		services.AddTransient<EntityManagersViewModel>();
+		services.AddTransient<EntityProductOrderView>();
+		services.AddTransient<EntityProductOrderViewModel>();
+		services.AddTransient<EntityStorageView>();
+		services.AddTransient<EntityStorageViewModel>();
+		services.AddTransient<EntityView>();
+		services.AddTransient<EntityViewModel>();
+		services.AddTransient<OrderView>();
+		services.AddTransient<OrderViewModel>();
+		services.AddTransient<ProductView>();
+		services.AddTransient<ProductViewModel>();
+		services.AddTransient<MVVM.View.AdminPages.SupportView>();
+		services.AddTransient<MVVM.ViewModel.AdminPages.SupportViewModel>();
+		services.AddTransient<UserView>();
+		services.AddTransient<UserViewModel>();
+
+		services.AddTransient<MVVM.ViewModel.Pages.SupportMainViewModel>();
+		services.AddScoped<SupportMainView>();
+		services.AddTransient<MVVM.ViewModel.Pages.SupportViewModel>();
+		services.AddScoped<MVVM.View.Pages.SupportView>();
+
 		services.AddScoped<InfoView>();
 		services.AddScoped<InfoMainView>();
-		services.AddScoped<AddStorageViewModel>();
-		services.AddScoped<AddStorageView>();
 
 		services.AddScoped<IPasswordHash, PasswordHash>();
 
@@ -90,14 +161,15 @@ public partial class App : Application
 		ISecurityService securityService = _serviceProvider.GetRequiredService<ISecurityService>();
 		securityService.GenerateKeys();
 
-		//authService.ClearAuthData();
+		EntityModel.OurUserModel = new EntityModel();
+		EntityModel.Model = new EntityModel();
 
-		switch (authService.IsUserAuthenticated())
+		switch (await authService.IsUserAuthenticated())
 		{
 			case true:
-				var (email, password) = authService.LoadAuthData();
+				var (email, password) = await authService.LoadAuthData();
 
-				if (email == "admin" && password == "admin")
+				if (email == "admin" && password == "Admin123")
 					navigationService.ShowAdmin();
 				else
 					navigationService.ShowMain();
@@ -110,27 +182,21 @@ public partial class App : Application
 
 	private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
 	{
-		// Показать сообщение об ошибке
 		MessageBox.Show($"Произошла ошибка: {e.Exception.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
 
-		// Указать, что исключение обработано
 		e.Handled = true;
 	}
 
 	private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
 	{
 		if (e.ExceptionObject is Exception ex)
-		{
 			MessageBox.Show($"Непредвиденная ошибка: {ex.Message}", "Критическая ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-		}
 	}
 
 	private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
 	{
-		// Показать сообщение об ошибке
 		MessageBox.Show($"Ошибка в задаче: {e.Exception.Message}", "Ошибка задачи", MessageBoxButton.OK, MessageBoxImage.Error);
 
-		// Указать, что исключение обработано
 		e.SetObserved();
 	}
 }

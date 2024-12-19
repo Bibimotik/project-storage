@@ -1,0 +1,81 @@
+<UserControl
+	x:Class="application.MVVM.View.Pages.StorageProductsView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:application.MVVM.View.Pages"
+	xmlns:Pages="clr-namespace:application.MVVM.ViewModel.Pages"
+	mc:Ignorable="d">
+
+	<StackPanel
+		Margin="20 0 10 0">
+		<Grid
+			VerticalAlignment="Bottom">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="*" />
+				<ColumnDefinition
+					Width="auto" />
+			</Grid.ColumnDefinitions>
+			
+			<Label
+				FontSize="45"
+				Content="My storage products"/>
+
+			<Button
+				Grid.Column="1"
+				Style="{StaticResource SendButton}"
+				Content="Back"
+				Margin="0 0 10 10"
+				VerticalAlignment="Bottom"
+				Command="{Binding BackCommand}" />
+		</Grid>
+		
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="*" />
+					<ColumnDefinition
+						Width="150"/>
+					<ColumnDefinition
+						Width="200"/>
+				</Grid.ColumnDefinitions>
+			
+				<TextBox 
+					x:Name="SearchTextBox"
+					Margin="0,0,10,0" 
+					VerticalAlignment="Center" 
+					Style="{StaticResource AuthInput}" 
+					TextChanged="SearchTextBox_TextChanged"/>
+				<Button
+					x:Name="AddButton"
+					Grid.Column="1"
+					Content="Add product" 
+					Foreground="#ffffff"
+					VerticalAlignment="Center" 
+					Command="{Binding TriggerAddProductCommand}"
+					Style="{StaticResource SendButton}" />
+				<!--TODO - добавить стили-->
+				<ComboBox x:Name="SortComboBox" Grid.Column="2" Height="30" Margin="10,0,0,0" VerticalAlignment="Center"
+				          SelectionChanged="SortComboBox_SelectionChanged">
+					<ComboBoxItem IsSelected="True" Content="Нет"/>
+					<ComboBoxItem Content="По алфавиту от А до Я"/>
+					<ComboBoxItem Content="По алфавиту от Я до А"/>
+				</ComboBox>
+			</Grid>
+
+			<ScrollViewer Grid.Row="1" Height="550" Padding="0 0 10 0">
+				<StackPanel x:Name="StorageProductsPanel">
+					
+				</StackPanel>
+			</ScrollViewer>
+		</Grid>
+	</StackPanel>
+</UserControl>

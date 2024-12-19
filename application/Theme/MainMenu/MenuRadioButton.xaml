@@ -5,11 +5,15 @@
 	<Style
 		x:Key="MenuRadioButton"
 		TargetType="RadioButton">
-
 		<Setter
 			Property="FontSize"
 			Value="17" />
-
+		<Setter
+			Property="Background"
+			Value="Transparent" />
+		<Setter
+			Property="Foreground"
+			Value="Black" />
 		<Setter
 			Property="Template">
 			<Setter.Value>
@@ -42,5 +46,48 @@
 		</Setter>
 	</Style>
 
+	<Style
+		x:Key="SelectedMenuRadioButton"
+		TargetType="RadioButton">
+		<Setter
+			Property="FontSize"
+			Value="17" />
+		<Setter
+			Property="Background"
+			Value="DodgerBlue" />
+		<Setter
+			Property="Foreground"
+			Value="White" />
+		<Setter
+			Property="Template">
+			<Setter.Value>
+				<ControlTemplate
+					TargetType="RadioButton">
+					<StackPanel
+						Background="Transparent"
+						Orientation="Horizontal">
+						<Border
+							Margin="3 0 0 0"
+							Background="DodgerBlue"
+							CornerRadius="6">
+							<Image
+								Source="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}"
+								Width="20"
+								Height="20"
+								Margin="6 6 6 6" />
+						</Border>
+						<Border
+							HorizontalAlignment="Stretch"
+							CornerRadius="6">
+							<ContentPresenter
+								VerticalAlignment="Center"
+								HorizontalAlignment="Stretch"
+								Margin="20 0 0 0" />
+						</Border>
+					</StackPanel>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 
 </ResourceDictionary>

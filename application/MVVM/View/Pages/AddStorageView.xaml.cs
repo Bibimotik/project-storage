@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+using application.MVVM.ViewModel.Pages;
 
 namespace application.MVVM.View.Pages;
 /// <summary>
@@ -19,8 +9,23 @@ namespace application.MVVM.View.Pages;
 /// </summary>
 public partial class AddStorageView : UserControl
 {
-	public AddStorageView()
+	public AddStorageView(AddStorageViewModel viewModel)
 	{
+		DataContext = viewModel;
 		InitializeComponent();
+
+		viewModel.LoadStorage();
+		Label.Content = "Add storage";
+		EditButton.Visibility = Visibility.Collapsed;
+	}
+	public AddStorageView(AddStorageViewModel viewModel, Guid storageId)
+	{
+		DataContext = viewModel;
+		InitializeComponent();
+
+		viewModel.LoadStorage(storageId);
+
+		Label.Content = "Edit storage";
+		SaveButton.Visibility = Visibility.Collapsed;
 	}
 }

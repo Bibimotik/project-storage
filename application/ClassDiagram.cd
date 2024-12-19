@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="application.MVVM.Model.EntityManagerModel">
+    <Position X="7.5" Y="1" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAgAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVVM\Model\EntityManagerModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="application.MVVM.Model.EntityModel">
+    <Position X="17" Y="1" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAVgAACIABIgAGABgAABAwAAIAJACCAhBIAFAIAA=</HashCode>
+      <FileName>MVVM\Model\EntityModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="application.MVVM.Model.EntityProductModel">
+    <Position X="13.5" Y="1" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AEAEAAAAAgAAgAAAAIAAAAAkAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>MVVM\Model\EntityProductModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="application.MVVM.Model.EntityProductOrderModel">
+    <Position X="0.5" Y="1" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAgAAAAAgAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVVM\Model\EntityProductOrderModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="application.MVVM.Model.EntityStorageModel">
+    <Position X="4.25" Y="1" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAgAAIAAAAABAAAAIAAAACAAEAAAAAAAA=</HashCode>
+      <FileName>MVVM\Model\EntityStorageModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="application.MVVM.Model.EntityTableModel">
+    <Position X="10" Y="4.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAIAAAAAAAAAAAAgAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>MVVM\Model\EntityTableModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="application.MVVM.Model.OrderModel">
+    <Position X="13.5" Y="5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CAAEAgAEAAAQhMAKAAAAABBBgAEJAAQCABQAABAAACE=</HashCode>
+      <FileName>MVVM\Model\OrderModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="application.MVVM.Model.ProductModel">
+    <Position X="6.5" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AEAGAAAAAwAAAEAAIIAgABAgAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVVM\Model\ProductModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="application.MVVM.Model.ProductOrderModel">
+    <Position X="11" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAgAAAAAgAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVVM\Model\ProductOrderModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="application.MVVM.Model.StaffModel">
+    <Position X="0.5" Y="4.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAIAAEAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVVM\Model\StaffModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="application.MVVM.Model.SupportModel">
+    <Position X="3.25" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAAAAABAAAAAAABAAAAAAIAAAAAA=</HashCode>
+      <FileName>MVVM\Model\SupportModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

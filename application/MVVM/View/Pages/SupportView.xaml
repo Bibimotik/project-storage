@@ -11,10 +11,6 @@
 	d:DesignHeight = "300"
 	d:DesignWidth = "300">
 	
-	<UserControl.DataContext>
-		<Pages:SupportViewModel/>
-	</UserControl.DataContext>
-	
 	<UserControl.Resources>
 		<converter:BoolToVisibilityConverter
 			x:Key="BoolToVisibilityConverter" />
@@ -23,7 +19,6 @@
 	<StackPanel
 		Orientation="Vertical"
 		VerticalAlignment="Center">
-		
 		
 		<StackPanel
 			Margin="0 0 0 10"
@@ -49,10 +44,12 @@
 			<TextBlock
 				Margin="0 0 0 8"
 				Text="Message" />
-			<TextBox
-				Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
-				Style="{StaticResource AuthInput}" 
-				MaxLength="100" />
+			<TextBox Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
+			         MaxLength="600"
+			         TextWrapping="Wrap" 
+			         AcceptsReturn="True" 
+			         Height="65" 
+			         Style="{StaticResource AuthInput}"/>
 			<TextBlock
 				Visibility="{Binding IsInvalidMessage, Converter={StaticResource BoolToVisibilityConverter}}"
 				Foreground="red"
@@ -66,7 +63,8 @@
 				Margin="0 0 0 8"
 				Text="Attach Screenshot" />
 			<Button
-				Content="Select File"
+				Height="25"
+				Content="{Binding SelectedFilePath}"
 				Command="{Binding SelectFileCommand}" 
 				Style="{StaticResource SendButtonWhite}" />
 			<TextBlock

@@ -4,13 +4,8 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:local="clr-namespace:application.MVVM.View.Pages"
 	xmlns:pages="clr-namespace:application.MVVM.ViewModel.Pages"
 	mc:Ignorable="d">
-
-	<UserControl.DataContext>
-		<pages:AddStorageViewModel />
-	</UserControl.DataContext>
 
 	<StackPanel
 		Width="300"
@@ -19,51 +14,51 @@
 		VerticalAlignment="Center">
 
 		<Label
+			x:Name="Label"
 			FontSize="45"
 			Content="Add storage" />
-		<TextBlock
-			Margin="0 0 0 8"
-			Text="Point" />
-		<TextBox
-			Width="300"
-			Style="{StaticResource AuthInput}" />
-		<TextBlock
-			Margin="0 0 0 8"
-			Text="Country" />
-		<TextBox
-			Width="300"
-			Style="{StaticResource AuthInput}" />
-		<TextBlock
-			Margin="0 0 0 8"
-			Text="City" />
-		<TextBox
-			Width="300"
-			Style="{StaticResource AuthInput}" />
-		<TextBlock
-			Margin="0 0 0 8"
-			Text="Address" />
-		<TextBox
-			Width="300"
-			Style="{StaticResource AuthInput}" />
-		<TextBlock
-			Margin="0 0 0 8"
-			Text="Index" />
-		<TextBox
-			Width="300"
-			Style="{StaticResource AuthInput}" />
+		
+		<TextBlock Margin="0 0 0 8" Text="Point" />
+		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding Point, UpdateSourceTrigger=PropertyChanged}" />
+
+		<TextBlock Margin="0 0 0 8" Text="Country" />
+		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding Country, UpdateSourceTrigger=PropertyChanged}" />
+
+		<TextBlock Margin="0 0 0 8" Text="City" />
+		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding City, UpdateSourceTrigger=PropertyChanged}" />
+
+		<TextBlock Margin="0 0 0 8" Text="Address" />
+		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
+
+		<TextBlock Margin="0 0 0 8" Text="Index" />
+		<TextBox Width="300" Style="{StaticResource AuthInput}" Text="{Binding Index, UpdateSourceTrigger=PropertyChanged}" />
+
 		<Button
+			x:Name="SaveButton"
 			Content="Add Storage"
 			Foreground="#ffffff"
 			Width="120"
 			Margin="0,20"
+			Command="{Binding SaveStorageCommand}"
 			Style="{StaticResource SendButton}"
-			Command="{Binding InsertStorageCommand}" />
-		<Button 
-			Grid.Column="1"
-			Content="Back" 
+			CommandParameter="True" />
+
+		<Button
+			x:Name="EditButton"
+			Content="Edit Storage"
 			Foreground="#ffffff"
+			Width="120"
+			Margin="0,20"
+			Command="{Binding SaveStorageCommand}"
+			CommandParameter="False"
+			Style="{StaticResource SendButton}" />
+
+		<Button 
+			Content="Back"
+			Width="80"
+			Height="25"
 			VerticalAlignment="Center" 
 			Command="{Binding TriggerBackStorageCommand}"
-			Style="{StaticResource SendButton}" />
+			Style="{StaticResource SendButtonWhite}" />
 	</StackPanel>
 </UserControl>

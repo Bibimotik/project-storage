@@ -6,13 +6,20 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:local="clr-namespace:application"
 	xmlns:viewmodel="clr-namespace:application.MVVM.ViewModel"
+	xmlns:c="clr-namespace:application.Utilities.Converter"
 	mc:Ignorable="d"
 	MinWidth="1000"
 	MinHeight="600"
+	WindowState="Maximized"
 	Title="MainWindow"
-	WindowStartupLocation="CenterScreen">
+	WindowStartupLocation="CenterScreen"
+	Loaded="Window_Loaded">
 
 	<Window.Resources>
+		<c:BoolToVisibilityConverter
+			x:Key="BoolToVisibilityConverter" />
+		<c:BoolToRadioButtonStyleConverter
+			x:Key="BoolToRadioButtonStyleConverter" />
 		<Storyboard
 			x:Key="ExpandStoryboard">
 			<DoubleAnimation
@@ -86,9 +93,17 @@
 								Style="{StaticResource MenuAvatar}"
 								Checked="RadioButton_Checked">
 								<Image
-									Source="../../Assets/Icons/Ava.png"
+									Source="{Binding MenuTag}"
 									Width="40"
-									Height="40" />
+									Height="40"
+									Stretch="UniformToFill">
+									<Image.Clip>
+										<EllipseGeometry
+											Center="20,20"
+											RadiusX="20"
+											RadiusY="20" />
+									</Image.Clip>
+								</Image>
 							</RadioButton>
 
 							<StackPanel
@@ -96,16 +111,13 @@
 
 								<Label
 									Margin="20 0 0 0"
-									Content="Фамилия И. О."
+									Content="{Binding ShortName}"
 									FontSize="16"
 									Style="{StaticResource MenuText}" />
 
-								<!-- TODO - большой email может не влезть, мб изменять размер шрифта в зависимости от кол-ва символов
-							TODO или искуственно его укарачивать типо: testte...andex.com-->
-
 								<Label
 									Margin="20 -10 0 0"
-									Content="test_email@yandex.com"
+									Content="{Binding Email}"
 									FontSize="12"
 									Style="{StaticResource MenuText}" />
 
@@ -162,6 +174,19 @@
 							Tag="../../Assets/Icons/Person.png" />
 					</Border>
 
+					<Border
+						Visibility="{Binding IsNotCompanyVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+						Style="{StaticResource MenuBorder}">
+						<RadioButton
+							Margin="10 5 0 5"
+							Command="{Binding RolesCommand}"
+							x:Name="Roles"
+							Style="{StaticResource MenuRadioButton}"
+							Checked="RadioButton_Checked"
+							Content="Roles"
+							Tag="../../Assets/Icons/Account.png" />
+					</Border>
+
 				</StackPanel>
 
 				<StackPanel
@@ -174,6 +199,7 @@
 							Margin="10 5 0 5"
 							Command="{Binding SupportCommand}"
 							x:Name="Support"
+							IsChecked="{Binding IsSelected}"
 							Style="{StaticResource MenuRadioButton}"
 							Checked="RadioButton_Checked"
 							Content="Support"
@@ -187,6 +213,7 @@
 							Margin="10 5 0 5"
 							Command="{Binding InfoCommand}"
 							x:Name="Info"
+							IsChecked="{Binding IsSelected}"
 							Style="{StaticResource MenuRadioButton}"
 							Checked="RadioButton_Checked"
 							Content="Info"

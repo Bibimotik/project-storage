@@ -8,26 +8,53 @@ namespace application.Services;
 
 public class AuthService : IAuthService
 {
-	public void SaveAuthData(string authEmail, string authPassword)
+	private readonly IEntityRepository _entityRepository;
+	public AuthService(IEntityRepository entityRepository)
 	{
+		_entityRepository = entityRepository;
+	}
+
+	public async Task SaveAuthData(string authEmail, string authPassword)
+	{
+		if (authEmail != "admin")
+			await GetUserData(authEmail);
+
 		Settings.Default.AuthEmail = authEmail;
 		Settings.Default.AuthPassword = authPassword;
 		Settings.Default.Save();
 	}
 
-	public (string authEmail, string authPassword) LoadAuthData()
+	public async Task<(string authEmail, string authPassword)> LoadAuthData()
 	{
 		var authEmail = Settings.Default.AuthEmail;
 		var authPassword = Settings.Default.AuthPassword;
+
+		if (authEmail != "admin")
+			await GetUserData(authEmail);
 
 		Debug.WriteLine("save data: " + authEmail + " " + authPassword);
 
 		return (authEmail, authPassword);
 	}
 
-	public bool IsUserAuthenticated()
+	public async Task<bool> IsUserAuthenticated()
 	{
-		return !string.IsNullOrEmpty(Settings.Default.AuthEmail);
+		Debug.WriteLine("--------- " + Settings.Default.AuthEmail + " - " + Settings.Default.AuthPassword);
+		if (!string.IsNullOrEmpty(Settings.Default.AuthEmail))
+		{
+			if (Settings.Default.AuthEmail == "admin")
+				return true;
+
+			var data = await _entityRepository.Get(Settings.Default.AuthEmail);
+			if(data != null)
+			{
+				return true;
+			}
+			else
+				return false;
+		}
+		else
+			return false;
 	}
 
 	public void ClearAuthData()
@@ -36,7 +63,21 @@ public class AuthService : IAuthService
 		Settings.Default.AuthPassword = string.Empty;
 		Settings.Default.Save();
 
-		EntityModel.Reset();
+		EntityModel.ResetOurUser();
+	}
+
+	private async Task GetUserData(string authEmail)
+	{
+		var model = await _entityRepository.Get(authEmail!);
+		EntityModel.OurUserModel = model!;
+
+		if (model != null)
+		{
+			if (authEmail == "admin")
+				return;
+
+				var entity = await _entityRepository.GetEntity(model!.Id);
+			EntityModel.OurUserModel.EntityId = entity!.Id;
+		}
 	}
 }
-

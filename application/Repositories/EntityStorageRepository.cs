@@ -1,0 +1,88 @@
+using application.Abstraction;
+using application.Abstraction.Interfaces;
+using application.MVVM.Model;
+using application.Utilities;
+
+using Dapper;
+
+namespace application.Repository;
+
+public class EntityStorageRepository : IEntityStorageRepository
+{
+	private readonly IDatabaseService _databaseService;
+
+	public EntityStorageRepository(IDatabaseService databaseService) => _databaseService = databaseService;
+
+	public async Task<EntityStorageModel> GetEntityStorage(Guid storageId)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			string query = $@"SELECT *
+                FROM entity_storage 
+                WHERE id = @StorageId";
+
+			return await dbConnection.QuerySingleAsync<EntityStorageModel>(query, new { StorageId = storageId });
+		}, _databaseService);
+	}
+
+	public async Task<Guid> InsertEntityStorage(Guid entityId, EntityStorageModel storageModel)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			string query = $@"INSERT INTO ENTITY_STORAGE
+                        (ID, Entity_ID, Point, Country, City, Address, Index, Is_Deleted)
+                        VALUES (
+                        @{nameof(EntityStorageModel.Id)},
+                        @Entity_Id,
+                        @{nameof(EntityStorageModel.Point)},
+                        @{nameof(EntityStorageModel.Country)},
+                        @{nameof(EntityStorageModel.City)},
+                        @{nameof(EntityStorageModel.Address)},
+                        @{nameof(EntityStorageModel.Index)},
+                        FALSE)
+                        RETURNING ID";
+
+			Guid storageId = await dbConnection.QuerySingleAsync<Guid>(query, new
+			{
+				storageModel.Id,
+				Entity_Id = entityId,
+				storageModel.Point,
+				storageModel.Country,
+				storageModel.City,
+				storageModel.Address,
+				storageModel.Index
+			});
+
+			return storageId;
+		}, _databaseService);
+	}
+
+	public async Task UpdateEntityStorage(Guid entityId, EntityStorageModel storageModel)
+	{
+		await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			string query = $@"UPDATE entity_storage SET
+                Point = @{nameof(EntityStorageModel.Point)},
+                Country = @{nameof(EntityStorageModel.Country)},
+                City = @{nameof(EntityStorageModel.City)},
+                Address = @{nameof(EntityStorageModel.Address)},
+                Index = @{nameof(EntityStorageModel.Index)},
+                Is_Deleted = FALSE
+                WHERE ID = @{nameof(EntityStorageModel.Id)} 
+				AND Entity_ID = @Entity_Id";
+
+			await dbConnection.ExecuteAsync(query, new
+			{
+				storageModel.Id,
+				storageModel.Point,
+				storageModel.Country,
+				storageModel.City,
+				storageModel.Address,
+				storageModel.Index,
+				Entity_Id = entityId
+			});
+
+			return Task.CompletedTask;
+		}, _databaseService);
+	}
+}

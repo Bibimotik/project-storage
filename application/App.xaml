@@ -12,6 +12,12 @@
 
 				<ResourceDictionary
 					Source="./Theme/General/Button.xaml" />
+				
+				<ResourceDictionary
+					Source="./Theme/General/CardStyle.xaml" />
+				
+				<ResourceDictionary
+					Source="./Theme/General/ComboBox.xaml" />
 
 				<ResourceDictionary
 					Source="./Theme/Login_Registration/AuthEye.xaml" />
@@ -54,6 +60,9 @@
 
 				<ResourceDictionary
 					Source="./Theme/MainMenu/MenuAvatar.xaml" />
+
+				<ResourceDictionary
+					Source="./Theme/General/DataGridStyles.xaml" />
 
 			</ResourceDictionary.MergedDictionaries>
 

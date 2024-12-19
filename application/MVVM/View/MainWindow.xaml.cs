@@ -1,12 +1,10 @@
 ﻿using System.Windows;
 
 using application.MVVM.ViewModel;
+using application.MVVM.ViewModel.Pages;
 
 namespace application;
 
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
 public partial class MainWindow : Window
 {
 	public MainWindow(MainViewModel mainViewModel)
@@ -18,5 +16,12 @@ public partial class MainWindow : Window
 	private void RadioButton_Checked(object sender, RoutedEventArgs e)
 	{
 		//сюда что-нибудь с внешним видом можно дописать
+	}
+	private void Window_Loaded(object sender, RoutedEventArgs e)
+	{
+		// Перенос вызова команды после полной загрузки окна
+		var viewModel = DataContext as MainViewModel;
+		viewModel?.OpenMenuCommand.Execute(null);
+		viewModel?.LoadUserDataCommand.Execute(null);
 	}
 }

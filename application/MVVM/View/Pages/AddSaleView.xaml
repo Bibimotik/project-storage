@@ -1,0 +1,233 @@
+<UserControl
+	x:Class="application.MVVM.View.Pages.AddSaleView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:application.MVVM.View.Pages"
+	xmlns:c="clr-namespace:application.Utilities.Converter"
+	mc:Ignorable="d">
+
+	<UserControl.Resources>
+		<c:ByteArrayToImageConverter
+			x:Key="ByteArrayToImageConverter"/>
+	</UserControl.Resources>
+
+	<StackPanel Margin="20 0 10 0">
+
+		<Grid
+			VerticalAlignment="Bottom">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="*" />
+				<ColumnDefinition
+					Width="auto" />
+			</Grid.ColumnDefinitions>
+
+			<Label
+				x:Name="Label"
+				FontSize="45"
+				Content="Add sale" />
+
+			<!--<Button
+				Grid.Column="1"
+				Style="{StaticResource SendButton}"
+				Content="Back"
+				Margin="0 0 10 10"
+				VerticalAlignment="Bottom"
+				Command="{Binding BackCommand}" />-->
+		</Grid>
+
+		<ScrollViewer Width="820" Height="590">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="400" />
+                    <ColumnDefinition
+                        Width="400"/>
+                </Grid.ColumnDefinitions>
+            
+                <StackPanel Grid.Column="0" Margin="0 0 5 0">
+                    <Label Content="INN"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition
+                                Width="*" />
+                            <ColumnDefinition
+                                Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Name="INNTextBox" Style="{StaticResource AuthInput}" Text="{Binding Inn, UpdateSourceTrigger=PropertyChanged}" MaxLength="12"/>
+                        <Button
+                            Grid.Column="1"
+                            Margin="5 0 0 0"
+                            Content="GET"
+                            Command="{Binding GetParserDataINNCommand}"
+                            CommandParameter="{Binding Text, ElementName=INNTextBox}"
+                            Style="{StaticResource SendButtonWhite}" />
+                    </Grid>
+
+                    <Label Content="KPP"/>
+                    <TextBox Name="KPPTextBox" Style="{StaticResource AuthInput}" Text="{Binding Kpp, UpdateSourceTrigger=PropertyChanged}"  MaxLength="12"/>
+
+                    <Label Content="OGRN"/>
+                    <TextBox Name="OGRNTextBox" Style="{StaticResource AuthInput}" Text="{Binding Ogrn, UpdateSourceTrigger=PropertyChanged}"  MaxLength="13"/>
+
+                    <Label Content="Full name"/>
+                    <TextBox Name="FullNameTextBox" Style="{StaticResource AuthInput}" Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"  MaxLength="100"/>
+
+                    <Label Content="Address"/>
+                    <TextBox Name="AddressTextBox" Style="{StaticResource AuthInput}" Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"  MaxLength="100"/>
+
+                    <Label Content="Payment account"/>
+                    <TextBox Name="PaymentAccountTextBox" Style="{StaticResource AuthInput}" Text="{Binding PaymentAccount, UpdateSourceTrigger=PropertyChanged}"  MaxLength="20"/>
+
+                    <Label Content="For BIK"/>
+                    <TextBox Name="ToBIKTextBox" Style="{StaticResource AuthInput}" Text="{Binding ToBIK, UpdateSourceTrigger=PropertyChanged}"  MaxLength="11"/>
+
+                    <Label Content="For bank"/>
+                    <TextBox Name="ToBankTextBox" Style="{StaticResource AuthInput}" Text="{Binding ToBank, UpdateSourceTrigger=PropertyChanged}"  MaxLength="100"/>
+
+                    <Label Content="For cor account"/>
+                    <TextBox Name="ToCorAccountTextBox" Style="{StaticResource AuthInput}" Text="{Binding ToCorAccount, UpdateSourceTrigger=PropertyChanged}"  MaxLength="20"/>
+
+                    <Label Content="From cor account"/>
+                    <TextBox Name="FromCorAccountTextBox" Style="{StaticResource AuthInput}" Text="{Binding FromCorAccount, UpdateSourceTrigger=PropertyChanged}"  MaxLength="20"/>
+
+                    <Label Content="From BIK"/>
+                    <TextBox Name="FromBIKTextBox" Style="{StaticResource AuthInput}" Text="{Binding FromBIK, UpdateSourceTrigger=PropertyChanged}"  MaxLength="11"/>
+                    
+                    <Label Content="From bank"/>
+                    <TextBox Name="FromBankTextBox" Style="{StaticResource AuthInput}" Text="{Binding FromBank, UpdateSourceTrigger=PropertyChanged}"  MaxLength="100"/>
+                    
+                    <Button
+                        Content="Back"
+                        Height="27"
+                        Margin="0,10,0,0"
+                        Width="300"
+                        Command="{Binding TriggerSalesCommand}"
+                        Style="{StaticResource SendButtonWhite}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Margin="5 0 0 0">
+                    <Label Content="Full storage name" Margin="0,5"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition
+                                Width="*" />
+                            <ColumnDefinition
+                                Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="FullStorageName" Text="{Binding FullStorageName, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource AuthInput}" />
+                        <Button
+                            Grid.Column="1"
+                            Margin="5 0 0 0"
+                            Content="GET"
+                            Command="{Binding GetProductCommand}"
+                            CommandParameter="{Binding Text, ElementName=FullStorageName}"
+                            Style="{StaticResource SendButtonWhite}" />
+                    </Grid>
+
+                    <Label Content="Plan date shipment"/>
+                    <DatePicker Name="PlanDateShipmentPicker" SelectedDate="{Binding PlanDateShipment, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Label Content="Shipping address"/>
+                    <TextBox Name="ShippingAddressTextBox" Style="{StaticResource AuthInput}" Text="{Binding ShippingAddress, UpdateSourceTrigger=PropertyChanged}"  MaxLength="100"/>
+
+                    <Label Content="Application date"/>
+                    <DatePicker Name="ApplicationDatePicker" SelectedDate="{Binding ApplicationDate, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Label Content="Delivery point"/>
+                    <TextBox Name="DeliveryPointTextBox" Style="{StaticResource AuthInput}" Text="{Binding DeliveryPoint, UpdateSourceTrigger=PropertyChanged}"  MaxLength="100"/>
+
+                    <Label Content="Delivery address"/>
+                    <TextBox Name="DeliveryAddressTextBox" Style="{StaticResource AuthInput}" Text="{Binding DeliveryAddress, UpdateSourceTrigger=PropertyChanged}"  MaxLength="100"/>
+
+                    <Label Content="Plan date receipt"/>
+                    <DatePicker Name="PlanDateReceiptPicker" SelectedDate="{Binding PlanDateReceipt, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Label Content="Full name transporter"/>
+                    <TextBox Name="TransporterFullNameTextBox" Style="{StaticResource AuthInput}" Text="{Binding TransporterFullName, UpdateSourceTrigger=PropertyChanged}"  MaxLength="100"/>
+
+                    <Label Content="Short name transporter"/>
+                    <TextBox Name="TransporterShortNameTextBox" Style="{StaticResource AuthInput}" Text="{Binding TransporterShortName, UpdateSourceTrigger=PropertyChanged}"  MaxLength="100"/>
+
+                    <Label Content="Comment"/>
+                    <TextBox Name="CommentTextBox" TextWrapping="Wrap" AcceptsReturn="True" Height="64" Style="{StaticResource AuthInput}" Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"  MaxLength="1000"/>
+
+                    <Label Content="Count"/>
+                    <TextBox 
+                        Name="VATTextBox" 
+                        Style="{StaticResource AuthInput}" 
+                        Text="{Binding Vat, UpdateSourceTrigger=PropertyChanged}" 
+                        PreviewTextInput="Phone_OnPreviewTextInput"
+                        PreviewKeyDown="Space_OnPreviewKeyDown"/>
+
+					<Button
+						x:Name="SaveButton"
+						Content="Add sale"
+                        Foreground="#ffffff"
+                        Margin="0,10,0,0"
+                        Width="300"
+						Command="{Binding InsertOrderCommand}"
+						Style="{StaticResource SendButton}" />
+                    <Button
+						x:Name="EditButton"
+                        Content="Edit sale"
+                        Foreground="#ffffff"
+                        Margin="0,10,0,0"
+						Width="300"
+						Command="{Binding SaveSaleCommand}"
+						Style="{StaticResource SendButton}" />
+                </StackPanel>
+				<ScrollViewer
+					Grid.Row="1"
+					Grid.ColumnSpan="2"
+					Height="200"
+					x:Name="ScrollViewer">
+                    <ItemsControl ItemsSource="{Binding Products}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Style="{StaticResource CardBorderStyle}"
+                                    Margin="0,10,0,10"
+                                    Padding="10">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <CheckBox
+                                            Content="{Binding Id}"
+                                            Foreground="#ffffff"
+                                            Checked="CheckBox_Checked"
+                                            Unchecked="CheckBox_Unchecked"
+                                            FontSize="1"
+                                            VerticalAlignment="Center" />
+                                        <Image 
+                                            Grid.Column="1"
+                                            Width="50" 
+                                            Height="50" 
+                                            Margin="0,0,10,0"
+                                            Source="{Binding Image, Converter={StaticResource ByteArrayToImageConverter}}"
+                                            VerticalAlignment="Center" />
+										<StackPanel Grid.Column="2" Orientation="Vertical">
+                                            <TextBlock Text="{Binding Title}" FontSize="20"/>
+                                            <TextBlock Text="{Binding Price, StringFormat=\{0:C\} Br}" FontSize="16"/>
+                                            <TextBlock Text="{Binding Code}" FontSize="14"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+				
+            </Grid>
+        </ScrollViewer>
+    </StackPanel>
+</UserControl>

@@ -6,7 +6,16 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:application.MVVM.View.Pages"
 	xmlns:Pages="clr-namespace:application.MVVM.ViewModel.Pages"
-	mc:Ignorable="d">
+	xmlns:c="clr-namespace:application.Utilities.Converter"
+	mc:Ignorable="d"
+	Loaded="Window_Loaded">
+
+	<UserControl.Resources>
+		<c:BoolToVisibilityConverter
+			x:Key="BoolToVisibilityConverter" />
+		<c:ByteArrayToImageConverter
+			x:Key="ByteArrayToImageConverter" />
+	</UserControl.Resources>
 
 	<ScrollViewer>
 
@@ -18,99 +27,173 @@
 				Width="400"
 				FontSize="30"
 				Content="Edit Account"
-				Margin="-5 0 0 15" />
+				Margin="-30 0 0 15" />
 
 			<StackPanel
 				Orientation="Horizontal"
+				Margin="0 0 0 10"
 				VerticalAlignment="Top">
 				<TextBlock
-					Margin="0 0 20 0"
-					Text="Add Photo"
+					Margin="0 0 20 2"
+					Text="Edit Photo"
 					FontSize="14"
 					HorizontalAlignment="Stretch"
 					VerticalAlignment="Center" />
+				<Image
+					Source="{Binding Image}"
+					Width="50"
+					Height="50"
+					Stretch="Uniform"
+					Margin="0 0 20 0"
+					HorizontalAlignment="Center" />
 				<Button
 					Content="File"
-					Command="{Binding }"
+					Command="{Binding SelectFileCommand}"
 					Style="{StaticResource SendButton}" />
 			</StackPanel>
 
 			<StackPanel
+				Visibility="{Binding IsCompanyVisible, Converter={StaticResource BoolToVisibilityConverter}}"
 				Margin="0 10 0 10"
 				Orientation="Vertical">
 				<TextBlock
 					Margin="0 0 0 8"
 					Text="INN" />
 				<TextBox
+					Text="{Binding AccountData.INN}"
 					Style="{StaticResource AuthInput}" />
 			</StackPanel>
 
 			<StackPanel
+				Visibility="{Binding IsCompanyVisible, Converter={StaticResource BoolToVisibilityConverter}}"
 				Margin="0 0 0 10"
 				Orientation="Vertical">
 				<TextBlock
 					Margin="0 0 0 8"
 					Text="KPP" />
 				<TextBox
+					Text="{Binding AccountData.KPP}"
 					Style="{StaticResource AuthInput}" />
 			</StackPanel>
 
 			<StackPanel
+				Visibility="{Binding IsCompanyVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+				Orientation="Vertical">
+				<TextBlock
+					Margin="0 0 0 8"
+					Text="OGRN" />
+				<TextBox
+					Text="{Binding AccountData.OGRN}"
+					Style="{StaticResource AuthInput}" />
+			</StackPanel>
+
+			<StackPanel
+				Visibility="{Binding IsCompanyVisible, Converter={StaticResource BoolToVisibilityConverter}}"
 				Margin="0 0 0 10"
 				Orientation="Vertical">
 				<TextBlock
 					Margin="0 0 0 8"
 					Text="Full Name" />
 				<TextBox
+					Text="{Binding AccountData.FullName}"
 					Style="{StaticResource AuthInput}" />
 			</StackPanel>
 
 			<StackPanel
+				Visibility="{Binding IsCompanyVisible, Converter={StaticResource BoolToVisibilityConverter}}"
 				Margin="0 0 0 10"
 				Orientation="Vertical">
 				<TextBlock
 					Margin="0 0 0 8"
 					Text="Short Name" />
 				<TextBox
+					Text="{Binding AccountData.ShortName}"
 					Style="{StaticResource AuthInput}" />
 			</StackPanel>
 
 			<StackPanel
+				Visibility="{Binding IsCompanyVisible, Converter={StaticResource BoolToVisibilityConverter}}"
 				Margin="0 0 0 10"
 				Orientation="Vertical">
 				<TextBlock
 					Margin="0 0 0 8"
 					Text="Legal Address" />
 				<TextBox
+					Text="{Binding AccountData.LegalAddress}"
 					Style="{StaticResource AuthInput}" />
 			</StackPanel>
 
 			<StackPanel
+				Visibility="{Binding IsCompanyVisible, Converter={StaticResource BoolToVisibilityConverter}}"
 				Margin="0 0 0 10"
 				Orientation="Vertical">
 				<TextBlock
 					Margin="0 0 0 8"
 					Text="Postal Address" />
 				<TextBox
+					Text="{Binding AccountData.PostalAddress}"
 					Style="{StaticResource AuthInput}" />
 			</StackPanel>
 
 			<StackPanel
-				Orientation="Vertical">
-				<TextBlock
-					Margin="0 0 0 8"
-					Text="OGRN" />
-				<TextBox
-					Style="{StaticResource AuthInput}" />
-			</StackPanel>
-
-			<StackPanel
+				Visibility="{Binding IsCompanyVisible, Converter={StaticResource BoolToVisibilityConverter}}"
 				Margin="0 0 0 10"
 				Orientation="Vertical">
 				<TextBlock
 					Margin="0 0 0 8"
 					Text="Director" />
 				<TextBox
+					Text="{Binding AccountData.Director}"
+					Style="{StaticResource AuthInput}" />
+			</StackPanel>
+
+			<StackPanel
+				Visibility="{Binding IsUserVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+				Margin="0 0 0 10"
+				Orientation="Vertical">
+				<TextBlock
+					Margin="0 0 0 8"
+					Text="Firstname" />
+				<TextBox
+					Text="{Binding AccountData.FirstName}"
+					Style="{StaticResource AuthInput}" />
+			</StackPanel>
+
+			<StackPanel
+				Visibility="{Binding IsUserVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+				Margin="0 0 0 10"
+				Orientation="Vertical">
+				<TextBlock
+					Margin="0 0 0 8"
+					Text="Secondname" />
+				<TextBox
+					Text="{Binding AccountData.SecondName}"
+					Style="{StaticResource AuthInput}" />
+			</StackPanel>
+
+			<StackPanel
+				Visibility="{Binding IsUserVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+				Margin="0 0 0 10"
+				Orientation="Vertical">
+				<TextBlock
+					Margin="0 0 0 8"
+					Text="Thirdname" />
+				<TextBox
+					Text="{Binding AccountData.ThirdName}"
+					Style="{StaticResource AuthInput}" />
+			</StackPanel>
+
+			<StackPanel
+				Visibility="{Binding IsUserVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+				Margin="0 0 0 10"
+				Orientation="Vertical">
+				<TextBlock
+					Margin="0 0 0 8"
+					Text="Phone" />
+				<TextBox
+					PreviewTextInput="Phone_OnPreviewTextInput"
+					PreviewKeyDown="Space_OnPreviewKeyDown"
+					Text="{Binding AccountData.Phone}"
 					Style="{StaticResource AuthInput}" />
 			</StackPanel>
 
@@ -121,7 +204,63 @@
 					Margin="0 0 0 8"
 					Text="Email" />
 				<TextBox
+					IsEnabled="False"
+					Text="{Binding AccountData.Email}"
 					Style="{StaticResource AuthInput}" />
+			</StackPanel>
+
+			<StackPanel
+				Margin="0 0 0 10"
+				Orientation="Vertical">
+				<TextBlock
+					Margin="0 0 0 8"
+					Text="Password" />
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="*" />
+						<ColumnDefinition
+							Width="Auto" />
+					</Grid.ColumnDefinitions>
+					
+					<TextBox
+						Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+						x:Name="passwordTextBox"
+						PreviewTextInput="Password_OnPreviewTextInput"
+						PreviewKeyDown="Password_OnPreviewKeyDown"
+						Visibility="Hidden"
+						IsEnabled="{Binding IsPasswordReadOnly}"
+						Style="{StaticResource AuthInput}" />
+
+					<PasswordBox
+						x:Name="passwordPasswordBox"
+						Grid.Column="0"
+						PreviewTextInput="Password_OnPreviewTextInput"
+						PreviewKeyDown="Password_OnPreviewKeyDown"
+						PasswordChanged="PasswordPasswordBox_PasswordChanged"
+						Style="{StaticResource AuthPassword}"
+						IsEnabled="{Binding IsPasswordReadOnly}"
+						MaxLength="100" />
+
+					<Border
+						Grid.Column="1">
+						<CheckBox
+							x:Name="passwordCheckBox"
+							Margin="3 0 0 0"
+							Style="{StaticResource AuthEye}"
+							Click="CheckBox_Click1">
+							<Image
+								Source="../../../Assets/Icons/Eye.png"
+								Width="20"
+								Height="20" />
+						</CheckBox>
+					</Border>
+				</Grid>
+
+				<TextBlock
+					Visibility="{Binding IsInvalidPassword, Converter={StaticResource BoolToVisibilityConverter}}"
+					Foreground="red"
+					Text="Invalid Password..." />
 			</StackPanel>
 
 			<Grid>
@@ -139,33 +278,37 @@
 				</Grid.RowDefinitions>
 
 				<Button
-					Margin="0 0 10 0"
 					Grid.Row="0"
 					Grid.Column="0"
+					Margin="0 0 10 0"
 					Content="Save"
-					Command="{Binding }"
+					Width="200"
+					Command="{Binding SaveCommand}"
+					Style="{StaticResource SendButton}" />
+				
+				<Button
+					Grid.Row="0"
+					Grid.Column="1"
+					Content="Change password"
+					Width="200"
+					Command="{Binding ChangePasswordCommand}"
 					Style="{StaticResource SendButton}" />
 
 				<Button
 					Margin="0 0 10 0"
 					Grid.Row="1"
 					Grid.Column="0"
+					Width="200"
 					Content="Exit"
 					Command="{Binding ExitCommand}"
 					Style="{StaticResource SendButton}" />
 
 				<Button
-					Grid.Row="0"
-					Grid.Column="1"
-					Content="Change Password"
-					Command="{Binding }"
-					Style="{StaticResource SendButton}" />
-
-				<Button
 					Grid.Row="1"
 					Grid.Column="1"
+					Width="200"
 					Content="Delete Account"
-					Command="{Binding }"
+					Command="{Binding DeleteAccountCommand}"
 					Style="{StaticResource SendButtonRed}" />
 
 			</Grid>

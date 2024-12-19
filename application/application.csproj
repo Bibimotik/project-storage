@@ -6,6 +6,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
+        <ApplicationIcon>Assets\Icons\storage_icon.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,6 +15,7 @@
       <PackageReference Include="CSharpFunctionalExtensions" Version="3.2.0" />
       <PackageReference Include="Dapper" Version="2.1.35" />
       <PackageReference Include="DotNetEnv" Version="3.1.1" />
+      <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc4.5" />
       <PackageReference Include="MailKit" Version="4.8.0" />
       <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="9.0.0" />
       <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.0" />
@@ -21,11 +23,8 @@
       <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="Npgsql" Version="9.0.1" />
+      <PackageReference Include="OxyPlot.Wpf" Version="2.2.0" />
       <PackageReference Include="StackExchange.Redis" Version="2.8.22" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Assets\Icons\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -110,6 +109,8 @@
       <Resource Include="Assets\Icons\Trending up.png" />
       <None Remove="Assets\Icons\Eye.png" />
       <Resource Include="Assets\Icons\Eye.png" />
+      <None Remove="Assets\Icons\Account.png" />
+      <Resource Include="Assets\Icons\Account.png" />
     </ItemGroup>
 
     <ItemGroup>
@@ -117,13 +118,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="C:\my\projects\big_projects\project-storage\application\.editorconfig" />
+      <Content Include="Assets\Icons\storage_icon.ico" />
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="MailServiceLibrary">
-        <HintPath>Libraries\MailServiceLibrary.dll</HintPath>
-      </Reference>
+      <None Include="C:\my\projects\big_projects\project-storage\application\.editorconfig" />
     </ItemGroup>
 
     <ItemGroup>

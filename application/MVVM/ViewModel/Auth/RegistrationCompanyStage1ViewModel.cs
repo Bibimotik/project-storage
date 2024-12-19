@@ -113,7 +113,6 @@ public partial class RegistrationCompanyStage1ViewModel : ObservableObject
 
 		EntityModel model = EntityModel.Model;
 		model.EntityType = EntityType.Company;
-		model.Id = Guid.NewGuid();
 		model.INN = Inn;
 		model.KPP = Kpp;
 		model.FullName = FullName;

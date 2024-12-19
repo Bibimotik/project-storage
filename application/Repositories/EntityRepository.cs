@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿	using System.Diagnostics;
 
 using application.Abstraction;
 using application.MVVM.Model;
@@ -21,7 +21,7 @@ public class EntityRepository : IEntityRepository
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
 			string userQuery = $@"SELECT 
-                user_id as {nameof(EntityModel.Id)},
+                id as {nameof(EntityModel.Id)},
                 firstname as {nameof(EntityModel.FirstName)},
                 secondname as {nameof(EntityModel.SecondName)},
                 thirdname as {nameof(EntityModel.ThirdName)},
@@ -38,7 +38,7 @@ public class EntityRepository : IEntityRepository
 				return user;
 
 			string companyQuery = $@"SELECT 
-                company_id as {nameof(EntityModel.Id)}, 
+                id as {nameof(EntityModel.Id)}, 
                 inn as {nameof(EntityModel.INN)}, 
                 kpp as {nameof(EntityModel.KPP)}, 
                 ogrn as {nameof(EntityModel.OGRN)}, 
@@ -68,7 +68,7 @@ public class EntityRepository : IEntityRepository
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
 			string userQuery = $@"SELECT 
-                user_id as {nameof(EntityModel.Id)},
+                id as {nameof(EntityModel.Id)},
                 firstname as {nameof(EntityModel.FirstName)},
                 secondname as {nameof(EntityModel.SecondName)},
                 thirdname as {nameof(EntityModel.ThirdName)},
@@ -81,11 +81,15 @@ public class EntityRepository : IEntityRepository
 
 			var user = await dbConnection.QuerySingleOrDefaultAsync<EntityModel>(new CommandDefinition(userQuery, new { Email = email }));
 
+
 			if (user != null)
+			{
+				user.EntityType = EntityType.User;
 				return user;
+			}
 
 			string companyQuery = $@"SELECT 
-                company_id as {nameof(EntityModel.Id)},
+                id as {nameof(EntityModel.Id)},
                 inn as {nameof(EntityModel.INN)}, 
                 kpp as {nameof(EntityModel.KPP)}, 
                 ogrn as {nameof(EntityModel.OGRN)}, 
@@ -103,22 +107,45 @@ public class EntityRepository : IEntityRepository
 			var company = await dbConnection.QuerySingleOrDefaultAsync<EntityModel>(new CommandDefinition(companyQuery, new { Email = email }));
 
 			if (company != null)
+			{
+				company.EntityType = EntityType.Company;
 				return company;
+			}
 
 			return null;
 
 		}, _databaseService);
 	}
 
-	public async Task<Guid> Create(EntityModel entity)
+	public async Task<(Guid Id, string Name)> GetUser(Guid userId, string email)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			const string query = @"SELECT id, CONCAT(firstname, ' ', secondname, ' ', thirdname) AS name 
+                  FROM ""user""
+                  WHERE email = @Email
+                  AND id <> @UserId";
+
+			var result = await dbConnection.QuerySingleOrDefaultAsync<(Guid Id, string Name)>(query, new { UserId = userId, Email = email });
+
+			if (result.Id == null || result.Name == null || result.Id == userId)
+			{
+				throw new InvalidOperationException($"User with email '{email}' not found.");
+			}
+
+			return result;
+		}, _databaseService);
+	}
+
+	public async Task<Guid> Create(EntityModel entityModel)
 	{
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
 			string query = string.Empty;
 
-			if (entity.EntityType == EntityType.User)
+			if (entityModel.EntityType == EntityType.User)
 				query = $@"INSERT into ""user"" 
-                    (user_id, firstname, secondname, thirdname, phone, email, password, logo, is_deleted)
+                    (id, firstname, secondname, thirdname, phone, email, password, logo, is_deleted)
                     values (
                     @{nameof(EntityModel.Id)},
                     @{nameof(EntityModel.FirstName)},
@@ -129,10 +156,10 @@ public class EntityRepository : IEntityRepository
                     @{nameof(EntityModel.Password)},
                     NULL,
                     FALSE)
-                    returning user_id";
-			else if (entity.EntityType == EntityType.Company)
+                    returning id";
+			else if (entityModel.EntityType == EntityType.Company)
 				query = $@"INSERT into company
-                    (company_id, inn, kpp, ogrn, fullname, shortname, email, password, legal_address, postal_address, director, logo, is_deleted)
+                    (id, inn, kpp, ogrn, fullname, shortname, email, password, legal_address, postal_address, director, logo, is_deleted)
                     values (
                     @{nameof(EntityModel.Id)},
                     @{nameof(EntityModel.INN)},
@@ -147,23 +174,28 @@ public class EntityRepository : IEntityRepository
                     @{nameof(EntityModel.Director)},
                     NULL,
                     FALSE)
-                    returning company_id";
+                    returning id";
 
-			//@{ (entity.EntityType == EntityType.User ? "User" : "Company")}, 
+			EntityTableModel entity = new(
+				Guid.NewGuid(),
+				entityModel.EntityType == EntityType.User ? EntityType.User.GetDescription() : EntityType.Company.GetDescription(),
+				entityModel.Id);
 
 			string queryEntity = $@"INSERT INTO entity 
-				(type, type_id) 
+				(id, type, type_id) 
 				values (
-				{(entity.EntityType == EntityType.User ? $@"'User'" : $@"'Company'")}, 
-				@{nameof(EntityModel.Id)}
+				@{nameof(EntityTableModel.Id)}, 
+				@{nameof(EntityTableModel.Type)}, 
+				@{nameof(EntityTableModel.Type_ID)}
 				)";
 
+			Debug.WriteLine(query);
 			Debug.WriteLine(queryEntity);
 
 			using var transaction = dbConnection.BeginTransaction();
 			try
 			{
-				var insertedId = await dbConnection.QuerySingleAsync<Guid>(new CommandDefinition(query, entity));
+				var insertedId = await dbConnection.QuerySingleAsync<Guid>(new CommandDefinition(query, entityModel));
 
 				await dbConnection.ExecuteAsync(new CommandDefinition(queryEntity, entity));
 
@@ -179,137 +211,57 @@ public class EntityRepository : IEntityRepository
 		}, _databaseService);
 	}
 
-	//public async Task<EntityModel> GetEntityLogin(string email)
-	//{
-	//	return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
-	//	{
-	//		string query = $@"SELECT 
-	//			email as {nameof(EntityModel.Email)}, 
-	//			password as {nameof(EntityModel.Password)} 
-	//			FROM ""user"" 
-	//			WHERE email = @{nameof(EntityModel.Email)}
-	//			UNION
-	//			SELECT email as {nameof(EntityModel.Email)}, 
-	//			password as {nameof(EntityModel.Password)} 
-	//			FROM company 
-	//			WHERE email = @{nameof(EntityModel.Email)}";
-
-	//		return await dbConnection.QuerySingleAsync<EntityModel>(query, new { Email = email });
-	//	}, _databaseService);
-	//}
-
-	//public async Task<Result<Guid>> UserRegistration(EntityModel entity)
-	//{
-	//	return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
-	//	{
-	//		Result email = IsEmailExist(entity.Email);
-	//		if (email.IsFailure)
-	//			return Result.Failure<Guid>(email.Error);
-
-	//		string query = $@"INSERT into ""user"" 
-	//			(user_id, firstname, secondname, thirdname, phone, email, password, logo, is_deleted)
-	//			values (
-	//			@{nameof(EntityModel.Id)},
-	//			@{nameof(EntityModel.FirstName)},
-	//			@{nameof(EntityModel.SecondName)},
-	//			@{nameof(EntityModel.ThirdName)},
-	//			@{nameof(EntityModel.Phone)},
-	//			@{nameof(EntityModel.Email)},
-	//			@{nameof(EntityModel.Password)},
-	//			NULL,
-	//			FALSE)
-	//			returning user_id";
-
-	//		return Result.Success(await dbConnection.QuerySingleAsync<Guid>(query, entity));
-	//	}, _databaseService);
-	//}
-
-	//public async Task<Result<Guid>> CompanyRegistration(EntityModel entity)
-	//{
-	//	return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
-	//	{
-	//		Result email = IsEmailExist(entity.Email);
-	//		if (email.IsFailure)
-	//			return Result.Failure<Guid>(email.Error);
-
-	//		string query = $@"INSERT into company
-	//			(company_id, inn, kpp, ogrn, fullname, shortname, email, password, legal_address, postal_address, director, logo, is_deleted)
-	//			values (
-	//			@{nameof(EntityModel.Id)},
-	//			@{nameof(EntityModel.INN)},
-	//			@{nameof(EntityModel.KPP)},
-	//			@{nameof(EntityModel.OGRN)},
-	//			@{nameof(EntityModel.FullName)},
-	//			@{nameof(EntityModel.ShortName)},
-	//			@{nameof(EntityModel.Email)},
-	//			@{nameof(EntityModel.Password)},
-	//			@{nameof(EntityModel.LegalAddress)},
-	//			@{nameof(EntityModel.PostalAddress)},
-	//			@{nameof(EntityModel.Director)},
-	//			NULL,
-	//			FALSE)
-	//			returning company_id";
-
-	//		return Result.Success(await dbConnection.QuerySingleAsync<Guid>(query, entity));
-	//	}, _databaseService);
-	//}
-
-	//public Result IsEmailExist(string email)
-	//{
-	//	if (string.IsNullOrWhiteSpace(email))
-	//		return Result.Failure("Email cannot be empty or whitespace.");
-
-	//	return RepositoryHelper.ExecuteWithErrorHandling(dbConnection =>
-	//	{
-	//		Debug.WriteLine("email " + email);
-	//		string query = @"SELECT COUNT(1) 
-	//			FROM ""user"" 
-	//			WHERE email = @Email
-	//			UNION ALL
-	//			SELECT COUNT(1) 
-	//			FROM company
-	//			WHERE email = @Email";
-
-	//		int emailCount = dbConnection.QueryFirstOrDefault<int>(query, new { Email = email });
-
-	//		if (emailCount == 0)
-	//			return Result.Success();
-
-	//		return Result.Failure("Entity with this email already exists.");
-	//	}, _databaseService);
-	//}
-
-	public async Task SendToSupport(EntityModel entity)
+	public async Task<bool> Update(EntityModel entityModel)
 	{
-		await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
-			string insertSupportQuery = $@"INSERT INTO support
-                                        (email, message)
-                                        VALUES 
-                                        (@Email, @Message) 
-                                        RETURNING Support_ID";
+			string query = string.Empty;
 
-			int supportId = await dbConnection.QuerySingleAsync<int>(insertSupportQuery, new
-			{
-				Email = entity.Email,
-				Message = entity.Message
-			});
+			if (entityModel.EntityType == EntityType.User)
+				query = $@"UPDATE ""user"" SET
+					firstname = @{nameof(EntityModel.FirstName)},
+					secondname = @{nameof(EntityModel.SecondName)},
+					thirdname = @{nameof(EntityModel.ThirdName)},
+					phone = @{nameof(EntityModel.Phone)},
+					logo = @{nameof(EntityModel.Logo)},
+					password = @{nameof(EntityModel.Password)}
+					WHERE id = @{nameof(EntityModel.Id)}";
+			else if (entityModel.EntityType == EntityType.Company)
+				query = $@"UPDATE company SET
+					inn = @{nameof(EntityModel.INN)},
+					kpp = @{nameof(EntityModel.KPP)},
+					ogrn = @{nameof(EntityModel.OGRN)},
+					fullname = @{nameof(EntityModel.FullName)},
+					shortname = @{nameof(EntityModel.ShortName)},
+					legal_address = @{nameof(EntityModel.LegalAddress)},
+					postal_address = @{nameof(EntityModel.PostalAddress)},
+					director = @{nameof(EntityModel.Director)},
+					logo = @{nameof(EntityModel.Logo)},
+					password = @{nameof(EntityModel.Password)}
+					WHERE id = @{nameof(EntityModel.Id)}";
 
-			if (entity.Images != null)
-			{
-				string insertImageQuery = $@"INSERT INTO support_images
-                                          (support_id, image)
-                                          VALUES 
-                                          (@SupportId, @Image)";
+			var affectedRows = await dbConnection.ExecuteAsync(new CommandDefinition(query, entityModel));
 
-				await dbConnection.ExecuteAsync(insertImageQuery, new
-				{
-					SupportId = supportId,
-					Image = entity.Images
-				});
-			}
+			return affectedRows > 0;
+		}, _databaseService);
+	}
 
-			return Task.CompletedTask;
+
+	public async Task<EntityTableModel?> GetEntity(Guid id)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			string userQuery = $@"SELECT 
+                id as {nameof(EntityTableModel.Id)},
+                type as {nameof(EntityTableModel.Type)},
+                type_id as {nameof(EntityTableModel.Type_ID)}
+                FROM entity
+                WHERE type_id = @{nameof(EntityTableModel.Type_ID)}";
+
+			var entity = await dbConnection.QuerySingleOrDefaultAsync<EntityTableModel>(new CommandDefinition(userQuery, new { Type_ID = id }));
+
+			return entity;
+
 		}, _databaseService);
 	}
 }
