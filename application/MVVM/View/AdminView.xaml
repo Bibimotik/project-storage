@@ -89,7 +89,15 @@
 								<Image
 									Source="../../Assets/Icons/Ava.png"
 									Width="40"
-									Height="40" />
+									Height="40"
+									Stretch="UniformToFill">
+									<Image.Clip>
+										<EllipseGeometry
+											Center="20,20"
+											RadiusX="20"
+											RadiusY="20" />
+									</Image.Clip>
+								</Image>
 							</RadioButton>
 
 							<StackPanel
@@ -97,13 +105,13 @@
 
 								<Label
 									Margin="20 0 0 0"
-									Content="Фамилия И. О."
+									Content="Admin"
 									FontSize="16"
 									Style="{StaticResource MenuText}" />
 
 								<Label
 									Margin="20 -10 0 0"
-									Content="test_email@yandex.com"
+									Content="admin"
 									FontSize="12"
 									Style="{StaticResource MenuText}" />
 

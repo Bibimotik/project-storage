@@ -45,6 +45,7 @@
 			CanUserDeleteRows="False"
 			CanUserResizeRows="False"
 			CanUserResizeColumns="False"
+			CellEditEnding="DataGrid_CellEditEnding"
 			IsReadOnly="False"
 			Margin="10">
 

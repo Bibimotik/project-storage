@@ -1,6 +1,6 @@
 namespace application.MVVM.Model;
 
-public class OrderModel
+public class OrderModel : EntityProductOrderModel
 {
 	public Guid ID { get; set; }
 	public Guid Entity_ID { get; set; }
@@ -34,58 +34,58 @@ public class OrderModel
 	{
 
 	}
-    
+
 	public OrderModel(
-	    Guid id,
-	    Guid entityManagersId,
-	    string inn,
-	    string kpp,
-	    string ogrn,
-	    string fullName,
-	    string address,
-	    string paymentAccount,
-	    string toBik,
-	    string toBank,
-	    string toCorAccount,
-	    string fromCorAccount,
-	    string fromBik,
-	    string fromBank,
-	    Guid entityStorageId,
-	    DateTime planDateShipment,
-	    string shippingAddress,
-	    DateTime applicationDate,
-	    string deliveryPoint,
-	    string deliveryAddress,
-	    DateTime planDateReceipt,
-	    string transporterFullName,
-	    string transporterShortName,
-	    string comment,
-	    double vat)
+		Guid id,
+		Guid entityManagersId,
+		string inn,
+		string kpp,
+		string ogrn,
+		string fullName,
+		string address,
+		string paymentAccount,
+		string toBik,
+		string toBank,
+		string toCorAccount,
+		string fromCorAccount,
+		string fromBik,
+		string fromBank,
+		Guid entityStorageId,
+		DateTime planDateShipment,
+		string shippingAddress,
+		DateTime applicationDate,
+		string deliveryPoint,
+		string deliveryAddress,
+		DateTime planDateReceipt,
+		string transporterFullName,
+		string transporterShortName,
+		string comment,
+		double vat)
 	{
-	    ID = id;
-	    Entity_Managers_ID = entityManagersId;
-	    INN = inn;
-	    KPP = kpp;
-	    OGRN = ogrn;
-	    FullName = fullName;
-	    Address = address;
-	    Payment_Account = paymentAccount;
-	    ToBIK = toBik;
-	    ToBank = toBank;
-	    ToCor_Account = toCorAccount;
-	    FromCor_Account = fromCorAccount;
-	    FromBIK = fromBik;
-	    FromBank = fromBank;
-	    Entity_Storage_ID = entityStorageId;
-	    Plan_Date_Shipment = planDateShipment;
-	    Shipping_Address = shippingAddress;
-	    Application_Date = applicationDate;
-	    Delivery_Point = deliveryPoint;
-	    Delivery_Address = deliveryAddress;
-	    Plan_Date_Receipt = planDateReceipt;
-	    TransporterFullName = transporterFullName;
-	    TransporterShortName = transporterShortName;
-	    Comment = comment;
-	    VAT = vat;
+		ID = id;
+		Entity_Managers_ID = entityManagersId;
+		INN = inn;
+		KPP = kpp;
+		OGRN = ogrn;
+		FullName = fullName;
+		Address = address;
+		Payment_Account = paymentAccount;
+		ToBIK = toBik;
+		ToBank = toBank;
+		ToCor_Account = toCorAccount;
+		FromCor_Account = fromCorAccount;
+		FromBIK = fromBik;
+		FromBank = fromBank;
+		Entity_Storage_ID = entityStorageId;
+		Plan_Date_Shipment = planDateShipment;
+		Shipping_Address = shippingAddress;
+		Application_Date = applicationDate;
+		Delivery_Point = deliveryPoint;
+		Delivery_Address = deliveryAddress;
+		Plan_Date_Receipt = planDateReceipt;
+		TransporterFullName = transporterFullName;
+		TransporterShortName = transporterShortName;
+		Comment = comment;
+		VAT = vat;
 	}
 }

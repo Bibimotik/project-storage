@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 
+using application.MVVM.Model;
 using application.MVVM.ViewModel.AdminPages;
 
 namespace application.MVVM.View.AdminPages;
@@ -13,5 +14,16 @@ public partial class EntityStorageView : UserControl
 	{
 		DataContext = vm;
 		InitializeComponent();
+	}
+
+	private void DataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+	{
+		// Получаем редактируемую строку
+		if (e.Row.Item is EntityStorageModel editedRow)
+		{
+			// Уведомляем ViewModel об изменении строки
+			var viewModel = DataContext as EntityStorageViewModel;
+			viewModel?.MarkAsModified(editedRow);
+		}
 	}
 }

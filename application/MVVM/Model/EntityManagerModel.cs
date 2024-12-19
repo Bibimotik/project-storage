@@ -1,6 +1,6 @@
 ﻿namespace application.MVVM.Model;
 
-public class EntityManagerModel
+public class EntityManagerModel : EntityTableModel
 {
 	public Guid Id { get; set; }
 	public Guid User_ID { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 
 using application.Abstraction.Interfaces;
+using application.Utilities;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -15,8 +16,6 @@ public partial class EntityStorageViewModel : ObservableObject
 {
 	private readonly ITablesRepository _tablesRepository;
 
-	[ObservableProperty]
-	private ObservableCollection<T> data = [];
 
 	public EntityStorageViewModel(ITablesRepository tablesRepository)
 	{
@@ -25,20 +24,53 @@ public partial class EntityStorageViewModel : ObservableObject
 		_ = LoadData();
 	}
 
-	private async Task LoadData()
-	{
-		var entities = await _tablesRepository.GetData<T>(TableNames.Entity_storage);
+	[ObservableProperty]
+	private ObservableCollection<T> data = [];
 
-		Data = new ObservableCollection<T>(entities);
+	private readonly HashSet<T> _modifiedRows = [];
+	// Метод для добавления строки в список изменённых
+	public void MarkAsModified(T row)
+	{
+		if (row != null && !_modifiedRows.Contains(row))
+		{
+			_modifiedRows.Add(row);
+		}
 	}
 
 	[RelayCommand]
 	private async Task Delete(Guid id)
 	{
+		if (!TableHelper.ShowConfirmationMessage(
+			"Вы действительно хотите удалить выбранный элемент?",
+			"Подтверждение удаления"
+			))
+			return;
+
 		await _tablesRepository.DeleteData<T>(TableNames.Entity_storage, id);
 
 		var entityToRemove = Data.FirstOrDefault(e => e.Id == id);
 		if (entityToRemove != null)
 			Data.Remove(entityToRemove);
+	}
+
+	[RelayCommand]
+	private async Task Save()
+	{
+		if (!TableHelper.ShowConfirmationMessage(
+			"Вы действительно хотите сохранить изменения?",
+			"Подтверждение изменения"
+			))
+			return;
+
+		foreach (var row in _modifiedRows)
+			await _tablesRepository.UpdateEntityStorage(row);
+	}
+
+
+	private async Task LoadData()
+	{
+		var entities = await _tablesRepository.GetData<T>(TableNames.Entity_storage);
+
+		Data = new ObservableCollection<T>(entities);
 	}
 }

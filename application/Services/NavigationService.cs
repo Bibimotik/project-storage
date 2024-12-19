@@ -53,7 +53,6 @@ public class NavigationService : INavigationService
 		adminWindow.ContentRendered += NewWindowContentRendered;
 		adminWindow.Show();
 		EntityModel.OurUserModel.Role = UserRole.NoRole;
-		EntityModel.OurUserModel.EntityId = await _rolesRepository.GetUserEntityId(EntityModel.OurUserModel.Id);
 	}
 
 	public async void ShowManagerRole()

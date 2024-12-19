@@ -1,6 +1,8 @@
-﻿using System.Windows.Controls;
+﻿using System.Diagnostics;
+using System.Windows.Controls;
 
 using application.MVVM.Model;
+using application.MVVM.ViewModel;
 using application.MVVM.ViewModel.AdminPages;
 using application.Utilities;
 
@@ -25,5 +27,17 @@ public partial class UserView : UserControl
 
 		foreach (var column in columns)
 			MyDataGrid.Columns.Add(column);
+	}
+
+	private void DataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+	{
+		// Получаем редактируемую строку
+		if (e.Row.Item is EntityModel editedRow)
+		{
+			// Уведомляем ViewModel об изменении строки
+			var viewModel = DataContext as UserViewModel;
+			viewModel?.MarkAsModified(editedRow);
+			Debug.WriteLine("456");
+		}
 	}
 }

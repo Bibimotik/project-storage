@@ -16,21 +16,22 @@ public class StaffRepository : IStaffRepository
 	{
 		const string query = @"
             SELECT 
-                staff.id, 
-                staff.access, 
-                u.firstname, 
-                u.secondname, 
-                u.thirdname, 
-                u.email,
-                u.logo
-            FROM (
-                SELECT *
-                FROM entity_managers
-                WHERE entity_id = @EntityId
-            ) staff
-            INNER JOIN ""user"" u
-            ON staff.user_id = u.id
-            AND u.email LIKE @Substring";
+				staff.id, 
+				staff.access, 
+				u.firstname, 
+				u.secondname, 
+				u.thirdname, 
+				u.email,
+				u.logo AS Image
+			FROM (
+				SELECT *
+				FROM entity_managers
+				WHERE entity_id = @EntityId
+			) staff
+			INNER JOIN ""user"" u
+			ON staff.user_id = u.id
+			AND u.email LIKE @Substring
+			";
 
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{

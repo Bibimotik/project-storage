@@ -42,6 +42,9 @@ public class AuthService : IAuthService
 		Debug.WriteLine("--------- " + Settings.Default.AuthEmail + " - " + Settings.Default.AuthPassword);
 		if (!string.IsNullOrEmpty(Settings.Default.AuthEmail))
 		{
+			if (Settings.Default.AuthEmail == "admin")
+				return true;
+
 			var data = await _entityRepository.Get(Settings.Default.AuthEmail);
 			if(data != null)
 			{
@@ -70,7 +73,10 @@ public class AuthService : IAuthService
 
 		if (model != null)
 		{
-			var entity = await _entityRepository.GetEntity(model!.Id);
+			if (authEmail == "admin")
+				return;
+
+				var entity = await _entityRepository.GetEntity(model!.Id);
 			EntityModel.OurUserModel.EntityId = entity!.Id;
 		}
 	}

@@ -1,6 +1,6 @@
 namespace application.MVVM.Model;
 
-public class StaffModel
+public class StaffModel : EntityManagerModel
 {
 	public Guid Id { get; set; }
 	public Guid EntityId { get; set; }

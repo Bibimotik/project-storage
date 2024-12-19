@@ -10,11 +10,30 @@
 	d:DesignWidth="800">
 
 	<StackPanel
+		Margin="20 0 10 0"
 		Orientation="Vertical">
-		<Label
-			FontSize="45"
-			Content="Order"
-			Margin="-5 0 0 10" />
+		<Grid
+			VerticalAlignment="Bottom">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="*" />
+				<ColumnDefinition
+					Width="auto" />
+			</Grid.ColumnDefinitions>
+
+			<Label
+				FontSize="45"
+				Content="Support"
+				Margin="0 0 0 0" />
+
+			<Button
+				Grid.Column="1"
+				Style="{StaticResource SendButton}"
+				Content="Save"
+				Margin="0 0 10 10"
+				VerticalAlignment="Bottom"
+				Command="{Binding SaveCommand}" />
+		</Grid>
 
 		<DataGrid
 			x:Name="MyDataGrid"
@@ -24,28 +43,22 @@
 			VerticalAlignment="Stretch"
 			CanUserAddRows="False"
 			CanUserDeleteRows="False"
+			CanUserResizeRows="False"
+			CanUserResizeColumns="False"
+			CellEditEnding="DataGrid_CellEditEnding"
 			IsReadOnly="False"
-			Margin="10,40,10,10">
+			Margin="10">
 
 			<DataGrid.Columns>
 				<DataGridTemplateColumn
 					Header="Actions">
 					<DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<StackPanel
-								Orientation="Horizontal">
-								<Button
-									Style="{StaticResource SendButton}"
-									Content="Edit"
-									Margin="0 0 10 0"
-									Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" />
-
-								<Button
-									Style="{StaticResource SendButtonRed}"
-									Content="Delete"
-									Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-									CommandParameter="{Binding Id}" />
-							</StackPanel>
+							<Button
+								Style="{StaticResource SendButtonRed}"
+								Content="Delete"
+								Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+								CommandParameter="{Binding Id}" />
 						</DataTemplate>
 					</DataGridTemplateColumn.CellTemplate>
 				</DataGridTemplateColumn>

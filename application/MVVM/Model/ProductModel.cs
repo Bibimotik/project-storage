@@ -1,6 +1,6 @@
 namespace application.MVVM.Model;
 
-public class ProductModel
+public class ProductModel : EntityStorageModel
 {
 	public Guid Id { get; set; }
 	public Guid Entity_Id { get; set; }

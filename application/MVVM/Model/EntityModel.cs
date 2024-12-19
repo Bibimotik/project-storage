@@ -7,7 +7,7 @@ using static application.Abstraction.EntityAbstraction;
 namespace application.MVVM.Model;
 
 // TODO - возможно можно убрать атрибут RequiredForValidation и его класса, но может пригодитмся для какой то странной логику в будущем
-public class EntityModel
+public class EntityModel : ProductOrderModel
 {
 	[RequiredForUserTable]
 	[RequiredForCompanyTable]

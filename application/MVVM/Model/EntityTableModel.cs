@@ -1,6 +1,6 @@
 ﻿namespace application.MVVM.Model;
 
-public class EntityTableModel
+public class EntityTableModel : EntityModel
 {
 	public Guid Id { get; set; }
 	public string Type { get; set; } = string.Empty;
@@ -8,10 +8,10 @@ public class EntityTableModel
 
 	public void Method()
 	{
-        throw new System.NotImplementedException();
-    }
+		throw new System.NotImplementedException();
+	}
 
-    public EntityTableModel()
+	public EntityTableModel()
 	{
 
 	}
