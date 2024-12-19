@@ -39,18 +39,11 @@ public class EntityService : IEntityService
 		if (existUser is not null)
 			return Result.Failure<EntityModel>($"Пользователь с почтой {model.Email} уже существует");
 
-		EntityModel newUser = new(Guid.NewGuid(),
-							model.FirstName,
-							model.SecondName,
-							model.ThirdName,
-							model.Phone,
-							model.Email,
-							_passwordHash.Generate(model.Password),
-							model.EntityType,
-							model.Logo);
+		model.Id = Guid.NewGuid();
+		model.Password = _passwordHash.Generate(model.Password);
 
-		await _entitiesRepository.Create(newUser);
+		await _entitiesRepository.Create(model);
 
-		return newUser;
+		return model;
 	}
 }

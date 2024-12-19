@@ -71,9 +71,6 @@ public partial class AdminViewModel : ObservableObject
 	private void SupportTable() => CurrentView = _serviceProvider.GetRequiredService<View.AdminPages.SupportView>();
 	[RelayCommand]
 	private void User() => CurrentView = _serviceProvider.GetRequiredService<UserView>();
-
-	[RelayCommand]
-	private void Support() => CurrentView = _serviceProvider.GetRequiredService<SupportMainView>();
 	[RelayCommand]
 	private void Info() => CurrentView = _serviceProvider.GetRequiredService<InfoMainView>();
 }

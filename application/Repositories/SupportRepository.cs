@@ -18,7 +18,7 @@ public class SupportRepository : ISupportRepository
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
 			string query = $@"INSERT INTO SUPPORT
-                        (ID, Entity_ID, Email, Message, Image)
+                        (ID, Entity_ID, Email, Message, Logo)
                         VALUES (
                          @{nameof(SupportModel.Id)},
                          @{nameof(SupportModel.Entity_ID)},

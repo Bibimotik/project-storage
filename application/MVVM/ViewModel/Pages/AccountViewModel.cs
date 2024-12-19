@@ -1,6 +1,9 @@
 using System.Diagnostics;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 using application.Abstraction;
 using application.Abstraction.Interfaces;
@@ -9,6 +12,8 @@ using application.Utilities;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+
+using Microsoft.Win32;
 
 using static application.Abstraction.EntityAbstraction;
 
@@ -22,17 +27,25 @@ public partial class AccountViewModel : ObservableObject
 	private readonly IEntityRepository _entityRepository;
 	private readonly IPasswordHash _passwordHash;
 
+	public static event Action? UpdateLogo;
+
+	[ObservableProperty]
+	private string selectedFilePath = "Select File";
+	[ObservableProperty]
+	private string menuIconPath = "../../../Assets/Icons/Ava.png";
+	[ObservableProperty]
+	private object image;
 	[ObservableProperty]
 	private EntityType currentType;
 	[ObservableProperty]
 	private EntityModel accountData;
 	[ObservableProperty]
 	private bool isPasswordReadOnly = false;
-
 	[ObservableProperty]
 	private string password = string.Empty;
 	[ObservableProperty]
 	private bool isInvalidPassword = false;
+
 
 	public AccountViewModel(
 		IAuthService authService,
@@ -46,6 +59,8 @@ public partial class AccountViewModel : ObservableObject
 		_accountRepository = accountRepository;
 		_entityRepository = entityRepository;
 		_passwordHash = passwordHash;
+
+		UpdateMenuTag();
 	}
 
 	[RelayCommand]
@@ -74,6 +89,8 @@ public partial class AccountViewModel : ObservableObject
 			Logo = EntityModel.OurUserModel.Logo,
 			EntityType = EntityModel.OurUserModel.EntityType
 		};
+		//Logo = ConvertLogoToImage(ImageHelper.ConvertImageToByteArray(menuIconPath));
+		UpdateMenuTag();
 		CurrentType = EntityModel.OurUserModel.EntityType;
 	}
 	[RelayCommand]
@@ -87,10 +104,14 @@ public partial class AccountViewModel : ObservableObject
 		//if() // расшифровывать пароль, сравинвать значения и зашифровывать новый
 		// но расшифровать нельзя
 
-	   if (await _entityRepository.Update(AccountData))
+
+		if (await _entityRepository.Update(AccountData))
 			MessageBox.Show("Данные обновленны");
-	   else
+		else
 			MessageBox.Show("Данные для обновления не валидны");
+
+		EntityModel.OurUserModel = AccountData;
+		UpdateLogo?.Invoke();
 	}
 	partial void OnPasswordChanged(string value)
 	{
@@ -139,6 +160,36 @@ public partial class AccountViewModel : ObservableObject
 		_authService.ClearAuthData();
 		_navigationService.ShowAuth();
 	}
+	[RelayCommand]
+	private void SelectFile()
+	{
+		var openFileDialog = new OpenFileDialog
+		{
+			Filter = "Logo Files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg|All Files (*.*)|*.*",
+			Multiselect = false // Позволяем выбрать только один файл
+        };
+
+		if (openFileDialog.ShowDialog() == true)
+		{
+			try
+			{
+				SelectedFilePath = openFileDialog.FileName;
+				var bytes = ImageHelper.ConvertImageToByteArray(SelectedFilePath);
+				Image = ConvertLogoToImage(bytes);
+				AccountData.Logo = bytes;
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Error loading image: {ex.Message}");
+				SelectedFilePath = "Error loading file";
+				Image = null;
+			}
+		}
+		else
+		{
+			SelectedFilePath = "Select File";
+		}
+	}
 
 	public bool IsUserVisible => CurrentType == EntityType.User;
 	public bool IsCompanyVisible => CurrentType == EntityType.Company;
@@ -147,5 +198,35 @@ public partial class AccountViewModel : ObservableObject
 	{
 		OnPropertyChanged(nameof(IsUserVisible));
 		OnPropertyChanged(nameof(IsCompanyVisible));
+	}
+
+	private void UpdateMenuTag()
+	{
+		if (EntityModel.OurUserModel.Logo == null || EntityModel.OurUserModel.Logo.Length == 0)
+			Image = MenuIconPath; // Путь к стандартной иконке
+		else
+			Image = ConvertLogoToImage(EntityModel.OurUserModel.Logo); // Преобразуем Logo в изображение
+	}
+
+	private ImageSource ConvertLogoToImage(byte[] logoBytes)
+	{
+		try
+		{
+			var image = new BitmapImage();
+			using (var stream = new MemoryStream(logoBytes))
+			{
+				stream.Position = 0;
+				image.BeginInit();
+				image.CacheOption = BitmapCacheOption.OnLoad;
+				image.StreamSource = stream;
+				image.EndInit();
+			}
+			return image;
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine($"Error converting logo to image: {ex.Message}");
+			return null; // Возвращаем null, если произошла ошибка
+		}
 	}
 }

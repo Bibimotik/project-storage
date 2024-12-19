@@ -227,18 +227,6 @@
 					VerticalAlignment="Bottom">
 
 					<Border
-						Style="{StaticResource MenuBorder}">
-						<RadioButton
-							Margin="10 5 0 5"
-							Command="{Binding SupportCommand}"
-							x:Name="Support"
-							Style="{StaticResource MenuRadioButton}"
-							Checked="RadioButton_Checked"
-							Content="Support"
-							Tag="../../Assets/Icons/Alert triangle.png" />
-					</Border>
-
-					<Border
 						Style="{StaticResource MenuBorder}"
 						CornerRadius="0 0 6 0">
 						<RadioButton

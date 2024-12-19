@@ -96,7 +96,7 @@ public partial class AddProductViewModel : ObservableObject
 	{
 		var openFileDialog = new OpenFileDialog
 		{
-			Filter = "Image Files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg|All Files (*.*)|*.*",
+			Filter = "Logo Files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg|All Files (*.*)|*.*",
 			Multiselect = true
 		};
 

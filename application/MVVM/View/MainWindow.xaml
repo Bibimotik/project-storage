@@ -92,9 +92,17 @@
 								Style="{StaticResource MenuAvatar}"
 								Checked="RadioButton_Checked">
 								<Image
-									Source="../../Assets/Icons/Ava.png"
+									Source="{Binding MenuTag}"
 									Width="40"
-									Height="40" />
+									Height="40"
+									Stretch="UniformToFill">
+									<Image.Clip>
+										<EllipseGeometry
+											Center="20,20"
+											RadiusX="20"
+											RadiusY="20" />
+									</Image.Clip>
+								</Image>
 							</RadioButton>
 
 							<StackPanel
@@ -102,7 +110,7 @@
 
 								<Label
 									Margin="20 0 0 0"
-									Content="{Binding FullName}"
+									Content="{Binding ShortName}"
 									FontSize="16"
 									Style="{StaticResource MenuText}" />
 

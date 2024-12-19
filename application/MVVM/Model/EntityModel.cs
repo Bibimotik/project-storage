@@ -146,6 +146,27 @@ public class EntityModel
 		Logo = logo;
 	}
 
+	public EntityModel(
+		Guid id,
+		string inn,
+		string kpp,
+		string fullname,
+		string shortname,
+		string legalAddress,
+		string postalAddresss,
+		string director,
+		string email,
+		string password,
+		EntityType entityType,
+		byte[] logo)
+	{
+		Id = id;
+		Email = email;
+		Password = password;
+		EntityType = entityType;
+		Logo = logo;
+	}
+
 	//public static bool IsValidEmail(string email)
 	//{
 	//	if (string.IsNullOrWhiteSpace(email))

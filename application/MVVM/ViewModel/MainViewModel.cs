@@ -1,6 +1,9 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 
 using application.MVVM.Model;
 using application.MVVM.View.Pages;
@@ -24,9 +27,13 @@ public partial class MainViewModel : ObservableObject
 	[ObservableProperty]
 	private EntityType currentType;
 	[ObservableProperty]
-	private string fullName;
+	private string shortName;
 	[ObservableProperty]
 	private string email;
+	[ObservableProperty]
+	private string menuIconPath = "../../Assets/Icons/Ava.png";
+	[ObservableProperty]
+	private object menuTag;
 
 	public MainViewModel(IServiceProvider serviceProvider)
 	{
@@ -48,6 +55,7 @@ public partial class MainViewModel : ObservableObject
 		SalesViewModel.OpenEditSale += OnOpenAddSale;
 		AddSaleViewModel.OpenSales += OnOpenSales;
 		AddSaleViewModel.CloseAddSale += OnOpenSales;
+		AccountViewModel.UpdateLogo += LoadUserData;
 	}
 
 	private bool isMenuExpanded = false;
@@ -56,14 +64,13 @@ public partial class MainViewModel : ObservableObject
 	private void LoadUserData()
 	{
 		CurrentType = EntityModel.OurUserModel.EntityType;
-		FullName = EntityModel.OurUserModel.EntityType == EntityType.Company ?
+		ShortName = EntityModel.OurUserModel.EntityType == EntityType.Company ?
 			$"{EntityModel.OurUserModel.FullName} {EntityModel.OurUserModel.ShortName}" :
 			$"{EntityModel.OurUserModel.FirstName} {EntityModel.OurUserModel.SecondName}";
-		//"comp" :
-		//	"user";
+
 		Email = EntityModel.OurUserModel.Email;
 
-		Debug.WriteLine(FullName + " - " + Email);
+		UpdateMenuTag();
 	}
 	[RelayCommand]
 	private void OpenMenu()
@@ -144,5 +151,35 @@ public partial class MainViewModel : ObservableObject
 	partial void OnCurrentTypeChanged(EntityType value)
 	{
 		OnPropertyChanged(nameof(IsNotCompanyVisible));
+	}
+
+	private void UpdateMenuTag()
+	{
+		if (EntityModel.OurUserModel.Logo == null || EntityModel.OurUserModel.Logo.Length == 0)
+			MenuTag = MenuIconPath; // Путь к стандартной иконке
+		else
+			MenuTag = ConvertLogoToImage(EntityModel.OurUserModel.Logo); // Преобразуем Logo в изображение
+	}
+
+	private ImageSource ConvertLogoToImage(byte[] logoBytes)
+	{
+		try
+		{
+			var image = new BitmapImage();
+			using (var stream = new MemoryStream(logoBytes))
+			{
+				stream.Position = 0;
+				image.BeginInit();
+				image.CacheOption = BitmapCacheOption.OnLoad;
+				image.StreamSource = stream;
+				image.EndInit();
+			}
+			return image;
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine($"Error converting logo to image: {ex.Message}");
+			return null; // Возвращаем null, если произошла ошибка
+		}
 	}
 }

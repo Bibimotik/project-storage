@@ -13,6 +13,8 @@
 	<UserControl.Resources>
 		<c:BoolToVisibilityConverter
 			x:Key="BoolToVisibilityConverter" />
+		<c:ByteArrayToImageConverter
+			x:Key="ByteArrayToImageConverter" />
 	</UserControl.Resources>
 
 	<ScrollViewer>
@@ -33,13 +35,20 @@
 				VerticalAlignment="Top">
 				<TextBlock
 					Margin="0 0 20 2"
-					Text="Add Photo"
+					Text="Edit Photo"
 					FontSize="14"
 					HorizontalAlignment="Stretch"
 					VerticalAlignment="Center" />
+				<Image
+					Source="{Binding Image}"
+					Width="50"
+					Height="50"
+					Stretch="Uniform"
+					Margin="0 0 20 0"
+					HorizontalAlignment="Center" />
 				<Button
 					Content="File"
-					Command="{Binding }"
+					Command="{Binding SelectFileCommand}"
 					Style="{StaticResource SendButton}" />
 			</StackPanel>
 

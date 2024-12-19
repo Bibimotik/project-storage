@@ -36,6 +36,7 @@ public partial class AnalystWindowViewModel : ObservableObject
 		StorageProductsViewModel.CloseAddProduct += OnOpenStorage;
 		StorageProductsViewModel.OpenEditProduct += OnOpenEditProduct;
 		SalesViewModel.OpenAddSale += OnOpenAddSale;
+		SalesViewModel.OpenEditSale += OnOpenAddSale;
 		AddSaleViewModel.OpenSales += OnOpenSales;
 		AddSaleViewModel.CloseAddSale += OnOpenSales;
 	}
@@ -89,6 +90,12 @@ public partial class AnalystWindowViewModel : ObservableObject
 	private void OnOpenAddStaff() => CurrentView = _serviceProvider.GetRequiredService<AddStaffView>();
 	private void OnOpenStaff() => CurrentView = _serviceProvider.GetRequiredService<StaffView>();
 	private void OnOpenAddSale() => CurrentView = _serviceProvider.GetRequiredService<AddSaleView>();
+	private void OnOpenAddSale(Guid saleId)
+	{
+		var viewModel = _serviceProvider.GetRequiredService<AddSaleViewModel>();
+		CurrentView = new AddSaleView(viewModel, saleId);
+	}
+
 	private void OnOpenSales() => CurrentView = _serviceProvider.GetRequiredService<SalesView>();
 	private void OnOpenStorageProducts(Guid storageId)
 	{
