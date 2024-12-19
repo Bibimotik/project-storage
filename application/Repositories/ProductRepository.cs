@@ -30,7 +30,7 @@ public class ProductRepository : IAddProductRepository
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
 		{
 			string query = $@"INSERT INTO PRODUCT
-                (ID, Entity_ID, Code, Title, Unit, Price, Logo, Entity_Storage_Id, Available_For_Shipment, Party, Implementation_Period, Expiration_Date, Is_Deleted)
+                (ID, Entity_ID, Code, Title, Unit, Price, Image, Entity_Storage_Id, Available_For_Shipment, Party, Implementation_Period, Expiration_Date, Is_Deleted)
                 VALUES (
                     @{nameof(ProductModel.Id)},
                     @{nameof(ProductModel.Entity_Id)},

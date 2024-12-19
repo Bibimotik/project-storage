@@ -170,7 +170,7 @@ public partial class AddProductViewModel : ObservableObject
 			{
 				Guid productId = await _productRepository.InsertProduct(EntityModel.OurUserModel.EntityId, product);
 
-				MessageBox.Show($"Product successfully added! ID: {productId}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+				MessageBox.Show($"Product successfully added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
 				ClearFields();
 			}
