@@ -28,8 +28,6 @@ public partial class StorageProductsView : UserControl
 
 		Loaded += StorageView_Loaded;
 
-		LoadProductData(storageId);
-
 		_searchTimer = new DispatcherTimer
 		{
 			Interval = TimeSpan.FromSeconds(0.5)

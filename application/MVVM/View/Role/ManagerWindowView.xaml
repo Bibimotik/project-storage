@@ -11,6 +11,7 @@
 	MinWidth="1000"
 	MinHeight="600"
 	Title="ManagerWindow"
+	WindowState="Maximized"
 	WindowStartupLocation="CenterScreen"
 	Loaded="Window_Loaded">
 

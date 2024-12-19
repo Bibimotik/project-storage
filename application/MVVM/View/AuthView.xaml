@@ -11,6 +11,7 @@
 	d:DesignHeight="450"
 	d:DesignWidth="800"
 	Title="AuthView"
+	WindowState="Maximized"
 	WindowStartupLocation="CenterScreen">
 
 	<Window.Resources>
