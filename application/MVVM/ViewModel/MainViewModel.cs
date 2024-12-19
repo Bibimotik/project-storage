@@ -63,9 +63,12 @@ public partial class MainViewModel : ObservableObject
 	[RelayCommand]
 	private void LoadUserData()
 	{
+		if (EntityModel.OurUserModel == null)
+			return;
+
 		CurrentType = EntityModel.OurUserModel.EntityType;
 		ShortName = EntityModel.OurUserModel.EntityType == EntityType.Company ?
-			$"{EntityModel.OurUserModel.FullName} {EntityModel.OurUserModel.ShortName}" :
+			$"{EntityModel.OurUserModel.ShortName}" :
 			$"{EntityModel.OurUserModel.FirstName} {EntityModel.OurUserModel.SecondName}";
 
 		Email = EntityModel.OurUserModel.Email;

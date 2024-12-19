@@ -32,7 +32,7 @@ public partial class AddSaleView : UserControl
 		viewModel.LoadSale(saleId);
 		Label.Content = "Edit sale";
 		SaveButton.Visibility = Visibility.Collapsed;
-		ScrollViewer.Visibility = Visibility.Collapsed;
+		//ScrollViewer.Visibility = Visibility.Collapsed;
 	}
 
 	private void CheckBox_Checked(object sender, RoutedEventArgs e)

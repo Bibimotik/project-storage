@@ -60,7 +60,7 @@ public partial class RolesView : UserControl
 			VerticalAlignment = VerticalAlignment.Center
 		};
 
-		image.Source = _byteArrayToImageConverter.Convert(role.Logo, typeof(BitmapImage), null, CultureInfo.InvariantCulture) as BitmapImage;
+		image.Source = _byteArrayToImageConverter.Convert(role.Image, typeof(BitmapImage), null, CultureInfo.InvariantCulture) as BitmapImage;
 
 		Grid.SetColumn(image, 0);
 		grid.Children.Add(image);

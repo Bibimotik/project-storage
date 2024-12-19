@@ -150,12 +150,11 @@ public partial class SalesView : UserControl
 		if (EntityModel.OurUserModel.Role is UserRole.Analyst)
 		{
 			editButton.IsEnabled = false;
-			printButton.IsEnabled = false;
 			deleteButton.IsEnabled = false;
 		}
 		Debug.WriteLine("---------------- order.Entity_Managers_ID " + order.Address + " - " + order.Entity_Managers_ID);
 		Debug.WriteLine("---------------- EntityModel.OurUserModel.EntityId " + order.Address + " - " + EntityModel.OurUserModel.EntityId);
-
+	    
 		if((order.Entity_Managers_ID == Guid.Empty || 
 			order.Entity_Managers_ID != EntityModel.OurUserModel.EntityId) &&
 				EntityModel.OurUserModel.Role != UserRole.NoRole)
@@ -163,6 +162,10 @@ public partial class SalesView : UserControl
 			editButton.IsEnabled = false;
 			printButton.IsEnabled = false;
 			deleteButton.IsEnabled = false;
+		}
+		if(EntityModel.OurUserModel.Role is UserRole.Analyst)
+		{
+			printButton.IsEnabled = true;
 		}
 
 			buttonPanel.Children.Add(editButton);

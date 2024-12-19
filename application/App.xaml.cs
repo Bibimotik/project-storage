@@ -2,6 +2,7 @@
 
 using application.Abstraction;
 using application.Abstraction.Interfaces;
+using application.MVVM.Model;
 using application.MVVM.View;
 using application.MVVM.View.AdminPages;
 using application.MVVM.View.Auth;
@@ -160,7 +161,10 @@ public partial class App : Application
 		ISecurityService securityService = _serviceProvider.GetRequiredService<ISecurityService>();
 		securityService.GenerateKeys();
 
-		switch (authService.IsUserAuthenticated())
+		EntityModel.OurUserModel = new EntityModel();
+		EntityModel.Model = new EntityModel();
+
+		switch (await authService.IsUserAuthenticated())
 		{
 			case true:
 				var (email, password) = await authService.LoadAuthData();

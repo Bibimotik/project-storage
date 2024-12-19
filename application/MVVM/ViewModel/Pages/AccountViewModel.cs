@@ -38,7 +38,7 @@ public partial class AccountViewModel : ObservableObject
 	[ObservableProperty]
 	private EntityType currentType;
 	[ObservableProperty]
-	private EntityModel accountData;
+	private EntityModel accountData = new();
 	[ObservableProperty]
 	private bool isPasswordReadOnly = false;
 	[ObservableProperty]
@@ -66,6 +66,9 @@ public partial class AccountViewModel : ObservableObject
 	[RelayCommand]
 	private void LoadType()
 	{
+		if (EntityModel.OurUserModel == null)
+			return;
+
 		Password = string.Empty;
 		IsPasswordReadOnly = false;
 
@@ -202,10 +205,20 @@ public partial class AccountViewModel : ObservableObject
 
 	private void UpdateMenuTag()
 	{
+		if(EntityModel.OurUserModel == null)
+		{
+			return; 
+		}
 		if (EntityModel.OurUserModel.Logo == null || EntityModel.OurUserModel.Logo.Length == 0)
+		{
 			Image = MenuIconPath; // Путь к стандартной иконке
+			AccountData.Logo = ImageHelper.ConvertImageToByteArray(MenuIconPath);
+		}
 		else
+		{
 			Image = ConvertLogoToImage(EntityModel.OurUserModel.Logo); // Преобразуем Logo в изображение
+			AccountData.Logo = EntityModel.OurUserModel.Logo;
+		}
 	}
 
 	private ImageSource ConvertLogoToImage(byte[] logoBytes)

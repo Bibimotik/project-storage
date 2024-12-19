@@ -22,6 +22,9 @@ public class NavigationService : INavigationService
 	{
 		_serviceProvider = serviceProvider;
 		_rolesRepository = rolesRepository;
+
+		if (EntityModel.OurUserModel == null)
+			return;
 	}
 
 	public async void ShowAuth()
@@ -34,6 +37,9 @@ public class NavigationService : INavigationService
 
 	public async void ShowMain()
 	{
+		if (EntityModel.OurUserModel == null)
+			EntityModel.OurUserModel = new EntityModel();
+
 		var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
 		mainWindow.ContentRendered += NewWindowContentRendered;
 		mainWindow.Show();

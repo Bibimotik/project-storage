@@ -32,7 +32,7 @@ public class RolesRepository : IRolesRepository
 				from entity
 				where type_id = @UserId";
 
-			return await dbConnection.QuerySingleAsync<Guid>(query, new { UserId = userId });
+			return await dbConnection.QueryFirstAsync<Guid>(query, new { UserId = userId });
 		}, _databaseService);
 	}
 
@@ -68,7 +68,7 @@ public class RolesRepository : IRolesRepository
                         c.shortname AS first,
                         c.inn AS second,
                         c.kpp AS third,
-                        c.logo AS logo,
+                        c.logo AS image,
                         entitydata.access
                     FROM entitydata
                     JOIN company c ON c.id = entitydata.type_id

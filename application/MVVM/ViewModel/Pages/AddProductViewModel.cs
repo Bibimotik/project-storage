@@ -128,7 +128,6 @@ public partial class AddProductViewModel : ObservableObject
 	[RelayCommand]
 	public async Task SaveProduct(string isAddOrEdit)
 	{
-		MessageBox.Show("SaveProduct " + isAddOrEdit);
 		if (string.IsNullOrWhiteSpace(Code) ||
 			string.IsNullOrWhiteSpace(Title) ||
 			string.IsNullOrWhiteSpace(Unit) ||

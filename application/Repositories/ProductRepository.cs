@@ -76,7 +76,7 @@ public class ProductRepository : IAddProductRepository
                 Title = @{nameof(ProductModel.Title)},
                 Unit = @{nameof(ProductModel.Unit)},
                 Price = @{nameof(ProductModel.Price)},
-                Logo = @{nameof(ProductModel.Image)},
+                Image = @{nameof(ProductModel.Image)},
                 Entity_Storage_Id = @{nameof(ProductModel.Entity_Storage_ID)},
                 Available_For_Shipment = @{nameof(ProductModel.Available_For_Shipment)},
                 Party = @{nameof(ProductModel.Party)},

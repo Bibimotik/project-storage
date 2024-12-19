@@ -37,10 +37,21 @@ public class AuthService : IAuthService
 		return (authEmail, authPassword);
 	}
 
-	public bool IsUserAuthenticated()
+	public async Task<bool> IsUserAuthenticated()
 	{
 		Debug.WriteLine("--------- " + Settings.Default.AuthEmail + " - " + Settings.Default.AuthPassword);
-		return !string.IsNullOrEmpty(Settings.Default.AuthEmail);
+		if (!string.IsNullOrEmpty(Settings.Default.AuthEmail))
+		{
+			var data = await _entityRepository.Get(Settings.Default.AuthEmail);
+			if(data != null)
+			{
+				return true;
+			}
+			else
+				return false;
+		}
+		else
+			return false;
 	}
 
 	public void ClearAuthData()
@@ -57,7 +68,10 @@ public class AuthService : IAuthService
 		var model = await _entityRepository.Get(authEmail!);
 		EntityModel.OurUserModel = model!;
 
-		var entity = await _entityRepository.GetEntity(model!.Id);
-		EntityModel.OurUserModel.EntityId = entity!.Id;
+		if (model != null)
+		{
+			var entity = await _entityRepository.GetEntity(model!.Id);
+			EntityModel.OurUserModel.EntityId = entity!.Id;
+		}
 	}
 }
