@@ -64,7 +64,7 @@ public partial class UserViewModel : ObservableObject
 			return;
 
 		foreach (var row in _modifiedRows)
-			await _tablesRepository.UpdateData(TableNames.User, row);
+			await _tablesRepository.UpdateUser( row);
 	}
 
 	private async Task LoadData()
