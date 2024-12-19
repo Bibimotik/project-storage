@@ -11,6 +11,60 @@ public class SaleRepository : ISaleRepository
 {
 	private readonly IDatabaseService _databaseService;
 	public SaleRepository(IDatabaseService databaseService) => _databaseService = databaseService;
+
+	//public async Task<IEnumerable<OrderModel>> GetAllOrdersAsync(string searchQuery = "", string orderBy = "")
+	//{
+	//	return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+	//	{
+	//		string query = @"
+	//            SELECT 
+	//                id, 
+	//                entity_managers_id AS EntityManagersId, 
+	//                inn, 
+	//                kpp, 
+	//                fullname, 
+	//                address, 
+	//                application_date 
+	//            FROM ""order""
+	//            WHERE entity_id = @EntityId
+	//            AND fullname LIKE @Substring
+	//            AND is_deleted = false";
+
+	//		if (orderBy == "ASC")
+	//		{
+	//			query += " ORDER BY application_date ASC";
+	//		}
+	//		else if (orderBy == "DESC")
+	//		{
+	//			query += " ORDER BY application_date DESC";
+	//		}
+
+	//		var result = await dbConnection.QueryAsync<OrderModel>(query, new
+	//		{
+	//			EntityId = entityId,
+	//			Substring = $"%{searchQuery}%"
+	//		});
+
+	//		return result;
+	//	}, _databaseService);
+	//}
+	
+	public async Task<OrderModel> GetOrderByIdAsync(Guid saleId)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			string query = @"
+	            SELECT *
+	            FROM ""order""
+	            WHERE id = @SaleId
+	            AND is_deleted = false";
+
+			return await dbConnection.QuerySingleAsync<OrderModel>(query, new
+			{
+				SaleId = saleId,
+			});
+		}, _databaseService);
+	}
 	
 	public async Task<IEnumerable<OrderModel>> GetOrdersByEntityIdAsync(Guid entityId, string searchQuery = "", string orderBy = "")
 	{
@@ -19,7 +73,7 @@ public class SaleRepository : ISaleRepository
 			string query = @"
 	            SELECT 
 	                id, 
-	                entity_managers_id AS EntityManagersId, 
+	                entity_managers_id, 
 	                inn, 
 	                kpp, 
 	                fullname, 

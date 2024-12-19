@@ -13,6 +13,29 @@ public class RolesRepository : IRolesRepository
 
 	public RolesRepository(IDatabaseService databaseService) => _databaseService = databaseService;
 
+	public async Task<Guid> GetCompanyId(Guid userId)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			const string query = @"select entity_id
+				from entity_managers
+				where user_id = @UserId";
+
+			return await dbConnection.QueryFirstAsync<Guid>(query, new { UserId = userId });
+		}, _databaseService);
+	}
+	public async Task<Guid> GetUserEntityId(Guid userId)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			const string query = @"select id
+				from entity
+				where type_id = @UserId";
+
+			return await dbConnection.QuerySingleAsync<Guid>(query, new { UserId = userId });
+		}, _databaseService);
+	}
+
 	public async Task<IEnumerable<RoleDataResult>> GetEntityDataAsync(Guid userId)
 	{
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>

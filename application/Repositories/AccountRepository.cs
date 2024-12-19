@@ -1,7 +1,7 @@
 using application.Abstraction;
 using application.Abstraction.Interfaces;
-using application.MVVM.Model;
 using application.Utilities;
+
 using Dapper;
 
 namespace application.Repositories;
@@ -12,23 +12,6 @@ public class AccountRepository : IAccountRepository
 
 	public AccountRepository(IDatabaseService databaseService) => _databaseService = databaseService;
 
-	public async Task<DeleteModel> GetEntityIdAsync(Guid entityId)
-	{
-		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
-		{
-			string query = @"
-                SELECT type, type_id
-                FROM entity
-                WHERE type_id = @EntityId";
-
-			var result = await dbConnection.QueryFirstOrDefaultAsync<DeleteModel>(
-				query,
-				new { EntityId = entityId });
-
-			return result;
-		}, _databaseService);
-	}
-	
 	public async Task MarkUserAsDeletedAsync(Guid userId)
 	{
 		await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
@@ -52,7 +35,7 @@ public class AccountRepository : IAccountRepository
                 UPDATE company
                 SET is_deleted = true
                 WHERE id = @companyId";
-			
+
 			var result = await dbConnection.ExecuteAsync(updateCompanyQuery, new { companyId });
 
 			return result;

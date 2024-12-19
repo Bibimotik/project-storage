@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 
 using application.MVVM.ViewModel;
+using application.MVVM.ViewModel.Pages;
 
 namespace application;
 
@@ -21,5 +22,6 @@ public partial class MainWindow : Window
 		// Перенос вызова команды после полной загрузки окна
 		var viewModel = DataContext as MainViewModel;
 		viewModel?.OpenMenuCommand.Execute(null);
+		viewModel?.LoadUserDataCommand.Execute(null);
 	}
 }

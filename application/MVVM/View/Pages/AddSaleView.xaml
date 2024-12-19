@@ -1,22 +1,44 @@
 <UserControl
-    x:Class="application.MVVM.View.Pages.AddSaleView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:application.MVVM.View.Pages"
-    xmlns:global = "clr-namespace:"
-    mc:Ignorable="d">
-    
-    <UserControl.Resources>
-        <global:ByteArrayToImageConverter x:Key="ByteArrayToImageConverter" />
-    </UserControl.Resources>
-    
-    <StackPanel Margin="20 0 10 0">
-        <Label
-            FontSize="45"
-            Content="Add sale"/>
-        <ScrollViewer Width="820" Height="590">
+	x:Class="application.MVVM.View.Pages.AddSaleView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:application.MVVM.View.Pages"
+	xmlns:c="clr-namespace:application.Utilities.Converter"
+	mc:Ignorable="d">
+
+	<UserControl.Resources>
+		<c:ByteArrayToImageConverter
+			x:Key="ByteArrayToImageConverter"/>
+	</UserControl.Resources>
+
+	<StackPanel Margin="20 0 10 0">
+
+		<Grid
+			VerticalAlignment="Bottom">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="*" />
+				<ColumnDefinition
+					Width="auto" />
+			</Grid.ColumnDefinitions>
+
+			<Label
+				x:Name="Label"
+				FontSize="45"
+				Content="Add sale" />
+
+			<!--<Button
+				Grid.Column="1"
+				Style="{StaticResource SendButton}"
+				Content="Back"
+				Margin="0 0 10 10"
+				VerticalAlignment="Bottom"
+				Command="{Binding BackCommand}" />-->
+		</Grid>
+
+		<ScrollViewer Width="820" Height="590">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -144,15 +166,28 @@
                         PreviewTextInput="Phone_OnPreviewTextInput"
                         PreviewKeyDown="Space_OnPreviewKeyDown"/>
 
-                    <Button
-                        Content="Add sale"
+					<Button
+						x:Name="SaveButton"
+						Content="Add sale"
                         Foreground="#ffffff"
                         Margin="0,10,0,0"
                         Width="300"
-                        Command="{Binding InsertOrderCommand}"
-                        Style="{StaticResource SendButton}" />
+						Command="{Binding InsertOrderCommand}"
+						Style="{StaticResource SendButton}" />
+                    <Button
+						x:Name="EditButton"
+                        Content="Edit sale"
+                        Foreground="#ffffff"
+                        Margin="0,10,0,0"
+						Width="300"
+						Command="{Binding SaveSaleCommand}"
+						Style="{StaticResource SendButton}" />
                 </StackPanel>
-                <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" Height="200">
+				<ScrollViewer
+					Grid.Row="1"
+					Grid.ColumnSpan="2"
+					Height="200"
+					x:Name="ScrollViewer">
                     <ItemsControl ItemsSource="{Binding Products}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>

@@ -10,12 +10,10 @@
 	mc:Ignorable="d"
 	Loaded="Window_Loaded">
 
-
 	<UserControl.Resources>
 		<c:BoolToVisibilityConverter
 			x:Key="BoolToVisibilityConverter" />
 	</UserControl.Resources>
-
 
 	<StackPanel
 		Margin="20 0 10 0">

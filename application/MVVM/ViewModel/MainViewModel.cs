@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Media.Animation;
 
+using application.MVVM.Model;
 using application.MVVM.View.Pages;
 using application.MVVM.ViewModel.Pages;
 
@@ -9,6 +10,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.Extensions.DependencyInjection;
+
+using static application.Abstraction.EntityAbstraction;
 
 namespace application.MVVM.ViewModel;
 
@@ -18,6 +21,12 @@ public partial class MainViewModel : ObservableObject
 
 	[ObservableProperty]
 	private object? currentView;
+	[ObservableProperty]
+	private EntityType currentType;
+	[ObservableProperty]
+	private string fullName;
+	[ObservableProperty]
+	private string email;
 
 	public MainViewModel(IServiceProvider serviceProvider)
 	{
@@ -36,11 +45,26 @@ public partial class MainViewModel : ObservableObject
 		StorageProductsViewModel.CloseAddProduct += OnOpenStorage;
 		StorageProductsViewModel.OpenEditProduct += OnOpenEditProduct;
 		SalesViewModel.OpenAddSale += OnOpenAddSale;
+		SalesViewModel.OpenEditSale += OnOpenAddSale;
 		AddSaleViewModel.OpenSales += OnOpenSales;
+		AddSaleViewModel.CloseAddSale += OnOpenSales;
 	}
 
 	private bool isMenuExpanded = false;
 
+	[RelayCommand]
+	private void LoadUserData()
+	{
+		CurrentType = EntityModel.OurUserModel.EntityType;
+		FullName = EntityModel.OurUserModel.EntityType == EntityType.Company ?
+			$"{EntityModel.OurUserModel.FullName} {EntityModel.OurUserModel.ShortName}" :
+			$"{EntityModel.OurUserModel.FirstName} {EntityModel.OurUserModel.SecondName}";
+		//"comp" :
+		//	"user";
+		Email = EntityModel.OurUserModel.Email;
+
+		Debug.WriteLine(FullName + " - " + Email);
+	}
 	[RelayCommand]
 	private void OpenMenu()
 	{
@@ -92,6 +116,12 @@ public partial class MainViewModel : ObservableObject
 	private void OnOpenAddStaff() => CurrentView = _serviceProvider.GetRequiredService<AddStaffView>();
 	private void OnOpenStaff() => CurrentView = _serviceProvider.GetRequiredService<StaffView>();
 	private void OnOpenAddSale() => CurrentView = _serviceProvider.GetRequiredService<AddSaleView>();
+	private void OnOpenAddSale(Guid saleId)
+	{
+		var viewModel = _serviceProvider.GetRequiredService<AddSaleViewModel>();
+		CurrentView = new AddSaleView(viewModel, saleId);
+	}
+
 	private void OnOpenSales() => CurrentView = _serviceProvider.GetRequiredService<SalesView>();
 	private void OnOpenStorageProducts(Guid storageId)
 	{
@@ -107,5 +137,12 @@ public partial class MainViewModel : ObservableObject
 	{
 		var viewModel = _serviceProvider.GetRequiredService<AddProductViewModel>();
 		CurrentView = new AddProductView(viewModel, storageId, productId);
+	}
+
+	public bool IsNotCompanyVisible => CurrentType != EntityType.Company;
+
+	partial void OnCurrentTypeChanged(EntityType value)
+	{
+		OnPropertyChanged(nameof(IsNotCompanyVisible));
 	}
 }

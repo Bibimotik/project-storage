@@ -1,6 +1,8 @@
 using System.Collections.ObjectModel;
 using application.Abstraction.Interfaces;
 using application.MVVM.Model;
+using application.Utilities;
+
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -67,8 +69,14 @@ public partial class StorageViewModel : ObservableObject
     
     [RelayCommand]
     public async Task DeleteStorage(Guid storageId)
-    {
-	    var isDeleted = await _storageRepository.MarkStorageAsDeletedAsync(storageId);
+	{
+		if (!TableHelper.ShowConfirmationMessage(
+			"Вы действительно хотите удалить выбранный элемент?",
+			"Подтверждение удаления"
+			))
+			return;
+
+		var isDeleted = await _storageRepository.MarkStorageAsDeletedAsync(storageId);
 	    if (isDeleted)
 	    {
 		    await LoadStorageAsync(EntityModel.OurUserModel.EntityId);

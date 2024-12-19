@@ -106,7 +106,6 @@ public class EntityModel
 	public string Code { get; set; } = string.Empty;
 	public string InputCode { get; set; } = string.Empty;
 
-	// от EntityTable
 	public Guid EntityId { get; set; }
 	public UserRole Role { get; set; } = UserRole.NoRole;
 

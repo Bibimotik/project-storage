@@ -1,9 +1,12 @@
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
 using application.MVVM.Model;
 using application.MVVM.ViewModel.Pages;
+
+using StackExchange.Redis;
 
 using static application.Abstraction.EntityAbstraction;
 
@@ -13,6 +16,7 @@ public partial class SalesView : UserControl
 {
 	private readonly SalesViewModel _viewModel;
 	private DispatcherTimer _searchTimer;
+
 	public SalesView(SalesViewModel viewModel)
 	{
 		_viewModel = viewModel;
@@ -20,7 +24,7 @@ public partial class SalesView : UserControl
 		InitializeComponent();
 
 		Loaded += SalesView_Loaded;
-		
+
 		_searchTimer = new DispatcherTimer
 		{
 			Interval = TimeSpan.FromSeconds(0.5)
@@ -55,7 +59,7 @@ public partial class SalesView : UserControl
 		var border = new Border
 		{
 			Style = (Style)FindResource("CardBorderStyle"),
-			Margin = new Thickness(0, 10, 0, 10),
+			Margin = new Thickness(0, 10, 20, 10),
 			Padding = new Thickness(10)
 		};
 		
@@ -102,18 +106,20 @@ public partial class SalesView : UserControl
 		{
 			Content = "Edit",
 			Width = 75,
+			Margin = new Thickness(0, 0, 0, 5),
 			Height = 30,
 			Style = (Style)FindResource("SendButton")
 		};
 		editButton.Click += (sender, e) =>
 		{
-			
+			_viewModel.EditSale(order.ID);
 		};
 		
 		var printButton = new Button
 		{
 			Content = "Print",
 			HorizontalAlignment = HorizontalAlignment.Center,
+			Margin = new Thickness(0, 0, 0, 5),
 			Width = 75,
 			Height = 30,
 			Style = (Style)FindResource("SendButton")
@@ -143,10 +149,23 @@ public partial class SalesView : UserControl
 
 		if (EntityModel.OurUserModel.Role is UserRole.Analyst)
 		{
+			editButton.IsEnabled = false;
+			printButton.IsEnabled = false;
 			deleteButton.IsEnabled = false;
 		}
-		
-		buttonPanel.Children.Add(editButton);
+		Debug.WriteLine("---------------- order.Entity_Managers_ID " + order.Address + " - " + order.Entity_Managers_ID);
+		Debug.WriteLine("---------------- EntityModel.OurUserModel.EntityId " + order.Address + " - " + EntityModel.OurUserModel.EntityId);
+
+		if((order.Entity_Managers_ID == Guid.Empty || 
+			order.Entity_Managers_ID != EntityModel.OurUserModel.EntityId) &&
+				EntityModel.OurUserModel.Role != UserRole.NoRole)
+		{
+			editButton.IsEnabled = false;
+			printButton.IsEnabled = false;
+			deleteButton.IsEnabled = false;
+		}
+
+			buttonPanel.Children.Add(editButton);
 		buttonPanel.Children.Add(printButton);
 		buttonPanel.Children.Add(deleteButton);
 

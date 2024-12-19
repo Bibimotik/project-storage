@@ -24,7 +24,7 @@ public class NavigationService : INavigationService
 		_rolesRepository = rolesRepository;
 	}
 
-	public void ShowAuth()
+	public async void ShowAuth()
 	{
 		var authWindow = _serviceProvider.GetRequiredService<AuthView>();
 		authWindow.ContentRendered += NewWindowContentRendered;
@@ -32,28 +32,31 @@ public class NavigationService : INavigationService
 		EntityModel.OurUserModel.Role = UserRole.NoRole;
 	}
 
-	public void ShowMain()
+	public async void ShowMain()
 	{
 		var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
 		mainWindow.ContentRendered += NewWindowContentRendered;
 		mainWindow.Show();
 		EntityModel.OurUserModel.Role = UserRole.NoRole;
+		EntityModel.OurUserModel.EntityId = await _rolesRepository.GetUserEntityId(EntityModel.OurUserModel.Id);
 	}
 
-	public void ShowAdmin()
+	public async void ShowAdmin()
 	{
 		var adminWindow = _serviceProvider.GetRequiredService<AdminView>();
 		adminWindow.ContentRendered += NewWindowContentRendered;
 		adminWindow.Show();
 		EntityModel.OurUserModel.Role = UserRole.NoRole;
+		EntityModel.OurUserModel.EntityId = await _rolesRepository.GetUserEntityId(EntityModel.OurUserModel.Id);
 	}
 
-	public void ShowManagerRole()
+	public async void ShowManagerRole()
 	{
 		var adminWindow = _serviceProvider.GetRequiredService<ManagerWindowView>();
 		adminWindow.ContentRendered += NewWindowContentRendered;
 		adminWindow.Show();
 		EntityModel.OurUserModel.Role = UserRole.Manager;
+		EntityModel.OurUserModel.EntityId = await _rolesRepository.GetCompanyId(EntityModel.OurUserModel.Id);
 	}
 
 	public async void ShowWorkerRole()
@@ -61,17 +64,18 @@ public class NavigationService : INavigationService
 		var workerWindow = _serviceProvider.GetRequiredService<WorkerWindowView>();
 		workerWindow.ContentRendered += NewWindowContentRendered;
 		workerWindow.Show();
-		// TODO - company_id
+
 		EntityModel.OurUserModel.Role = UserRole.Worker;
-		//EntityModel.OurUserModel.EntityId = await _rolesRepository.GetCompanyId(EntityModel.OurUserModel.EntityId);
+		EntityModel.OurUserModel.EntityId = await _rolesRepository.GetCompanyId(EntityModel.OurUserModel.Id);
 	}
 
-	public void ShowAnalystRole()
+	public async void ShowAnalystRole()
 	{
 		var adminWindow = _serviceProvider.GetRequiredService<AnalystWindowView>();
 		adminWindow.ContentRendered += NewWindowContentRendered;
 		adminWindow.Show();
 		EntityModel.OurUserModel.Role = UserRole.Analyst;
+		EntityModel.OurUserModel.EntityId = await _rolesRepository.GetCompanyId(EntityModel.OurUserModel.Id);
 	}
 
 	private void NewWindowContentRendered(object sender, EventArgs e)

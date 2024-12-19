@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
+namespace application.Utilities.Converter;
 public class ByteArrayToImageConverter : IValueConverter
 {
 	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

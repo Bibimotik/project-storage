@@ -37,6 +37,7 @@ public partial class AnalystWindowViewModel : ObservableObject
 		StorageProductsViewModel.OpenEditProduct += OnOpenEditProduct;
 		SalesViewModel.OpenAddSale += OnOpenAddSale;
 		AddSaleViewModel.OpenSales += OnOpenSales;
+		AddSaleViewModel.CloseAddSale += OnOpenSales;
 	}
 
 	private bool isMenuExpanded = false;

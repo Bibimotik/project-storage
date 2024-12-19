@@ -6,9 +6,17 @@ namespace application.MVVM.View.Pages;
 
 public partial class StatisticsView : UserControl
 {
-    public StatisticsView(StatisticsViewModel viewModel)
+	private readonly StatisticsViewModel _viewModel;
+
+	public StatisticsView(StatisticsViewModel viewModel)
     {
+		_viewModel = viewModel;
 	    DataContext = viewModel;
         InitializeComponent();
     }
+
+	private async void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+	{
+		await _viewModel.LoadStatisticsAsync();
+	}
 }

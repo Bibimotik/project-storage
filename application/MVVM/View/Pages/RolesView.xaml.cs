@@ -6,6 +6,7 @@ using System.Windows.Media.Imaging;
 using application.Abstraction;
 using application.MVVM.Model;
 using application.MVVM.ViewModel.Pages;
+using application.Utilities.Converter;
 
 using static application.Abstraction.EntityAbstraction;
 

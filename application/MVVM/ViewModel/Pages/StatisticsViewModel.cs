@@ -57,7 +57,7 @@ namespace application.MVVM.ViewModel.Pages
         }
 
         [RelayCommand]
-	private async Task LoadStatisticsAsync()
+	public async Task LoadStatisticsAsync()
 	{
 	    if (!ValidateDates())
 	    {

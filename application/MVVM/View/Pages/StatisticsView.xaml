@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Pages="clr-namespace:application.MVVM.ViewModel.Pages"
              xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+			 Loaded="UserControl_Loaded">
 
     <StackPanel Margin="20 0 10 0">
         <Label FontSize="45" Content="My statistics" Margin="0 0 0 10"/>

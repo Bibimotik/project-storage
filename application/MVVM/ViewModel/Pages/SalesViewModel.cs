@@ -4,6 +4,8 @@ using System.Windows;
 
 using application.Abstraction.Interfaces;
 using application.MVVM.Model;
+using application.Repository;
+using application.Utilities;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -17,7 +19,8 @@ namespace application.MVVM.ViewModel.Pages;
 public partial class SalesViewModel : ObservableObject
 {
 	public static event Action? OpenAddSale;
-	
+	public static event Action<Guid>? OpenEditSale;
+
 	[RelayCommand]
 	public void TriggerAddStaff() => OpenAddSale?.Invoke();
 	private readonly ISaleRepository _saleRepository;
@@ -40,17 +43,27 @@ public partial class SalesViewModel : ObservableObject
 			Orders.Add(order);
 		}
 	}
-	
+
+	[RelayCommand]
+	public void EditSale(Guid saleId)
+	{
+		OpenEditSale?.Invoke(saleId);
+	}
 	[RelayCommand]
 	public async Task DeleteStorage(Guid orderId)
 	{
+		if (!TableHelper.ShowConfirmationMessage(
+			"Вы действительно хотите удалить выбранный элемент?",
+			"Подтверждение удаления"
+			))
+			return;
+
 		var isDeleted = await _saleRepository.MarkSaleAsDeletedAsync(orderId);
 		if (isDeleted)
 		{
 			await LoadOrdersAsync(EntityModel.OurUserModel.EntityId);
 		}
 	}
-	
 	[RelayCommand]
 	public async Task OnSortChanged(string sortOption)
 	{
@@ -69,7 +82,6 @@ public partial class SalesViewModel : ObservableObject
 
 		await LoadOrdersAsync(EntityModel.OurUserModel.EntityId);
 	}
-	
 	[RelayCommand]
 	public async Task SelectAndProcessDocx(Guid orderId)
 	{

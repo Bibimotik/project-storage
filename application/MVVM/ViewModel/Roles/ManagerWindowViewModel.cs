@@ -23,7 +23,7 @@ public partial class ManagerWindowViewModel : ObservableObject
 	{
 		_serviceProvider = serviceProvider;
 
-		Sales();
+		Statistics();
 
 		StorageViewModel.OpenAddStorage += OnOpenAddStorage;
 		StorageViewModel.OpenStorageProducts += OnOpenStorageProducts;
@@ -37,6 +37,7 @@ public partial class ManagerWindowViewModel : ObservableObject
 		StorageProductsViewModel.OpenEditProduct += OnOpenEditProduct;
 		SalesViewModel.OpenAddSale += OnOpenAddSale;
 		AddSaleViewModel.OpenSales += OnOpenSales;
+		AddSaleViewModel.CloseAddSale += OnOpenSales;
 	}
 
 	private bool isMenuExpanded = false;

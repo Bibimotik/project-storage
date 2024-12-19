@@ -15,6 +15,8 @@
 	Loaded="Window_Loaded">
 
 	<Window.Resources>
+		<c:BoolToVisibilityConverter
+			x:Key="BoolToVisibilityConverter" />
 		<c:BoolToRadioButtonStyleConverter
 			x:Key="BoolToRadioButtonStyleConverter" />
 		<Storyboard
@@ -100,16 +102,13 @@
 
 								<Label
 									Margin="20 0 0 0"
-									Content="Фамилия И. О."
+									Content="{Binding FullName}"
 									FontSize="16"
 									Style="{StaticResource MenuText}" />
 
-								<!-- TODO - большой email может не влезть, мб изменять размер шрифта в зависимости от кол-ва символов
-							TODO или искуственно его укарачивать типо: testte...andex.com-->
-
 								<Label
 									Margin="20 -10 0 0"
-									Content="test_email@yandex.com"
+									Content="{Binding Email}"
 									FontSize="12"
 									Style="{StaticResource MenuText}" />
 
@@ -165,8 +164,9 @@
 							Content="Staff"
 							Tag="../../Assets/Icons/Person.png" />
 					</Border>
-					
+
 					<Border
+						Visibility="{Binding IsNotCompanyVisible, Converter={StaticResource BoolToVisibilityConverter}}"
 						Style="{StaticResource MenuBorder}">
 						<RadioButton
 							Margin="10 5 0 5"

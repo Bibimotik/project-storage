@@ -42,6 +42,19 @@
 								Value="#000000" />
 						</Trigger>
 
+						<Trigger
+							Property="IsEnabled"
+							Value="False">
+							<Setter
+								Property="Background"
+								Value="#F0F0F0" />
+							<Setter
+								Property="BorderBrush"
+								Value="#A9A9A9" />
+							<Setter
+								Property="Foreground"
+								Value="#A9A9A9" />
+						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>

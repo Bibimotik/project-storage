@@ -1,5 +1,6 @@
 using System.Windows;
 
+using application.Abstraction;
 using application.Abstraction.Interfaces;
 using application.MVVM.Model;
 
@@ -10,12 +11,14 @@ namespace application.MVVM.ViewModel.Pages;
 
 public partial class AddStaffViewModel : ObservableObject
 {
-	private readonly IAddStaffRepository _addStaffRepository;
+	private readonly IStaffRepository _addStaffRepository;
+	private readonly IEntityRepository _entityRepository;
 	public static event Action? OpenStaff;
 
-	public AddStaffViewModel(IAddStaffRepository staffRepository)
+	public AddStaffViewModel(IStaffRepository staffRepository, IEntityRepository entityRepository)
 	{
 		_addStaffRepository = staffRepository;
+		_entityRepository = entityRepository;
 	}
 	
 	[ObservableProperty]
@@ -46,6 +49,19 @@ public partial class AddStaffViewModel : ObservableObject
 			Access
 		);
 
+		bool exists = await _addStaffRepository.CheckIfStaffExists(
+			EntityModel.OurUserModel.EntityId,
+			managerModel.User_ID,
+			managerModel.Access
+		);
+
+		if (exists)
+		{
+			MessageBox.Show("Пользователь с такой должностью уже существует.");
+			return;
+		}
+
+		// Выполняем вставку
 		await _addStaffRepository.InsertStaff(EntityModel.OurUserModel.EntityId, managerModel);
 	}
 
@@ -58,10 +74,15 @@ public partial class AddStaffViewModel : ObservableObject
 			Name = string.Empty;
 			return;
 		}
+		if(string.Equals(email, EntityModel.OurUserModel.Email))
+		{
+			MessageBox.Show("Нельзя добавить самого себя");
+			return;
+		}
 
 		try
 		{
-			var (userId, userName) = await _addStaffRepository.GetUser(EntityModel.OurUserModel.Id, email);
+			var (userId, userName) = await _entityRepository.GetUser(EntityModel.OurUserModel.Id, email);
 
 			User_id = $"{userId}";
 			Name = userName;

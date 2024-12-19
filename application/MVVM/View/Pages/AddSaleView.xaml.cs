@@ -11,12 +11,30 @@ namespace application.MVVM.View.Pages;
 public partial class AddSaleView : UserControl
 {
 	private readonly AddSaleViewModel _viewModel;
+
 	public AddSaleView(AddSaleViewModel viewModel)
 	{
 		_viewModel = viewModel;
 		DataContext = viewModel;
 		InitializeComponent();
+
+		viewModel.LoadSale();
+		Label.Content = "Add sale";
+		EditButton.Visibility = Visibility.Collapsed;
 	}
+
+	public AddSaleView(AddSaleViewModel viewModel, Guid saleId)
+	{
+		_viewModel = viewModel;
+		DataContext = viewModel;
+		InitializeComponent();
+
+		viewModel.LoadSale(saleId);
+		Label.Content = "Edit sale";
+		SaveButton.Visibility = Visibility.Collapsed;
+		ScrollViewer.Visibility = Visibility.Collapsed;
+	}
+
 	private void CheckBox_Checked(object sender, RoutedEventArgs e)
 	{
 		var checkBox = sender as CheckBox;

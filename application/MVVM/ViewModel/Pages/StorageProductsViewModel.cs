@@ -3,6 +3,7 @@ using System.Windows;
 
 using application.Abstraction.Interfaces;
 using application.MVVM.Model;
+using application.Utilities;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -73,12 +74,17 @@ public partial class StorageProductsViewModel : ObservableObject
 	public void EditProduct(Guid productId)
 	{
 		OpenEditProduct?.Invoke(StorageId, productId);
-		//OpenAddProduct?.Invoke(StorageId);
 	}
 
 	[RelayCommand]
 	public async Task DeleteProduct(Guid productId)
 	{
+		if (!TableHelper.ShowConfirmationMessage(
+			"Вы действительно хотите удалить выбранный элемент?",
+			"Подтверждение удаления"
+			))
+			return;
+
 		var isDeleted = await _productsRepository.MarkProductAsDeletedAsync(productId);
 		if (isDeleted)
 		{

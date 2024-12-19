@@ -6,6 +6,7 @@ using System.Windows.Threading;
 
 using application.MVVM.Model;
 using application.MVVM.ViewModel.Pages;
+using application.Utilities.Converter;
 
 namespace application.MVVM.View.Pages;
 
@@ -13,7 +14,7 @@ public partial class StaffView : UserControl
 {
 	private readonly StaffViewModel _viewModel;
 	private readonly DispatcherTimer _searchTimer;
-	private readonly ByteArrayToImageConverter _byteArrayToImageConverter = new ByteArrayToImageConverter();
+	private readonly ByteArrayToImageConverter _byteArrayToImageConverter = new();
 
 	public StaffView(StaffViewModel viewModel)
 	{
@@ -52,7 +53,7 @@ public partial class StaffView : UserControl
 		var border = new Border
 		{
 			Style = (Style)FindResource("CardBorderStyle"),
-			Margin = new Thickness(0, 10, 0, 10),
+			Margin = new Thickness(0, 10, 20, 10),
 			Padding = new Thickness(10)
 		};
 
@@ -97,7 +98,7 @@ public partial class StaffView : UserControl
 		{
 			Content = "Delete",
 			HorizontalAlignment = HorizontalAlignment.Right,
-			Margin = new Thickness(0, 10, 0, 0),
+			Margin = new Thickness(0, -35, 0, 0),
 			Width = 75,
 			Height = 30,
 			Style = (Style)FindResource("SendButtonRed")

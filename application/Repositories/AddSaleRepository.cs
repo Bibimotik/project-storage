@@ -10,14 +10,14 @@ namespace application.Repositories;
 public class AddSaleRepository : IAddSaleRepository
 {
 	private readonly IDatabaseService _databaseService;
-	
+
 	public AddSaleRepository(IDatabaseService databaseService) => _databaseService = databaseService;
 
 	public async Task<Guid> InsertOrder(OrderModel orderModel)
 	{
-	    return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
-	    {
-	        string query = $@"INSERT INTO ""order"" (
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			string query = $@"INSERT INTO ""order"" (
 	                                ID,
 	                                Entity_ID,
 	                                Entity_Managers_ID,
@@ -75,41 +75,108 @@ public class AddSaleRepository : IAddSaleRepository
 	                            )
 	                            RETURNING ID";
 
-	        var parameters = new
-	        {
-	            ID = orderModel.ID,
-	            Entity_ID = orderModel.Entity_ID,
-	            Entity_Managers_ID = orderModel.Entity_Managers_ID,
-	            INN = orderModel.INN,
-	            KPP = orderModel.KPP,
-	            OGRN = orderModel.OGRN,
-	            FullName = orderModel.FullName,
-	            Address = orderModel.Address,
-	            Payment_Account = orderModel.Payment_Account,
-	            toCor_Account = orderModel.ToCor_Account,
-	            toBIK = orderModel.ToBIK,
-	            toBank = orderModel.ToBank,
-	            fromCor_Account = orderModel.FromCor_Account,
-	            fromBIK = orderModel.FromBIK,
-	            fromBank = orderModel.FromBank,
-	            Plan_Date_Shipment = orderModel.Plan_Date_Shipment,
-	            Shipping_Address = orderModel.Shipping_Address,
-	            Application_Date = orderModel.Application_Date,
-	            Delivery_Point = orderModel.Delivery_Point,
-	            Delivery_Address = orderModel.Delivery_Address,
-	            Plan_Date_Receipt = orderModel.Plan_Date_Receipt,
-	            TransporterFullName = orderModel.TransporterFullName,
-	            TransporterShortName = orderModel.TransporterShortName,
-	            Comment = orderModel.Comment,
-	            VAT = orderModel.VAT
-	        };
+			var parameters = new
+			{
+				ID = orderModel.ID,
+				Entity_ID = orderModel.Entity_ID,
+				Entity_Managers_ID = orderModel.Entity_Managers_ID,
+				INN = orderModel.INN,
+				KPP = orderModel.KPP,
+				OGRN = orderModel.OGRN,
+				FullName = orderModel.FullName,
+				Address = orderModel.Address,
+				Payment_Account = orderModel.Payment_Account,
+				toCor_Account = orderModel.ToCor_Account,
+				toBIK = orderModel.ToBIK,
+				toBank = orderModel.ToBank,
+				fromCor_Account = orderModel.FromCor_Account,
+				fromBIK = orderModel.FromBIK,
+				fromBank = orderModel.FromBank,
+				Plan_Date_Shipment = orderModel.Plan_Date_Shipment,
+				Shipping_Address = orderModel.Shipping_Address,
+				Application_Date = orderModel.Application_Date,
+				Delivery_Point = orderModel.Delivery_Point,
+				Delivery_Address = orderModel.Delivery_Address,
+				Plan_Date_Receipt = orderModel.Plan_Date_Receipt,
+				TransporterFullName = orderModel.TransporterFullName,
+				TransporterShortName = orderModel.TransporterShortName,
+				Comment = orderModel.Comment,
+				VAT = orderModel.VAT
+			};
 
-	        Guid orderId = await dbConnection.QuerySingleAsync<Guid>(query, parameters);
+			Guid orderId = await dbConnection.QuerySingleAsync<Guid>(query, parameters);
 
-	        return orderId;
-	    }, _databaseService);
+			return orderId;
+		}, _databaseService);
 	}
-	
+
+	public async Task<bool> UpdateOrder(OrderModel orderModel)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			string query = $@"UPDATE ""order""
+                            SET
+                                INN = @{nameof(OrderModel.INN)},
+                                KPP = @{nameof(OrderModel.KPP)},
+                                OGRN = @{nameof(OrderModel.OGRN)},
+                                FullName = @{nameof(OrderModel.FullName)},
+                                Address = @{nameof(OrderModel.Address)},
+                                Payment_Account = @{nameof(OrderModel.Payment_Account)},
+                                toCor_Account = @{nameof(OrderModel.ToCor_Account)},
+                                toBIK = @{nameof(OrderModel.ToBIK)},
+                                toBank = @{nameof(OrderModel.ToBank)},
+                                fromCor_Account = @{nameof(OrderModel.FromCor_Account)},
+                                fromBIK = @{nameof(OrderModel.FromBIK)},
+                                fromBank = @{nameof(OrderModel.FromBank)},
+                                Plan_Date_Shipment = @{nameof(OrderModel.Plan_Date_Shipment)},
+                                Shipping_Address = @{nameof(OrderModel.Shipping_Address)},
+                                Application_Date = @{nameof(OrderModel.Application_Date)},
+                                Delivery_Point = @{nameof(OrderModel.Delivery_Point)},
+                                Delivery_Address = @{nameof(OrderModel.Delivery_Address)},
+                                Plan_Date_Receipt = @{nameof(OrderModel.Plan_Date_Receipt)},
+                                TransporterFullName = @{nameof(OrderModel.TransporterFullName)},
+                                TransporterShortName = @{nameof(OrderModel.TransporterShortName)},
+                                Comment = @{nameof(OrderModel.Comment)},
+                                VAT = @{nameof(OrderModel.VAT)}
+                            WHERE ID = @{nameof(OrderModel.ID)}";
+
+			var parameters = new
+			{
+				ID = orderModel.ID,
+				Entity_ID = orderModel.Entity_ID,
+				Entity_Managers_ID = orderModel.Entity_Managers_ID,
+				INN = orderModel.INN,
+				KPP = orderModel.KPP,
+				OGRN = orderModel.OGRN,
+				FullName = orderModel.FullName,
+				Address = orderModel.Address,
+				Payment_Account = orderModel.Payment_Account,
+				ToCor_Account = orderModel.ToCor_Account,
+				ToBIK = orderModel.ToBIK,
+				ToBank = orderModel.ToBank,
+				FromCor_Account = orderModel.FromCor_Account,
+				FromBIK = orderModel.FromBIK,
+				FromBank = orderModel.FromBank,
+				Plan_Date_Shipment = orderModel.Plan_Date_Shipment,
+				Shipping_Address = orderModel.Shipping_Address,
+				Application_Date = orderModel.Application_Date,
+				Delivery_Point = orderModel.Delivery_Point,
+				Delivery_Address = orderModel.Delivery_Address,
+				Plan_Date_Receipt = orderModel.Plan_Date_Receipt,
+				TransporterFullName = orderModel.TransporterFullName,
+				TransporterShortName = orderModel.TransporterShortName,
+				Comment = orderModel.Comment,
+				VAT = orderModel.VAT
+			};
+
+			int rowsAffected = await dbConnection.ExecuteAsync(query, parameters);
+
+			// Если количество затронутых строк больше 0, значит обновление прошло успешно
+			return rowsAffected > 0;
+		}, _databaseService);
+	}
+
+
 	public async Task<Guid> GetStorage(Guid entityId, string storage)
 	{
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
@@ -130,7 +197,7 @@ public class AddSaleRepository : IAddSaleRepository
 			return result;
 		}, _databaseService);
 	}
-	
+
 	public async Task<IEnumerable<ProductDataResult>> GetProductsDataAsync(Guid storageId)
 	{
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
@@ -140,13 +207,13 @@ public class AddSaleRepository : IAddSaleRepository
 				FROM PRODUCT
 				WHERE entity_storage_id = @StorageId
 				AND is_deleted = false";
-			
+
 			var result = await dbConnection.QueryAsync<ProductDataResult>(query, new { StorageId = storageId });
 
 			return result;
 		}, _databaseService);
 	}
-	
+
 	public async Task InsertProductOrder(ProductOrderModel productOrderModel)
 	{
 		await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
@@ -170,7 +237,7 @@ public class AddSaleRepository : IAddSaleRepository
 			return Task.CompletedTask;
 		}, _databaseService);
 	}
-	
+
 	public async Task<CompanyDataResult> GetCompanyDataByEntityId(Guid entityId)
 	{
 		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>

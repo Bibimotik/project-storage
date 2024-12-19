@@ -62,7 +62,6 @@ public partial class App : Application
 		services.AddTransient<IEntityService, EntityService>();
 		services.AddTransient<IEntityStorageRepository, EntityStorageRepository>();
 		services.AddTransient<ISupportRepository, SupportRepository>();
-		services.AddTransient<IAddStaffRepository, AddStaffRepository>();
 		services.AddTransient<IRolesRepository, RolesRepository>();
 		services.AddTransient<IStorageRepository, StorageRepository>();
 		services.AddTransient<IStorageProductsRepository, StorageProductsRepository>();

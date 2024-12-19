@@ -81,8 +81,12 @@ public class EntityRepository : IEntityRepository
 
 			var user = await dbConnection.QuerySingleOrDefaultAsync<EntityModel>(new CommandDefinition(userQuery, new { Email = email }));
 
+
 			if (user != null)
+			{
+				user.EntityType = EntityType.User;
 				return user;
+			}
 
 			string companyQuery = $@"SELECT 
                 id as {nameof(EntityModel.Id)},
@@ -103,10 +107,33 @@ public class EntityRepository : IEntityRepository
 			var company = await dbConnection.QuerySingleOrDefaultAsync<EntityModel>(new CommandDefinition(companyQuery, new { Email = email }));
 
 			if (company != null)
+			{
+				company.EntityType = EntityType.Company;
 				return company;
+			}
 
 			return null;
 
+		}, _databaseService);
+	}
+
+	public async Task<(Guid Id, string Name)> GetUser(Guid userId, string email)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			const string query = @"SELECT id, CONCAT(firstname, ' ', secondname, ' ', thirdname) AS name 
+                  FROM ""user""
+                  WHERE email = @Email
+                  AND id <> @UserId";
+
+			var result = await dbConnection.QuerySingleOrDefaultAsync<(Guid Id, string Name)>(query, new { UserId = userId, Email = email });
+
+			if (result.Id == null || result.Name == null || result.Id == userId)
+			{
+				throw new InvalidOperationException($"User with email '{email}' not found.");
+			}
+
+			return result;
 		}, _databaseService);
 	}
 
@@ -183,6 +210,42 @@ public class EntityRepository : IEntityRepository
 			}
 		}, _databaseService);
 	}
+
+	public async Task<bool> Update(EntityModel entityModel)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			string query = string.Empty;
+
+			if (entityModel.EntityType == EntityType.User)
+				query = $@"UPDATE ""user"" SET
+					firstname = @{nameof(EntityModel.FirstName)},
+					secondname = @{nameof(EntityModel.SecondName)},
+					thirdname = @{nameof(EntityModel.ThirdName)},
+					phone = @{nameof(EntityModel.Phone)},
+					logo = @{nameof(EntityModel.Logo)},
+					password = @{nameof(EntityModel.Password)}
+					WHERE id = @{nameof(EntityModel.Id)}";
+			else if (entityModel.EntityType == EntityType.Company)
+				query = $@"UPDATE company SET
+					inn = @{nameof(EntityModel.INN)},
+					kpp = @{nameof(EntityModel.KPP)},
+					ogrn = @{nameof(EntityModel.OGRN)},
+					fullname = @{nameof(EntityModel.FullName)},
+					shortname = @{nameof(EntityModel.ShortName)},
+					legal_address = @{nameof(EntityModel.LegalAddress)},
+					postal_address = @{nameof(EntityModel.PostalAddress)},
+					director = @{nameof(EntityModel.Director)},
+					logo = @{nameof(EntityModel.Logo)},
+					password = @{nameof(EntityModel.Password)}
+					WHERE id = @{nameof(EntityModel.Id)}";
+
+			var affectedRows = await dbConnection.ExecuteAsync(new CommandDefinition(query, entityModel));
+
+			return affectedRows > 0;
+		}, _databaseService);
+	}
+
 
 	public async Task<EntityTableModel?> GetEntity(Guid id)
 	{

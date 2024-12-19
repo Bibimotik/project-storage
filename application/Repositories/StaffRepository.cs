@@ -52,4 +52,66 @@ public class StaffRepository : IStaffRepository
 
 		return result;
 	}
+
+	public async Task<Guid> InsertStaff(Guid entityId, EntityManagerModel managerModel)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			string query = $@"
+				WITH NewRecord AS (
+					SELECT 
+						@{nameof(EntityManagerModel.Id)}::UUID AS Id,
+						@Entity_Id AS Entity_Id,
+						@{nameof(EntityManagerModel.User_ID)} AS User_ID,
+						@{nameof(EntityManagerModel.Access)} AS Access
+					WHERE NOT EXISTS (
+						SELECT 1 
+						FROM ENTITY_MANAGERS 
+						WHERE Entity_ID = @Entity_Id 
+						  AND User_ID = @{nameof(EntityManagerModel.User_ID)} 
+						  AND Access = @{nameof(EntityManagerModel.Access)}
+					)
+				)
+				INSERT INTO ENTITY_MANAGERS (ID, Entity_ID, User_ID, Access)
+				SELECT Id, Entity_Id, User_ID, Access 
+				FROM NewRecord
+				RETURNING ID;
+			";
+
+			Guid staffId = await dbConnection.QuerySingleAsync<Guid>(query, new
+			{
+				managerModel.Id,
+				Entity_Id = entityId,
+				managerModel.User_ID,
+				managerModel.Access
+			});
+
+			return staffId;
+		}, _databaseService);
+	}
+
+	public async Task<bool> CheckIfStaffExists(Guid entityId, Guid userId, string access)
+	{
+		return await RepositoryHelper.ExecuteWithErrorHandlingAsync(async dbConnection =>
+		{
+			string query = @"
+            SELECT 1 
+            FROM ENTITY_MANAGERS
+            WHERE Entity_ID = @EntityId 
+              AND User_ID = @UserId
+              AND Access = @Access
+        ";
+
+			// ¬ыполн€ем запрос и провер€ем, существует ли запись
+			var result = await dbConnection.QuerySingleOrDefaultAsync<int?>(query, new
+			{
+				EntityId = entityId,
+				UserId = userId,
+				Access = access
+			});
+
+			return result.HasValue;
+		}, _databaseService);
+	}
+
 }

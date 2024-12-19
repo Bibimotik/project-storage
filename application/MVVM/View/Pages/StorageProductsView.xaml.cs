@@ -6,6 +6,7 @@ using System.Windows.Threading;
 
 using application.MVVM.Model;
 using application.MVVM.ViewModel.Pages;
+using application.Utilities.Converter;
 
 using static application.Abstraction.EntityAbstraction;
 
